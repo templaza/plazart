@@ -1,0 +1,427 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+
+
+/* -------------------------------------------------*/
+/* Plazart MEGAMENU ADMIN UI
+---------------------------------------------------*/
+
+#plazart-admin-megamenu {
+  min-height: 800px;
+  background: url(../images/grid-bg.jpg) top left;
+  margin: 0 -20px;
+}
+
+.admin-inline-toolbox h3 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+
+/* Intro
+---------------------*/
+#plazart-admin-mm-intro {
+  float: left;
+  padding: 20px 200px 20px 20px;
+  text-shadow: 0 1px 1px white;
+}
+
+#plazart-admin-mm-intro h3 {
+  margin-top: 0;
+}
+
+#plazart-admin-mm-intro p {
+  display: block;
+  color: #999999;
+  max-height: 50px;
+  overflow: hidden;
+}
+
+
+
+/* Toolbox
+---------------------*/
+#plazart-admin-mm-tb {
+  float: left;
+  text-shadow: 0 1px 1px #fff;
+}
+
+#plazart-admin-megamenu .admin-inline-toolbox {
+  height: 119px;
+}
+
+#plazart-admin-mm-tb .admin-toolbox {
+  height: 119px;
+  padding: 20px;
+  display: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
+#plazart-admin-mm-tb .admin-toolbox h3 {
+  margin-top: 0;
+}
+
+#plazart-admin-mm-tb .admin-toolbox ul {
+  margin-right: 20px;
+  float: left;
+}
+
+#plazart-admin-mm-tb .admin-toolbox li > label {
+  font-size: 11px;
+  color: #999999;
+}
+
+#plazart-admin-mm-tb .btn [class^="icon-"],
+#plazart-admin-mm-tb .btn [class*=" icon-"] {
+  margin-right: 0;
+}
+
+
+/* Toolbox Actions ---- */
+.plazart-admin-mm-row .toolbox-actions-group {
+  height: 100px;
+  position: absolute;
+  right: 20px;
+}
+
+.plazart-admin-mm-row .toolbox-actions-group button {
+}
+
+
+/* Fullscreen Toggle */
+#navigation_params .plazart-admin-tog-fullscreen {
+  position: absolute;
+  right: 0;
+  top: -50px;
+}
+
+
+/* The Menu
+---------------------*/
+#plazart-admin-mm-container {
+  float: left;
+  margin-left: 20px;
+}
+
+
+/* Global Menu Inner padding ---*/
+.plazart-megamenu .mega-inner {
+  padding: 10px;
+}
+
+
+/* Menu Grid ---*/
+.plazart-megamenu .row-fluid + .row-fluid {
+  margin-top: 0;
+  border-top: 0;
+}
+
+.plazart-megamenu .row-fluid [class*="span"] {
+  border: 1px dotted #cccccc;
+  border-radius: 3px;
+  transition: all 0.1s ease 0s;
+  -webkit-transition: all 0.1s ease 0s;
+  -moz-transition: all 0.1s ease 0s;
+  background: white;
+}
+
+
+/* The Nav ---*/
+.plazart-megamenu .span12.mega-col-nav .mega-inner {
+  padding: 10px;
+}
+
+.plazart-megamenu .nav > li {
+  margin-right: 20px;
+}
+
+.plazart-megamenu .nav > li > a,
+.plazart-megamenu .nav > li > span
+ {
+  border: 1px solid #dddddd;
+  padding: 8px 20px;
+  background: #f2f2f2;
+  font-weight: bold;
+  border-radius: 3px;
+  transition: all 0.1s ease 0s;
+  -webkit-transition: all 0.1s ease 0s;
+  -moz-transition: all 0.1s ease 0s;
+}
+
+/* The caret */
+.plazart-megamenu .mega-nav .dropdown-submenu > a::after {
+  margin-right: -10px;
+}
+
+
+/* Dropdown ---*/
+.plazart-megamenu .dropdown-menu::before,
+.plazart-megamenu .dropdown-menu::after {
+  display: none !important; /* Hide the Arrow */
+}
+
+.plazart-megamenu .dropdown-menu {
+  border: 1px solid #dddddd;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 3px;
+  transition: all 0.1s ease 0s;
+  -webkit-transition: all 0.1s ease 0s;
+  -moz-transition: all 0.1s ease 0s;
+  min-width: 200px;
+  background: #f2f2f2;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+  /* Fixed overlap with the Joomla Toolbar */
+}
+
+.plazart-megamenu .dropdown-menu .dropdown-menu {
+  margin-top: 0;
+  margin-left: 11px;
+}
+
+.plazart-megamenu .dropdown-submenu.mega-align-right .dropdown-menu {
+  margin-left: 0;
+  margin-right: 11px;
+}
+
+.plazart-megamenu .mega-nav li {
+  margin-bottom: 5px;
+}
+
+.plazart-megamenu .mega-nav li:last-child {
+  margin-bottom: 0;
+}
+
+.plazart-megamenu .mega-nav li a,
+.plazart-megamenu .mega-nav li span {
+  padding: 5px 20px 5px 10px;
+  border: 1px dotted #dddddd;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #999999;
+  transition: all 0.1s ease 0s;
+  -webkit-transition: all 0.1s ease 0s;
+  -moz-transition: all 0.1s ease 0s;
+}
+
+
+/* The group ---*/
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title {
+  padding: 5px 20px 5px 10px;
+  cursor: pointer;
+}
+
+.plazart-megamenu .mega-group-ct {
+  border: 1px solid #dddddd;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  transition: all 0.1s ease 0s;
+  -webkit-transition: all 0.1s ease 0s;
+  -moz-transition: all 0.1s ease 0s;
+  border-radius: 3px;
+  background: #f2f2f2;
+}
+
+.plazart-megamenu .mega-group-ct > .row-fluid > [class*="span"] > .mega-inner {
+  padding: 10px;
+}
+
+
+/* Module in Menu ---*/
+.plazart-megamenu .plazart-module {
+  pointer-events: none;
+  cursor: default;
+  position: relative;
+  margin: 0;
+  transition: all 0.1s ease 0s;
+  -webkit-transition: all 0.1s ease 0s;
+  -moz-transition: all 0.1s ease 0s;
+}
+
+.plazart-megamenu .plazart-module:after {
+  display: block;
+  position: absolute;
+  background: #eeeeee;
+  right: -10px;
+  bottom: -10px;
+  content: "Module";
+  width: 70px;
+  padding: 2px 0;
+  text-align: center;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #999999;
+  border-radius: 3px 0 0 0;
+  border: 1px dotted #dddddd;
+  border-width: 1px 0 0 1px;
+}
+
+.plazart-megamenu .plazart-module .module-inner {
+  opacity: .3;
+  font-size: 12px;
+}
+
+.plazart-megamenu .plazart-module .module-title {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.plazart-megamenu .plazart-module .module-ct {
+  overflow: hidden;
+  zoom: 1;
+}
+
+/* Reset List Style in Module */
+.plazart-megamenu .plazart-module ul,
+.plazart-megamenu .plazart-module .nav,
+.plazart-megamenu .dropdown-menu .nav {
+  margin: 0 0 0 15px;
+}
+.plazart-megamenu .plazart-module ul li,
+.plazart-megamenu .plazart-module .nav li,
+.plazart-megamenu .dropdown-menu .nav li {
+  list-style: disc;
+  display: list-item;
+  float: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.plazart-megamenu .plazart-module ul li a,
+.plazart-megamenu .plazart-module .nav li a,
+.plazart-megamenu .dropdown-menu .plazart-module li a {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  background: none;
+  font: inherit;
+  white-space: normal;
+}
+.plazart-megamenu .plazart-module ul li a:hover,
+.plazart-megamenu .plazart-module .nav li a:hover,
+.plazart-megamenu .dropdown-menu .plazart-module li a:hover,
+.plazart-megamenu .plazart-module ul li a:active,
+.plazart-megamenu .plazart-module .nav li a:active,
+.plazart-megamenu .dropdown-menu .plazart-module li a:active,
+.plazart-megamenu .plazart-module ul li a:focus,
+.plazart-megamenu .plazart-module .nav li a:focus,
+.plazart-megamenu .dropdown-menu .plazart-module li a:focus,
+.plazart-megamenu .plazart-module ul li a:visited,
+.plazart-megamenu .plazart-module .nav li a:visited,
+.plazart-megamenu .dropdown-menu .plazart-module li a:visited {
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+
+.plazart-megamenu [class*="span"].hover .plazart-module:after,
+.plazart-megamenu [class*="span"].selected .plazart-module:after {
+  border-style: solid;
+  border-color: #666666;
+  background: #ffbb00;
+  color: #fff;
+}
+
+/* Fix Form display problem in Modules */
+.plazart-megamenu .plazart-module .control-group {
+  margin-bottom: 5px;
+}
+
+.plazart-megamenu .plazart-module .controls {
+  margin-left: 3px;
+}
+
+
+/* Open Item ---*/
+.plazart-megamenu .nav > li.open > a,
+.plazart-megamenu .open > a {
+  background: #333333 !important;
+  color: #fff !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) !important;
+}
+
+
+/* Hover Item ---*/
+.plazart-megamenu .nav-child.hover,
+.plazart-megamenu ul[class*="level"] > li > a.hover,
+.plazart-megamenu ul[class*="level"] > li > span.hover,
+.plazart-megamenu .row-fluid [class*="span"].hover {
+  background: #fffbf0 !important;
+  color: #333333 !important;
+  border: 1px solid #666666 !important;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+}
+
+.plazart-megamenu ul[class*="level"] > li > a:hover,
+.plazart-megamenu ul[class*="level"] > li > a:focus,
+.plazart-megamenu ul[class*="level"] > li > a:active {
+  background: #fffbf0 !important;
+  color: #333333 !important;
+  text-shadow: 0 1px 1px #fff !important;
+}
+
+/* The caret */
+.plazart-megamenu .mega-nav li a.hover:after,
+.plazart-megamenu .mega-nav li a.selected:after {
+  border-left-color: #333333;
+}
+
+
+/* Selected Item ---*/
+.plazart-megamenu .selected {
+  background: #fffbf0 !important;
+  color: #333333 !important;
+  border: 1px solid #666666 !important;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  text-shadow: 0 1px 1px white !important;
+}
+
+
+
+/* Fix for Joomla! Default Admin Template
+--------------------------------------------------*/
+#plazart-admin-megamenu .dropdown-menu a {
+  white-space: normal;
+}
+#plazart-admin-megamenu .row-fluid [class*="span"] {
+  margin-left: 2.12766%;
+}
+#plazart-admin-megamenu .row-fluid [class*="span"]:first-child {
+  margin-left: 0;
+}
+
+/* Fix right spacing for chzn chosen in Megamenu Admin UI */
+#plazart-admin-megamenu ul.chzn-results {
+  margin-right: 4px;
+  float: none;
+}
+
+/* Fix submenu auto open on hover */
+#plazart-admin-megamenu .dropdown-submenu:hover .dropdown-menu {
+  display: none;
+}
+
+#plazart-admin-megamenu .dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}

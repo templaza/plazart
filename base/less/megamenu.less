@@ -1,0 +1,251 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+
+// VARIABLES & MIXINS
+// ------------------
+
+// Prevent Bootstrap Upgrading errors
+@import "../bootstrap/less/variables.less";
+
+// Bootstrap mixins
+@import "../bootstrap/less/mixins.less";
+
+// Plazart Base variables
+@import "variables.less";
+
+
+
+// BASIC STYLE FOR MEGAMENU
+// -------------------------
+
+.plazart-megamenu {
+
+
+  // THE MEGAMENU
+  //--------------------------------------------
+
+  // Global Menu Inner padding
+  // -------------------------
+  .mega-inner {
+    padding: @PlazartglobalPadding / 2;
+    .clearfix();
+  }
+
+  // Inner Padding for 1 column
+  .span12 .mega-inner {
+  }
+
+
+  // Menu Grids
+  // ----------
+  .row-fluid {
+  }
+
+  .row-fluid + .row-fluid  {
+    padding-top: @PlazartglobalPadding / 2;
+    border-top: 1px solid @hrBorder;
+  }
+
+  .row-fluid [class*="span"] {
+  }
+
+
+  // The Dropdown
+  // ------------
+  .mega > .mega-dropdown-menu {
+    min-width: 200px;
+    display: none;
+  }
+  .mega.open > .mega-dropdown-menu,
+  .mega.dropdown-submenu:hover > .mega-dropdown-menu {
+    display: block;
+  }
+
+
+  // The Group
+  // ---------
+  .mega-group {
+    .clearfix();
+  }
+
+  // Group Title
+  .mega-nav .mega-group > .mega-group-title,
+  .dropdown-menu .mega-nav .mega-group > .mega-group-title,
+  .dropdown-menu .active .mega-nav .mega-group > .mega-group-title {
+    background: inherit;
+    color: inherit;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+
+    &:hover, &:active, &:focus {
+      background: inherit;
+      color: inherit;
+    }
+  }
+
+  // Group Content
+  .mega-group-ct {
+    margin: 0;
+    padding: 0;
+    .clearfix();
+  }
+
+  .mega-group-ct > .row-fluid > [class*="span"] > .mega-inner {
+    padding: 0;
+  }
+
+
+  // Nav in Megamenu
+  // ---------------
+  .mega-col-nav {
+  }
+
+  // Inner padding
+  .mega-col-nav .mega-inner {
+  }
+
+  // Inner padding for nav in 1 column
+  .span12.mega-col-nav .mega-inner {
+    padding: 5px;
+  }
+
+  // The Nav
+  .mega-nav,
+  .dropdown-menu .mega-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mega-nav > li,
+  .dropdown-menu .mega-nav > li {
+    list-style: none;
+    margin-left: 0;
+  }
+
+  .mega-nav > li a,
+  .dropdown-menu .mega-nav > li a {
+    white-space: normal;
+  }
+
+  // Nav in Group
+  .mega-group > .mega-nav,
+  .dropdown-menu .mega-group > .mega-nav {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  .mega-group > .mega-nav > li,
+  .dropdown-menu .mega-group > .mega-nav > li {
+  }
+
+  .mega-group .mega-nav > li a,
+  .dropdown-menu .mega-group .mega-nav > li a {
+  }
+
+  // The caret
+  .mega-nav .dropdown-submenu > a::after {
+    margin-right: 5px;
+  }
+
+
+  // Modules in Megamenu
+  // -------------------
+  .mega-col-module {
+  }
+
+  // Inner padding
+  .mega-col-module .mega-inner {
+  }
+
+  // Inner padding for module in 1 column
+  .span12.mega-col-nav .mega-inner {
+  }
+
+  // The module
+  .plazart-module {
+    margin-bottom: @PlazartglobalMargin / 2;
+  }
+
+  // Module Title
+  .plazart-module .module-title {
+    margin-bottom: 0;
+  }
+
+  // Module Content
+  .plazart-module .module-ct {
+    margin: 0;
+    padding: 0;
+  }
+
+  // Menu alignment
+  // --------------
+  .mega-align-left > .dropdown-menu {
+    left: 0;
+  }
+
+  .mega-align-right > .dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+
+  .mega-align-center > .dropdown-menu {
+    left: 50%;
+    transform: translate(-50%);
+    -webkit-transform: translate(-50%);
+    -moz-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    -o-transform: translate(-50%);
+  }
+
+  .dropdown-submenu.mega-align-left > .dropdown-menu {
+    left: 100%;
+  }
+
+  .dropdown-submenu.mega-align-right > .dropdown-menu {
+    left: auto;
+    right: 100%;
+  }
+
+  .mega-align-justify {
+    position: static;
+  }
+  
+  .mega-align-justify > .dropdown-menu {
+    left: 0;
+    margin-left: 0;
+  }
+
+  // The caret
+  // ---------
+  .nav .caret,
+  .dropdown-submenu .caret,
+  .mega-menu .caret {
+    display: none;
+  }
+
+  // Show the caret on level 0 only
+  .nav > .dropdown > .dropdown-toggle .caret {
+    display: inline-block;
+  }
+
+  // The icon
+  // --------
+  .nav [class^="icon-"],
+  .nav [class*=" icon-"] {
+    margin-right: 5px;
+  }
+
+  // End
+}

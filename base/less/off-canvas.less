@@ -1,0 +1,121 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+
+
+// VARIABLES & MIXINS
+// ------------------
+
+// Prevent Bootstrap Upgrading errors
+@import "../bootstrap/less/variables.less";
+
+// Plazart Base variables
+@import "variables.less";
+
+
+// -------------------------------------------------------
+// OFF-CANVAS NAVIGATIONS ELEMENTS
+// -------------------------------------------------------
+#off-canvas-nav {
+  display: none;
+}
+@media (max-width: @navbarCollapseWidth) {
+  .off-canvas {
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+
+    body {
+      height: 100%;
+      overflow-x: hidden;
+      width: 100%;
+      -o-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
+
+    body > * {
+      left: 0;
+      -webkit-transform: translateX(0);
+      -moz-transform: translateX(0);
+      -ms-transform: translateX(0);
+      -o-transform: translateX(0);
+      transform: translateX(0);
+      -webkit-transition: -webkit-transform 500ms ease;
+      -moz-transition: -moz-transform 500ms ease;
+      -o-transition: -o-transform 500ms ease;
+      transition: transform 500ms ease;
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      -o-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    
+    #plazart-mainnav .nav-collapse {
+      display: none;
+    }
+
+    #off-canvas-nav {
+      display: block;
+      position: fixed;
+      top: 0;
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      background: none;
+      filter:Alpha(opacity=0);
+      pointer-events: none;
+
+      .plazart-mainnav {
+        width: (@PlazartOffCanvasWidth + 20);
+        height: 100%;
+        left: -(@PlazartOffCanvasWidth + 20);
+        margin-left: 0;
+        overflow-y: auto;
+        position: absolute;
+        .nav-collapse {
+          height: auto;
+          overflow: visible;
+          padding-left: 20px;
+          padding-bottom: 50px;
+          background: none;
+        }
+      }
+    }
+
+  }
+  
+  
+  // On stage
+  // --------
+  .off-canvas-enabled {
+
+    body > * {
+      -webkit-transform: translateX(@PlazartOffCanvasWidth);
+      -moz-transform: translateX(@PlazartOffCanvasWidth);
+      -ms-transform: translateX(@PlazartOffCanvasWidth);
+      -o-transform: translateX(@PlazartOffCanvasWidth);
+      transform: translateX(@PlazartOffCanvasWidth);
+    }
+
+    #off-canvas-nav {
+      z-index: 1001;
+      pointer-events: auto;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    //End
+  }
+  // End Responsive
+
+}

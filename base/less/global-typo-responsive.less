@@ -1,0 +1,106 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+
+// responsive-global-typo.less
+// For phone and tablet devices
+// ---------------------------------------------------------
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+// ---------------------------------------------------------
+// BANNERS
+// ---------------------------------------------------------
+
+//
+// Jumbotrons
+// ---------------------------------------------------------
+//
+
+// TABLET
+// ---------------------------------------------------
+@media (min-width: 768px) and (max-width: 979px) {
+
+  // Jumbotron
+  .jumbotron {
+    padding: @PlazartglobalPadding 0;
+  }
+
+  .jumbotron h1 {
+    font-size: @baseFontSize * 2;
+  }
+
+  .jumbotron p {
+    font-size: @baseFontSize;
+  }
+
+  // Masthead
+  .masthead {
+    padding: (@PlazartglobalPadding * 2) 0;
+  }
+
+  .masthead h1 {
+    font-size: @baseFontSize * 4;
+  }
+
+  .masthead p {
+    font-size: @baseFontSize * 2;
+  }
+
+  .masthead .btn-large {
+    font-size: @baseFontSize + 2;
+    padding: (@baseFontSize - 2) (@baseFontSize + 2);
+    margin-top: 0;
+  }
+
+}
+
+
+// MOBILE
+// -------------------------------------------------------------
+@media (max-width: 767px) {
+
+  // Jumbotron
+  .jumbotron {
+    padding: @PlazartglobalPadding 0;
+  }
+
+  .jumbotron h1 {
+    font-size: @baseFontSize * 2;
+  }
+
+  .jumbotron p {
+    font-size: @baseFontSize + 2px;
+  }
+
+  // Masthead
+  .masthead {
+    padding: @PlazartglobalPadding 0;
+  }
+
+  .masthead h1 {
+    font-size: @baseFontSize * 2;
+  }
+
+  .masthead p {
+    font-size: @baseFontSize + 2px;
+  }
+
+  .masthead .btn-large {
+    font-size: @baseFontSize;
+    padding: (@baseFontSize - 2px) (@baseFontSize + 2px);
+    margin-top: 0;
+  }
+
+}

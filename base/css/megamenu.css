@@ -1,0 +1,166 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+
+
+.plazart-megamenu .mega-inner {
+  padding: 10px;
+  *zoom: 1;
+}
+.plazart-megamenu .mega-inner:before,
+.plazart-megamenu .mega-inner:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.plazart-megamenu .mega-inner:after {
+  clear: both;
+}
+.plazart-megamenu .row-fluid + .row-fluid {
+  padding-top: 10px;
+  border-top: 1px solid #eeeeee;
+}
+.plazart-megamenu .mega > .mega-dropdown-menu {
+  min-width: 200px;
+  display: none;
+}
+.plazart-megamenu .mega.open > .mega-dropdown-menu,
+.plazart-megamenu .mega.dropdown-submenu:hover > .mega-dropdown-menu {
+  display: block;
+}
+.plazart-megamenu .mega-group {
+  *zoom: 1;
+}
+.plazart-megamenu .mega-group:before,
+.plazart-megamenu .mega-group:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.plazart-megamenu .mega-group:after {
+  clear: both;
+}
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title {
+  background: inherit;
+  color: inherit;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:hover,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:hover,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:hover,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:focus,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:focus,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:focus {
+  background: inherit;
+  color: inherit;
+}
+.plazart-megamenu .mega-group-ct {
+  margin: 0;
+  padding: 0;
+  *zoom: 1;
+}
+.plazart-megamenu .mega-group-ct:before,
+.plazart-megamenu .mega-group-ct:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.plazart-megamenu .mega-group-ct:after {
+  clear: both;
+}
+.plazart-megamenu .mega-group-ct > .row-fluid > [class*="span"] > .mega-inner {
+  padding: 0;
+}
+.plazart-megamenu .span12.mega-col-nav .mega-inner {
+  padding: 5px;
+}
+.plazart-megamenu .mega-nav,
+.plazart-megamenu .dropdown-menu .mega-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.plazart-megamenu .mega-nav > li,
+.plazart-megamenu .dropdown-menu .mega-nav > li {
+  list-style: none;
+  margin-left: 0;
+}
+.plazart-megamenu .mega-nav > li a,
+.plazart-megamenu .dropdown-menu .mega-nav > li a {
+  white-space: normal;
+}
+.plazart-megamenu .mega-group > .mega-nav,
+.plazart-megamenu .dropdown-menu .mega-group > .mega-nav {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.plazart-megamenu .mega-nav .dropdown-submenu > a::after {
+  margin-right: 5px;
+}
+.plazart-megamenu .plazart-module {
+  margin-bottom: 10px;
+}
+.plazart-megamenu .plazart-module .module-title {
+  margin-bottom: 0;
+}
+.plazart-megamenu .plazart-module .module-ct {
+  margin: 0;
+  padding: 0;
+}
+.plazart-megamenu .mega-align-left > .dropdown-menu {
+  left: 0;
+}
+.plazart-megamenu .mega-align-right > .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+.plazart-megamenu .mega-align-center > .dropdown-menu {
+  left: 50%;
+  transform: translate(-50%);
+  -webkit-transform: translate(-50%);
+  -moz-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  -o-transform: translate(-50%);
+}
+.plazart-megamenu .dropdown-submenu.mega-align-left > .dropdown-menu {
+  left: 100%;
+}
+.plazart-megamenu .dropdown-submenu.mega-align-right > .dropdown-menu {
+  left: auto;
+  right: 100%;
+}
+.plazart-megamenu .mega-align-justify {
+  position: static;
+}
+.plazart-megamenu .mega-align-justify > .dropdown-menu {
+  left: 0;
+  margin-left: 0;
+}
+.plazart-megamenu .nav .caret,
+.plazart-megamenu .dropdown-submenu .caret,
+.plazart-megamenu .mega-menu .caret {
+  display: none;
+}
+.plazart-megamenu .nav > .dropdown > .dropdown-toggle .caret {
+  display: inline-block;
+}
+.plazart-megamenu .nav [class^="icon-"],
+.plazart-megamenu .nav [class*=" icon-"] {
+  margin-right: 5px;
+}

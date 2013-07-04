@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params" addfieldpath="/plugins/system/plazart/includes/depend">
+		<fieldset name="theme_params" label="PLAZART_THEME_LABEL" description="PLAZART_THEME_DESC">
+			<field name="theme" type="plazartfolderlist" default="default"
+				label="PLAZART_THEME_THEME_LABEL"
+				description="PLAZART_THEME_THEME_DESC"
+				filter=".*"
+				directory="less/themes"
+				stripext="true"
+                hide_default="false"
+				hide_none="false" />
+		</fieldset>
+
+        <fieldset name="layout_params">
+            <field name="layout" type="plazartfilelist" default=""
+                   label="TZ_THEME_LAYOUT_LABEL"
+                   description="TZ_THEME_LAYOUT_DESC"
+                   filter=".php"
+                   directory="layouts"
+                   stripext="true"
+                   hide_none="false" hide_default="false" />
+        </fieldset>
+
+		<fieldset name="navigation_params" label="PLAZART_NAVIGATION_LABEL" description="PLAZART_NAVIGATION_DESC">
+			<field name="navigation_group_default" type="plazartdepend" function="@group">
+				<option for="navigation_type" value="megamenu">
+					mm_type
+				</option>
+			</field>
+			<field name="navigation_ajax_default" type="plazartdepend" function="@ajax">
+				<option 
+					for="mm_type" 
+					query="plazartaction=megamenu&amp;plazarttask=display"
+					func="PlazartAdminMegamenu.plazartmegamenu">
+				</option>
+			</field>
+
+			<field name="navigation_trigger" type="list" default="hover"
+				global="1"
+				label="PLAZART_NAVIGATION_TRIGGER_LABEL"
+				description="PLAZART_NAVIGATION_TRIGGER_DESC">
+				<option value="hover">Mouse Hover</option>
+				<option value="click">Mouse Click</option>
+			</field>
+
+			<field name="navigation_collapse_offcanvas" type="radio" class="btn-group" default="1"
+				global="1"
+				label="PLAZART_NAVIGATION_COLLAPSE_OFFCANVAS"
+				description="PLAZART_NAVIGATION_COLLAPSE_OFFCANVAS_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+
+			<field name="navigation_collapse_showsub" type="radio" class="btn-group" default="1"
+				global="1"
+				label="PLAZART_NAVIGATION_COLLAPSE_LABEL"
+				description="PLAZART_NAVIGATION_COLLAPSE_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+
+			<field name="navigation_type" type="list" class="btn-group" default="default"
+				label="PLAZART_NAVIGATION_TYPE_LABEL"
+				description="PLAZART_NAVIGATION_TYPE_DESC">
+				<option value="joomla">Joomla Module</option>
+				<option value="megamenu">Megamenu</option>
+			</field>
+
+			<field name="mm_type" type="menu" default="mainmenu"
+				label="PLAZART_NAVIGATION_MM_TYPE_LABEL"
+				description="PLAZART_NAVIGATION_MM_TYPE_DESC"
+				 />
+
+			<field name="mm_config" type="plazartmegamenu" hide="true" global="1"
+				label=""
+				description=""
+				 />
+			
+		</fieldset>
+        <fieldset name="dev_params">
+            <field name="devmode" type="radio" class="btn-group" default="0"
+                   global="1"
+                   label="PLAZART_GENERAL_DEVELOPMENT_LABEL"
+                   description="PLAZART_GENERAL_DEVELOPMENT_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="minify" type="radio" class="btn-group" default="0"
+                   global="1"
+                   label="PLAZART_GENERAL_ASSETS_MINIFY_LABEL"
+                   description="PLAZART_GENERAL_ASSETS_MINIFY_DESC" >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+        </fieldset>
+	</fields>
+</form>

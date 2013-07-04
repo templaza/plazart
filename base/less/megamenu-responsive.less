@@ -1,0 +1,86 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+
+// VARIABLES & MIXINS
+// ------------------
+
+// Prevent Bootstrap Upgrading errors
+@import "../bootstrap/less/variables.less";
+
+// Bootstrap mixins
+@import "../bootstrap/less/mixins.less";
+
+// Plazart Base variables
+@import "variables.less";
+
+
+
+//
+// MOBILE
+// ---------------------------------------------------------
+@media (max-width: @navbarCollapseWidth) {
+
+  .plazart-megamenu {
+
+    // THE MEGAMENU
+    //------------------------------------------------------
+
+    // Global Menu Inner padding
+    // -------------------------
+    .mega-inner {
+      padding: (@PlazartglobalPadding / 2) @PlazartglobalPadding;
+    }
+
+    // Inner Padding for 1 column
+    .span12 .mega-inner {
+    }
+
+
+    // Menu Grids
+    // ----------
+    .row-fluid,
+    .mega-dropdown-menu,
+    .row-fluid [class*="span"] {
+      width: 100% !important;
+      min-width: 100% !important;
+      left: 0 !important;
+      margin-left: 0 !important;
+      transform: none !important;
+      -webkit-transform: none !important;
+      -moz-transform: none !important;
+      -ms-transform: none !important;
+      -o-transform: none !important;
+    }
+
+    .row-fluid + .row-fluid  {
+      padding-top: @PlazartglobalPadding / 2;
+      border-top: 1px solid @hrBorder;
+    }
+
+    .row-fluid [class*="span"] {
+    }
+
+    // Hidden when collapse
+    .hidden-collapse,
+    .always-show  .caret,
+    .sub-hidden-collapse > .nav-child,
+    .sub-hidden-collapse .caret,
+    .sub-hidden-collapse > a:after,
+    .always-show .dropdown-submenu > a:after
+     {
+      display: none !important;
+    }
+  }
+
+
+}

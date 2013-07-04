@@ -1,0 +1,257 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+
+
+/* -------------------------------------------------*/
+/* Plazart ADMIN STYLE
+---------------------------------------------------*/
+
+body {
+  margin: 10px;
+}
+
+/* ADMIN LAYOUT
+---------------------------------------------------*/
+#content-box {
+  border-radius: 0 0 3px 3px;
+}
+
+
+/* Title & Toolbar
+---------------------------------------------------*/
+#toolbar-box {
+  padding: 0;
+  margin: 0;
+}
+
+div#toolbar-box div.m {
+  padding: 15px 20px;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  background-color: #eee;
+  background-image: -moz-linear-gradient(top,#fff,#eee);
+  background-image: -webkit-linear-gradient(top,#fff,#eee);
+  background-image: -o-linear-gradient(top,#fff,#eee);
+  background-image: linear-gradient(to bottom,#fff,#eee);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
+  color: #ccc;
+}
+
+
+/* Page Tittle
+---------------------------------------------------*/
+div.pagetitle {
+  margin: 0;
+  padding: 0;
+  background-image: none !important;
+  text-shadow: 0 1px 1px #fff;
+  float: left;
+}
+
+div.pagetitle h2 {
+  font-size: 32px;
+  color: #666;
+}
+
+div.pagetitle h2 small {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+
+/* Toolbar 
+---------------------------------------------------*/
+#plazart-admin-toolbar {
+  float: right;
+}
+
+
+/* Main
+---------------------------------------------------*/
+#element-box {
+  margin: 0;
+  padding: 0;
+}
+
+div#element-box div.m {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0 0 3px 3px;
+}
+
+/* Tab content
+---------------------------------------------------*/
+.plazart-admin-form .tab-content {
+  overflow: visible;
+}
+
+/* Menu Assignment
+---------------------------------------------------*/
+.plazart-admin-assignment h5 {
+  color: #333;
+  margin: 0 0 5px -18px;
+}
+
+.plazart-admin-assignment ul.menu-links,
+div#menu-assignment ul.menu-links {
+  margin: 0;
+  width: 100%;
+  clear: both;
+}
+
+.plazart-admin-assignment li.span3 {margin-bottom: 20px;}
+
+.plazart-admin-assignment label.checkbox {
+  padding: 3px 0;
+}
+
+.plazart-admin-assignment div#menu-assignment ul.menu-links li:last-child label {
+  margin-bottom: 0;
+}
+
+.plazart-admin-control-fixed {
+  top: 170px;
+}
+
+
+/* Modal dialog
+---------------------------------------------------*/
+.modal-open .layout-modal .dropdown-menu {
+  z-index: 2050;
+}
+
+.modal-open .layout-modal .dropdown.open {
+  *z-index: 2050;
+}
+
+.modal-open .layout-modal .popover {
+  z-index: 2060;
+}
+
+.modal-open .layout-modal .tooltip {
+  z-index: 2080;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000000;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+/* Modal ---*/
+.layout-modal {
+  font: 14px/20px sans-serif;
+  color: #666;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 350px;
+  margin: -200px 0 0 -150px;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+
+}
+
+.layout-modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+
+.layout-modal.fade.in {
+  top: 50%;
+}
+
+.modal-header {
+  padding: 9px 15px 0;
+}
+
+.modal-header .close {
+  margin-top: 2px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  line-height: 30px;
+}
+
+.modal-body {
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+}
+
+.modal-form {
+  margin-bottom: 0;
+}
+
+.modal-footer {
+  padding: 14px 15px 15px;
+  margin-bottom: 0;
+  text-align: right;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: inset 0 1px 0 #ffffff;
+  -moz-box-shadow: inset 0 1px 0 #ffffff;
+  box-shadow: inset 0 1px 0 #ffffff;
+  *zoom: 1;
+}
+
+.modal-footer:before,
+.modal-footer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.modal-footer:after {
+  clear: both;
+}
+
+.modal-footer .btn + .btn {
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}

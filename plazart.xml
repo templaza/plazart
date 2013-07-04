@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+	<name>Plazart Framework</name>
+	<author>TemPlaza.com</author>
+	<creationDate>18 April 2013</creationDate>
+	<copyright>Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@templaza.com</authorEmail>
+	<authorUrl>http://www.plazart.com</authorUrl>
+	<version>1.3</version>
+	<description>
+	Plazart Framework installed successful!
+	</description>	
+	<scriptfile>plazart.script.php</scriptfile>
+	<files>
+		<filename plugin="plazart">plazart.php</filename>
+		<filename>index.html</filename>
+		<folder>admin</folder>
+		<folder>includes</folder>
+		<folder>base</folder>
+	</files>
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.plg_system_plazart.ini</language>
+		<language tag="en-GB">en-GB.plg_system_plazart.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+		</fields>
+	</config>
+	<updateservers>
+	   <server type="collection">http://update.joomlart.com/service/tracking/list.xml</server>
+	</updateservers>	
+</extension>

@@ -1,13 +1,23 @@
-/** 
+/**
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
+/**
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
  * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
  *                & Google group to become co-author)
- * @Google group: https://groups.google.com/forum/#!forum/plazartfw
- * @Link:         http://plazart-framework.org 
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org
  *------------------------------------------------------------------------------
  */
 
@@ -16,17 +26,59 @@
 
 	if(!isTouch){
 		$(document).ready(function($){
-			$('.nav > li').hover(function(event) {
+			// detect animation duration
+			var mm_duration = 0;
+			$('.plazart-megamenu').each (function(){
+				if ($(this).data('duration')) mm_duration = $(this).data('duration');
+			});
+			if (mm_duration) {
+				var style = '.plazart-megamenu.animate .mega > .mega-dropdown-menu, .plazart-megamenu.animate.slide .mega > .mega-dropdown-menu > div {';
+				style += 'transition-duration: ' + mm_duration + 'ms;';
+				style += '-webkit-transition-duration: ' + mm_duration + 'ms;';
+				style += '-ms-transition-duration: ' + mm_duration + 'ms;';
+				style += '-o-transition-duration: ' + mm_duration + 'ms;';
+				style += '}';
+				$('<style type="text/css">'+style+'</style>').appendTo ('head');
+			}
+
+			var mm_timeout = mm_duration ? 100 + mm_duration : 500;
+
+			$('.nav > li, li.mega').hover(function(event) {
 				var $this = $(this);
-				clearTimeout ($this.data('hoverTimeout'));
-				$this.addClass ('open');
+				if ($this.hasClass ('mega')) {
+					// add class animate
+					$this.addClass ('animating');
+					clearTimeout ($this.data('animatingTimeout'));
+					$this.data('animatingTimeout', 
+						setTimeout(function(){$this.removeClass ('animating')}, mm_timeout));
+
+					clearTimeout ($this.data('hoverTimeout'));
+					$this.data('hoverTimeout', 
+						setTimeout(function(){$this.addClass ('open')}, 100));
+				} else {
+					clearTimeout ($this.data('hoverTimeout'));
+					$this.data('hoverTimeout', 
+						setTimeout(function(){$this.addClass ('open')}, 100));
+				}
 			},
 			function(event) {
 				var $this = $(this);
-				$this.data('hoverTimeout', 
-					setTimeout(function(){$this.removeClass ('open')}, 100));
+				if ($this.hasClass ('mega')) {
+					$this.addClass ('animating');
+					clearTimeout ($this.data('animatingTimeout'));
+					$this.data('animatingTimeout', 
+						setTimeout(function(){$this.removeClass ('animating')}, mm_timeout));
+					clearTimeout ($this.data('hoverTimeout'));
+					$this.data('hoverTimeout', 
+						setTimeout(function(){$this.removeClass ('open')}, 100));
+				} else {
+					clearTimeout ($this.data('hoverTimeout'));
+					$this.data('hoverTimeout', 
+						setTimeout(function(){$this.removeClass ('open')}, 100));
+				}
 			});
 		});
+
 	}
 	
 }(jQuery);

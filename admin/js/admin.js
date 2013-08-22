@@ -33,7 +33,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
 						if(rsp){
 							var json = rsp;
 							if(rsp.charAt(0) != '[' && rsp.charAt(0) != '{'){
-								json = rsp.match(/{.*?}/);
+								json = rsp.match(new RegExp('{[\["].*}'));
 								if(json && json[0]){
 									json = json[0];
 								}
@@ -143,12 +143,21 @@ var PlazartAdmin = window.PlazartAdmin || {};
 				jptitle = $('.page-title');
 			}
 
-			var titles = jptitle.html().split(':');
+            if(!jptitle.length){
+                return;
+            }
+
+            var titles = jptitle.html().split(':');
 
 			jptitle.removeClass('icon-48-thememanager').html(titles[0] + '<small>' + titles[1] + '</small>');
 
 			//remove joomla title
 			$('#template-manager .tpl-desc-name').remove();
+
+            //template manager - J2.5
+            $('#template-manager-css')
+                .closest('form').addClass('form-inline')
+                .find('button[type=submit]').addClass('btn');
 		},
 
 		hideDisabled: function(){
@@ -399,7 +408,90 @@ var PlazartAdmin = window.PlazartAdmin || {};
 					$('ul.nav-tabs li:first a').tab ('show');
 				}
 			}
-		}
+		},
+
+        fixValidate: function(){
+            if(typeof JFormValidator != 'undefined'){
+
+                //overwrite
+                JFormValidator.prototype.isValid = function (form) {
+
+                    var valid = true;
+
+                    // Precompute label-field associations
+                    var labels = document.getElementsByTagName('label');
+                    for (var i = 0; i < labels.length; i++) {
+                        if (labels[i].htmlFor != '') {
+                            var element = document.getElementById(labels[i].htmlFor);
+                            if (element) {
+                                element.labelref = labels[i];
+                            }
+                        }
+                    }
+
+                    // Validate form fields
+                    var elements = form.getElements('fieldset').concat(Array.from(form.elements));
+                    for (var i = 0; i < elements.length; i++) {
+                        if (this.validate(elements[i]) == false) {
+                            valid = false;
+                        }
+                    }
+
+                    // Run custom form validators if present
+                    new Hash(this.custom).each(function (validator) {
+                        if (validator.exec() != true) {
+                            valid = false;
+                        }
+                    });
+
+                    if (!valid) {
+                        var message = Joomla.JText._('JLIB_FORM_FIELD_INVALID');
+                        var errors = jQuery("label.invalid");
+                        var error = new Object();
+                        error.error = new Array();
+                        for (var i=0;i < errors.length; i++) {
+                            var label = jQuery(errors[i]).text();
+                            if (label != 'undefined') {
+                                error.error[i] = message+label.replace("*", "");
+                            }
+                        }
+                        Joomla.renderMessages(error);
+                    }
+
+                    return valid;
+                };
+
+                JFormValidator.prototype.handleResponse = function(state, el){
+                    // Find the label object for the given field if it exists
+                    //if (!(el.labelref)) {
+                    //	var labels = $$('label');
+                    //	labels.each(function(label){
+                    //		if (label.get('for') == el.get('id')) {
+                    //			el.labelref = label;
+                    //		}
+                    //	});
+                    //}
+
+                    // Set the element and its label (if exists) invalid state
+                    if (state == false) {
+                        el.addClass('invalid');
+                        el.set('aria-invalid', 'true');
+                        if (el.labelref) {
+                            document.id(el.labelref).addClass('invalid');
+                            document.id(el.labelref).set('aria-invalid', 'true');
+                        }
+                    } else {
+                        el.removeClass('invalid');
+                        el.set('aria-invalid', 'false');
+                        if (el.labelref) {
+                            document.id(el.labelref).removeClass('invalid');
+                            document.id(el.labelref).set('aria-invalid', 'false');
+                        }
+                    }
+                };
+
+            }
+        }
 	});
 	
 	$(document).ready(function(){
@@ -414,6 +506,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
 		PlazartAdmin.initChangeStyle();
 		//PlazartAdmin.initCheckupdate();
 		PlazartAdmin.switchTab();
+        PlazartAdmin.fixValidate();
 	});
 	
 }(jQuery);

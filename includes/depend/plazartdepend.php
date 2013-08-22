@@ -1,14 +1,24 @@
 <?php
-/** 
+/**
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
+/**
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
  * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
  *                & Google group to become co-author)
- * @Google group: https://groups.google.com/forum/#!forum/plazartfw
- * @Link:         http://plazart-framework.org 
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org
  *------------------------------------------------------------------------------
  */
 
@@ -313,9 +323,10 @@ class JFormFieldPlazartDepend extends JFormField
 			<?php 
 			foreach ($this->element->children() as $option):
 				$elms = preg_replace('/\s+/', '', (string)$option[0]);
+				$vals = preg_replace('/\s+/', '', $option['value']);
 			?>
 				PlazartDepend.add('<?php echo $option['for']; ?>', {
-					val: '<?php echo $option['value']; ?>',
+					val: '<?php echo $vals; ?>',
 					elms: '<?php echo $elms?>',
 					group: '<?php echo $group_name . '[' . @$matches[1][0] . ']'; ?>'
 				});

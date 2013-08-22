@@ -96,6 +96,16 @@ for ($i=0; $i<count($xml_position); $i++ ) {
           </ul>
             <ul>
                 <li>
+                    <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_CAPTION'), '::', JTexT::_('PLAZART_NAVIGATION_MM_CAPTION_DESC') ?>">
+                        <?php echo JTexT::_('PLAZART_NAVIGATION_MM_CAPTION') ?>
+                    </label>
+                    <fieldset class="">
+                        <input type="text" class="input-large toolitem-caption toolbox-input" name="toolitem-caption" data-name="caption" value="" />
+                    </fieldset>
+                </li>
+            </ul>
+            <ul>
+                <li>
                     <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_DIRECTION'), '::', JTexT::_('PLAZART_NAVIGATION_MM_DIRECTION_DESC') ?>"><?php echo JTexT::_('PLAZART_NAVIGATION_MM_DIRECTION') ?></label>
                     <fieldset class="">
                         <?php echo JHtmlSelect::genericlist($arr_pos, 'toolitem-direction', ' class="input-medium toolitem-direction toolbox-input" data-name="directionx" '); ?>

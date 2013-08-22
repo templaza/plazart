@@ -116,6 +116,13 @@
   margin-left: 20px;
 }
 
+/* The caption ---*/
+.mega-caption {
+    color: #999;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
 
 /* Global Menu Inner padding ---*/
 .plazart-megamenu .mega-inner {

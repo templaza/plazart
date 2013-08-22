@@ -3,12 +3,22 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
+/**
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
  * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
  *                & Google group to become co-author)
- * @Google group: https://groups.google.com/forum/#!forum/plazartfw
- * @Link:         http://plazart-framework.org
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org
  *------------------------------------------------------------------------------
  */
 
@@ -66,10 +76,11 @@ class PlazartTemplate extends ObjectExtendable
 
             $layout = JFactory::getApplication()->input->getCmd('plazartlayout', '');
             if(empty($layout)){
-                $layout = $template->params->get('mainlayout', 'default-joomla-3.x');
+                $layout = $template->params->get('mainlayout', 'default');
             }
             $fconfig = JPATH_ROOT . '/templates/' . $template->template . '/etc/layout/' . $layout . '.ini';
             if(is_file($fconfig)){
+                jimport('joomla.filesystem.file');
                 $this->_layoutsettings->loadString (JFile::read($fconfig), 'INI', array('processSections' => true));
             }
         }
@@ -97,7 +108,7 @@ class PlazartTemplate extends ObjectExtendable
      * @return string Layout name
      */
     public function getLayout () {
-        return JFactory::getApplication()->input->getCmd ('tmpl') ? JFactory::getApplication()->input->getCmd ('tmpl') : $this->getParam('layout');
+        return JFactory::getApplication()->input->getCmd ('tmpl') ? JFactory::getApplication()->input->getCmd ('tmpl') : $this->getParam('layout','default');
     }
 
     /**
@@ -249,11 +260,66 @@ class PlazartTemplate extends ObjectExtendable
     function megamenu($menutype){
         Plazart::import('menu/megamenu');
 
-        //$file = PLAZART_TEMPLATE_PATH.'/etc/megamenu.ini';
-        //$currentconfig = json_decode(@file_get_contents ($file), true);
+
         $currentconfig = json_decode($this->getParam('mm_config', ''), true);
-        $mmconfig = ($currentconfig && isset($currentconfig[$menutype])) ? $currentconfig[$menutype] : array();
-        $menu = new PlazartMenuMegamenu ($menutype, $mmconfig);
+
+        //force to array
+        if(!is_array($currentconfig)){
+            $currentconfig = (array)$currentconfig;
+        }
+
+        //get user access levels
+        $viewLevels = JFactory::getUser()->getAuthorisedViewLevels();
+        $mmkey      = $menutype;
+        $mmconfig   = array();
+        if(!empty($currentconfig)){
+
+            //find best fit configuration based on view level
+            $vlevels = array_merge($viewLevels);
+            if(is_array($vlevels) && in_array(3, $vlevels)){ //we assume, if a user is special, they should be registered also
+                $vlevels[] = 2;
+            }
+            $vlevels = array_unique($vlevels);
+            rsort($vlevels);
+
+            if(is_array($vlevels) && count($vlevels)){
+                //should check for special view level first
+                if(in_array(3, $vlevels)){
+                    array_unshift($vlevels, 3);
+                }
+
+                $found = false;
+                foreach ($vlevels as $vlevel) {
+                    $mmkey = $menutype . '-' . $vlevel;
+                    if(isset($currentconfig[$mmkey])){
+                        $found = true;
+                        break;
+                    }
+                }
+
+                //fallback
+                if(!$found){
+                    $mmkey = $menutype;
+                }
+            }
+
+            //we try to switch the language if we are in public
+            if($mmkey == $menutype){
+                // check if available configuration for language override
+                $langcode = substr(JFactory::getDocument()->language, 0, 2);
+                if (isset($currentconfig[$menutype.'-'.$langcode])) {
+                    $mmkey = $menutype = $menutype . '-' . $langcode;
+                }
+            }
+
+            if(isset($currentconfig[$mmkey])){
+                $mmconfig = $currentconfig[$mmkey];
+            }
+        }
+
+        $mmconfig['access'] = $viewLevels;
+
+        $menu = new PlazartMenuMegamenu ($menutype, $mmconfig, $this->_tpl->params);
         $menu->render();
 
         // add core megamenu.css in plugin
@@ -276,12 +342,22 @@ class PlazartTemplate extends ObjectExtendable
      *
      * @return string Block content
      */
-    function getData ($layout, $col) {
-        $data = '';
-        foreach ($layout as $device => $width) {
-            if (!isset ($width[$col]) || !$width[$col]) continue;
-            $data .= " data-$device=\"{$width[$col]}\"";
+    function getData ($layout, $col, $array = false) {
+        if($array){
+            $data = array();
+            foreach ($layout as $device => $width) {
+                if (!isset ($width[$col]) || !$width[$col]) continue;
+                $data[$device] = $width[$col];
+            }
+
+        } else {
+            $data = '';
+            foreach ($layout as $device => $width) {
+                if (!isset ($width[$col]) || !$width[$col]) continue;
+                $data .= " data-$device=\"{$width[$col]}\"";
+            }
         }
+
         return $data;
     }
 
@@ -477,6 +553,10 @@ class PlazartTemplate extends ObjectExtendable
         $responsive = $addresponsive ? $this->getParam('responsive', 1) : false;
         $theme  =   $this->getParam('theme', 'default');
         $url = PlazartPath::getUrl('css/themes/' .$theme. '/' . $name . '.css');
+        if (!$url) {
+            $url = PlazartPath::getUrl('css/' . $name . '.css');
+        }
+
         // Add this css into template
         if ($url) {
             $this->addStyleSheet($url);
@@ -504,7 +584,7 @@ class PlazartTemplate extends ObjectExtendable
             $scripts = @$this->_scripts;
             $jqueryIncluded = 0;
             if(is_array($scripts) && count($scripts)) {
-                $pattern = '/jquery([-_]*\d+(\.\d+)+)?(\.min)?\.js/i';//is jquery core
+                $pattern = '/(^|\/)jquery([-_]*\d+(\.\d+)+)?(\.min)?\.js/i';
                 foreach ($scripts as $script => $opts) {
                     if(preg_match($pattern, $script)) {
                         $jqueryIncluded = 1;
@@ -544,7 +624,6 @@ class PlazartTemplate extends ObjectExtendable
      * Update head - detect if devmode or themermode is enabled and less file existed, use less file instead of css
      */
     function updateHead () {
-
         // As Joomla 3.0 bootstrap is buggy, we will not use it
         // We also prevent both Joomla bootstrap and Plazart bootsrap are loaded
         $plazartbootstrap = false;
@@ -707,6 +786,20 @@ class PlazartTemplate extends ObjectExtendable
         }
 
         return $result;
+    }
+
+    /**
+     * Compare function for sorting the menu match order
+     */
+    public static function menupriority($a, $b){
+        $ca = count($a);
+        $cb = count($b);
+
+        if ($ca == $cb) {
+            return 0;
+        }
+
+        return ($ca < $cb) ? 1 : -1;
     }
 }
 ?>

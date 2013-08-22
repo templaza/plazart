@@ -100,6 +100,8 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		return this;
 	};
 
+	$.fn.megamenuAdmin.defaults = {};
+
 	// Actions
 	var actions = {};
 	actions.data = {};
@@ -425,9 +427,15 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 				item['sub']['rows'] = rows;
 			}
 
-			for (var d in $this.data()) {
-				if (d != 'id' && d != 'level' && $this.data(d)) item[d] = $this.data(d);
-			}
+            for (var d in $this.data()) {
+                if (d != 'id' && d != 'level' && $this.data(d)) {
+                    if (d == 'caption') {
+                        item[d] = $this.data(d).replace(/</g, "[lt]").replace(/>/g, "[gt]");
+                    }
+                    else
+                        item[d] = $this.data(d);
+                }
+            }
 
 			if (Object.keys(item).length) config[id] = item;
 		});
@@ -498,6 +506,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 
                 $('.toolitem-exclass').attr('value', liitem.data ('class') || '');
 				$('.toolitem-xicon').attr('value', liitem.data ('xicon') || '');
+                $('.toolitem-caption').attr('value', liitem.data ('caption') || '');
                 $('.toolitem-direction').val (liitem.data ('directionx') || '').trigger("liszt:updated");
 				// toggle Submenu
 				var toggle = $('.toolitem-sub');
@@ -642,6 +651,14 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 					currentSelected.closest('li').data (name, value);
 					currentSelected.find('i').remove();
 					if (value) currentSelected.prepend($('<i class="'+value+'"></i>'));
+				}
+				break;
+
+			case 'caption':
+				if (type == 'item') {
+					currentSelected.closest('li').data (name, value);
+					currentSelected.find('span.mega-caption').remove();
+					if (value) currentSelected.append($('<span class="mega-caption">'+value+'</span>'));
 				}
 				break;
 

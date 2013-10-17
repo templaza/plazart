@@ -42,7 +42,7 @@ class PlazartMenuMegamenu {
 		}
 
 		$items = $menu->getItems($attributes, $values);
-		
+
 		$active            = ($menu->getActive()) ? $menu->getActive() : $menu->getDefault();
 		$this->active_id   = $active ? $active->id : 0;
 		$this->active_tree = $active->tree;

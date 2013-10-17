@@ -87,7 +87,7 @@
                    label="PLAZART_NAVIGATION_ANIMATION_DURATION_LABEL"
                    description="PLAZART_NAVIGATION_ANIMATION_DURATION_DESC" />
 
-			<field name="mm_type" type="menu" default="mainmenu"
+			<field name="mm_type" type="plazartmenu" default="mainmenu"
 				label="PLAZART_NAVIGATION_MM_TYPE_LABEL"
 				description="PLAZART_NAVIGATION_MM_TYPE_DESC"
 				 />

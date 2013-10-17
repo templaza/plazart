@@ -30,7 +30,7 @@ defined('_JEXEC') or die;
  *
  * @package  JAPlazart.Core.Element
  */
-class JFormFieldJaPositions extends JFormField
+class JFormFieldPlazartPositions extends JFormField
 {
 	/**
 	 * Element name
@@ -38,7 +38,7 @@ class JFormFieldJaPositions extends JFormField
 	 * @access    protected
 	 * @var        string
 	 */
-	protected $type = 'JaPositions';
+	protected $type = 'PlazartPositions';
 
 	/**
 	 * Check and load assets file if needed

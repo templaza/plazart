@@ -236,7 +236,8 @@
 			}
 
 			ctrl.indicator.show();
-			$.get(info.url, { jvalue: form.valuesFrom(form.elmsFrom(name))[0], _: $.now() }, function(rsp){
+//			$.get(info.url, { jvalue: form.valuesFrom(form.elmsFrom(name))[0], _: $.now() }, function(rsp){
+			$.get(info.url, { jvalue: form.valuesFrom(form.elmsFrom(name))[0], plazartlang:$('#jform_params_mm_type :selected').attr('data-language') || '*', _: $.now() }, function(rsp){
 				ctrl.indicator.hide();
 
 				var parts = ctrl.info.func.split('.'),
@@ -288,7 +289,7 @@
 		}
 	};
 
-	var JAFileConfig = window.JAFileConfig = window.JAFileConfig || {
+	var PlazartFileConfig = window.PlazartFileConfig = window.PlazartFileConfig || {
 		
 		vars: {
 		},
@@ -400,55 +401,55 @@
 		
 		
 		deleteProfile: function(){
-			if(confirm(JAFileConfig.langs.confirmDelete)){			
-				this.submitForm(JAFileConfig.mod_url + '?dptask=delete&profile=' + this.vars.active + '&template='+ JAFileConfig.template, {}, 'profile');
+			if(confirm(PlazartFileConfig.langs.confirmDelete)){
+				this.submitForm(PlazartFileConfig.mod_url + '?dptask=delete&profile=' + this.vars.active + '&template='+ PlazartFileConfig.template, {}, 'profile');
 			}		
 		},
 		
 		duplicateProfile: function (){
-			var nname = prompt(JAFileConfig.langs.enterName);
+			var nname = prompt(PlazartFileConfig.langs.enterName);
 			
 			if(nname){
 				nname = nname.replace(/[^0-9a-zA-Z_-]/g, '').replace(/ /, '').toLowerCase();
 				if(nname == ''){
-					alert(JAFileConfig.langs.correctName);
+					alert(PlazartFileConfig.langs.correctName);
 					return this.cloneProfile();
 				}
 				
-				JAFileConfig.profiles[nname] = JAFileConfig.profiles[this.vars.active];
+				PlazartFileConfig.profiles[nname] = PlazartFileConfig.profiles[this.vars.active];
 				
-				this.submitForm(JAFileConfig.mod_url + '?dptask=duplicate&profile=' + nname + '&from=' + this.vars.active + '&template=' + JAFileConfig.template, {}, 'profile');
+				this.submitForm(PlazartFileConfig.mod_url + '?dptask=duplicate&profile=' + nname + '&from=' + this.vars.active + '&template=' + PlazartFileConfig.template, {}, 'profile');
 			}
 		},
 		
 		saveProfile: function (task){
 
 			if(task){
-				JAFileConfig.profiles[this.vars.active] = this.rebuildData();
-				this.submitForm(JAFileConfig.mod_url + '?dptask=save&profile=' + this.vars.active, JAFileConfig.profiles[this.vars.active], 'profile', task);
+				PlazartFileConfig.profiles[this.vars.active] = this.rebuildData();
+				this.submitForm(PlazartFileConfig.mod_url + '?dptask=save&profile=' + this.vars.active, PlazartFileConfig.profiles[this.vars.active], 'profile', task);
 			}
 		},
 		
 		submitForm: function(url, request, type, task){
-			if(JAFileConfig.run){
-				JAFileConfig.ajax.cancel();
+			if(PlazartFileConfig.run){
+				PlazartFileConfig.ajax.cancel();
 			}
 			
-			JAFileConfig.run = true;
+			PlazartFileConfig.run = true;
 	    	
-			JAFileConfig.ajax = $.ajax({
+			PlazartFileConfig.ajax = $.ajax({
 				type: 'post',
 				url: url,
 				data: request,
 				complete: function(result){
 					
-					JAFileConfig.run = false;
+					PlazartFileConfig.run = false;
 					
 					if(result == ''){
 						return;
 					}
 					
-					var vars = JAFileConfig;
+					var vars = PlazartFileConfig;
 					
 					alert(json.error || json.successfull);
 					
@@ -469,17 +470,17 @@
 										}
 									}
 								} else {
-									JAFileConfig.profiles[result.profile] = JAFileConfig.tempprofiles[result.profile];
+									PlazartFileConfig.profiles[result.profile] = PlazartFileConfig.tempprofiles[result.profile];
 								}
 								
 								vars.el.options[0].selected = true;					
-								JAFileConfig.changeProfile(vars.el.options[0].value);
+								PlazartFileConfig.changeProfile(vars.el.options[0].value);
 							break;
 							
 							case 'duplicate':
 								vars.el.options[vars.el.options.length] = new Option(result.profile, result.profile);							
 								vars.el.options[vars.el.options.length - 1].selected = true;
-								JAFileConfig.changeProfile(result.profile);
+								PlazartFileConfig.changeProfile(result.profile);
 							break;
 							
 							default:

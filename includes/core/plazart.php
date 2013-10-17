@@ -240,4 +240,65 @@ class Plazart {
 		}
 		return $plazart;
 	}
+
+    /**
+     *
+     * Ge default template style
+     */
+    public static function getDefaultTemplate(){
+        static $defaultTemplate;
+
+        if (!isset($defaultTemplate)) {
+
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query
+                ->select('id, template, s.params')
+                ->from('#__template_styles as s')
+                ->where('s.client_id = 0')
+                ->where('s.home = 1')
+                ->where('e.enabled = 1')
+                ->leftJoin('#__extensions as e ON e.element=s.template AND e.type='.$db->quote('template').' AND e.client_id=s.client_id');
+
+            $db->setQuery($query);
+            $result = $db->loadObject();
+
+            $defaultTemplate = !empty($result) ? $result->template : false;
+        }
+
+        return $defaultTemplate;
+    }
+
+    /**
+     *
+     * Ge template style params
+     */
+    public static function getTemplateParams()
+    {
+        $app    = JFactory::getApplication();
+        $input  = $app->input;
+        $params = $input->get('tplparams', '', 'raw'); //check for tplparams first
+
+        if(!($params instanceof JRegistry)){
+            $id = $input->getCmd('styleid', $input->getCmd('id'));
+            if($id){
+                $db    = JFactory::getDbo();
+                $query = $db->getQuery(true);
+                $query
+                    ->select('template, params')
+                    ->from('#__template_styles')
+                    ->where('client_id = 0')
+                    ->where('id = ' . $id);
+                $db->setQuery($query);
+                $template = $db->loadObject();
+
+                if ($template) {
+                    $params = new JRegistry;
+                    $params->loadString($template->params);
+                }
+            }
+        }
+
+        return $params instanceof JRegistry ? $params : null;
+    }
 }

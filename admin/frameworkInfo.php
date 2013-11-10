@@ -5,7 +5,7 @@ defined('_JEXEC') or die;
 
 <div class="span4">
   <div class="tpl-preview">
-    <img src="<?php echo PLAZART_ADMIN_URL ?>/admin/framework_preview.png" alt="Framework Preview" />
+    <img src="<?php echo PLAZART_ADMIN_URL ?>/admin/framework_preview.jpg" alt="Framework Preview" />
   </div>
 </div>
 <div class="span8">

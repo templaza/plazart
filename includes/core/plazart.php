@@ -123,6 +123,7 @@ class Plazart {
 				if (!class_exists('JPagination', false)) Plazart::import ('joomla25/pagination');
 			}
 		} else {
+            // checkversion
 		}
 	}
 

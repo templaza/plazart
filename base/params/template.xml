@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fields name="params" addfieldpath="/plugins/system/plazart/includes/depend">
+        <fieldset name="preset_params" label="PLAZART_PRESET_LABEL">
+            <field name="preset" type="plazartpreset" default="default"
+                   label="PLAZART_PRESETS_LABEL"
+                   description="PLAZART_PRESETS_DESC"
+                    />
+        </fieldset>
 		<fieldset name="theme_params" label="PLAZART_THEME_LABEL" description="PLAZART_THEME_DESC">
 			<field name="theme" type="plazartfolderlist" default="default"
 				label="PLAZART_THEME_THEME_LABEL"
@@ -8,8 +14,8 @@
 				filter=".*"
 				directory="less/themes"
 				stripext="true"
-                hide_default="false"
-				hide_none="false" />
+                hide_default="1"
+                hide_none="1" />
 		</fieldset>
 
         <fieldset name="layout_params">
@@ -19,7 +25,7 @@
                    filter=".php"
                    directory="layouts"
                    stripext="true"
-                   hide_none="false" hide_default="false" />
+                   hide_none="true" hide_default="true" />
         </fieldset>
 
 		<fieldset name="navigation_params" label="PLAZART_NAVIGATION_LABEL" description="PLAZART_NAVIGATION_DESC">
@@ -114,5 +120,6 @@
                 <option value="1">JYES</option>
             </field>
         </fieldset>
+
 	</fields>
 </form>

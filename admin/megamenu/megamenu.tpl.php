@@ -236,9 +236,9 @@ for ($i=0; $i<count($xml_position); $i++ ) {
       </div> 
       
       <div class="toolbox-actions-group">
-        <button class="plazart-admin-tog-fullscreen toolbox-action toolbox-togglescreen" data-action="toggleScreen" data-iconfull="icon-resize-full" data-iconsmall="icon-resize-small"><i class="icon-resize-full"></i></button>
+        <button class="plazart-admin-tog-fullscreen toolbox-action toolbox-togglescreen" data-action="toggleScreen" data-iconfull="fa fa-expand" data-iconsmall="fa fa-compress"><i class="fa fa-expand"></i></button>
 
-        <button class="btn btn-success toolbox-action toolbox-saveConfig hide" data-action="saveConfig"><i class="icon-save"></i><?php echo JTexT::_('PLAZART_NAVIGATION_MM_SAVE') ?></button>
+        <button class="btn btn-success toolbox-action toolbox-saveConfig hide" data-action="saveConfig"><i class="fa fa-floppy-o"></i><?php echo JTexT::_('PLAZART_NAVIGATION_MM_SAVE') ?></button>
         <!--button class="btn btn-danger toolbox-action toolbox-resetConfig"><i class="icon-undo"></i><?php echo JTexT::_('PLAZART_NAVIGATION_MM_RESET') ?></button-->
       </div>
 

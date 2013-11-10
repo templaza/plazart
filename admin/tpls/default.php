@@ -73,31 +73,18 @@ $iswritable = is_writable('plazarttest.txt');
 					<?php echo $form->getInput('home'); ?>
 				</div>
 			</div>
+            <div class="control-group plazart-control-group">
+                <div class="control-label plazart-control-label">
+                    <label id="config_manager_save_filename-lbl" for="config_manager_save_filename" class="hasTip" title="<?php echo JText::_('PLAZART_PRESET_TPL_SAVE_DESC'); ?>"><?php echo JText::_('PLAZART_PRESET_TPL_SAVE'); ?></label>
+                </div>
+                <div class="controls plazart-controls">
+                    <input type="text" id="config_manager_save_filename" name="config_manager_save_filename" class="input-medium" placeholder="<?php echo JText::_('PLAZART_PRESET_TPL_SAVE_PLACE'); ?>" />
+                </div>
+            </div>
 		</div>
 	</div>
     <div class="plazart-admin-header clearfix">
-        <div class="controls-row">
-            <div class="control-group plazart-control-group">
-                <div class="control-label plazart-control-label">
-                    <label id="tz-profiles-list-lbl" for="config_manager_load_filename" class="hasTip" title="<?php echo JText::_('TZ_SELECT_PROFILE_DESC'); ?>"><?php echo JText::_('TZ_SELECT_PROFILE_LABEL'); ?></label>
-                </div>
-                <div class="controls plazart-controls">
-                    <?php echo JHTML::_('select.genericlist', $profiles, 'config_manager_load_filename', 'autocomplete="off"', 'value', 'text','default'); ?>
-                    <button id="config_manager_load" class="btn"><i class="icon-download"></i><?php echo JText::_('TPL_TZ_LANG_CONFIG_LOAD_BTN'); ?></button>
-                    <button id="config_manager_delete" class="btn"><i class="icon-remove"></i><?php echo JText::_('TPL_TZ_LANG_CONFIG_DELETE_BTN'); ?></button>
-                </div>
 
-            </div>
-            <div class="control-group plazart-control-group">
-                <div class="control-label plazart-control-label">
-                    <label id="config_manager_save_filename-lbl" for="config_manager_save_filename" class="hasTip" title="<?php echo JText::_('TPL_TZ_LANG_CONFIG_SAVE_DESC'); ?>"><?php echo JText::_('TPL_TZ_LANG_CONFIG_SAVE'); ?></label>
-                </div>
-                <div class="controls plazart-controls">
-                    <input type="text" id="config_manager_save_filename" name="config_manager_save_filename" class="input-medium" placeholder="<?php echo JText::_('TPL_TZ_LANG_CONFIG_YOUR_FILENAME'); ?>" />
-                </div>
-
-            </div>
-        </div>
     </div>
 	<fieldset>
     <div class="plazart-admin clearfix">

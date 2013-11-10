@@ -56,6 +56,9 @@ class PlazartAdmin {
 		JFactory::getLanguage()->load(PLAZART_PLUGIN, JPATH_ADMINISTRATOR);
 		JFactory::getLanguage()->load ('tpl_'.PLAZART_TEMPLATE.'.sys', JPATH_ROOT, null, true);
 
+        $tplXml = PLAZART_TEMPLATE_PATH . '/templateDetails.xml';
+        if (file_exists($tplXml)) $xml = JFactory::getXML($tplXml);
+
 		$langs = array(
 			'lblCompile' => JText::_('PLAZART_LBL_RECOMPILE'),
 			'lblThemer' => JText::_('PLAZART_LBL_VIEWTHEMER'),
@@ -92,7 +95,9 @@ class PlazartAdmin {
 			'updateDownLatest' => JText::_('PLAZART_OVERVIEW_GO_DOWNLOAD'),
 			'updateCheckUpdate' => JText::_('PLAZART_OVERVIEW_CHECK_UPDATE'),
 			'updateChkComplete' => JText::_('PLAZART_OVERVIEW_CHK_UPDATE_OK'),
-			'updateHasNew' => JText::_('PLAZART_OVERVIEW_TPL_NEW'),
+            'updateLatestVersion' => JText::_('PLAZART_OVERVIEW_TPL_VERSION_MSG'),
+			'updateHasNew' => JText::sprintf('PLAZART_OVERVIEW_TPL_NEW', $xml->name),
+            'updateHasNewMsg' => JText::sprintf('PLAZART_OVERVIEW_TPL_NEW_MSG', $xml->version, $xml->name),
 			'updateCompare' => JText::_('PLAZART_OVERVIEW_TPL_COMPARE')
 		);
 		
@@ -151,11 +156,9 @@ class PlazartAdmin {
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/json2.js');
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jimgload.js');
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/admin.js');
-
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/scripts.js');
 
         $token = JSession::getFormToken();
-
 		JFactory::getDocument()->addScriptDeclaration ( '
 			var PlazartAdmin = window.PlazartAdmin || {};
 			PlazartAdmin.adminurl = \'' . JFactory::getURI()->toString() . '\';
@@ -172,33 +175,21 @@ class PlazartAdmin {
 			PlazartAdmin.plazartupdateurl = \'' . JURI::base() . 'index.php?option=com_installer&view=update&task=update.ajax' . '\';
 			PlazartAdmin.jupdateUrl = \'' . JURI::base() . 'index.php?option=com_installer&view=update' . '\';
 
-			// init config manager
-            function initConfigManager() {
-                 jQuery("#config_manager_form").parent().addClass("tz-no-left-margin");
-                 jQuery("#config_manager_form").parent().parent().parent().find(".control-group:gt(0)").css("display", "none");
+			tzclient = new Object();
+			tzclient.name = \''.$xml->name.'\';
+			tzclient.uri  = \''.base64_encode(JURI::root()).'\';
+			tzclient.version  = \''.$xml->version.'\';
+			tzclient.tzupdate   =   \''.$xml->tzupdate.'\';
 
-                 jQuery("#config_manager_load").click(function(e) {
-                     e.stopPropagation();
-                     e.preventDefault();
-                     loadSaveOperation("load");
-                 });
-
-
-                 jQuery("#config_manager_delete").click(function(e) {
-                     e.stopPropagation();
-                     e.preventDefault();
-                     deleteOperation();
-                 });
-            }
             // function to load/save settings
-                function loadSaveOperation(type) {
+                function loadSaveOperation() {
                     var current_url = window.location;
                     current_url = current_url+"";
                     if((current_url + "").indexOf("#", 0) === -1) {
-                        current_url = current_url + "&tz_template_task="+type+"&tz_template_file=" + jQuery("#config_manager_"+type+"_filename").val() + "&'.$token.'=1";
+                        current_url = current_url + "&tz_template_task=load&tz_template_file=" + jQuery("#config_manager_load_filename").val() + "&'.$token.'=1";
                     } else {
                         current_url = current_url.substr(0, (current_url + "").indexOf("#", 0));
-                        current_url = current_url + "&tz_template_task="+type+"&tz_template_file=" + jQuery("#config_manager_"+type+"_filename").val() + "&'.$token.'=1";
+                        current_url = current_url + "&tz_template_task=load&tz_template_file=" + jQuery("#config_manager_load_filename").val() + "&'.$token.'=1";
                     }
                     window.location = current_url;
                 }
@@ -214,6 +205,24 @@ class PlazartAdmin {
                     }
 
                     window.location = current_url;
+                }
+            // compare version
+                function compareVersion(v1,v2) {
+                    $arri   =   v1.split(".");
+					$arrj   =   v2.split(".");
+					$less   =   0;
+
+					for ($k = 0; $k< $arri.length && $k<$arrj.length; $k++) {
+						if (parseInt($arri[$k]) < parseInt($arrj[$k])) {
+							$less  =   1;
+							return 1;
+						}
+					}
+
+					if (!$less && $arri.length< $arrj.length) {
+						$less   =   1;
+					}
+					return !$less ? 0 : 1;
                 }
 			'
 		);
@@ -267,24 +276,7 @@ class PlazartAdmin {
 			$session->set('Plazart.plazartlock', null);
 			$input = JFactory::getApplication()->input;
 
-            $config_file    =   JFolder::files(PLAZART_TEMPLATE_PATH . DIRECTORY_SEPARATOR . 'config', '\.json$', false, false);
-            $profiles   =   array();
-            for ($i = 0; $i<count($config_file); $i++){
-                $tmp        =    new stdClass();
-                $tmp->value =   $config_file[$i];
-
-                // Convert back slashes to forward slashes
-                $slash = strrpos($tmp->value, '.');
-                if ($slash !== false)
-                {
-                    $tmp->value= $tmp->text = substr($tmp->value,0, $slash);
-                }
-                else
-                {
-                    $tmp->text  =   $tmp->value;
-                }
-                $profiles[] =   $tmp;
-            }
+            // $profile
 
 			include $jtpl;
 			
@@ -349,7 +341,7 @@ class PlazartAdmin {
             // message
             $msg = '';
             // helping variables
-            $redirectUrl = $uri->root() . 'administrator/index.php?option=com_templates&view=style&layout=edit&id=' . $tpl_id;
+            $redirectUrl = $uri->root() . 'administrator/index.php?option=com_templates&view=style&layout=edit&id=' . $tpl_id.'#preset';
             if($task == 'load') {
                 $file   .=  '.json';
 

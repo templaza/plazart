@@ -99,6 +99,7 @@ h1.page-title small {
 
 /* Toolbar ---*/
 #plazart-admin-toolbar {
+    background: url("../logo_small.png") no-repeat scroll 99% center;
 }
 
 #plazart-admin-toolbar .btn-group {
@@ -114,8 +115,8 @@ h1.page-title small {
   margin-left: 20px;
 }
 
-.btn [class^="icon-"],
-.btn [class*=" icon-"] {
+.btn [class^="fa-"],
+.btn [class*=" fa-"] {
   line-height: 1;
   margin-right: 5px;
   font-size: 14px;
@@ -126,17 +127,13 @@ h1.page-title small {
 }
 
 /* Loading */
-#plazart-admin-tb-recompile .icon-loading,
-#plazart-admin-tb-recompile.loading .icon-check {
+#plazart-admin-tb-recompile .fa-spinner,
+#plazart-admin-tb-recompile.loading .fa-magic {
   display: none;
 }
 
-#plazart-admin-tb-recompile.loading .icon-loading {
+#plazart-admin-tb-recompile.loading .fa-spinner {
   display: inline-block;
-  background: url(../images/loading.gif) no-repeat !important;
-  width: 14px;
-  height: 14px;
-  margin-bottom: -2px;
 }
 
 /* Header 
@@ -166,16 +163,16 @@ h1.page-title small {
 ----------- */
 .plazart-admin-nav .nav-tabs {
   margin: 0 0 0 -1px; /*margin: 0 -1px;*/
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-  background-color: #333;
-  background-image: -moz-linear-gradient(top,#4f4f4f,#333);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#4f4f4f),to(#333));
-  background-image: -webkit-linear-gradient(top,#4f4f4f,#333);
-  background-image: -o-linear-gradient(top,#4f4f4f,#333);
-  background-image: linear-gradient(to bottom,#4f4f4f,#333);
+  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid #AAAAAA;
+  background-color: #ccc;
+  background-image: -moz-linear-gradient(top,#ddd,#ccc);
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#ddd),to(#ccc));
+  background-image: -webkit-linear-gradient(top,#ddd,#ccc);
+  background-image: -o-linear-gradient(top,#ddd,#ccc);
+  background-image: linear-gradient(to bottom,#ddd,#ccc);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4f4f4f', endColorstr='#ff333333', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#ccc', GradientType=0);
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -185,17 +182,17 @@ h1.page-title small {
 
 .plazart-admin-nav .nav-tabs > li {
   margin-bottom: 0;
-  border-right: 1px solid #4f4f4f;
+  border-right: 1px solid #bbbbbb;
   position: relative;
 }
 
 .plazart-admin-nav .nav-tabs > li > a {
-  color: #ccc;
+  color: #333;
   border-radius: 0;
   border: 0;
   margin: 0;
   padding: 12px 0;
-  text-shadow: 0 1px 1px #000;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   width: 140px;
   text-align: center;
   text-decoration: none;
@@ -203,22 +200,22 @@ h1.page-title small {
 
 .plazart-admin-nav .nav-tabs > li > a:hover {
   border: 0;
-  color: #fff;
+  color: #000000;
   background: transparent;
 }
 
 .plazart-admin-nav .nav-tabs > .active > a, 
 .plazart-admin-nav .nav-tabs > .active > a:hover {
   border: 0;
-  color: #fff;
+  color: #000;
   background-color: #07b;
-  background-image: -moz-linear-gradient(top, #07b, #005b8f);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#07b), to(#005b8f));
-  background-image: -webkit-linear-gradient(top, #07b, #005b8f);
-  background-image: -o-linear-gradient(top, #07b, #005b8f);
-  background-image: linear-gradient(to bottom, #07b, #005b8f);
+  background-image: -moz-linear-gradient(top, #bbb, #aaa);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbb), to(#aaa));
+  background-image: -webkit-linear-gradient(top, #bbb, #aaa);
+  background-image: -o-linear-gradient(top, #bbb, #aaa);
+  background-image: linear-gradient(to bottom, #bbb, #aaa);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0077bb', endColorstr='#ff005b8f', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bbb', endColorstr='#aaa', GradientType=0);
 }
 
 
@@ -970,6 +967,11 @@ button.btn-primary:active {
   padding-left: 40px;
 }
 
+
+
+.plazart-admin-preset .plazart-admin-form-legend {
+    padding-left: 40px;
+}
 /* plazart-admin-overview-block ---*/
 .plazart-admin-overview-block {
   background-color: #f8f8f8;
@@ -1120,6 +1122,50 @@ button.btn-primary:active {
   font-size: 12px;
 }
 
+.updater .disappear {
+    display: none;
+}
+
+#preset_params .plazart-controls div.preset{
+    border: 1px solid #DDDDDD;
+    float: left;
+    margin: 0 15px 15px 0;
+    padding: 45px 60px;
+    cursor: pointer;
+    -moz-transition:all 300ms;
+    -ms-transition:all 300ms;
+    -o-transition:all 300ms;
+    -webkit-transition:all 300ms;
+    transition:all 300ms;
+    background:#f5f5f5;
+    position: relative;
+}
+
+#preset_params .plazart-controls div.preset i{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #DA4F49;
+}
+
+#preset_params .plazart-controls div.preset:hover{
+    -moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.2);
+    box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.2);
+}
+
+#preset_params .plazart-controls div.active {
+    -moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.2);
+    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.2);
+    box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0,0,0,0.2);
+    border: 1px solid #9b59b6;
+}
+
+#preset_params .plazart-controls div.preset label{
+    font-size: 24px;
+    font-weight: 700;
+}
+
 
 /* Menu Assignment
 ---------------------------------------------------*/
@@ -1157,8 +1203,8 @@ button.btn-primary:active {
 }
 
 /* Fix for Font Awesome */
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
+[class^="fa-"]:before,
+[class*=" fa-"]:before {
   font-family: "FontAwesome";
 }
 
@@ -1193,6 +1239,7 @@ textarea[id^="jform_params_font_rules_group"] { max-width: 100%!important; }
 .tz-no-left-margin { margin-left: 0!important; }
 #config_manager_load, #config_manager_delete {
     margin-bottom: 25px;
+    margin-right: 10px;
 }
 
 /* Updates */

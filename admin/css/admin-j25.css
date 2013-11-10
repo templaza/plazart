@@ -74,9 +74,9 @@ div.pagetitle h2 small {
 /* Toolbar 
 ---------------------------------------------------*/
 #plazart-admin-toolbar {
-  float: right;
+    float: right;
+    padding-right: 170px;
 }
-
 
 /* Main
 ---------------------------------------------------*/

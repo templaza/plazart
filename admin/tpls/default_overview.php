@@ -50,7 +50,6 @@ $hasperm = JFactory::getUser()->authorise('core.manage', 'com_installer');
 // Try to humanize the name
 $xml->name = ucwords(str_replace('_', ' ', $xml->name));
 $fxml->name = ucwords(str_replace('_', ' ', $fxml->name));
-
 ?>
 <div class="plazart-admin-overview">
 
@@ -80,13 +79,12 @@ $fxml->name = ucwords(str_replace('_', ' ', $fxml->name));
             <dd><a href="<?php echo $xml->authorUrl ?>" title="<?php echo $xml->author ?>"><?php echo $xml->author ?></a></dd>
           </dl>
         </div>
-        <div class="plazart-admin-overview-block updater<?php echo $thasnew ? ' outdated' : '' ?> clearfix">
-          <h3><?php echo empty($xml->updateservers) ? JText::sprintf('PLAZART_OVERVIEW_TPL_VERSION', $xml->name, $xml->version) : JText::sprintf($thasnew ? 'PLAZART_OVERVIEW_TPL_NEW' : 'PLAZART_OVERVIEW_TPL_SAME', $xml->name) ?></h3>
-          <p><?php echo empty($xml->updateservers) ? JText::_('PLAZART_OVERVIEW_TPL_VERSION_MSG') : ($thasnew ? JText::sprintf('PLAZART_OVERVIEW_TPL_NEW_MSG', $ctversion, $xml->name, $ntversion) : JText::sprintf('PLAZART_OVERVIEW_TPL_SAME_MSG', $ctversion)) ?></p>
-          <?php if($hasperm) : ?>
-            <a class="btn" href="<?php JURI::base() ?>index.php?option=com_installer&view=update" class="plazartcheck-framework" title="<?php echo JText::_( $thasnew ? 'PLAZART_OVERVIEW_GO_DOWNLOAD' : 'PLAZART_OVERVIEW_CHECK_UPDATE') ?>"><?php echo JText::_( $thasnew ? 'PLAZART_OVERVIEW_GO_DOWNLOAD' : 'PLAZART_OVERVIEW_CHECK_UPDATE') ?></a>
+        <div id="tplUpdater" class="plazart-admin-overview-block updater<?php echo $thasnew ? ' outdated' : '' ?> clearfix">
+          <h3><?php echo JText::sprintf('PLAZART_OVERVIEW_TPL_VERSION'); ?></h3>
+          <p><?php echo  JText::sprintf('PLAZART_OVERVIEW_TPL_SAME_MSG', $xml->version) ?></p>
+          <a class="btn disappear" href="http://www.templaza.com/" title="<?php echo JText::_( 'PLAZART_OVERVIEW_GO_DOWNLOAD') ?>"><?php echo JText::_( 'PLAZART_OVERVIEW_GO_DOWNLOAD') ?></a>
 
-          <?php endif; ?>
+
         </div>
       </div>
 

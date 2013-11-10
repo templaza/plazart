@@ -117,6 +117,36 @@ class plgSystemPlazart extends JPlugin
 			$form->loadFile('template', false);
 		}
 	}
+
+    function onExtensionBeforeSave($option, $data) {
+        if(Plazart::detect() && $option == 'com_templates.style' && !empty($data->id)){
+            //get new params value
+            $params = new JRegistry;
+            $params->loadString($data->params);
+            // save profile
+            $profile = JRequest::getString('config_manager_save_filename','');
+            if (trim($profile)) {
+                jimport('joomla.filesystem.file');
+                $base_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
+                $file = JFilterOutput::stringURLSafe(trim($profile));
+                // variable used to detect if the specified file exists
+                $i = 0;
+                // check if the file to save doesn't exist
+                if(JFile::exists($base_path . $file . '.json')) {
+                    // find the proper name for the file by incrementing
+                    $i = 1;
+                    while(JFile::exists($base_path . $file . $i . '.json')) { $i++; }
+                }
+                // get the settings from the database
+                $filename   =   $base_path . $file . (($i != 0) ? $i : '');
+                $params->set('preset', JFile::getName($filename));
+                $data->params = $params->toString();
+                if (!JFile::write($filename . '.json' , $data->params)){
+                    JError::raiseNotice(403,'TPL_TZ_LANG_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+                }
+            }
+        }
+    }
 	
 	function onExtensionAfterSave($option, $data){
 		if(Plazart::detect() && $option == 'com_templates.style' && !empty($data->id)){
@@ -135,7 +165,7 @@ class plgSystemPlazart extends JPlugin
 
 			//if we have any changed, we will update to global
 			if(count($pchanged)){
-				//get all other styles that have the same template
+				//g et all other styles that have thesame template
 				$db = JFactory::getDBO();
 				$query = $db->getQuery(true);
 				$query
@@ -166,26 +196,6 @@ class plgSystemPlazart extends JPlugin
 					$db->query();
 				}
 			}
-
-            // save profile
-            $profile = JRequest::getString('config_manager_save_filename','');
-            if (trim($profile)) {
-                jimport('joomla.filesystem.file');
-                $base_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
-                $file = JFilterOutput::stringURLSafe(trim($profile));
-                // variable used to detect if the specified file exists
-                $i = 0;
-                // check if the file to save doesn't exist
-                if(JFile::exists($base_path . $file . '.json')) {
-                    // find the proper name for the file by incrementing
-                    $i = 1;
-                    while(JFile::exists($base_path . $file . $i . '.json')) { $i++; }
-                }
-                // get the settings from the database
-                if (!JFile::write($base_path . $file . (($i != 0) ? $i : '') . '.json' , $data->params)){
-                    JError::raiseNotice(403,'TPL_TZ_LANG_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
-                }
-            }
 		}
 	}
 

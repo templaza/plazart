@@ -16,12 +16,11 @@ defined('_JEXEC') or die;
 ?>
 
 <div id="plazart-admin-toolbar" class="btn-toolbar">
-
 	<?php
 	if($input->getCmd('view') == 'style'):
 	?>
   <div id="plazart-admin-tb-save" class="btn-group">
-    <button id="plazart-admin-tb-style-save-save" class="btn btn-success"><i class="icon-save"></i>Save</button>
+    <button id="plazart-admin-tb-style-save-save" class="btn btn-success"><i class="fa fa-floppy-o"></i>Save</button>
     <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>&nbsp;
     </button>
@@ -35,14 +34,14 @@ defined('_JEXEC') or die;
   ?>
 
 	<div id="plazart-admin-tb-recompile" class="btn-group">
-		<button class="btn hasTip" title="<?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS') ?>::<?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS_DESC') ?>"><i class="icon-check"></i><i class="icon-loading"></i><?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS') ?></button>
+		<button class="btn hasTip" title="<?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS') ?>::<?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS_DESC') ?>"><i class="fa fa-spinner fa-spin"></i><i class="fa fa-magic"></i><?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS') ?></button>
 	</div>
 
 	<div id="plazart-admin-tb-close" class="btn-group <?php echo $input->getCmd('view') ?>">
-		<button class="btn"><i class="icon-remove"></i><?php echo JText::_('PLAZART_TOOLBAR_CLOSE') ?></button>
+		<button class="btn"><i class="fa fa-times"></i><?php echo JText::_('PLAZART_TOOLBAR_CLOSE') ?></button>
 	</div>
 	<div id="plazart-admin-tb-help" class="btn-group <?php echo $input->getCmd('view') ?>">
-		<button class="btn"><i class="icon-question-sign"></i><?php echo JText::_('PLAZART_TOOLBAR_HELP') ?></button>
+		<button class="btn"><i class="fa fa-wheelchair"></i><?php echo JText::_('PLAZART_TOOLBAR_HELP') ?></button>
 	</div>
 
 </div>

@@ -1,6 +1,40 @@
 jQuery(window).load(function(){
-    // enable config manager
-    initConfigManager();
+    jQuery('.preset').click (function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        jQuery('#loadPreset').modal('toggle');
+        $thisPreset = jQuery(this);
+        jQuery('#loadPresetAccept').click(function(e){
+            jQuery("#config_manager_load_filename").val($thisPreset.text());
+            loadSaveOperation();
+        });
+    });
+
+    jQuery('.removepreset').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        jQuery('#removePreset').modal('toggle');
+        $thisPreset = jQuery(this);
+        jQuery('#removePresetAccept').click(function(e){
+            jQuery("#config_manager_load_filename").val($thisPreset.parent().text());
+            deleteOperation();
+        });
+    })
+
+    if (tzclient.tzupdate && window.location.hostname != 'localhost') {
+        jQuery.post(tzclient.tzupdate, {option:'com_tz_membership', view:'checkversion', version:tzclient.version, pc:tzclient.name, s:tzclient.uri})
+            .done(function (data) {
+                if (compareVersion(tzclient.version, data)){
+                    jQuery('#tplUpdater').addClass('outdated').find('h3').text(PlazartAdmin.langs.updateHasNew);
+                    jQuery('#tplUpdater').find('p').html(PlazartAdmin.langs.updateHasNewMsg+'<strong>'+data+'</strong>.');
+                    jQuery('#tplUpdater').find('a').removeClass('disappear');
+                } else {
+                    jQuery('#tplUpdater').find('h3').text(PlazartAdmin.langs.updateLatestVersion);
+                }
+            });
+    }
+
+
 	// fonts forms
 	jQuery('.tzfont_form').each(function(i, el) {
 		el = jQuery(el);
@@ -257,5 +291,6 @@ jQuery(window).load(function(){
 		jQuery('#' + base_id + '_squirrel').blur(function() { base_el.attr('value', jQuery('#' + base_id + '_type').val() + ';' + jQuery('#' + base_id + '_squirrel').val());
 		});
 	});
+
 });
 

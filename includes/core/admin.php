@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
@@ -151,12 +151,17 @@ class PlazartAdmin {
 			$jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j30.css');
 		}
 
+        $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-layout.css');
+        $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/spectrum.css');
+
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.jquery.min.js');
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/includes/depend/js/depend.js');
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/json2.js');
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jimgload.js');
 		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/admin.js');
-		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/scripts.js');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery-ui.min.js ');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/layout.admin.js');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/spectrum.js');
 
         $token = JSession::getFormToken();
 		JFactory::getDocument()->addScriptDeclaration ( '
@@ -175,11 +180,14 @@ class PlazartAdmin {
 			PlazartAdmin.plazartupdateurl = \'' . JURI::base() . 'index.php?option=com_installer&view=update&task=update.ajax' . '\';
 			PlazartAdmin.jupdateUrl = \'' . JURI::base() . 'index.php?option=com_installer&view=update' . '\';
 
-			tzclient = new Object();
+			var tzclient = new Object();
 			tzclient.name = \''.$xml->name.'\';
 			tzclient.uri  = \''.base64_encode(JURI::root()).'\';
 			tzclient.version  = \''.$xml->version.'\';
 			tzclient.tzupdate   =   \''.$xml->tzupdate.'\';
+
+			var pluginPath = \''.PLAZART_ADMIN_URL.'\';
+                var fieldName = \'jform[params][generate]\';
 
             // function to load/save settings
                 function loadSaveOperation() {
@@ -252,9 +260,9 @@ class PlazartAdmin {
 			
 			//remove all fields from group 'params' and reload them again in right other base on template.xml
 			$form->removeGroup('params');
-			$form->loadFile(PLAZART_PATH . '/params/' . 'template.xml');
+            $form->loadFile(PLAZART_PATH . '/params/' . 'template.xml');
 			$form->loadFile(PLAZART_TEMPLATE_PATH . DIRECTORY_SEPARATOR . 'templateDetails.xml', true, '//config');
-			
+
 			$xml = JFactory::getXML($tplXml);
 			$fxml = JFactory::getXML($frwXml);
 

@@ -1,13 +1,23 @@
-/** 
+/**
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
+/**
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
  * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
  *                & Google group to become co-author)
- * @Google group: https://groups.google.com/forum/#!forum/plazartfw
- * @Link:         http://plazart-framework.org 
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org
  *------------------------------------------------------------------------------
  */
 
@@ -131,7 +141,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
 		},
 		
 		initChosen: function(){
-			$('#style-form').find('select').chosen({
+			$('#style-form').find('select:not(#plazart_layout_builder select)').chosen({
 				disable_search_threshold : 10,
 				allow_single_deselect : true
 			});
@@ -162,7 +172,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
 
 		hideDisabled: function(){
 			$('#style-form').find('[disabled="disabled"]').filter(function(){
-				return this.name.match(/^.*?\[params\]\[(.*?)\]/)
+                 if (typeof this.name != 'undefined')return this.name.match(/^.*?\[params\]\[(.*?)\]/)
 			}).closest('.control-group').hide();
 		},
 
@@ -363,6 +373,307 @@ var PlazartAdmin = window.PlazartAdmin || {};
 			PlazartAdmin.message = jmessage;
 		},
 
+        initLayoutBuilder: function () {
+            $('#plazart_layout_builder').parent().css('margin', '0');
+        },
+
+        initPreset: function () {
+            $('.preset').click (function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $('#loadPreset').modal('toggle');
+                $thisPreset = jQuery(this);
+                $('#loadPresetAccept').click(function(e){
+                    $("#config_manager_load_filename").val($thisPreset.text());
+                    loadSaveOperation();
+                });
+            });
+
+            $('.removepreset').click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $('#removePreset').modal('toggle');
+                $thisPreset = jQuery(this);
+                $('#removePresetAccept').click(function(e){
+                    $("#config_manager_load_filename").val($thisPreset.parent().text());
+                    deleteOperation();
+                });
+            });
+        },
+
+        initFontStyle: function () {
+            $('.tzfont_form').each(function(i, el) {
+                el = $(el);
+
+                var base_id = el.find('input.tzFormHide');
+                base_id = $(base_id).attr('id');
+
+                var base_el = $('#' + base_id);
+                if(base_el.val() == '') base_el.attr('value','standard;Arial, Helvetica, sans-serif');
+                var values = (base_el.val()).split(';');
+                // id of selectbox are different from input id
+                base_id = base_id.replace('jform_params_font_', 'jformparamsfont_');
+                $('#'+base_id + '_type').attr('value', values[0]);
+
+                if(values[0] == 'standard') {
+                    $('#' + base_id + '_normal').attr('value', values[1]);
+                    $('#' + base_id + '_google_own_link').fadeOut();
+                    $('#' + base_id + '_google_own_font').fadeOut();
+                    $('#' + base_id + '_google_own_link_label').fadeOut();
+                    $('#' + base_id + '_google_own_font_label').fadeOut();
+                    $('#' + base_id + '_edge_own_link').fadeOut();
+                    $('#' + base_id + '_edge_own_font').fadeOut();
+                    $('#' + base_id + '_edge_own_link_label').fadeOut();
+                    $('#' + base_id + '_edge_own_font_label').fadeOut();
+                    $('#' + base_id + '_squirrel_chzn').fadeOut();
+                } else if(values[0] == 'google') {
+
+                    $('#' + base_id + '_google_own_link').attr('value', values[2]);
+                    $('#' + base_id + '_google_own_font').attr('value', values[3]);
+                    $('#' + base_id + '_normal_chzn').fadeOut();
+                    $('#' + base_id + '_squirrel_chzn').fadeOut();
+                    $('#' + base_id + '_edge_own_link').fadeOut();
+                    $('#' + base_id + '_edge_own_font').fadeOut();
+                    $('#' + base_id + '_edge_own_link_label').fadeOut();
+                    $('#' + base_id + '_edge_own_font_label').fadeOut();
+                } else if(values[0] == 'squirrel') {
+                    $('#' + base_id + '_squirrel').attr('value', values[1]);
+                    $('#' + base_id + '_normal_chzn').fadeOut();
+                    $('#' + base_id + '_google_own_link').fadeOut();
+                    $('#' + base_id + '_google_own_font').fadeOut();
+                    $('#' + base_id + '_google_own_link_label').fadeOut();
+                    $('#' + base_id + '_google_own_font_label').fadeOut();
+                    $('#' + base_id + '_edge_own_link').fadeOut();
+                    $('#' + base_id + '_edge_own_font').fadeOut();
+                    $('#' + base_id + '_edge_own_link_label').fadeOut();
+                    $('#' + base_id + '_edge_own_font_label').fadeOut();
+                } else if(values[0] == 'edge') {
+                    $('#' + base_id + '_edge_own_link').attr('value', values[2]);
+                    $('#' + base_id + '_edge_own_font').attr('value', values[3]);
+                    $('#' + base_id + '_normal_chzn').fadeOut();
+                    $('#' + base_id + '_squirrel_chzn').fadeOut();
+                    $('#' + base_id + '_google_own_link').fadeOut();
+                    $('#' + base_id + '_google_own_font').fadeOut();
+                    $('#' + base_id + '_google_own_link_label').fadeOut();
+                    $('#' + base_id + '_google_own_font_label').fadeOut();
+                }
+
+                $('#' + base_id + '_type').change(function() {
+                    var values = (base_el.val()).split(';');
+
+                    if($('#' + base_id + '_type').val() == 'standard') {
+                        $('#' + base_id + '_normal_chzn').fadeIn();
+                        $('#' + base_id + '_normal').trigger('change');
+                        $('#' + base_id + '_google_own_link').fadeOut();
+                        $('#' + base_id + '_google_own_font').fadeOut();
+                        $('#' + base_id + '_google_own_link_label').fadeOut();
+                        $('#' + base_id + '_google_own_font_label').fadeOut();
+                        $('#' + base_id + '_edge_own_link').fadeOut();
+                        $('#' + base_id + '_edge_own_font').fadeOut();
+                        $('#' + base_id + '_edge_own_link_label').fadeOut();
+                        $('#' + base_id + '_edge_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel_chzn').fadeOut();
+                    } else if($('#' + base_id + '_type').val() == 'google') {
+
+                        $('#' + base_id + '_normal_chzn').fadeOut();
+                        $('#' + base_id + '_google_own_link').fadeIn();
+                        $('#' + base_id + '_google_own_font').fadeIn();
+                        $('#' + base_id + '_google_own_font').trigger('change');
+                        $('#' + base_id + '_google_own_link_label').fadeIn();
+                        $('#' + base_id + '_google_own_font_label').fadeIn();
+                        $('#' + base_id + '_edge_own_link').fadeOut();
+                        $('#' + base_id + '_edge_own_font').fadeOut();
+                        $('#' + base_id + '_edge_own_link_label').fadeOut();
+                        $('#' + base_id + '_edge_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel_chzn').fadeOut();
+                    } else if($('#' + base_id + '_type').val() == 'squirrel') {
+                        $('#' + base_id + '_normal_chzn').fadeOut();
+                        $('#' + base_id + '_google_own_link').fadeOut();
+                        $('#' + base_id + '_google_own_font').fadeOut();
+                        $('#' + base_id + '_google_own_link_label').fadeOut();
+                        $('#' + base_id + '_google_own_font_label').fadeOut();
+                        $('#' + base_id + '_edge_own_link').fadeOut();
+                        $('#' + base_id + '_edge_own_font').fadeOut();
+                        $('#' + base_id + '_edge_own_link_label').fadeOut();
+                        $('#' + base_id + '_edge_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel_chzn').fadeIn();
+                        $('#' + base_id + '_squirrel').trigger('change');
+                    } else if($('#' + base_id + '_type').val() == 'edge') {
+                        $('#' + base_id + '_normal_chzn').fadeOut();
+                        $('#' + base_id + '_edge_own_link').fadeIn();
+                        $('#' + base_id + '_edge_own_font').fadeIn();
+                        $('#' + base_id + '_edge_own_font').trigger('change');
+                        $('#' + base_id + '_edge_own_link_label').fadeIn();
+                        $('#' + base_id + '_edge_own_font_label').fadeIn();
+                        $('#' + base_id + '_google_own_link').fadeOut();
+                        $('#' + base_id + '_google_own_font').fadeOut();
+                        $('#' + base_id + '_google_own_link_label').fadeOut();
+                        $('#' + base_id + '_google_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel_chzn').fadeOut();
+                    }
+                });
+                $('#' + base_id + '_type').blur(function() {
+                    var values = (base_el.val()).split(';');
+
+                    if($('#' + base_id + '_type').val() == 'standard') {
+                        $('#' + base_id + '_normal').fadeIn();
+                        $('#' + base_id + '_normal').trigger('change');
+                        $('#' + base_id + '_google_own_link').fadeOut();
+                        $('#' + base_id + '_google_own_font').fadeOut();
+                        $('#' + base_id + '_google_own_link_label').fadeOut();
+                        $('#' + base_id + '_google_own_font_label').fadeOut();
+                        $('#' + base_id + '_edge_own_link').fadeOut();
+                        $('#' + base_id + '_edge_own_font').fadeOut();
+                        $('#' + base_id + '_edge_own_link_label').fadeOut();
+                        $('#' + base_id + '_edge_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel').css('display', 'none');
+                    } else if($('#' + base_id + '_type').val() == 'google') {
+                        $('#' + base_id + '_normal').fadeOut();
+                        $('#' + base_id + '_google_own_link').fadeIn();
+                        $('#' + base_id + '_google_own_font').fadeIn();
+                        $('#' + base_id + '_google_own_font').trigger('change');
+                        $('#' + base_id + '_google_own_link_label').fadeIn();
+                        $('#' + base_id + '_google_own_font_label').fadeIn();
+                        $('#' + base_id + '_edge_own_link').fadeOut();
+                        $('#' + base_id + '_edge_own_font').fadeOut();
+                        $('#' + base_id + '_edge_own_link_label').fadeOut();
+                        $('#' + base_id + '_edge_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel').css('display', 'none');
+                    } else if($('#' + base_id + '_type').val() == 'squirrel') {
+                        $('#' + base_id + '_normal').fadeOut();
+                        $('#' + base_id + '_google_own_link').fadeOut();
+                        $('#' + base_id + '_google_own_font').fadeOut();
+                        $('#' + base_id + '_google_own_link_label').fadeOut();
+                        $('#' + base_id + '_google_own_font_label').fadeOut();
+                        $('#' + base_id + '_edge_own_link').fadeOut();
+                        $('#' + base_id + '_edge_own_font').fadeOut();
+                        $('#' + base_id + '_edge_own_link_label').fadeOut();
+                        $('#' + base_id + '_edge_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel').fadeIn();
+                        $('#' + base_id + '_squirrel').trigger('change');
+                    } else if($('#' + base_id + '_type').val() == 'edge') {
+                        $('#' + base_id + '_normal').fadeOut();
+                        $('#' + base_id + '_edge_own_link').fadeIn();
+                        $('#' + base_id + '_edge_own_font').fadeIn();
+                        $('#' + base_id + '_edge_own_font').trigger('change');
+                        $('#' + base_id + '_edge_own_link_label').fadeIn();
+                        $('#' + base_id + '_edge_own_font_label').fadeIn();
+                        $('#' + base_id + '_google_own_link').fadeOut();
+                        $('#' + base_id + '_google_own_font').fadeOut();
+                        $('#' + base_id + '_google_own_link_label').fadeOut();
+                        $('#' + base_id + '_google_own_font_label').fadeOut();
+                        $('#' + base_id + '_squirrel').css('display', 'none');
+                    }
+                });
+
+                $('#' + base_id + '_normal').change(function() {
+                    base_el.attr('value', $('#' + base_id + '_type').val() + ';' + $('#' + base_id + '_normal').val());
+                });
+                $('#' + base_id + '_normal').blur(function()  {
+                    base_el.attr('value', $('#' + base_id + '_type').val() + ';' + $('#' + base_id + '_normal').val());
+                });
+
+                $('#' + base_id + '_google_own_link').keydown(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_google_own_link').val() + ';' +
+                            $('#' + base_id + '_google_own_font').val()
+                    );
+                });
+                $('#' + base_id + '_google_own_link').blur(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_google_own_link').val() + ';' +
+                            $('#' + base_id + '_google_own_font').val()
+                    );
+                });
+
+                $('#' + base_id + '_google_own_font').keydown(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_google_own_link').val() + ';' +
+                            $('#' + base_id + '_google_own_font').val()
+                    );
+                });
+                $('#' + base_id + '_google_own_font').blur(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_google_own_link').val() + ';' +
+                            $('#' + base_id + '_google_own_font').val()
+                    );
+                });
+
+
+                $('#' + base_id + '_edge_own_link').keydown(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_edge_own_link').val() + ';' +
+                            $('#' + base_id + '_edge_own_font').val()
+                    );
+                });
+                $('#' + base_id + '_edge_own_link').blur(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_edge_own_link').val() + ';' +
+                            $('#' + base_id + '_edge_own_font').val()
+                    );
+                });
+
+                $('#' + base_id + '_edge_own_font').keydown(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_edge_own_link').val() + ';' +
+                            $('#' + base_id + '_edge_own_font').val()
+                    );
+                });
+                $('#' + base_id + '_edge_own_font').blur(function() {
+                    base_el.attr(
+                        'value',
+                        $('#' + base_id + '_type').val() + ';' +
+                            'own;' +
+                            $('#' + base_id + '_edge_own_link').val() + ';' +
+                            $('#' + base_id + '_edge_own_font').val()
+                    );
+                });
+
+
+                $('#' + base_id + '_squirrel').change(function() {
+                    base_el.attr('value', $('#' + base_id + '_type').val() + ';' + $('#' + base_id + '_squirrel').val());
+                });
+                $('#' + base_id + '_squirrel').blur(function() { base_el.attr('value', $('#' + base_id + '_type').val() + ';' + $('#' + base_id + '_squirrel').val());
+                });
+            });
+        },
+
+        checkVersion: function () {
+            if (tzclient.tzupdate && window.location.hostname != 'localhost') {
+                $.post(tzclient.tzupdate, {option:'com_tz_membership', view:'checkversion', version:tzclient.version, pc:tzclient.name, s:tzclient.uri})
+                    .done(function (data) {
+                        if (compareVersion(tzclient.version, data)){
+                            $('#tplUpdater').addClass('outdated').find('h3').text(PlazartAdmin.langs.updateHasNew);
+                            $('#tplUpdater').find('p').html(PlazartAdmin.langs.updateHasNewMsg+'<strong>'+data+'</strong>.');
+                            $('#tplUpdater').find('a').removeClass('disappear');
+                        } else {
+                            $('#tplUpdater').find('h3').text(PlazartAdmin.langs.updateLatestVersion);
+                        }
+                    });
+            }
+        },
+
 		systemMessage: function(msg){
 			PlazartAdmin.message.show();
 			if(PlazartAdmin.message.find('li:first').length){
@@ -504,9 +815,16 @@ var PlazartAdmin = window.PlazartAdmin || {};
 		PlazartAdmin.initPreSubmit();
 		PlazartAdmin.hideDisabled();
 		PlazartAdmin.initChangeStyle();
-		//PlazartAdmin.initCheckupdate();
+        PlazartAdmin.initLayoutBuilder();
+//		PlazartAdmin.initCheckupdate();
 		PlazartAdmin.switchTab();
         PlazartAdmin.fixValidate();
 	});
+
+    $(window).load(function () {
+        PlazartAdmin.initPreset();
+        PlazartAdmin.initFontStyle();
+        PlazartAdmin.checkVersion();
+    });
 	
 }(jQuery);

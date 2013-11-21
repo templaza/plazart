@@ -19,6 +19,11 @@
 		</fieldset>
 
         <fieldset name="layout_params">
+            <field name="layoutbuilder_group_default" type="plazartdepend" function="@group">
+                <option for="layout_enable" value="1">
+                    generate,hide_component_area
+                </option>
+            </field>
             <field name="layout" type="plazartfilelist" default=""
                    label="TZ_THEME_LAYOUT_LABEL"
                    description="TZ_THEME_LAYOUT_DESC"
@@ -26,6 +31,20 @@
                    directory="layouts"
                    stripext="true"
                    hide_none="true" hide_default="true" />
+            <field name="layout_enable" type="radio" class="btn-group" default="0"
+                   label="PLAZART_LAYOUT_ENABLE_LABEL"
+                   description="PLAZART_LAYOUT_ENABLE_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="hide_component_area" type="radio" class="btn-group" default="0"
+                   label="PLAZART_HIDE_COMPONENT_AREA_LABEL"
+                   description="PLAZART_HIDE_COMPONENT_AREA_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="generate" type="hidden" value="" />
+
         </fieldset>
 
 		<fieldset name="navigation_params" label="PLAZART_NAVIGATION_LABEL" description="PLAZART_NAVIGATION_DESC">
@@ -46,6 +65,14 @@
 					func="PlazartAdminMegamenu.plazartmegamenu">
 				</option>
 			</field>
+
+            <field name="access_ajax_default" type="plazartdepend" function="@ajax">
+                <option
+                        for="mm_access"
+                        query="plazartaction=megamenu&amp;plazarttask=display"
+                        func="PlazartAdminMegamenu.plazartmegamenu">
+                </option>
+            </field>
 
 			<field name="navigation_trigger" type="list" default="hover"
 				global="1"
@@ -88,10 +115,16 @@
                 <option value="zoom">Zoom</option>
                 <option value="elastic">Elastic</option>
             </field>
+
             <field name="navigation_animation_duration" type="text" default="400"
                    global="1"
                    label="PLAZART_NAVIGATION_ANIMATION_DURATION_LABEL"
                    description="PLAZART_NAVIGATION_ANIMATION_DURATION_DESC" />
+
+            <field name="mm_access" type="accesslevel"
+                   label="JFIELD_ACCESS_LABEL"
+                   description="JFIELD_ACCESS_DESC"
+                   class="span12 small" />
 
 			<field name="mm_type" type="plazartmenu" default="mainmenu"
 				label="PLAZART_NAVIGATION_MM_TYPE_LABEL"

@@ -255,3 +255,21 @@ div#menu-assignment ul.menu-links {
 .modal-footer .btn-group .btn + .btn {
   margin-left: -1px;
 }
+div.modal {
+    position: fixed;
+}
+
+div.modal.fade.in {
+    z-index: 9999;
+}
+
+div.modal-body {
+    background: #F5F5F5;
+}
+
+div.modal-header {
+    background: #F5F5F5;
+}
+
+
+

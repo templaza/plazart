@@ -1,14 +1,24 @@
 <?php
-/** 
+/**
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
+/**
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
  * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
  *                & Google group to become co-author)
- * @Google group: https://groups.google.com/forum/#!forum/plazartfw
- * @Link:         http://plazart-framework.org 
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org
  *------------------------------------------------------------------------------
  */
 
@@ -71,8 +81,8 @@ for ($i=0; $i<count($xml_position); $i++ ) {
             <li>
               <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_POSITIONS'), '::', JTexT::_('PLAZART_NAVIGATION_MM_POSITIONS_DESC') ?>"><?php echo JTexT::_('PLAZART_NAVIGATION_MM_POSITIONS') ?></label>
               <fieldset class="btn-group">
-                <a href="" class="btn toolitem-moveleft toolbox-action" data-action="moveItemsLeft" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_MOVE_LEFT') ?>"><i class="icon-arrow-left"></i></a>
-                <a href="" class="btn toolitem-moveright toolbox-action" data-action="moveItemsRight" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_MOVE_RIGHT') ?>"><i class="icon-arrow-right"></i></a>
+                <a href="" class="btn toolitem-moveleft toolbox-action" data-action="moveItemsLeft" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_MOVE_LEFT') ?>"><i class="fa fa-arrow-left"></i></a>
+                <a href="" class="btn toolitem-moveright toolbox-action" data-action="moveItemsRight" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_MOVE_RIGHT') ?>"><i class="fa fa-arrow-right"></i></a>
               </fieldset>
             </li>
           </ul>
@@ -87,7 +97,7 @@ for ($i=0; $i<count($xml_position); $i++ ) {
           <ul>
             <li>
               <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ICON'), '::', JTexT::_('PLAZART_NAVIGATION_MM_ICON_DESC') ?>">
-                <a href="http://twitter.github.com/bootstrap/base-css.html#icons" target="_blank"><i class="icon-search"></i><?php echo JTexT::_('PLAZART_NAVIGATION_MM_ICON') ?></a>
+                <a href="http://twitter.github.com/bootstrap/base-css.html#icons" target="_blank"><i class="fa fa-search"></i><?php echo JTexT::_('PLAZART_NAVIGATION_MM_ICON') ?></a>
               </label>
               <fieldset class="">
                 <input type="text" class="input-medium toolitem-xicon toolbox-input" name="toolitem-xicon" data-name="xicon" value="" />
@@ -120,7 +130,7 @@ for ($i=0; $i<count($xml_position); $i++ ) {
             <li>
               <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_SUBMNEU_GRID'), '::', JTexT::_('PLAZART_NAVIGATION_MM_SUBMNEU_GRID_DESC') ?>"><?php echo JTexT::_('PLAZART_NAVIGATION_MM_SUBMNEU_GRID') ?></label>
               <fieldset class="btn-group">
-                <a href="" class="btn toolsub-addrow toolbox-action" data-action="addRow"><i class="icon-plus"></i></a>
+                <a href="" class="btn toolsub-addrow toolbox-action" data-action="addRow"><i class="fa fa-plus"></i></a>
               </fieldset>
             </li>
           </ul>
@@ -148,10 +158,10 @@ for ($i=0; $i<count($xml_position); $i++ ) {
               <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN'), '::', JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_DESC') ?>"><?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN') ?></label>
               <fieldset class="toolsub-alignment">
                 <div class="btn-group">
-                <a class="btn toolsub-align-left toolbox-action" href="#" data-action="alignment" data-align="left" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_LEFT') ?>"><i class="icon-align-left"></i></a>
-                <a class="btn toolsub-align-right toolbox-action" href="#" data-action="alignment" data-align="right" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_RIGHT') ?>"><i class="icon-align-right"></i></a>
-                <a class="btn toolsub-align-center toolbox-action" href="#" data-action="alignment" data-align="center" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_CENTER') ?>"><i class="icon-align-center"></i></a>
-                <a class="btn toolsub-align-justify toolbox-action" href="#" data-action="alignment" data-align="justify" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_JUSTIFY') ?>"><i class="icon-align-justify"></i></a>
+                <a class="btn toolsub-align-left toolbox-action" href="#" data-action="alignment" data-align="left" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_LEFT') ?>"><i class="fa fa-align-left"></i></a>
+                <a class="btn toolsub-align-right toolbox-action" href="#" data-action="alignment" data-align="right" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_RIGHT') ?>"><i class="fa fa-align-right"></i></a>
+                <a class="btn toolsub-align-center toolbox-action" href="#" data-action="alignment" data-align="center" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_CENTER') ?>"><i class="fa fa-align-center"></i></a>
+                <a class="btn toolsub-align-justify toolbox-action" href="#" data-action="alignment" data-align="justify" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ALIGN_JUSTIFY') ?>"><i class="fa fa-align-justify"></i></a>
                 </div>
               </fieldset>
             </li>
@@ -172,8 +182,8 @@ for ($i=0; $i<count($xml_position); $i++ ) {
             <li>
               <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ADD_REMOVE_COLUMN'), '::', JTexT::_('PLAZART_NAVIGATION_MM_ADD_REMOVE_COLUMN_DESC') ?>"><?php echo JTexT::_('PLAZART_NAVIGATION_MM_ADD_REMOVE_COLUMN') ?></label>
               <fieldset class="btn-group">
-                <a href="" class="btn toolcol-addcol toolbox-action" data-action="addColumn"><i class="icon-plus"></i></a>
-                <a href="" class="btn toolcol-removecol toolbox-action" data-action="removeColumn"><i class="icon-minus"></i></a>
+                <a href="" class="btn toolcol-addcol toolbox-action" data-action="addColumn"><i class="fa fa-plus"></i></a>
+                <a href="" class="btn toolcol-removecol toolbox-action" data-action="removeColumn"><i class="fa fa-minus"></i></a>
               </fieldset>
             </li>
           </ul>

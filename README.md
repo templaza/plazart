@@ -2,6 +2,13 @@
 
 *** Changelog ***
 
+11/21/13 - 2.0
+
+	[feature] Layout Builder 
+	[feature] Update Font Awesome 4.0.3
+	[bug] Fix access view in megamenu
+	[feature] Improve interface
+
 11/10/13 - 1.5
 
 	[feature] Preset feature

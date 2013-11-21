@@ -33,7 +33,7 @@ class PlazartAdminMegamenu {
 //		$mmconfig['editmode'] = true;
         //accessLevel
         $accessLevel = array();
-        $plazartacl       = (int) $input->get('plazartacl', 1);
+        $plazartacl       = (int) $input->get('plazartacl', 6);
         for ($i = 1; $i <= $plazartacl; $i++) {
             $accessLevel[] = $i;
         }

@@ -21,6 +21,8 @@ JHtml::_('behavior.keepalive');
 $user = JFactory::getUser();
 $canDo = TemplatesHelper::getActions();
 $iswritable = is_writable('plazarttest.txt');
+$fieldSets = $form->getFieldsets('params');
+
 ?>
 <?php if($iswritable): ?>
 <div id="plazart-admin-writable-message" class="alert warning">
@@ -92,7 +94,6 @@ $iswritable = is_writable('plazarttest.txt');
 			<ul class="nav nav-tabs">
 				<li<?php echo $plazartlock == 'overview_params' ? ' class="active"' : ''?>><a href="#overview_params" data-toggle="tab"><?php echo JText::_('PLAZART_OVERVIEW_LABEL');?></a></li>
 				<?php
-				$fieldSets = $form->getFieldsets('params');
 				foreach ($fieldSets as $name => $fieldSet) :
 					$label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_TEMPLATES_'.$name.'_FIELDSET_LABEL';
 				?>
@@ -119,6 +120,7 @@ $iswritable = is_writable('plazarttest.txt');
 				?>
 			</div>
 			<?php
+
 			foreach ($fieldSets as $name => $fieldSet) :
 				
 				?>
@@ -143,6 +145,9 @@ $iswritable = is_writable('plazarttest.txt');
 						<div class="control-label plazart-control-label">
 							<?php echo $field->label; ?>
 						</div>
+                        <?php
+                            //if ($field->type == 'PlazartLayout') {var_dump($field->input); die(); }
+                        ?>
 						<div class="controls plazart-controls">
 							<?php echo $field->type=='Text'?$textinput:$field->input ?>
 						</div>

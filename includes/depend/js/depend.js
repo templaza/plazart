@@ -169,7 +169,6 @@
 
 		addajax: function(name, info){
 			var ajaxs = this.ajaxs;
-				
 			info = $.extend({
 				url: info.site == 'admin' ? PlazartDepend.adminurl : PlazartDepend.rooturl,
 				func: ''
@@ -237,7 +236,7 @@
 
 			ctrl.indicator.show();
 //			$.get(info.url, { jvalue: form.valuesFrom(form.elmsFrom(name))[0], _: $.now() }, function(rsp){
-			$.get(info.url, { jvalue: form.valuesFrom(form.elmsFrom(name))[0], plazartlang:$('#jform_params_mm_type :selected').attr('data-language') || '*', _: $.now() }, function(rsp){
+			$.get(info.url, { jvalue: $('#jform_params_mm_type :selected').attr('value') || form.valuesFrom(form.elmsFrom(name))[0], plazartlang:$('#jform_params_mm_type :selected').attr('data-language') || '*', plazartacl:$('#jform_params_mm_access :selected').attr('value') || '1', _: $.now() }, function(rsp){
 				ctrl.indicator.hide();
 
 				var parts = ctrl.info.func.split('.'),

@@ -15,9 +15,9 @@
 class PlazartMenuMegamenuTpl {
 	static function beginmenu ($vars) {
 		$menu = $vars['menu'];
+
 		$animation = $menu->getParam ('navigation_animation', '');
 		$animation_duration = $menu->getParam ('navigation_animation_duration', 0);
-
 		$cls = ' class="plazart-megamenu'.($animation ? ' animate '.$animation : '').'"';
 		$data = $animation && $animation_duration ? ' data-duration="'.$animation_duration.'"' : '';
 		return "<div$cls$data>";

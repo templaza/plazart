@@ -122,7 +122,7 @@ $fxml->name = ucwords(str_replace('_', ' ', $fxml->name));
           <h3><?php echo JText::sprintf($fhasnew ? 'PLAZART_OVERVIEW_FRMWRK_NEW' : 'PLAZART_OVERVIEW_FRMWRK_SAME', $fxml->name)?></h3>
           <p><?php echo $fhasnew ? JText::sprintf('PLAZART_OVERVIEW_FRMWRK_NEW_MSG', $cfversion, $fxml->name, $nfversion) : JText::sprintf('PLAZART_OVERVIEW_FRMWRK_SAME_MSG', $cfversion) ?></p>
           <?php if($hasperm): ?>
-          <a class="btn" href="<?php JURI::base() ?>index.php?option=com_installer&view=update" class="plazartcheck-framework" title="<?php echo JText::_( $fhasnew ? 'PLAZART_OVERVIEW_GO_DOWNLOAD' : 'PLAZART_OVERVIEW_CHECK_UPDATE') ?>"><?php echo JText::_( $fhasnew ? 'PLAZART_OVERVIEW_GO_DOWNLOAD' : 'PLAZART_OVERVIEW_CHECK_UPDATE') ?></a>
+          <a class="btn" href="http://www.plazart.com/" class="plazartcheck-framework" title="<?php echo JText::_( $fhasnew ? 'PLAZART_OVERVIEW_GO_DOWNLOAD' : 'PLAZART_OVERVIEW_CHECK_UPDATE') ?>"><?php echo JText::_( $fhasnew ? 'PLAZART_OVERVIEW_GO_DOWNLOAD' : 'PLAZART_OVERVIEW_CHECK_UPDATE') ?></a>
           <?php endif; ?>
         </div>
       </div>

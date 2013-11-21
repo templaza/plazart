@@ -1,13 +1,23 @@
-/** 
+/**
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
+/**
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
  * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
  *                & Google group to become co-author)
- * @Google group: https://groups.google.com/forum/#!forum/plazartfw
- * @Link:         http://plazart-framework.org 
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org
  *------------------------------------------------------------------------------
  */
 
@@ -765,6 +775,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		initPreSubmit: function(){
 
 			var form = document.adminForm;
+
 			if(!form){
 				return false;
 			}
@@ -832,7 +843,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 
 	$(document).ready(function(){
 		PlazartAdminMegamenu.initPanel();
-		PlazartAdminMegamenu.initPreSubmit();
+//		PlazartAdminMegamenu.initPreSubmit();
 		PlazartAdminMegamenu.initRadioGroup();
 	});
 

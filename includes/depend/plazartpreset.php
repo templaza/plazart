@@ -51,7 +51,7 @@ class JFormFieldPlazartPreset extends JFormField
         $html = '';
         for ($i = 0; $i < count($profiles); $i++) {
             $active =   ($this->value == $profiles[$i]) ? ' active' : '';
-            $html.= '<div class="preset'.$active.'" data-toggle="modal" data-target="#loadPreset"><label>' . $profiles[$i] . '</label><i class="icon-remove removepreset" title="Remove this Preset?" data-toggle="modal" data-target="#removePreset"></i></div>';
+            $html.= '<div class="preset'.$active.'" data-toggle="modal" data-target="#loadPreset"><label>' . $profiles[$i] . '</label><i class="fa fa-times removepreset" title="Remove this Preset?" data-toggle="modal" data-target="#removePreset"></i></div>';
         }
         $html.= '<input type="hidden" name="'.$this->name.'" id="config_manager_load_filename" value="'.$this->value.'" />';
         $html.= '<!-- Load Preset Modal -->

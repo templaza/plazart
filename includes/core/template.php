@@ -850,7 +850,7 @@ class PlazartTemplate extends ObjectExtendable
                 // hide component area
                 if( $v->type=='component' and  self::getInstance()->hideComponentArea()) continue;
 
-                if( $v->type=='component' or $v->type=='message' ) return true;
+                if( $v->type=='component' or $v->type=='message' or $v->type == 'megamenu' ) return true;
 
                 if( $v->position!='' ){
                     if( self::getInstance()->countModules( $v->position )  ) return true;
@@ -1038,7 +1038,7 @@ class PlazartTemplate extends ObjectExtendable
                     }
 
                     // if include type message or compoennt, this span will get all absance spans
-                    if($v->type=='message' or  ($v->type=='component' and !$this->hideComponentArea() ))
+                    if($v->type=='message' or $v->type == 'megamenu' or  ($v->type=='component' and !$this->hideComponentArea() ))
                     {
                         $totalItem = $i;
                     }
@@ -1140,16 +1140,11 @@ class PlazartTemplate extends ObjectExtendable
      *
      */
     private function get_layout(){
-
-        $layoutIntheme = PLAZART_TEMPLATE_PATH.'/generate/'.self::getInstance()->themeName().'.json';
         $layoutInplugin = PLAZART_ADMIN_PATH.'/base/generate/default.json';
         $layout = $this->getParam('generate');
         if( empty($layout) )
         {
-            if( file_exists($layoutIntheme) ){
-                $layout =  json_decode( file_get_contents($layoutIntheme));
-            } elseif( file_exists($layoutInplugin) ) {
-
+            if( file_exists($layoutInplugin) ) {
                 $layout =  json_decode(file_get_contents($layoutInplugin));
             } else {
                 die('Cann\'t found '.self::getInstance()->themeName().'.json'.

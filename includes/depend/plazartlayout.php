@@ -23,20 +23,10 @@ class JFormFieldPlazartLayout extends JFormField
 
     protected function getInput()
     {
-//            $doc = JFactory::getDocument();
-
-//            $plg_path = JURI::root(true).'/plugins/system/plazart';
-//            $doc->addScriptDeclaration("
-//                var pluginPath = '{$plg_path}';
-//                var fieldName = 'jform[params][".$this->element['name']."]';
-//            ");
-
         $template = $this->form->getValue('template');
 
-        $theme_layout_path = JPATH_SITE . '/templates/' . $template . '/generate/';
         $theme_path = JPATH_SITE . '/templates/' . $template . '/';
         $plazart_layout_path = JPATH_SITE . '/plugins/system/plazart/base/generate/';
-        $layout = (string)$this->element['default'];
 
         $layoutsettings = $this->value;
 
@@ -45,31 +35,17 @@ class JFormFieldPlazartLayout extends JFormField
             include_once($theme_path . 'html/modules.php');
         }
 
-        if (!empty($layoutsettings)) {
-            file_put_contents($theme_layout_path . $template . '.json', json_encode($layoutsettings));
-        }
-
         $positions = $this->getPositions();
         $data   =   '<input type="hidden" name='.$this->name.' />';
 
         if (is_array($layoutsettings)) {
             $data .= $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
             return $data;
-
         } else {
-
-            if (file_exists($theme_layout_path . $template . '.json')) {
-                $layoutsettings = json_decode(file_get_contents($theme_layout_path . $template . '.json'));
-                $data .= $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
-                return $data;
-
-            }
-
             $layoutsettings = json_decode(file_get_contents($plazart_layout_path . 'default.json'));
             $data   .=   $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
             return $data;
         }
-
     }
 
 

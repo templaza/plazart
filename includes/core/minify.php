@@ -186,6 +186,7 @@ class PlazartMinify
 		//======================= Group css ================= //
 
 		$output = array();
+
 		foreach ($cssgroups as $cssgroup) {
 			if(isset($cssgroup['ignore'])){
 				unset($cssgroup['ignore']);
@@ -193,7 +194,6 @@ class PlazartMinify
 					$output[$furl] = $fsheet;
 				}
 			} else {
-
 				$groupname = 'css-' . substr(md5($cssgroup['groupname']), 0, 5) . '.css';
 				$groupfile = $outputpath . '/' . $groupname;
 				$grouptime = JFile::exists($groupfile) ? @filemtime($groupfile) : -1;
@@ -207,7 +207,6 @@ class PlazartMinify
 				}
 
 				if($rebuild){
-
 					$cssdata = array();
 					foreach ($cssgroup as $furl => $fsheet) {
 						$cssdata[] = "\n\n/*===============================";
@@ -215,8 +214,8 @@ class PlazartMinify
 						$cssdata[] = "================================================================================*/";
 						
 						$cssmin = Minify_CSS_Compressor::process($fsheet['data']);
-						$cssmin = PlazartPath::updateUrl($cssmin, PlazartPath::relativePath($outputurl, dirname($furl)));
 
+						$cssmin = PlazartPath::updateUrl($cssmin, PlazartPath::relativePath($outputurl, dirname($furl)));
 						$cssdata[] = $cssmin;
 					}
 

@@ -119,6 +119,7 @@ class PlazartPath extends JObject
 	}
 
 	public static function replaceurl ($matches) {
+
 		$isImport = ($matches[0][0] === '@');
         // determine URI and the quote character (if any)
         if ($isImport) {
@@ -136,7 +137,8 @@ class PlazartPath extends JObject
 
 		// root-relative       protocol (non-data)             data protocol
 		if ($uri[0] !== '/' && strpos($uri, '://') === false && strpos($uri, 'data:') !==  0){
-        	$uri = self::cleanPath (self::$srcurl.'/'.$uri);
+//        	$uri = self::cleanPath (self::$srcurl.'/'.$uri);
+        	$uri = self::$srcurl.'/'.$uri;
 		}
 
         return $isImport

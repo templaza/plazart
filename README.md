@@ -2,6 +2,11 @@
 
 *** Changelog ***
 
+02/17/14 - 2.2
+
+	[bug] Fix error with direction
+	[bug] Fix error blank screen with Joomla 3.2.2
+
 11/21/13 - 2.0
 
 	[feature] Layout Builder 

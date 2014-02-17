@@ -517,7 +517,8 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
                 $('.toolitem-exclass').attr('value', liitem.data ('class') || '');
 				$('.toolitem-xicon').attr('value', liitem.data ('xicon') || '');
                 $('.toolitem-caption').attr('value', liitem.data ('caption') || '');
-                $('.toolitem-direction').val (liitem.data ('directionx') || '').trigger("liszt:updated");
+                $('.toolitem-directionx').val (liitem.data ('directionx') || '').trigger("liszt:updated");
+
 				// toggle Submenu
 				var toggle = $('.toolitem-sub');
 				toggle.find('label').removeClass('active btn-success btn-danger btn-primary');

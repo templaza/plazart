@@ -19,7 +19,7 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 $user = JFactory::getUser();
-$canDo = TemplatesHelper::getActions();
+$canDo = version_compare( JVERSION, '3.2.2', 'ge' ) ? JHelperContent::getActions('com_templates') : TemplatesHelper::getActions();
 $iswritable = is_writable('plazarttest.txt');
 $fieldSets = $form->getFieldsets('params');
 

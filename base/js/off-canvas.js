@@ -22,107 +22,108 @@
  */
 
 !function($){
-	
-	$(document).ready(function(){
-		
-		//inherit from bootstrap (http://www.modernizr.com/)
-		if ($.support.transition) {
 
-			var $btn = $('.btn-navbar'),
-				$nav = null,
-				$fixeditems = null;
+    $(document).ready(function(){
 
-			if (!$btn.length){
-				return;
-			}
+        //inherit from bootstrap (http://www.modernizr.com/)
+        if ($.support.transition) {
 
-			//mark that we have off-canvas menu
-			$(document.documentElement).addClass('off-canvas-ready');
+            var $btn = $('.btn-navbar'),
+                $nav = null,
+                $fixeditems = null;
 
-			$nav = $('<div class="plazart-mainnav" />').appendTo($('<div id="off-canvas-nav"></div>').appendTo(document.body));
-			$($btn.data('target')).clone().appendTo($nav);
-			
-			$btn.click (function(e){
-				if ($(this).data('off-canvas') == 'show') {
-					hideNav();
-				} else {
-					showNav();
-				}
+            if (!$btn.length){
+                return;
+            }
 
-				return false;
-			});
+            //mark that we have off-canvas menu
+            $(document.documentElement).addClass('off-canvas-ready');
 
-			var posNav = function () {
-				var t = $(window).scrollTop();
-				if (t < $nav.position().top) $nav.css('top', t);
-			},
+            $nav = $('<div class="plazart-mainnav" />').appendTo($('<div id="off-canvas-nav"></div>').appendTo(document.body));
+            $($btn.data('target')).clone().appendTo($nav);
 
-			bdHideNav = function (e) {
-				e.preventDefault();
-				hideNav();
-				return false;
-			},
+            $btn.click (function(e){
+                if ($(this).data('off-canvas') == 'show') {
+                    hideNav();
+                } else {
+                    showNav();
+                }
 
-			showNav = function () {
-				$('html').addClass ('off-canvas');
+                return false;
+            });
 
-				$nav.css('top', $(window).scrollTop());
-				wpfix(1);
-				
-				setTimeout (function(){
-					$btn.data('off-canvas', 'show');
-					$('html').addClass ('off-canvas-enabled');
-					$(window).bind('scroll touchmove', posNav);
+            var posNav = function () {
+                    var t = $(window).scrollTop();
+                    if (t < $nav.position().top) $nav.css('top', t);
+                },
 
-					// hide when click on off-canvas-nav
-					$('#off-canvas-nav').bind ('click', function (e) {
-						e.stopPropagation();
-					});
-					
-					$('#off-canvas-nav a').bind ('click', hideNav);
-					$('body').bind ('click', bdHideNav);
-				}, 50);
+                bdHideNav = function (e) {
+                    e.preventDefault();
+                    hideNav();
+                    return false;
+                },
 
-				setTimeout (function(){
-					wpfix(2);
-				}, 1000);
-			},
+                showNav = function () {
+                    $('html').addClass ('off-canvas');
 
-			hideNav = function () {
-				$(window).unbind('scroll touchmove', posNav);
-				$('#off-canvas-nav').unbind ('click');
-				$('#off-canvas-nav a').unbind ('click', hideNav);
-				$('body').unbind ('click', bdHideNav);
-				
-				$('html').removeClass ('off-canvas-enabled');
-				$btn.data('off-canvas', 'hide');
+                    $nav.css('top', $(window).scrollTop());
+                    wpfix(1);
 
-				setTimeout (function(){
-					$('html').removeClass ('off-canvas');
-				}, 600);
-			},
+                    setTimeout (function(){
+                        $btn.data('off-canvas', 'show');
+                        $('html').addClass ('off-canvas-enabled');
+                        $(window).bind('scroll touchmove', posNav);
 
-			wpfix = function (step) {
-				// check if need fixed
-				if ($fixeditems == -1){
-					return;// no need to fix
-				}
+                        // hide when click on off-canvas-nav
+                        $('#off-canvas-nav').bind ('click', function (e) {
+                            e.stopPropagation();
+                            hideNav();
+                        });
 
-				if (!$fixeditems) {
-					$fixeditems = $('body').children().filter(function(){ return $(this).css('position') === 'fixed' });
-					if (!$fixeditems.length) {
-						$fixeditems = -1;
-						return;
-					}
-				}
+                        $('#off-canvas-nav a').bind ('click', hideNav);
+                        $('body').bind ('click', bdHideNav);
+                    }, 50);
 
-				if (step==1) {
-					$fixeditems.css({'position': 'absolute', 'top': $(window).scrollTop() + 'px'});
-				} else {
-					$fixeditems.css({'position': '', 'top': ''});
-				}
-			};
-		}
-	})
+                    setTimeout (function(){
+                        wpfix(2);
+                    }, 1000);
+                },
+
+                hideNav = function () {
+                    $(window).unbind('scroll touchmove', posNav);
+                    $('#off-canvas-nav').unbind ('click');
+                    $('#off-canvas-nav a').unbind ('click', hideNav);
+                    $('body').unbind ('click', bdHideNav);
+
+                    $('html').removeClass ('off-canvas-enabled');
+                    $btn.data('off-canvas', 'hide');
+
+                    setTimeout (function(){
+                        $('html').removeClass ('off-canvas');
+                    }, 600);
+                },
+
+                wpfix = function (step) {
+                    // check if need fixed
+                    if ($fixeditems == -1){
+                        return;// no need to fix
+                    }
+
+                    if (!$fixeditems) {
+                        $fixeditems = $('body').children().filter(function(){ return $(this).css('position') === 'fixed' });
+                        if (!$fixeditems.length) {
+                            $fixeditems = -1;
+                            return;
+                        }
+                    }
+
+                    if (step==1) {
+                        $fixeditems.css({'position': 'absolute', 'top': $(window).scrollTop() + 'px'});
+                    } else {
+                        $fixeditems.css({'position': '', 'top': ''});
+                    }
+                };
+        }
+    })
 
 }(jQuery);

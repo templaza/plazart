@@ -118,7 +118,7 @@ for ($i=0; $i<count($xml_position); $i++ ) {
                 <li>
                     <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_DIRECTION'), '::', JTexT::_('PLAZART_NAVIGATION_MM_DIRECTION_DESC') ?>"><?php echo JTexT::_('PLAZART_NAVIGATION_MM_DIRECTION') ?></label>
                     <fieldset class="">
-                        <?php echo JHtmlSelect::genericlist($arr_pos, 'toolitem-direction', ' class="input-medium toolitem-direction toolbox-input" data-name="directionx" '); ?>
+                        <?php echo JHtmlSelect::genericlist($arr_pos, 'toolitem-directionx', ' class="input-medium toolitem-directionx toolbox-input" data-name="directionx" '); ?>
                     </fieldset>
                 </li>
             </ul>

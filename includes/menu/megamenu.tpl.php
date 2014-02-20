@@ -127,6 +127,7 @@ class PlazartMenuMegamenuTpl {
 		if (isset($setting['hidesub'])) $data .= " data-hidesub=\"1\"";
 		if (isset($setting['xicon'])) $data .= " data-xicon=\"{$setting['xicon']}\"";
 		if (isset($setting['caption'])) $data .= " data-caption=\"".htmlspecialchars($setting['caption'])."\"";
+        if (isset($setting['directionx'])) $data .= " data-directionx=\"".$setting['directionx']."\"";
 		if (isset($setting['hidewcol'])) {
 			$data .= " data-hidewcol=\"1\"";
 			$cls .= " sub-hidden-collapse";

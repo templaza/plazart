@@ -21,7 +21,9 @@ class TZRules {
 
     public static function parseIt()
     {
-        jimport('joomla.environment.response');
+        if(!version_compare(JVERSION,'3.2','>=')){
+            jimport('joomla.environment.response');
+        }
         self::$body = JResponse::getBody();
         // if the custom rules are defined
         if(count(self::$rules)) {

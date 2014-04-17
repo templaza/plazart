@@ -8,6 +8,13 @@ Plazart licensed under GNU/GPL https://www.gnu.org/copyleft/gpl.html
 
 *** Credits ***
 
+Bootstrap http://getbootstrap.com/
+
+	Responsive Layout
+	CSS Default
+	Icons
+	Javascripts
+
 T3 Framework http://t3-framework.org/
 	
 	MegaMenu
@@ -16,6 +23,10 @@ T3 Framework http://t3-framework.org/
 Helix Framework http://www.joomshaper.com/helix
 
 	Layout Builder
+	
+FontAwesome http://fortawesome.github.io/Font-Awesome/
+
+	Icons
 
 *** Changelog ***
 

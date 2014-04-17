@@ -1,5 +1,22 @@
 # Plazart - Joomla 2.5 and Joomla 3.x
 
+Our Plazart framework is a flexible Template Framework for Joomla. It was created based on T3 Framework and is available for Joomla 2.5 & Joomla 3. For the ease of upgrades the framework is in the plugin format and is installed separately.
+
+*** License ***
+
+Plazart licensed under GNU/GPL https://www.gnu.org/copyleft/gpl.html
+
+*** Credits ***
+
+T3 Framework http://t3-framework.org/
+	
+	MegaMenu
+	CSS Compile
+	
+Helix Framework http://www.joomshaper.com/helix
+
+	Layout Builder
+
 *** Changelog ***
 
 02/17/14 - 2.2

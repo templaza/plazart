@@ -30,6 +30,11 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+05/08/14 - 3.0
+
+	[feature] Bootstrap 3 is compatible
+	[feature] Improve Layout Builder	
+
 02/17/14 - 2.2
 
 	[bug] Fix error with direction

@@ -38,6 +38,7 @@ class PlazartTemplate extends ObjectExtendable
      * Define constants
      *
      */
+    protected static $nextdevice = array( 'lg' => 'md', 'md' => 'sm', 'sm' => 'xs' );
     protected static $maxcol = array( 'default' => 6, 'wide' => 6, 'normal' => 6, 'xtablet' => 4, 'tablet' => 3, 'mobile' => 2 );
     protected static $minspan = array( 'default' => 2, 'wide' => 2, 'normal' => 2, 'xtablet' => 3, 'tablet' => 4, 'mobile' => 6 );
     protected static $maxgrid = 12;
@@ -464,8 +465,8 @@ class PlazartTemplate extends ObjectExtendable
      */
     function addHead () {
         // BOOTSTRAP CSS
-        $this->addCss ('bootstrap', false);
-        $this->addCss ('bootstrap-responsive');
+        $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/legacy.css'));
+        $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/bootstrap.min.css'));
         // TEMPLATE CSS
         $this->addCss ('template', false);
 
@@ -503,7 +504,7 @@ class PlazartTemplate extends ObjectExtendable
         define('JQUERY_INCLUDED', 1);
 
         // As joomla 3.0 bootstrap is buggy, we will not use it
-        $this->addScript (PLAZART_URL.'/bootstrap/js/bootstrap.js');
+        $this->addScript (PlazartPath::getUrl('bootstrap/js/bootstrap.min.js'));
 
         // add css/js for off-canvas
         if ($this->getParam('navigation_collapse_offcanvas', 1)) {
@@ -850,7 +851,7 @@ class PlazartTemplate extends ObjectExtendable
                 // hide component area
                 if( $v->type=='component' and  self::getInstance()->hideComponentArea()) continue;
 
-                if( $v->type=='component' or $v->type=='message' or $v->type == 'megamenu' ) return true;
+                if( $v->type=='component' or $v->type=='message' or $v->type == 'megamenu' or $v->type == 'logo') return true;
 
                 if( $v->position!='' ){
                     if( self::getInstance()->countModules( $v->position )  ) return true;
@@ -915,6 +916,28 @@ class PlazartTemplate extends ObjectExtendable
             return $hasclass;
         }
         return '';
+    }
+
+    /**
+     * @param null $val
+     * @return int|string
+     */
+    private function getColWidth($val = null, $offset = false) {
+        if (!$val) return 0;
+        $device =   'lg';
+        $colstyle   =   array();
+        while (true) {
+            $currentdevice  =   $offset ? 'col-'.$device.'-offset' : 'col-'.$device;
+
+            if (isset($val->$currentdevice) && intval($val->$currentdevice)) {
+                $colstyle[] =   $currentdevice.'-'.$val->$currentdevice;
+            }
+
+            if ($device == 'xs') {
+                return implode(' ', $colstyle);
+            }
+            $device =   PlazartTemplate::$nextdevice[$device];
+        }
     }
 
     /**
@@ -987,45 +1010,61 @@ class PlazartTemplate extends ObjectExtendable
                 class="'. self::getInstance()->get_row_class($value->class) . ' '.((empty($value->responsive)?'':''.$value->responsive.'')).'">';
             //
 
-            if(self::getInstance()->has_container_class($value->class,'container')
-                or
-                self::getInstance()->has_container_class($value->class,'container-fluid'))
-            {
+//            if(self::getInstance()->has_container_class($value->class,'container')
+//                or
+//                self::getInstance()->has_container_class($value->class,'container-fluid'))
+//            {
+//                //  start container
+//                self::getInstance()->layout.='<div class="'
+//                    . self::getInstance()->get_container_class($value->class,'container-fluid')
+//                    . self::getInstance()->get_container_class($value->class,'container')
+//                    . '">';
+//            }
+
                 //  start container
-                self::getInstance()->layout.='<div class="'
-                    . self::getInstance()->get_container_class($value->class,'container-fluid')
-                    . self::getInstance()->get_container_class($value->class,'container')
-                    . '">';
-            }
+                if (isset($value->containertype)) self::getInstance()->layout.='<div class="'.$value->containertype.'">';
+
 
             //   start row fluid
-            self::getInstance()->layout.='<div class="row-fluid" id="'. self::getInstance()->slug($value->name) .'">';
+            self::getInstance()->layout.='<div class="row" id="'. self::getInstance()->slug($value->name) .'">';
 
             if( isset($value->children) )
             {
-                $absspan   = 0;    //   absence span
-                $absoffset = 0;    // absence offset
-                $i = 1;            //  span increment
-
-                $totalItem = count($value->children);  // total children
-                $totalPublished = count($value->children);  // total publish children
-
-                foreach( $value->children as $val )
-                {
-                    if( !isset($val->children) )
-                    {
-                        if( $val->type=='modules' )
-                        {
-                            if( !self::getInstance()->countModules($val->position))
-                            {
-                                $absspan+=$val->span;
-                                $absoffset+=$val->offset;
-                                $totalPublished--;
-                                $totalItem--;
-                            }
-                        }
-                    }
-                }
+//                $absspan_lg   = 0;    //   absence span
+//                $absspan_md   = 0;    //   absence span
+//                $absspan_sm   = 0;    //   absence span
+//                $absspan_xs   = 0;    //   absence span
+//                $absoffset_lg = 0;    // absence offset
+//                $absoffset_md = 0;    // absence offset
+//                $absoffset_sm = 0;    // absence offset
+//                $absoffset_xs = 0;    // absence offset
+//                $i = 1;            //  span increment
+//
+//                $totalItem = count($value->children);  // total children
+//                $totalPublished = count($value->children);  // total publish children
+//
+//                foreach( $value->children as $val )
+//                {
+//                    if( !isset($val->children) )
+//                    {
+//                        if( $val->type=='modules' )
+//                        {
+//                            if( !self::getInstance()->countModules($val->position))
+//                            {
+//                                $absspan_lg+=$val->{'col-lg'};
+//                                $absspan_md+=$val->{'col-md'};
+//                                $absspan_sm+=$val->{'col-sm'};
+//                                $absspan_xs+=$val->{'col-xs'};
+//                                $absoffset_lg+=$val->{'col-lg-offset'};
+//                                $absoffset_md+=$val->{'col-md-offset'};
+//                                $absoffset_sm+=$val->{'col-sm-offset'};
+//                                $absoffset_xs+=$val->{'col-xs-offset'};
+//                                $totalPublished--;
+//                                $totalItem--;
+//                            }
+//                        }
+//                    }
+//                }
 
                 foreach( $value->children as $v )
                 {
@@ -1038,19 +1077,26 @@ class PlazartTemplate extends ObjectExtendable
                     }
 
                     // if include type message or compoennt, this span will get all absance spans
-                    if($v->type=='message' or $v->type == 'megamenu' or  ($v->type=='component' and !$this->hideComponentArea() ))
-                    {
-                        $totalItem = $i;
-                    }
+//                    if($v->type=='message' or ($v->type=='component' and !$this->hideComponentArea() ))
+//                    {
+//                        $totalItem = $i;
+//                    }
 
                     // set absance span in last module span
-                    if( $i==$totalItem){
-                        if( empty($v->offset) )
-                        {
-                            $v->span+=$absspan+$absoffset;
-                            $v->offset='';
-                        }
-                    }
+//                    if( $i==$totalItem){
+//                        if( empty($v->offset) )
+//                        {
+//                            $v->{'col-lg'}+=$absspan_lg+$absoffset_lg;
+//                            $v->{'col-lg'} = ($v->{'col-lg'}>12) ? 12 : $v->{'col-lg'};
+//                            $v->{'col-md'}+=$absspan_md+$absoffset_md;
+//                            $v->{'col-md'} = ($v->{'col-md'}>12) ? 12 : $v->{'col-md'};
+//                            $v->{'col-sm'}+=$absspan_sm+$absoffset_sm;
+//                            $v->{'col-sm'} = ($v->{'col-sm'}>12) ? 12 : $v->{'col-sm'};
+//                            $v->{'col-xs'}+=$absspan_xs+$absoffset_xs;
+//                            $v->{'col-xs'} = ($v->{'col-xs'}>12) ? 12 : $v->{'col-xs'};
+//                            $v->offset='';
+//                        }
+//                    }
 
                     // if position name "left" or "right", this will set html5 aside tag. otherwise div
                     switch($v->position){
@@ -1074,9 +1120,9 @@ class PlazartTemplate extends ObjectExtendable
                     if( empty($v->position) ) $wrid = 'tz-'.$v->type.'-area';
                     else $wrid = 'tz-'.$v->position;
 
-                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="span'.$v->span.''.(empty($v->offset)?'':' offset'.$v->offset).''.((!isset($v->responsiveclass) or  empty($v->responsiveclass))?'':' '.$v->responsiveclass).''.(empty($v->customclass)?'':' '.$v->customclass).'">';
+                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).''.$this->getColWidth($v, true).''.((!isset($v->responsiveclass) or  empty($v->responsiveclass))?'':' '.$v->responsiveclass).''.(empty($v->customclass)?'':' '.$v->customclass).'">';
 
-                    $i++;
+//                    $i++;
 
                     if( $v->type=='message' ){
                         self::getInstance()->layout.='<jdoc:include type="message" />';
@@ -1102,6 +1148,11 @@ class PlazartTemplate extends ObjectExtendable
                         $this->loadBlock('mainnav');
                         self::getInstance()->layout.= ob_get_clean();
                     }
+                    elseif( $v->type == 'logo' ) {
+                        ob_start();
+                        $this->loadBlock('logo');
+                        self::getInstance()->layout.= ob_get_clean();
+                    }
 
                     if( isset($v->children) )
                     {
@@ -1118,14 +1169,14 @@ class PlazartTemplate extends ObjectExtendable
             // end row fluid
             self::getInstance()->layout.='</div>';
 
-            if(self::getInstance()->has_container_class($value->class,'container')
-                or
-                self::getInstance()->has_container_class($value->class,'container-fluid'))
-            {
-                //  end container
-                self::getInstance()->layout.='</div>';
-            }
-
+//            if(self::getInstance()->has_container_class($value->class,'container')
+//                or
+//                self::getInstance()->has_container_class($value->class,'container-fluid'))
+//            {
+//                //  end container
+//                self::getInstance()->layout.='</div>';
+//            }
+            if (isset($value->containertype)) self::getInstance()->layout.='</div>';
             // end row
             self::getInstance()->layout.='</'.$sematic.'>';
             // self::getInstance()->layout.="\n\n".'<!-- End Row: '.$index.' -->'."\n";
@@ -1141,13 +1192,17 @@ class PlazartTemplate extends ObjectExtendable
      */
     private function get_layout(){
         $layoutInplugin = PLAZART_ADMIN_PATH.'/base/generate/default.json';
+        $layoutInTemplate   =   PLAZART_TEMPLATE_PATH.'/generate/default.json';
         $layout = $this->getParam('generate');
         if( empty($layout) )
         {
-            if( file_exists($layoutInplugin) ) {
+            if (file_exists($layoutInTemplate)) {
+                $layout =  json_decode(file_get_contents($layoutInTemplate));
+            }
+            elseif( file_exists($layoutInplugin) ) {
                 $layout =  json_decode(file_get_contents($layoutInplugin));
             } else {
-                die('Cann\'t found '.self::getInstance()->themeName().'.json'.
+                die('Can\'t found '.self::getInstance()->themeName().'.json'.
                     ' file in layout directory. Please goto template manager and save.');
             }
         } else {
@@ -1157,7 +1212,7 @@ class PlazartTemplate extends ObjectExtendable
     }
 
     /**
-     * Detact External URL
+     * Detect External URL
      *
      * @param string $url
      * @return boolean

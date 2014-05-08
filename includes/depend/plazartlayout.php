@@ -37,12 +37,29 @@ class JFormFieldPlazartLayout extends JFormField
 
         $positions = $this->getPositions();
         $data   =   '<input type="hidden" name='.$this->name.' />';
+        $data   .=  '<div id="plazart-admin-device">';
+        $data   .=  '<div class="plazart-admin-layout-header">'.JText::_('PLAZART_LAYOUTBUIDER_HEADER').'</div>';
+        $data   .=  '<button class="btn tz-admin-dv-lg active" data-device="lg"><i class="fa fa-desktop"></i>Large</button>';
+        $data   .=  '<button class="btn tz-admin-dv-md" data-device="md"><i class="fa fa-laptop"></i>Medium</button>';
+        $data   .=  '<button class="btn tz-admin-dv-sm" data-device="sm"><i class="fa fa-tablet"></i>Small</button>';
+        $data   .=  '<button class="btn tz-admin-dv-xs" data-device="xs"><i class="fa fa-mobile"></i>Extra small</button>';
+        $data   .=  '</div>';
 
         if (is_array($layoutsettings)) {
             $data .= $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
             return $data;
         } else {
-            $layoutsettings = json_decode(file_get_contents($plazart_layout_path . 'default.json'));
+            if (file_exists($theme_path.'config/default.json')) {
+                $configure  =   file_get_contents($theme_path.'config/default.json');
+                $object     =   new JRegistry($configure);
+                $layoutsettings = json_encode($object->get('generate',json_decode(file_get_contents($plazart_layout_path . 'default.json'),true)));
+                $layoutsettings =   json_decode($layoutsettings,true);
+                if (!is_array($layoutsettings)) {
+                    $layoutsettings = json_decode(file_get_contents($plazart_layout_path . 'default.json'),true);
+                }
+            } else {
+                $layoutsettings = json_decode(file_get_contents($plazart_layout_path . 'default.json'),true);
+            }
             $data   .=   $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
             return $data;
         }
@@ -57,7 +74,6 @@ class JFormFieldPlazartLayout extends JFormField
         }
         $items = ob_get_clean();
         return $items;
-
     }
 
 
@@ -69,7 +85,6 @@ class JFormFieldPlazartLayout extends JFormField
 
     public function getPositions()
     {
-
         $db = JFactory::getDBO();
         $query = 'SELECT `position` FROM `#__modules` WHERE  `client_id`=0 AND ( `published` !=-2 AND `published` !=0 ) GROUP BY `position` ORDER BY `position` ASC';
 
@@ -94,7 +109,5 @@ class JFormFieldPlazartLayout extends JFormField
         foreach ($options as $option) $selectOption[] = $option;
 
         return $selectOption;
-
-
     }
 }

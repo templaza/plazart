@@ -17,7 +17,11 @@
             </span>
         </div>
 
-        <div class="pull-right row-tools">
+        <div class="pull-right row-tools row-container">
+            <select name="" class="containertype">
+                <option value="container">Fixed Width</option>
+                <option value="container-fluid" selected>Full Width</option>
+            </select>
             <a href="" title="Move this row" class="fa fa-arrows rowmove"></a>
             <a href="#rowsettingbox" title="Row settings" class="fa fa-cog rowsetting" rel="rowpopover"></a>
             <a href="" title="Add new row" class="fa fa-bars add-row"></a>
@@ -34,10 +38,16 @@
                     <a href="" title="Add new column" class="fa fa-bars add-rowin-column"></a>
                     <a href="" title="Remove column" class="fa fa-times columndelete"></a>
                     <a href="" title="Move column" class="fa fa-arrows columnmove"></a>
-                </div> 
+                </div>
 
-                <input type="hidden" class="widthinput" name="" value="12"> 
-                <input type="hidden" class="offsetinput" name="" value=""> 
+                <input type="hidden" class="widthinput-xs" name="" value="12">
+                <input type="hidden" class="widthinput-sm" name="" value="12">
+                <input type="hidden" class="widthinput-md" name="" value="12">
+                <input type="hidden" class="widthinput-lg" name="" value="12">
+                <input type="hidden" class="offsetinput-xs" name="" value="">
+                <input type="hidden" class="offsetinput-sm" name="" value="">
+                <input type="hidden" class="offsetinput-md" name="" value="">
+                <input type="hidden" class="offsetinput-lg" name="" value="">
                 <input type="hidden" class="typeinput" name="" value="modules"> 
                 <input type="hidden" class="positioninput" name="" value=""> 
                 <input type="hidden" class="styleinput" name="" value="sp-xhtml">

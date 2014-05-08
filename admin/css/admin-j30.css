@@ -28,6 +28,10 @@
   color: #333;
 }
 
+.mega-dropdown-inner .row {
+    margin-left: 0;
+}
+
 
 /* Responsive
 ---------------------------------------------------*/
@@ -36,5 +40,4 @@
     margin-left: -20px;
     margin-right: -20px;
   }
-
 }

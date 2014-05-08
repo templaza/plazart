@@ -52,11 +52,9 @@
 				<option for="navigation_type" value="megamenu">
                     mm_type,navigation_animation,navigation_animation_duration
 				</option>
-                <option
-                        for="navigation_trigger" value="hover">
+                <option for="navigation_trigger" value="hover">
                     navigation_animation,navigation_animation_duration
                 </option>
-
 			</field>
 			<field name="navigation_ajax_default" type="plazartdepend" function="@ajax">
 				<option 

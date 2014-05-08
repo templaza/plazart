@@ -54,7 +54,7 @@
     backface-visibility: hidden;
   }
   .off-canvas #plazart-mainnav .nav-collapse,
-  .off-canvas #ja-mainnav .nav-collapse {
+  .off-canvas #plazart-mainnav .nav-collapse {
     display: none;
   }
   .off-canvas #off-canvas-nav {
@@ -80,6 +80,7 @@
   .off-canvas #off-canvas-nav .plazart-mainnav .nav-collapse {
     height: auto;
     background: none;
+      display: block;
   }
   .off-canvas-enabled body > * {
     -webkit-transform: translateX(250px);

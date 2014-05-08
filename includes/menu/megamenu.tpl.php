@@ -32,7 +32,7 @@ class PlazartMenuMegamenuTpl {
 		$cls = '';
 		if (!$item) {
 			// first nav
-			$cls = 'nav level0';
+			$cls = 'nav navbar-nav level0';
 		} else {
 			$cls .= ' mega-nav';
 			$cls .= ' level'.$item->level;
@@ -54,7 +54,7 @@ class PlazartMenuMegamenuTpl {
 		$data = '';
 		if (isset($setting['class'])) $data .= " data-class=\"{$setting['class']}\"";
 		if (isset($setting['alignsub']) && $setting['alignsub'] == 'justify') {
-			$cls .= " span12";
+			$cls .= $vars['menu']->editmode ? " span12" : " col-xs-12";
 		} else {
 			if (isset($sub['width'])) {
 				if ($item->dropdown) $style = " style=\"width:{$sub['width']}px\"";
@@ -71,7 +71,7 @@ class PlazartMenuMegamenuTpl {
 	}
 
 	static function beginrow ($vars) {
-		return '<div class="row-fluid">';
+		return '<div class="row">';
 	}
 	static function endrow ($vars) {
 		return '</div>';
@@ -81,7 +81,7 @@ class PlazartMenuMegamenuTpl {
 		$setting = isset($vars['setting']) ? $vars['setting'] : array();
 		$width = isset($setting['width']) ? $setting['width'] : '12';
 		$data = "data-width=\"$width\"";
-		$cls = "span$width";
+		$cls = $vars['menu']->editmode ? "span$width" : "col-md-$width";
 		if (isset($setting['position'])) {
 			$cls .= " mega-col-module";
 			$data .= " data-position=\"{$setting['position']}\"";

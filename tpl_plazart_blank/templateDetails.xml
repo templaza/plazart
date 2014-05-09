@@ -29,7 +29,6 @@
         <folder>fonts</folder>
         <folder>images</folder>
         <folder>js</folder>
-        <folder>language</folder>
         <folder>layouts</folder>
         <folder>less</folder>
         <folder>libraries</folder>
@@ -117,7 +116,7 @@
             <!-- Font settings -->
             <fieldset name="font_params" addfieldpath="/templates/plazart_blank/admin/elements">
                 <field name="font_link1" type="url" label="TPL_TZ_LANG_GOOGLE_FONTS_URL"
-                       description="TPL_TZ_LANG_GOOGLE_FONTS_URL_DESC" url="http://code.google.com/webfonts"
+                       description="TPL_TZ_LANG_GOOGLE_FONTS_URL_DESC" url="https://www.google.com/fonts"
                        text="TPL_TZ_LANG_CLICK_HERE"/>
                 <field name="font_link2" type="url" label="TPL_TZ_LANG_SQUIRREL_FONTS_URL"
                        description="TPL_TZ_LANG_SQUIRREL_FONTS_URL_DESC" url="http://www.fontsquirrel.com/fontface"

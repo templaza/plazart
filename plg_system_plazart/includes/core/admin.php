@@ -60,37 +60,7 @@ class PlazartAdmin {
         if (file_exists($tplXml)) $xml = JFactory::getXML($tplXml);
 
 		$langs = array(
-			'lblCompile' => JText::_('PLAZART_LBL_RECOMPILE'),
-			'lblThemer' => JText::_('PLAZART_LBL_VIEWTHEMER'),
-			'enableThemeMagic' => JText::_('PLAZART_MSG_ENABLE_THEMEMAGIC'),
 			'unknownError' => JText::_('PLAZART_MSG_UNKNOWN_ERROR'),
-
-			'logoPresent' => JText::_('PLAZART_LAYOUT_LOGO_TEXT'),
-			'emptyLayoutPosition' => JText::_('PLAZART_LAYOUT_EMPTY_POSITION'),
-			'defaultLayoutPosition' => JText::_('PLAZART_LAYOUT_DEFAULT_POSITION'),
-			
-			'layoutConfig' => JText::_('PLAZART_LAYOUT_CONFIG_TITLE'),
-			'layoutConfigDesc' => JText::_('PLAZART_LAYOUT_CONFIG_DESC'),
-			'layoutUnknownWidth' => JText::_('PLAZART_LAYOUT_UNKN_WIDTH'),
-			'layoutPosWidth' => JText::_('PLAZART_LAYOUT_POS_WIDTH'),
-			'layoutPosName' => JText::_('PLAZART_LAYOUT_POS_NAME'),
-
-			'layoutCanNotLoad' => JText::_('PLAZART_LAYOUT_LOAD_ERROR'),
-
-			'askCloneLayout' => JText::_('PLAZART_LAYOUT_ASK_ADD_LAYOUT'),
-			'correctLayoutName' => JText::_('PLAZART_LAYOUT_ASK_CORRECT_NAME'),
-			'askDeleteLayout' => JText::_('PLAZART_LAYOUT_ASK_DEL_LAYOUT'),
-
-			'lblDeleteIt' => JText::_('PLAZART_LAYOUT_LABEL_DELETEIT'),
-			'lblCloneIt' => JText::_('PLAZART_LAYOUT_LABEL_CLONEIT'),
-
-			'layoutEditPosition' => JText::_('PLAZART_LAYOUT_EDIT_POSITION'),
-			'layoutShowPosition' => JText::_('PLAZART_LAYOUT_SHOW_POSITION'),
-			'layoutHidePosition' => JText::_('PLAZART_LAYOUT_HIDE_POSITION'),
-			'layoutChangeNumpos' => JText::_('PLAZART_LAYOUT_CHANGE_NUMPOS'),
-			'layoutDragResize' => JText::_('PLAZART_LAYOUT_DRAG_RESIZE'),
-			'layoutHiddenposDesc' => JText::_('PLAZART_LAYOUT_HIDDEN_POS_DESC'),
-			
 			'updateFailedGetList' => JText::_('PLAZART_OVERVIEW_FAILED_GETLIST'),
 			'updateDownLatest' => JText::_('PLAZART_OVERVIEW_GO_DOWNLOAD'),
 			'updateCheckUpdate' => JText::_('PLAZART_OVERVIEW_CHECK_UPDATE'),

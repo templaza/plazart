@@ -150,6 +150,13 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
+            <field name="animate" type="radio" class="btn-group" default="1"
+                   global="1"
+                   label="PLAZART_GENERAL_ANIMATE_LABEL"
+                   description="PLAZART_GENERAL_ANIMATE_DESC" >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
         </fieldset>
 
 	</fields>

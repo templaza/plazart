@@ -49,6 +49,11 @@ jQuery(function($){
         $(element).find('>.styleinput').attr('name', name+'[style]');
         $(element).find('>.customclassinput').attr('name', name+'[customclass]');
         $(element).find('>.responsiveclassinput').attr('name', name+'[responsiveclass]');
+        $(element).find('>.animationType').attr('name', name+'[animationType]');
+        $(element).find('>.animationSpeed').attr('name', name+'[animationSpeed]');
+        $(element).find('>.animationDelay').attr('name', name+'[animationDelay]');
+        $(element).find('>.animationOffset').attr('name', name+'[animationOffset]');
+        $(element).find('>.animationEasing').attr('name', name+'[animationEasing]');
 
     }
     var rowInputs = function(element, name){
@@ -474,6 +479,66 @@ jQuery(function($){
 
                     $(this).parents('.popover').parent().parent().find('>.responsiveclassinput').val($.trim(value));
 
+                });
+
+                var currentAnimation = $(this).closest('.column').find('.animationType').val();
+
+                setTimeout(function(value, $this){
+                    $this.next().find('select.animationType').val(value);
+                }, 300, currentAnimation, $(this));
+
+                $("#content,#element-box").delegate(".popover select.animationType",'change', function(event){
+                    event.stopImmediatePropagation();
+                    var newAnimation = $(this).val();
+                    $(this).parents('.popover').parent().parent().find('>.animationType').val(newAnimation);
+                });
+
+                var currentAnimationSpeed = $(this).closest('.column').find('.animationSpeed').val();
+
+                setTimeout(function(value, $this){
+                    $this.next().find('input.animationSpeed').val(value);
+                }, 300, currentAnimationSpeed, $(this));
+
+                $("#content,#element-box").delegate(".popover input.animationSpeed",'blur', function(event){
+                    event.stopImmediatePropagation();
+                    var newAnimationSpeed = $(this).val();
+                    $(this).parents('.popover').parent().parent().find('>.animationSpeed').val(newAnimationSpeed);
+                });
+
+                var currentAnimationDelay = $(this).closest('.column').find('.animationDelay').val();
+
+                setTimeout(function(value, $this){
+                    $this.next().find('input.animationDelay').val(value);
+                }, 300, currentAnimationDelay, $(this));
+
+                $("#content,#element-box").delegate(".popover input.animationDelay",'blur', function(event){
+                    event.stopImmediatePropagation();
+                    var newAnimationDelay = $(this).val();
+                    $(this).parents('.popover').parent().parent().find('>.animationDelay').val(newAnimationDelay);
+                });
+
+                var currentAnimationOffset = $(this).closest('.column').find('.animationOffset').val();
+
+                setTimeout(function(value, $this){
+                    $this.next().find('input.animationOffset').val(value);
+                }, 300, currentAnimationOffset, $(this));
+
+                $("#content,#element-box").delegate(".popover input.animationOffset",'blur', function(event){
+                    event.stopImmediatePropagation();
+                    var newAnimationOffset = $(this).val();
+                    $(this).parents('.popover').parent().parent().find('>.animationOffset').val(newAnimationOffset);
+                });
+
+                var currentAnimationEasing = $(this).closest('.column').find('.animationEasing').val();
+
+                setTimeout(function(value, $this){
+                    $this.next().find('select.animationEasing').val(value);
+                }, 300, currentAnimationEasing, $(this));
+
+                $("#content,#element-box").delegate(".popover select.animationEasing",'change', function(event){
+                    event.stopImmediatePropagation();
+                    var newAnimationEasing = $(this).val();
+                    $(this).parents('.popover').parent().parent().find('>.animationEasing').val(newAnimationEasing);
                 });
 
                 $(this).closest('.columntools').addClass('open');

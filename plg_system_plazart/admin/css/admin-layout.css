@@ -130,6 +130,10 @@ hr{border-color:#dadada}
     margin: 0 auto;
 }
 
+#animation p{
+    line-height: 24px;
+}
+
 /*override bootstrap*/
 #layout_params .show-grid > .span12 {
     width: 100%;

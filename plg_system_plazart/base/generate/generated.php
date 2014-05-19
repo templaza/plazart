@@ -15,6 +15,8 @@
  * @copyright Copyright (c) 2010 - 2013 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
+// No direct access
+defined('_JEXEC') or die();
 if( !function_exists('get_value') ){
 
     function get_value($item, $method){
@@ -38,6 +40,7 @@ if( !function_exists('get_color') ){
     <ul class="nav nav-tab" id="columnsettings">
         <li class="active"><a  href="#basic" data-toggle="tab">Basic</a></li>
         <li><a href="#responsive" data-toggle="tab">Responsive</a></li>
+        <li><a href="#animation" data-toggle="tab">Animation</a></li>
     </ul>
 
     <div class="tab-content">
@@ -122,6 +125,62 @@ if( !function_exists('get_color') ){
             <label class="checkbox"> <input type="checkbox" value="hidden-sm">Hidden Small devices</label>
             <label class="checkbox"> <input type="checkbox" value="hidden-md">Hidden Medium devices</label>
             <label class="checkbox"> <input type="checkbox" value="hidden-lg">Hidden Large devices</label>
+        </div>
+        <div class="tab-pane" id="animation">
+            <h4>Choose Type of Animation:</h4>
+            <select class="animationType">
+                <option value="none" selected>None</option>
+                <option value="fade-in">Fade-In</option>
+                <option value="fade-out">Fade-Out</option>
+                <option value="slide-down-from-top">Slide-Down-From-Top</option>
+                <option value="slide-in-from-right">Slide-In-From-Right</option>
+                <option value="slide-up-from-bottom">Slide-Up-From-Bottom</option>
+                <option value="slide-in-from-left">Slide-In-From-Left</option>
+                <option value="scale-up">Scale Up</option>
+                <option value="scale-down">Scale Down</option>
+                <option value="rotate">Rotate</option>
+                <option value="flip-y-axis">Flip-Y-Axis</option>
+                <option value="flip-x-axis">Flip-X-Axis</option>
+            </select>
+            <br/>
+            <h4>Animation Speed in Milliseconds:</h4>
+            <input type="text" class="animationSpeed"> <br/><p>eg. (1000 = 1 second)</p>
+            <h4>Animation Delay in Milliseconds:</h4>
+            <input type="text" class="animationDelay">
+            <br/>
+            <h4>Animation Offset Percentage(Trigger Point):</h4>
+            <input type="text" class="animationOffset"> <br/><p>eg. (value of 0 = top of viewport, value of 100 = bottom of viewport)</p>
+            <h4>Animation Easing:</h4>
+            <select class="animationEasing">
+                <option value="ease" selected>ease</option>
+                <option value="in">in</option>
+                <option value="out">out</option>
+                <option value="in-out">in-out</option>
+                <option value="snap">snap</option>
+                <option value="easeOutCubic">easeOutCubic</option>
+                <option value="easeInOutCubic">easeInOutCubic</option>
+                <option value="easeOutCirc">easeOutCirc</option>
+                <option value="easeInOutCirc">easeInOutCirc</option>
+                <option value="easeInExpo">easeInExpo</option>
+                <option value="easeOutExpo">easeOutExpo</option>
+                <option value="easeInOutExpo">easeInOutExpo</option>
+                <option value="easeInQuad">easeInQuad</option>
+                <option value="easeOutQuad">easeOutQuad</option>
+                <option value="easeInOutQuad">easeInOutQuad</option>
+                <option value="easeInQuart">easeInQuart</option>
+                <option value="easeOutQuart">easeOutQuart</option>
+                <option value="easeInOutQuart">easeInOutQuart</option>
+                <option value="easeInQuint">easeInQuint</option>
+                <option value="easeOutQuint">easeOutQuint</option>
+                <option value="easeInOutQuint">easeInOutQuint</option>
+                <option value="easeInSine">easeInSine</option>
+                <option value="easeOutSine">easeOutSine</option>
+                <option value="easeInOutSine">easeInOutSine</option>
+                <option value="easeInBack">easeInBack</option>
+                <option value="easeOutBack">easeOutBack</option>
+                <option value="easeInOutBack">easeInOutBack</option>
+            </select>
+            <br/>
         </div>
     </div>
 </div>
@@ -277,7 +336,11 @@ foreach($layout as $items )
                                 <input type="hidden" class="styleinput" name="" value="<?php echo get_value($item,"style") ?>">
                                 <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($item,"customclass") ?>">
                                 <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($item,"responsiveclass") ?>">
-
+                                <input type="hidden" class="animationType" name="" value="<?php echo get_value($item,"animationType") ?>">
+                                <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($item,"animationSpeed") ?>">
+                                <input type="hidden" class="animationDelay" name="" value="<?php echo get_value($item,"animationDelay") ?>">
+                                <input type="hidden" class="animationOffset" name="" value="<?php echo get_value($item,"animationOffset") ?>">
+                                <input type="hidden" class="animationEasing" name="" value="<?php echo get_value($item,"animationEasing") ?>">
                                 <!-- Row in Columns -->
                                 <?php
                                 if( !empty($item["children"]) and is_array($item["children"]) )
@@ -354,6 +417,11 @@ foreach($layout as $items )
                                                             <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                             <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
                                                             <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
+                                                            <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
+                                                            <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">
+                                                            <input type="hidden" class="animationDelay" name="" value="<?php echo get_value($children,"animationDelay") ?>">
+                                                            <input type="hidden" class="animationOffset" name="" value="<?php echo get_value($children,"animationOffset") ?>">
+                                                            <input type="hidden" class="animationEasing" name="" value="<?php echo get_value($children,"animationEasing") ?>">
 
                                                             <!--3-->
 
@@ -432,6 +500,11 @@ foreach($layout as $items )
                                                                                         <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                                                         <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
                                                                                         <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
+                                                                                        <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
+                                                                                        <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">
+                                                                                        <input type="hidden" class="animationDelay" name="" value="<?php echo get_value($children,"animationDelay") ?>">
+                                                                                        <input type="hidden" class="animationOffset" name="" value="<?php echo get_value($children,"animationOffset") ?>">
+                                                                                        <input type="hidden" class="animationEasing" name="" value="<?php echo get_value($children,"animationEasing") ?>">
                                                                                         <!-- 4-->
                                                                                         <?php
                                                                                         if( !empty($children["children"]) and is_array($children["children"]) ) {
@@ -500,7 +573,11 @@ foreach($layout as $items )
                                                                                                                     <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                                                                                     <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
                                                                                                                     <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
-
+                                                                                                                    <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
+                                                                                                                    <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">
+                                                                                                                    <input type="hidden" class="animationDelay" name="" value="<?php echo get_value($children,"animationDelay") ?>">
+                                                                                                                    <input type="hidden" class="animationOffset" name="" value="<?php echo get_value($children,"animationOffset") ?>">
+                                                                                                                    <input type="hidden" class="animationEasing" name="" value="<?php echo get_value($children,"animationEasing") ?>">
                                                                                                                 </div>
 
 

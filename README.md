@@ -30,6 +30,12 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+05/19/14 - 3.2
+
+	[feature] Update Font Awesome 4.1.0
+	[feature] Animate transition effect
+	[bug fixed] Error of Layout Builder when upgrade from Plazart 2 
+
 05/08/14 - 3.0
 
 	[feature] Bootstrap 3 is compatible

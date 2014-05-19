@@ -509,14 +509,19 @@ class PlazartTemplate extends ObjectExtendable
         // add css/js for off-canvas
         if ($this->getParam('navigation_collapse_offcanvas', 1)) {
             $this->addCss ('off-canvas', false);
-            $this->addScript (PLAZART_URL.'/js/off-canvas.js');
+            $this->addScript (PLAZART_URL.'/js/off-canvas.min.js');
         }
 
-        $this->addScript (PLAZART_URL.'/js/script.js');
+        $this->addScript (PLAZART_URL.'/js/script.min.js');
 
         //menu control script
         if ($this->getParam ('navigation_trigger', 'hover') == 'hover'){
-            $this->addScript (PLAZART_URL.'/js/menu.js');
+            $this->addScript (PLAZART_URL.'/js/menu.min.js');
+        }
+
+        //menu control script
+        if ($this->getParam ('animate', 1)){
+            $this->addScript (PLAZART_URL.'/js/animate.min.js');
         }
 
         //check and add additional assets
@@ -1120,9 +1125,39 @@ class PlazartTemplate extends ObjectExtendable
                     if( empty($v->position) ) $wrid = 'tz-'.$v->type.'-area';
                     else $wrid = 'tz-'.$v->position;
 
-                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).''.$this->getColWidth($v, true).''.((!isset($v->responsiveclass) or  empty($v->responsiveclass))?'':' '.$v->responsiveclass).''.(empty($v->customclass)?'':' '.$v->customclass).'">';
+                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).''.$this->getColWidth($v, true).''.((!isset($v->responsiveclass) or  empty($v->responsiveclass))?'':' '.$v->responsiveclass).(empty($v->customclass)?'':' '.$v->customclass).'">';
 
 //                    $i++;
+
+                    // animate configure
+                    if ($this->getParam ('animate', 1) && !empty($v->animationType) && ($v->animationType!='none')){
+                        $animationType  =   ' data-animation="'.$v->animationType.'"';
+                        if (!empty($v->animationSpeed)) {
+                            $animationSpeed = ' data-speed="'.$v->animationSpeed.'"';
+                        } else {
+                            $animationSpeed = ' data-speed="0"';
+                        }
+
+                        if (!empty($v->animationDelay)) {
+                            $animationDelay = ' data-delay="'.$v->animationDelay.'"';
+                        } else {
+                            $animationDelay = ' data-delay="0"';
+                        }
+
+                        if (!empty($v->animationOffset)) {
+                            $animationOffset = ' data-offset="'.$v->animationOffset.'%"';
+                        } else {
+                            $animationOffset = ' data-offset=""';
+                        }
+
+                        if (!empty($v->animationEasing) && ($v->animationEasing!='none')) {
+                            $animationEasing = ' data-easing="'.$v->animationEasing.'"';
+                        } else {
+                            $animationEasing = ' data-easing="ease"';
+                        }
+                        self::getInstance()->layout.= '<div class="plazart-animate"'.$animationType.$animationSpeed.$animationDelay.$animationOffset.$animationEasing.'>';
+                    }
+                    // end open tag animate
 
                     if( $v->type=='message' ){
                         self::getInstance()->layout.='<jdoc:include type="message" />';
@@ -1159,6 +1194,10 @@ class PlazartTemplate extends ObjectExtendable
                         self::getInstance()->generatelayout( $v->children );
                     }
 
+                    // end animate
+                    if ($this->getParam ('animate', 1) && !empty($v->animationType) && ($v->animationType!='none')){
+                        self::getInstance()->layout.='</div>';
+                    }
                     // end span
                     self::getInstance()->layout.='</'.$sematicSpan.'>'."\n";
 

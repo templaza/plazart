@@ -2,6 +2,10 @@
 
 Our Plazart framework is a flexible Template Framework for Joomla. It was created based on T3 Framework and is available for Joomla 2.5 & Joomla 3. For the ease of upgrades the framework is in the plugin format and is installed separately.
 
+*** Translate ***
+
+Join our translate Team on Transifex https://www.transifex.com/projects/p/plazart-framework/
+
 *** License ***
 
 Plazart licensed under GNU/GPL https://www.gnu.org/copyleft/gpl.html

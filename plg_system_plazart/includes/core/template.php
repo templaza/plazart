@@ -465,8 +465,16 @@ class PlazartTemplate extends ObjectExtendable
      */
     function addHead () {
         // BOOTSTRAP CSS
-        $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/legacy.css'));
-        $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/bootstrap.min.css'));
+        if ($this->getParam('bootstrapversion',3) == 3) {
+            if ($this->getParam('bootstraplegacy',1)) {
+                $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/legacy.css'));
+            }
+            $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/bootstrap.min.css'));
+        } else {
+            $this->addStyleSheet (PlazartPath::getUrl('bootstrap/legacy/css/bootstrap.min.css'));
+            $this->addStyleSheet (PlazartPath::getUrl('bootstrap/legacy/css/bootstrap-responsive.min.css'));
+        }
+
         // TEMPLATE CSS
         $this->addCss ('template', false);
 
@@ -504,7 +512,12 @@ class PlazartTemplate extends ObjectExtendable
         define('JQUERY_INCLUDED', 1);
 
         // As joomla 3.0 bootstrap is buggy, we will not use it
-        $this->addScript (PlazartPath::getUrl('bootstrap/js/bootstrap.min.js'));
+        if ($this->getParam('bootstrapversion',3) == 3) {
+            $this->addScript (PlazartPath::getUrl('bootstrap/js/bootstrap.min.js'));
+        } else {
+            $this->addScript (PlazartPath::getUrl('bootstrap/legacy/js/bootstrap.min.js'));
+        }
+
 
         // add css/js for off-canvas
         if ($this->getParam('navigation_collapse_offcanvas', 1)) {
@@ -931,6 +944,18 @@ class PlazartTemplate extends ObjectExtendable
         if (!$val) return 0;
         $device =   'lg';
         $colstyle   =   array();
+        if ($this->getParam('bootstrapversion',3)==2){
+            if ($offset) {
+                if (isset($val->{'col-lg-offset'}) && intval($val->{'col-lg-offset'})) {
+                    return 'offset'.$val->{'col-lg-offset'};
+                }
+            } else {
+                if (isset($val->{'col-lg'}) && intval($val->{'col-lg'})) {
+                    return 'span'.$val->{'col-lg'};
+                }
+            }
+            return '';
+        }
         while (true) {
             $currentdevice  =   $offset ? 'col-'.$device.'-offset' : 'col-'.$device;
 
@@ -943,6 +968,19 @@ class PlazartTemplate extends ObjectExtendable
             }
             $device =   PlazartTemplate::$nextdevice[$device];
         }
+    }
+
+    /**
+     * @param null $val
+     * @return int|string
+     */
+    private function getResponsiveClass($val = null) {
+        if (!$val) return '';
+        $responsiveclass    =   (!isset($val->responsiveclass) or  empty($val->responsiveclass))?'':' '.$val->responsiveclass;
+        if ($this->getParam('bootstrapversion',3)==2){
+            $responsiveclass    =   preg_replace(array('/(\w+?-)xs/i','/(\w+?-)sm/i','/(\w+?-)md/i','/(\w+?-)lg/i'), array('${1}phone','${1}tablet','${1}desktop','${1}desktop'), $responsiveclass);
+        }
+        return $responsiveclass;
     }
 
     /**
@@ -1027,11 +1065,20 @@ class PlazartTemplate extends ObjectExtendable
 //            }
 
                 //  start container
-                if (isset($value->containertype)) self::getInstance()->layout.='<div class="'.$value->containertype.'">';
-
+                if (isset($value->containertype)) {
+                    self::getInstance()->layout.='<div class="'.$value->containertype.'">';
+                } else {
+                    self::getInstance()->layout.='<div class="container">';
+                }
 
             //   start row fluid
-            self::getInstance()->layout.='<div class="row" id="'. self::getInstance()->slug($value->name) .'">';
+            $rowstyle   =   'row';
+            if (isset($value->containertype)) {
+                if ($this->getParam('bootstrapversion',3)==2){
+                    $rowstyle =  ($value->containertype == 'container') ? 'row' : 'row-fluid';
+                }
+            }
+            self::getInstance()->layout.='<div class="'.$rowstyle.'" id="'. self::getInstance()->slug($value->name) .'">';
 
             if( isset($value->children) )
             {
@@ -1125,7 +1172,7 @@ class PlazartTemplate extends ObjectExtendable
                     if( empty($v->position) ) $wrid = 'tz-'.$v->type.'-area';
                     else $wrid = 'tz-'.$v->position;
 
-                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).''.$this->getColWidth($v, true).''.((!isset($v->responsiveclass) or  empty($v->responsiveclass))?'':' '.$v->responsiveclass).(empty($v->customclass)?'':' '.$v->customclass).'">';
+                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).' '.$this->getColWidth($v, true).''.$this->getResponsiveClass($v).(empty($v->customclass)?'':' '.$v->customclass).'">';
 
 //                    $i++;
 

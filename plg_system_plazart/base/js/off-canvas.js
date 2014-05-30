@@ -28,7 +28,7 @@
         //inherit from bootstrap (http://www.modernizr.com/)
         if ($.support.transition) {
 
-            var $btn = $('.btn-navbar'),
+            var $btn = $('#plazart-mainnav .btn-navbar'),
                 $nav = null,
                 $fixeditems = null;
 

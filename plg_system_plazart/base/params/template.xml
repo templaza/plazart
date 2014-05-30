@@ -143,6 +143,20 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
+            <field name="bootstrapversion" type="radio" class="btn-group" default="3"
+                   global="1"
+                   label="PLAZART_GENERAL_BOOTSTRAP_VERSION_LABEL"
+                   description="PLAZART_GENERAL_BOOTSTRAP_VERSION_DESC" >
+                <option value="2">PLAZART_GENERAL_BOOTSTRAP_VERSION_2</option>
+                <option value="3">PLAZART_GENERAL_BOOTSTRAP_VERSION_3</option>
+            </field>
+            <field name="bootstraplegacy" type="radio" class="btn-group" default="0"
+                   global="1"
+                   label="PLAZART_GENERAL_LEGACY_LABEL"
+                   description="PLAZART_GENERAL_LEGACY_DESC" >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
             <field name="minify" type="radio" class="btn-group" default="0"
                    global="1"
                    label="PLAZART_GENERAL_ASSETS_MINIFY_LABEL"

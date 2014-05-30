@@ -46,6 +46,8 @@ class PlazartMenuMegamenuTpl {
 	}
 
 	static function beginmega ($vars) {
+        $menu = $vars['menu'];
+        $bootstrap  =   $menu->getParam('bootstrapversion',3);
 		$item = $vars['item'];
 		$setting = $item->setting;
 		$sub = $setting['sub'];
@@ -54,7 +56,7 @@ class PlazartMenuMegamenuTpl {
 		$data = '';
 		if (isset($setting['class'])) $data .= " data-class=\"{$setting['class']}\"";
 		if (isset($setting['alignsub']) && $setting['alignsub'] == 'justify') {
-			$cls .= $vars['menu']->editmode ? " span12" : " col-xs-12";
+			$cls .= $vars['menu']->editmode || $bootstrap == 2 ? " span12" : " col-xs-12";
 		} else {
 			if (isset($sub['width'])) {
 				if ($item->dropdown) $style = " style=\"width:{$sub['width']}px\"";
@@ -71,17 +73,21 @@ class PlazartMenuMegamenuTpl {
 	}
 
 	static function beginrow ($vars) {
-		return $vars['menu']->editmode ? '<div class="row-fluid">' : '<div class="row">';
+        $menu = $vars['menu'];
+        $bootstrap  =   $menu->getParam('bootstrapversion',3);
+		return $menu->editmode || $bootstrap == 2 ? '<div class="row-fluid">' : '<div class="row">';
 	}
 	static function endrow ($vars) {
 		return '</div>';
 	}
 
 	static function begincol ($vars) {
+        $menu = $vars['menu'];
+        $bootstrap  =   $menu->getParam('bootstrapversion',3);
 		$setting = isset($vars['setting']) ? $vars['setting'] : array();
 		$width = isset($setting['width']) ? $setting['width'] : '12';
 		$data = "data-width=\"$width\"";
-		$cls = $vars['menu']->editmode ? "span$width" : "col-md-$width";
+		$cls = $vars['menu']->editmode || $bootstrap == 2 ? "span$width" : "col-md-$width";
 		if (isset($setting['position'])) {
 			$cls .= " mega-col-module";
 			$data .= " data-position=\"{$setting['position']}\"";

@@ -1018,5 +1018,9 @@ jQuery(function($){
                     break;
             }
         });
+
+        $("button[class*='tz-admin-dv']").hover(function() {
+            $(this).tooltip('show');
+        });
     });
 });

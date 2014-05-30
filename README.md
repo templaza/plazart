@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+05/30/14 - 3.3
+
+	[feature] Support Bootstrap 3.1.1 and Bootstrap 2.3.2 	
+
 05/19/14 - 3.2
 
 	[feature] Update Font Awesome 4.1.0

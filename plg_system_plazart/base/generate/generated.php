@@ -20,6 +20,14 @@ defined('_JEXEC') or die();
 if( !function_exists('get_value') ){
 
     function get_value($item, $method){
+        if (!isset($item[$method])) {
+            if (preg_match('/offset/', $method)) {
+                return isset($item['offset']) ? $item['offset'] : '';
+            }
+            if (preg_match('/col/', $method)) {
+                return isset($item['span']) ? $item['span'] : '12';
+            }
+        }
         return isset($item[$method]) ? $item[$method] : '';
     }
 }
@@ -307,7 +315,7 @@ foreach($layout as $items )
     foreach( $items["children"] as $item )
     {
         ?>
-        <div class="<?php echo (get_value($item,"type")=='component' or get_value($item,"type")=='message') ? 'type-'.get_value($item,"type"):'' ?>  span<?php echo isset($item["col-lg"]) ? $item["col-lg"] : '12'; ?> column <?php echo ( empty($item["col-lg-offset"])?'':'offset'.$item["col-lg-offset"] )?>">
+        <div class="<?php echo (get_value($item,"type")=='component' or get_value($item,"type")=='message') ? 'type-'.get_value($item,"type"):'' ?>  span<?php echo get_value($item,"col-lg"); ?> column <?php echo ( empty($item["col-lg-offset"])?'':'offset'.$item["col-lg-offset"] )?>">
 
                                 <span class="position-name"><?php
 
@@ -387,7 +395,7 @@ foreach($layout as $items )
                                         {
                                             ?>
 
-                                            <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.get_value($children,"type"):'' ?>  span<?php echo isset($children["col-lg"]) ? $children["col-lg"] : '12'; ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
+                                            <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.get_value($children,"type"):'' ?>  span<?php echo get_value($children,"col-lg"); ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
 
                                                             <span class="position-name"><?php
 
@@ -475,7 +483,7 @@ foreach($layout as $items )
                                                                                 <?php
                                                                                 foreach($children["children"] as $children) {
                                                                                     ?>
-                                                                                    <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.$children["type"]:'' ?>  span<?php echo isset($children["col-lg"]) ? $children["col-lg"] : '12'; ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
+                                                                                    <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.get_value($children,"type"):'' ?>  span<?php echo get_value($children,"col-lg"); ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
                                                                                         <span class="position-name"><?php
                                                                                             if(get_value($children,"type")=='component' or get_value($children,"type")=='message') echo strtoupper($children["type"]);
                                                                                             elseif(empty($children["position"])) echo '(none)';
@@ -544,7 +552,7 @@ foreach($layout as $items )
                                                                                                             {
                                                                                                                 ?>
 
-                                                                                                                <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.$children["type"]:'' ?>  span<?php echo isset($children["col-lg"]) ? $children["col-lg"] : '12'; ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
+                                                                                                                <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.get_value($children,"type"):'' ?>  span<?php echo get_value($children,"col-lg"); ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
 
                                                                                                                     <span class="position-name"><?php
 

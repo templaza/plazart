@@ -212,8 +212,12 @@ class PlazartMinify
 						$cssdata[] = "\n\n/*===============================";
 						$cssdata[] = $furl;
 						$cssdata[] = "================================================================================*/";
-						
-						$cssmin = Minify_CSS_Compressor::process($fsheet['data']);
+
+                        if (preg_match('/bootstrap\.min\.css/i', $furl)) {
+                            $cssmin =  $fsheet['data'];
+                        } else {
+                            $cssmin = Minify_CSS_Compressor::process($fsheet['data']);
+                        }
 
 						$cssmin = PlazartPath::updateUrl($cssmin, PlazartPath::relativePath($outputurl, dirname($furl)));
 						$cssdata[] = $cssmin;

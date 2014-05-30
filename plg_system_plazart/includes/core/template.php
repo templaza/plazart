@@ -549,11 +549,12 @@ class PlazartTemplate extends ObjectExtendable
         // We also prevent both Joomla bootstrap and Plazart bootsrap are loaded
         $plazartbootstrap = false;
         $jabootstrap = false;
+        $legacy     =   $this->getParam('bootstrapversion',3) == 3 ? '' : '/legacy';
         if(version_compare(JVERSION, '3.0', 'ge')){
             $doc = JFactory::getDocument();
             $scripts = array();
             foreach ($doc->_scripts as $url => $script) {
-                if(strpos($url, PLAZART_URL.'/bootstrap/js/bootstrap.js') !== false){
+                if(strpos($url, PLAZART_URL.'/bootstrap'.$legacy.'/js/bootstrap.min.js') !== false || strpos($url, PLAZART_TEMPLATE_URL.'/bootstrap'.$legacy.'/js/bootstrap.min.js') !== false){
                     $plazartbootstrap = true;
                     if($jabootstrap){ //we already have the Joomla bootstrap and we also replace to Plazart bootstrap
                         continue;
@@ -564,7 +565,7 @@ class PlazartTemplate extends ObjectExtendable
                     if($plazartbootstrap){ //we have Plazart bootstrap, no need to add Joomla bootstrap
                         continue;
                     } else {
-                        $scripts[PLAZART_URL.'/bootstrap/js/bootstrap.js'] = $script;
+                        $scripts[PLAZART_URL.'/bootstrap'.$legacy.'/js/bootstrap.min.js'] = $script;
                     }
 
                     $jabootstrap = true;

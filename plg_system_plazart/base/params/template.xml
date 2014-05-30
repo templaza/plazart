@@ -171,6 +171,30 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
+            <field name="scriptdown" type="radio" class="btn-group" default="0"
+                   global="1"
+                   label="PLAZART_GENERAL_SCRIPTDOWN_LABEL"
+                   description="PLAZART_GENERAL_SCRIPTDOWN_DESC" >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="pretty" type="radio" class="radio btn-group" label="PLAZART_GENERAL_PRETTY_LABEL" description="PLAZART_GENERAL_PRETTY_DESC" default="0">
+                <option value="0">JNo</option>
+                <option value="1">JYes</option>
+            </field>
+            <field name="stripcomments" type="radio" class="radio btn-group" label="PLAZART_GENERAL_STRIPCOMMENTS_LABEL" description="PLAZART_GENERAL_STRIPCOMMENTS_DESC" default="0">
+                <option value="0">JNo</option>
+                <option value="1">JYes</option>
+            </field>
+            <field name="sanitize" type="radio" class="radio btn-group" label="PLAZART_GENERAL_SANITIZE_LABEL" description="PLAZART_GENERAL_SANITIZE_DESC" default="0">
+                <option value="0">JNo</option>
+                <option value="1">JYes</option>
+            </field>
+            <field name="exclude" type="radio" class="radio btn-group" label="PLAZART_GENERAL_SCRIPTSDOWN_EXCLUDE_LABEL" description="PLAZART_GENERAL_SCRIPTSDOWN_EXCLUDE_DESC" default="1">
+                <option value="0">JNo</option>
+                <option value="1">JYes</option>
+            </field>
+            <field name="omit" type="textarea" rows="10" cols="25" label="PLAZART_GENERAL_SCRIPTSDOWN_OMIT_LABEL" description="PLAZART_GENERAL_SCRIPTSDOWN_OMIT_DESC" />
         </fieldset>
 
 	</fields>

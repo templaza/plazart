@@ -34,7 +34,17 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
-05/30/14 - 3.3
+05/30/14 - 3.5
+
+	[feature] Move scripts to bottom
+	[feature] Sanitize Whitespace html
+	[feature] Strip Comments reduce page size and download time
+	[bug fixed] Font Awesome does not work
+	[bug fixed] Problem when load Bootstrap
+	[bug fixed] Problem with Minify CSS on Bootstrap 3
+	[bug fixed] Small issue with MegaMenu
+
+05/29/14 - 3.3
 
 	[feature] Support Bootstrap 3.1.1 and Bootstrap 2.3.2 	
 

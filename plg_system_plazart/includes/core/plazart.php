@@ -302,4 +302,9 @@ class Plazart {
 
         return $params instanceof JRegistry ? $params : null;
     }
+
+    public static function OptimizeCode() {
+        Plazart::import ('core/scriptsdown');
+        return new PlazartScriptsDown();
+    }
 }

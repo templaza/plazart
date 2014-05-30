@@ -88,6 +88,8 @@ class plgSystemPlazart extends JPlugin
 			}
 		} else {
             if(Plazart::detect()){
+                $optimized  =   Plazart::OptimizeCode();
+                $optimized->OptimizeCode();
                 if (class_exists('TZRules')) {
                     $buf = TZRules::parseIt();
                     JResponse::setBody($buf);

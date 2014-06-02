@@ -1069,7 +1069,7 @@ class PlazartTemplate extends ObjectExtendable
                 if (isset($value->containertype)) {
                     self::getInstance()->layout.='<div class="'.$value->containertype.'">';
                 } else {
-                    self::getInstance()->layout.='<div class="container-fluid">';
+                    self::getInstance()->layout.='<div>';
                 }
 
             //   start row fluid

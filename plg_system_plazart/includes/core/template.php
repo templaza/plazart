@@ -1068,15 +1068,13 @@ class PlazartTemplate extends ObjectExtendable
                 //  start container
                 if (isset($value->containertype)) {
                     self::getInstance()->layout.='<div class="'.$value->containertype.'">';
-                } else {
-                    self::getInstance()->layout.='<div>';
                 }
 
             //   start row fluid
             $rowstyle   =   'row';
             if (isset($value->containertype)) {
                 if ($this->getParam('bootstrapversion',3)==2){
-                    $rowstyle =  ($value->containertype == 'container') ? 'row' : 'row-fluid';
+                    $rowstyle =  'row-fluid';
                 }
             }
             self::getInstance()->layout.='<div class="'.$rowstyle.'" id="'. self::getInstance()->slug($value->name) .'">';

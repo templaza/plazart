@@ -296,8 +296,8 @@ foreach($layout as $items )
     </div>
     <div class="pull-right row-tools row-container">
         <select name="" class="containertype">
-            <option value="container"<?php echo ($items["containertype"] && $items["containertype"]=='container') ? ' selected': ''; ?>>Fixed Width</option>
-            <option value="container-fluid"<?php echo ($items["containertype"] && $items["containertype"]=='container-fluid') ? ' selected': ''; ?>>Full Width</option>
+            <option value="container"<?php echo (isset($items["containertype"]) && $items["containertype"]=='container') ? ' selected': ''; ?>>Fixed Width</option>
+            <option value="container-fluid"<?php echo (isset($items["containertype"]) && $items["containertype"]=='container-fluid') ? ' selected': ''; ?>>Full Width</option>
         </select>
         <a href="" title="Move this row" class="fa fa-arrows rowmove"></a>
         <a href="#rowsettingbox" title="Row settings" class="fa fa-cog rowsetting" rel="rowpopover"></a>

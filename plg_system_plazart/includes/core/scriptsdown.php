@@ -62,6 +62,7 @@ class PlazartScriptsDown {
         $stripcomments = (int)$this->params->get('stripcomments', 0);
         $sanitize = (int)$this->params->get('sanitize',0);
         $scriptdown = (int)$this->params->get('scriptdown',0);
+        if (!$pretty && !$stripcomments && !$sanitize && !$scriptdown) return;
 
         $debug = (int)$app->getCfg('debug',0);
         if($debug) $pretty = true;

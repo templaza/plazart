@@ -21,7 +21,7 @@ defined('_JEXEC') or die;
 
 <body<?php if($this->browser->get("tablet") == true) echo ' data-tablet="true"'; ?><?php if($this->browser->get("mobile") == true) echo ' data-mobile="true"'; ?> class="<?php echo $this->bodyClass() ?>">
     <?php
-    if ($this->getParam('layout_enable',0)) {
+    if ($this->getParam('layout_enable',1)) {
         $this->layout();
     } else {
         $this->loadBlock('body');

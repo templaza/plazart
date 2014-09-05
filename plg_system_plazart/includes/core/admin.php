@@ -21,7 +21,8 @@
  * @Link:         http://t3-framework.org
  *------------------------------------------------------------------------------
  */
-
+// No direct access
+defined('_JEXEC') or die();
 // Define constant
 class PlazartAdmin {
     protected $langs = array();

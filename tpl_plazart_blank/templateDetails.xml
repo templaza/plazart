@@ -98,6 +98,26 @@
                 <field type="plazartlayout" name="generate" />
             </fieldset>
 
+            <!-- Font settings -->
+            <fieldset name="font_params" addfieldpath="/plugins/system/plazart/includes/depend">
+                <field name="font_name_group1" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G1" description="PLAZART_FONT_NAME_G1_DESC"/>
+                <field name="font_rules_group1" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G1"
+                       description="PLAZART_FONT_RULES_G1_DESC"/>
+                <field name="font_name_group2" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G2" description="PLAZART_FONT_NAME_G2_DESC"/>
+                <field name="font_rules_group2" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G2"
+                       description="PLAZART_FONT_RULES_G2_DESC"/>
+                <field name="font_name_group3" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G3" description="PLAZART_FONT_NAME_G3_DESC"/>
+                <field name="font_rules_group3" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G3"
+                       description="PLAZART_FONT_RULES_G3_DESC"/>
+                <field name="font_name_group4" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G4" description="PLAZART_FONT_NAME_G4_DESC"/>
+                <field name="font_rules_group4" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G4"
+                       description="PLAZART_FONT_RULES_G4_DESC"/>
+            </fieldset>
+
             <!-- Dev settings -->
             <fieldset name="dev_params">
                 <field

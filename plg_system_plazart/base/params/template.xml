@@ -147,22 +147,6 @@
             <field name="font_link3" type="plazarturl" label="PLAZART_EDGE_FONTS_URL"
                    description="PLAZART_EDGE_FONTS_URL_DESC" url="http://html.adobe.com/edge/webfonts/"
                    text="PLAZART_CLICK_HERE"/>
-            <field name="font_name_group1" type="plazartfont" directory="templates/plazart_blank/fonts/"
-                   label="PLAZART_FONT_NAME_G1" description="PLAZART_FONT_NAME_G1_DESC"/>
-            <field name="font_rules_group1" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G1"
-                   description="PLAZART_FONT_RULES_G1_DESC"/>
-            <field name="font_name_group2" type="plazartfont" directory="templates/plazart_blank/fonts/"
-                   label="PLAZART_FONT_NAME_G2" description="PLAZART_FONT_NAME_G2_DESC"/>
-            <field name="font_rules_group2" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G2"
-                   description="PLAZART_FONT_RULES_G2_DESC"/>
-            <field name="font_name_group3" type="plazartfont" directory="templates/plazart_blank/fonts/"
-                   label="PLAZART_FONT_NAME_G3" description="PLAZART_FONT_NAME_G3_DESC"/>
-            <field name="font_rules_group3" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G3"
-                   description="PLAZART_FONT_RULES_G3_DESC"/>
-            <field name="font_name_group4" type="plazartfont" directory="templates/plazart_blank/fonts/"
-                   label="PLAZART_FONT_NAME_G4" description="PLAZART_FONT_NAME_G4_DESC"/>
-            <field name="font_rules_group4" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G4"
-                   description="PLAZART_FONT_RULES_G4_DESC"/>
         </fieldset>
 
         <!-- Font settings -->

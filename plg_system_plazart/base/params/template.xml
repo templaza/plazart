@@ -151,19 +151,19 @@
 
         <!-- Font settings -->
         <fieldset name="color_params" addfieldpath="/plugins/system/plazart/includes/depend">
-            <field name="color_code_group1" type="plazartcolor" directory="templates/plazart_blank/fonts/"
+            <field name="color_code_group1" type="plazartcolor"
                    label="PLAZART_COLOR_CODE_G1" description="PLAZART_FONT_NAME_G1_DESC"/>
             <field name="color_rules_group1" type="textarea" rows="6" cols="40" label="PLAZART_COLOR_RULES_G1"
                    description="PLAZART_COLOR_RULES_G1_DESC"/>
-            <field name="color_code_group2" type="plazartcolor" directory="templates/plazart_blank/fonts/"
+            <field name="color_code_group2" type="plazartcolor"
                    label="PLAZART_COLOR_CODE_G2" description="PLAZART_COLOR_CODE_G2_DESC"/>
             <field name="color_rules_group2" type="textarea" rows="6" cols="40" label="PLAZART_COLOR_RULES_G2"
                    description="PLAZART_COLOR_RULES_G2_DESC"/>
-            <field name="color_code_group3" type="plazartcolor" directory="templates/plazart_blank/fonts/"
+            <field name="color_code_group3" type="plazartcolor"
                    label="PLAZART_COLOR_CODE_G3" description="PLAZART_COLOR_CODE_G3_DESC"/>
             <field name="color_rules_group3" type="textarea" rows="6" cols="40" label="PLAZART_COLOR_RULES_G3"
                    description="PLAZART_COLOR_RULES_G3_DESC"/>
-            <field name="color_code_group4" type="plazartcolor" directory="templates/plazart_blank/fonts/"
+            <field name="color_code_group4" type="plazartcolor"
                    label="PLAZART_COLOR_CODE_G4" description="PLAZART_COLOR_CODE_G4_DESC"/>
             <field name="color_rules_group4" type="textarea" rows="6" cols="40" label="PLAZART_COLOR_RULES_G4"
                    description="PLAZART_COLOR_RULES_G4_DESC"/>

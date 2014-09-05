@@ -510,7 +510,7 @@ class PlazartTemplate extends ObjectExtendable
             $font_iter++;
         }
 
-        if (!$this->addExtraCSS($font_css,'font')) {
+        if (!$this->addExtraCSS($font_css,'font') && trim($font_css)) {
             $this->addStyleDeclaration($font_css);
         }
     }
@@ -534,7 +534,7 @@ class PlazartTemplate extends ObjectExtendable
             $color_iter++;
         }
 
-        if (!$this->addExtraCSS($color_css,'color')) {
+        if (!$this->addExtraCSS($color_css,'color') && trim($color_css)) {
             $this->addStyleDeclaration($color_css);
         }
     }
@@ -554,7 +554,7 @@ class PlazartTemplate extends ObjectExtendable
             @chmod($outputpath, 0755);
         }
 
-        if (!is_writeable($outputpath) || $this->getParam('devmode',1)) {
+        if (!is_writeable($outputpath) || $this->getParam('devmode',1) || !trim($data)) {
             return false;
         }
 
@@ -1382,11 +1382,6 @@ class PlazartTemplate extends ObjectExtendable
             self::getInstance()->layout.='</'.$sematic.'>';
             // self::getInstance()->layout.="\n\n".'<!-- End Row: '.$index.' -->'."\n";
         }
-
-        $css = self::getInstance()->inline_css;
-        if (!self::getInstance()->addExtraCSS($css,'layout')) {
-            self::getInstance()->addInlineCSS($css);
-        }
     }
 
     /**
@@ -1442,6 +1437,10 @@ class PlazartTemplate extends ObjectExtendable
     {
         $layout =  self::getInstance()->get_layout();
         self::getInstance()->generatelayout($layout);
+        $css = self::getInstance()->inline_css;
+        if (!self::getInstance()->addExtraCSS($css,'layout')) {
+            self::getInstance()->addInlineCSS($css);
+        }
         echo self::getInstance()->layout;
         return self::getInstance();
     }

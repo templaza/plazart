@@ -34,6 +34,15 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+09/05/14 - 3.7
+
+	[feature] Update Font Awesome 4.2.0
+	[feature] Update Bootstrap 3.2.0
+	[feature] Color configuration Integrate
+	[feature] Move Font any Layout CSS to Stylesheet file
+	[feature] IcoMoon Supported
+	[bug fixed] Error with Gzip in Administrator
+
 05/30/14 - 3.5
 
 	[feature] Move scripts to bottom

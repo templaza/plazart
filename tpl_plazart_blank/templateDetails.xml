@@ -3,7 +3,7 @@
         "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
 <extension version="3.0" type="template" client="site" method="upgrade">
     <name>plazart_blank</name>
-    <version>2.0</version>
+    <version>3.0</version>
     <creationDate>02/28/2013</creationDate>
     <author>TemPlaza</author>
     <authorEmail>info@templaza.com</authorEmail>
@@ -36,37 +36,23 @@
     <positions>
         <position>debug</position>
         <position>menu</position>
-        <position>social</position>
-        <position>search</position>
-        <position>header</position>
-        <position>top</position>
-        <position>feature</position>
-        <position>breadcrumb</position>
-        <position>off-canvas</position>
-        <position>sidebar</position>
-        <position>right</position>
-        <position>left</position>
-        <position>mainbody</position>
-        <position>mainbody_top</position>
-        <position>mainbody_bottom</position>
-        <position>mass-top</position>
-        <position>mass-bottom</position>
-        <position>bottom</position>
-        <position>bottom1</position>
-        <position>bottom2</position>
-        <position>bottom3</position>
-        <position>bottom4</position>
-        <position>bottom5</position>
-        <position>bottom6</position>
-        <position>footer1</position>
-        <position>footer2</position>
-        <position>headline</position>
-        <position>user1</position>
-        <position>user2</position>
-        <position>user3</position>
-        <position>user4</position>
-        <position>user5</position>
-        <position>user6</position>
+        <position>banner</position>
+        <position>position-0</position>
+        <position>position-1</position>
+        <position>position-2</position>
+        <position>position-3</position>
+        <position>position-4</position>
+        <position>position-5</position>
+        <position>position-6</position>
+        <position>position-7</position>
+        <position>position-8</position>
+        <position>position-9</position>
+        <position>position-10</position>
+        <position>position-11</position>
+        <position>position-12</position>
+        <position>position-13</position>
+        <position>position-14</position>
+        <position>footer</position>
     </positions>
     <languages folder="language">
         <language tag="en-GB">en-GB/en-GB.tpl_plazart_blank.ini</language>
@@ -111,36 +97,6 @@
             </fieldset>
             <fieldset name="layout_params">
                 <field type="plazartlayout" name="generate" />
-            </fieldset>
-
-            <!-- Font settings -->
-            <fieldset name="font_params" addfieldpath="/templates/plazart_blank/admin/elements">
-                <field name="font_link1" type="url" label="TPL_TZ_LANG_GOOGLE_FONTS_URL"
-                       description="TPL_TZ_LANG_GOOGLE_FONTS_URL_DESC" url="https://www.google.com/fonts"
-                       text="TPL_TZ_LANG_CLICK_HERE"/>
-                <field name="font_link2" type="url" label="TPL_TZ_LANG_SQUIRREL_FONTS_URL"
-                       description="TPL_TZ_LANG_SQUIRREL_FONTS_URL_DESC" url="http://www.fontsquirrel.com/fontface"
-                       text="TPL_TZ_LANG_CLICK_HERE"/>
-                <field name="font_link3" type="url" label="TPL_TZ_LANG_EDGE_FONTS_URL"
-                       description="TPL_TZ_LANG_EDGE_FONTS_URL_DESC" url="http://html.adobe.com/edge/webfonts/"
-                       text="TPL_TZ_LANG_CLICK_HERE"/>
-                <field name="font_name_group1" type="tzfont" directory="templates/plazart_blank/fonts/"
-                       label="TPL_TZ_LANG_FONT_NAME_G1" description="TPL_TZ_LANG_FONT_NAME_G1_DESC"/>
-                <field name="font_rules_group1" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_FONT_RULES_G1"
-                       description="TPL_TZ_LANG_FONT_RULES_G1_DESC"/>
-                <field name="font_name_group2" type="tzfont" directory="templates/plazart_blank/fonts/"
-                       label="TPL_TZ_LANG_FONT_NAME_G2" description="TPL_TZ_LANG_FONT_NAME_G2_DESC"/>
-                <field name="font_rules_group2" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_FONT_RULES_G2"
-                       description="TPL_TZ_LANG_FONT_RULES_G2_DESC"/>
-                <field name="font_name_group3" type="tzfont" directory="templates/plazart_blank/fonts/"
-                       label="TPL_TZ_LANG_FONT_NAME_G3" description="TPL_TZ_LANG_FONT_NAME_G3_DESC"/>
-                <field name="font_rules_group3" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_FONT_RULES_G3"
-                       description="TPL_TZ_LANG_FONT_RULES_G3_DESC"/>
-                <field name="font_name_group4" type="tzfont" directory="templates/plazart_blank/fonts/"
-                       label="TPL_TZ_LANG_FONT_NAME_G4" description="TPL_TZ_LANG_FONT_NAME_G4_DESC"/>
-                <field name="font_rules_group4" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_FONT_RULES_G4"
-                       description="TPL_TZ_LANG_FONT_RULES_G4_DESC"/>
-
             </fieldset>
 
             <!-- Dev settings -->

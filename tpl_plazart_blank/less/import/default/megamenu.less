@@ -28,8 +28,8 @@
         margin-right: 3px;
       }
       &:hover {
-        background: transparent !important;
-        color: @black !important;
+        background: inherit;
+        color: inherit;
       }
     }
     .active > a {
@@ -43,7 +43,7 @@
 // -------------------------
 
   .mega-inner {
-    padding: @PlazartglobalPadding;
+    padding: (@PlazartglobalPadding/2);
   }
 
   .mega-dropdown-inner {
@@ -137,6 +137,10 @@
 // Nav in Megamenu
 // ---------------
   .mega-col-nav {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .mega-col-module {
     padding-left: 0;
     padding-right: 0;
   }

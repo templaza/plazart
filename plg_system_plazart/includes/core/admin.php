@@ -1,4 +1,4 @@
- <?php
+<?php
 /**
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
@@ -24,117 +24,116 @@
 
 // Define constant
 class PlazartAdmin {
+    protected $langs = array();
 
-	protected $langs = array();
-	
-	/**
-	 * function render
-	 * render Plazart administrator configuration form
-	 *
-	 * @return render success or not
-	 */
-	public function render(){
-		$body = JResponse::getBody();
-		$layout = PLAZART_ADMIN_PATH . '/admin/tpls/default.php';
+    /**
+     * function render
+     * render Plazart administrator configuration form
+     *
+     * @return render success or not
+     */
+    public function render(){
+        $body = JResponse::getBody();
+        $layout = PLAZART_ADMIN_PATH . '/admin/tpls/default.php';
 
-		if(file_exists($layout) && JFactory::getApplication()->input->getCmd('view') == 'style'){
-			ob_start();
-			$this->loadParams();
-			$buffer = ob_get_clean();
-			$body = preg_replace('@<form\s[^>]*name="adminForm"[^>]*>?.*</form>@siu', $buffer, $body);
-		}
+        if(file_exists($layout) && JFactory::getApplication()->input->getCmd('view') == 'style'){
+            ob_start();
+            $this->loadParams();
+            $buffer = ob_get_clean();
+            $body = preg_replace('@<form\s[^>]*name="adminForm"[^>]*>?.*</form>@siu', $buffer, $body);
+        }
 
-		$body = $this->replaceToolbar($body);
-		$body = $this->replaceDoctype($body);
+        $body = $this->replaceToolbar($body);
+        $body = $this->replaceDoctype($body);
 
-		JResponse::setBody($body);
-	}
+        JResponse::setBody($body);
+    }
 
-	public function addAssets(){
+    public function addAssets(){
 
-		// load template language
-		JFactory::getLanguage()->load(PLAZART_PLUGIN, JPATH_ADMINISTRATOR);
-		JFactory::getLanguage()->load ('tpl_'.PLAZART_TEMPLATE.'.sys', JPATH_ROOT, null, true);
+        // load template language
+        JFactory::getLanguage()->load(PLAZART_PLUGIN, JPATH_ADMINISTRATOR);
+        JFactory::getLanguage()->load ('tpl_'.PLAZART_TEMPLATE.'.sys', JPATH_ROOT, null, true);
 
         $tplXml = PLAZART_TEMPLATE_PATH . '/templateDetails.xml';
         if (file_exists($tplXml)) $xml = JFactory::getXML($tplXml);
 
-		$langs = array(
-			'unknownError' => JText::_('PLAZART_MSG_UNKNOWN_ERROR'),
-			'updateFailedGetList' => JText::_('PLAZART_OVERVIEW_FAILED_GETLIST'),
-			'updateDownLatest' => JText::_('PLAZART_OVERVIEW_GO_DOWNLOAD'),
-			'updateCheckUpdate' => JText::_('PLAZART_OVERVIEW_CHECK_UPDATE'),
-			'updateChkComplete' => JText::_('PLAZART_OVERVIEW_CHK_UPDATE_OK'),
+        $langs = array(
+            'unknownError' => JText::_('PLAZART_MSG_UNKNOWN_ERROR'),
+            'updateFailedGetList' => JText::_('PLAZART_OVERVIEW_FAILED_GETLIST'),
+            'updateDownLatest' => JText::_('PLAZART_OVERVIEW_GO_DOWNLOAD'),
+            'updateCheckUpdate' => JText::_('PLAZART_OVERVIEW_CHECK_UPDATE'),
+            'updateChkComplete' => JText::_('PLAZART_OVERVIEW_CHK_UPDATE_OK'),
             'updateLatestVersion' => JText::_('PLAZART_OVERVIEW_TPL_VERSION_MSG'),
-			'updateHasNew' => JText::sprintf('PLAZART_OVERVIEW_TPL_NEW', $xml->name),
+            'updateHasNew' => JText::sprintf('PLAZART_OVERVIEW_TPL_NEW', $xml->name),
             'updateHasNewMsg' => JText::sprintf('PLAZART_OVERVIEW_TPL_NEW_MSG', $xml->version, $xml->name),
-			'updateCompare' => JText::_('PLAZART_OVERVIEW_TPL_COMPARE')
-		);
-		
-		$japp = JFactory::getApplication();
-		$jdoc = JFactory::getDocument();
+            'updateCompare' => JText::_('PLAZART_OVERVIEW_TPL_COMPARE')
+        );
 
-		$params = new JRegistry;
-		$db = JFactory::getDbo();
+        $japp = JFactory::getApplication();
+        $jdoc = JFactory::getDocument();
 
-		//get params of templates
-		$query = $db->getQuery(true);
-		$query
-			->select('params')
-			->from('#__template_styles')
-			->where('template='. $db->quote(PLAZART_TEMPLATE));
-		
-		$db->setQuery($query);
-		$params->loadString($db->loadResult());
+        $params = new JRegistry;
+        $db = JFactory::getDbo();
 
-		//get extension id of framework and template
-		$query = $db->getQuery(true);
-		$query
-			->select('extension_id')
-			->from('#__extensions')
-			->where('(element='. $db->quote(PLAZART_TEMPLATE) . ' AND type=' . $db->quote('template') . ')
+        //get params of templates
+        $query = $db->getQuery(true);
+        $query
+            ->select('params')
+            ->from('#__template_styles')
+            ->where('template='. $db->quote(PLAZART_TEMPLATE));
+
+        $db->setQuery($query);
+        $params->loadString($db->loadResult());
+
+        //get extension id of framework and template
+        $query = $db->getQuery(true);
+        $query
+            ->select('extension_id')
+            ->from('#__extensions')
+            ->where('(element='. $db->quote(PLAZART_TEMPLATE) . ' AND type=' . $db->quote('template') . ')
 					OR (element=' . $db->quote(PLAZART_ADMIN) . ' AND type=' . $db->quote('plugin'). ')');
 
-		$db->setQuery($query);
-		$results = $db->loadRowList();
-		$eids = array();
-		foreach ($results as $eid) {
-			$eids[] = $eid[0];
-		}
+        $db->setQuery($query);
+        $results = $db->loadRowList();
+        $eids = array();
+        foreach ($results as $eid) {
+            $eids[] = $eid[0];
+        }
 
-		//check for version compactible
-		$jversion  = new JVersion;
-		if(!$jversion->isCompatible('3.0')){
-			$jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/bootstrap/css/bootstrap.css');
-			
-			$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery-1.8.0.min.js');
-			$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/bootstrap/js/bootstrap.js');
-			$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.noconflict.js');
-		}
+        //check for version compactible
+        $jversion  = new JVersion;
+        if(!$jversion->isCompatible('3.0')){
+            $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/bootstrap/css/bootstrap.css');
 
-		$jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.css');
-		$jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/includes/depend/css/depend.css');
-		$jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin.css');
-		if(!$jversion->isCompatible('3.0')){
-			$jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j25.css');
-		} else {
-			$jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j30.css');
-		}
+            $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery-1.8.0.min.js');
+            $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/bootstrap/js/bootstrap.js');
+            $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.noconflict.js');
+        }
+
+        $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.css');
+        $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/includes/depend/css/depend.css');
+        $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin.css');
+        if(!$jversion->isCompatible('3.0')){
+            $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j25.css');
+        } else {
+            $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j30.css');
+        }
 
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-layout.css');
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/spectrum.css');
 
-		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.jquery.min.js');
-		$jdoc->addScript(PLAZART_ADMIN_URL . '/includes/depend/js/depend.js');
-		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/json2.js');
-		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jimgload.js');
-		$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/admin.js');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.jquery.min.js');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/includes/depend/js/depend.js');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/json2.js');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jimgload.js');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/admin.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery-ui.min.js ');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/layout.admin.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/spectrum.js');
 
         $token = JSession::getFormToken();
-		JFactory::getDocument()->addScriptDeclaration ( '
+        JFactory::getDocument()->addScriptDeclaration ( '
 			var PlazartAdmin = window.PlazartAdmin || {};
 			PlazartAdmin.adminurl = \'' . JFactory::getURI()->toString() . '\';
 			PlazartAdmin.plazartadminurl = \'' . PLAZART_ADMIN_URL . '\';
@@ -203,103 +202,103 @@ class PlazartAdmin {
 					return !$less ? 0 : 1;
                 }
 			'
-		);
-	}
+        );
+    }
 
-	public function addJSLang($key = '', $value = '', $overwrite = true){
-		if($key && $value && ($overwrite || !array_key_exists($key, $this->langs))){
-			$this->langs[$key] = $value ? $value : JText::_($key);
-		}
-	}
-	
-	/**
-	 * function loadParam
-	 * load and re-render parameters
-	 *
-	 * @return render success or not
-	 */
-	function loadParams(){
-		$frwXml = PLAZART_ADMIN_PATH . '/'. PLAZART_ADMIN . '.xml';
-		$tplXml = PLAZART_TEMPLATE_PATH . '/templateDetails.xml';
-		$jtpl = PLAZART_ADMIN_PATH . '/admin/tpls/default.php';
-		
-		if(file_exists($tplXml) && file_exists($jtpl)){
-			
-			//get the current joomla default instance
-			$form = JForm::getInstance('com_templates.style', 'style', array('control' => 'jform', 'load_data' => true));
-			
-			//remove all fields from group 'params' and reload them again in right other base on template.xml
-			$form->removeGroup('params');
+    public function addJSLang($key = '', $value = '', $overwrite = true){
+        if($key && $value && ($overwrite || !array_key_exists($key, $this->langs))){
+            $this->langs[$key] = $value ? $value : JText::_($key);
+        }
+    }
+
+    /**
+     * function loadParam
+     * load and re-render parameters
+     *
+     * @return render success or not
+     */
+    function loadParams(){
+        $frwXml = PLAZART_ADMIN_PATH . '/'. PLAZART_ADMIN . '.xml';
+        $tplXml = PLAZART_TEMPLATE_PATH . '/templateDetails.xml';
+        $jtpl = PLAZART_ADMIN_PATH . '/admin/tpls/default.php';
+
+        if(file_exists($tplXml) && file_exists($jtpl)){
+
+            //get the current joomla default instance
+            $form = JForm::getInstance('com_templates.style', 'style', array('control' => 'jform', 'load_data' => true));
+
+            //remove all fields from group 'params' and reload them again in right other base on template.xml
+            $form->removeGroup('params');
             $form->loadFile(PLAZART_PATH . '/params/' . 'template.xml');
-			$form->loadFile(PLAZART_TEMPLATE_PATH . DIRECTORY_SEPARATOR . 'templateDetails.xml', true, '//config');
+            $form->loadFile(PLAZART_TEMPLATE_PATH . DIRECTORY_SEPARATOR . 'templateDetails.xml', true, '//config');
 
-			$xml = JFactory::getXML($tplXml);
-			$fxml = JFactory::getXML($frwXml);
+            $xml = JFactory::getXML($tplXml);
+            $fxml = JFactory::getXML($frwXml);
 
-			$db = JFactory::getDbo();
-			$query = $db->getQuery(true);
-			$query
-				->select('id, title')
-				->from('#__template_styles')
-				->where('template='. $db->quote(PLAZART_TEMPLATE));
-			
-			$db->setQuery($query);
-			$styles = $db->loadObjectList();
-			foreach ($styles as $key => &$style) {
-				$style->title = ucwords(str_replace('_', ' ', $style->title));
-			}
-			
-			$session = JFactory::getSession();
-			$plazartlock = $session->get('Plazart.plazartlock', 'overview_params');
-			$session->set('Plazart.plazartlock', null);
-			$input = JFactory::getApplication()->input;
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true);
+            $query
+                ->select('id, title')
+                ->from('#__template_styles')
+                ->where('template='. $db->quote(PLAZART_TEMPLATE));
+
+            $db->setQuery($query);
+            $styles = $db->loadObjectList();
+            foreach ($styles as $key => &$style) {
+                $style->title = ucwords(str_replace('_', ' ', $style->title));
+            }
+
+            $session = JFactory::getSession();
+            $plazartlock = $session->get('Plazart.plazartlock', 'overview_params');
+            $session->set('Plazart.plazartlock', null);
+            $input = JFactory::getApplication()->input;
 
             // $profile
 
-			include $jtpl;
+            include $jtpl;
 
-			//search for global parameters
-			$japp = JFactory::getApplication();
-			$pglobals = array();
-			foreach($form->getGroup('params') as $param){
-				if($form->getFieldAttribute($param->fieldname, 'global', 0, 'params')){
-					$pglobals[] = array('name' => $param->fieldname, 'value' => $form->getValue($param->fieldname, 'params')); 
-				}
-			}
-			$japp->setUserState('oparams', $pglobals);
+            //search for global parameters
+            $japp = JFactory::getApplication();
+            $pglobals = array();
+            foreach($form->getGroup('params') as $param){
+                if($form->getFieldAttribute($param->fieldname, 'global', 0, 'params')){
+                    $pglobals[] = array('name' => $param->fieldname, 'value' => $form->getValue($param->fieldname, 'params'));
+                }
+            }
+            $japp->setUserState('oparams', $pglobals);
 
-			return true;
-		}
-		
-		return false;
-	}
+            return true;
+        }
 
-	function replaceToolbar($body){
-		$plazarttoolbar = PLAZART_ADMIN_PATH . '/admin/tpls/toolbar.php';
-		$input = JFactory::getApplication()->input;
+        return false;
+    }
 
-		if(file_exists($plazarttoolbar) && class_exists('JToolBar')){
-			//get the existing toolbar html
-			jimport('joomla.language.help');
-			$toolbar = JToolBar::getInstance('toolbar')->render('toolbar');
-			$helpurl = JHelp::createURL($input->getCmd('view') == 'template' ? 'JHELP_EXTENSIONS_TEMPLATE_MANAGER_TEMPLATES_EDIT' : 'JHELP_EXTENSIONS_TEMPLATE_MANAGER_STYLES_EDIT');
-			$helpurl = htmlspecialchars($helpurl, ENT_QUOTES);
-		
-			//render our toolbar
-			ob_start();
-			include $plazarttoolbar;
-			$plazarttoolbar = ob_get_clean();
+    function replaceToolbar($body){
+        $plazarttoolbar = PLAZART_ADMIN_PATH . '/admin/tpls/toolbar.php';
+        $input = JFactory::getApplication()->input;
 
-			//replace it
-			$body = str_replace($toolbar, $plazarttoolbar, $body);
-		}
+        if(file_exists($plazarttoolbar) && class_exists('JToolBar')){
+            //get the existing toolbar html
+            jimport('joomla.language.help');
+            $toolbar = JToolBar::getInstance('toolbar')->render('toolbar');
+            $helpurl = JHelp::createURL($input->getCmd('view') == 'template' ? 'JHELP_EXTENSIONS_TEMPLATE_MANAGER_TEMPLATES_EDIT' : 'JHELP_EXTENSIONS_TEMPLATE_MANAGER_STYLES_EDIT');
+            $helpurl = htmlspecialchars($helpurl, ENT_QUOTES);
 
-		return $body;
-	}
+            //render our toolbar
+            ob_start();
+            include $plazarttoolbar;
+            $plazarttoolbar = ob_get_clean();
 
-	function replaceDoctype($body){
-		return preg_replace('@<!DOCTYPE\s(.*?)>@', '<!DOCTYPE html>', $body);
-	}
+            //replace it
+            $body = str_replace($toolbar, $plazarttoolbar, $body);
+        }
+
+        return $body;
+    }
+
+    function replaceDoctype($body){
+        return preg_replace('@<!DOCTYPE\s(.*?)>@', '<!DOCTYPE html>', $body);
+    }
 
     function configmanager() {
         $uri = JURI::getInstance();
@@ -406,5 +405,3 @@ class PlazartAdmin {
         }
     }
 }
-
-?>

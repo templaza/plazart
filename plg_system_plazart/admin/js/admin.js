@@ -401,6 +401,49 @@ var PlazartAdmin = window.PlazartAdmin || {};
             });
         },
 
+        initColorStyle: function () {
+            $('.plazartcolor_form').each(function(i,el){
+                var base_id    =   $(el).find('input.tzFormHide');
+                base_id        =   $(base_id).attr('id');
+
+                var base_el    =   $('#'+base_id);
+                if(base_el.val() == '') base_el.attr('value','color;rgba(0,0,0,0.8)');
+                var values  =   (base_el.val()).split(';');
+                // id of selectbox are different from input id
+                base_id = base_id.replace('jform_params_color_', 'jformparamscolor_');
+
+                setTimeout(function($this, value){
+                    $(el).find('input.plazartcolorpicker').val(value);
+
+                    $(el).find('input.plazartcolorpicker').spectrum({
+                        flat:false,
+                        showInput:true,
+                        preferredFormat: "rgb",
+                        showButtons:true,
+                        showAlpha:true,
+                        showPalette:true,
+                        clickoutFiresChange:true,
+                        cancelText:"cancel",
+                        chooseText:"Choose",
+                        palette : [ ['rgba(255, 255, 255, 0)'] ],
+                        change: function(color) {
+                            var currentcolor = color.toRgbString();
+                            base_el.attr('value', $('#' + base_id + '_type').val() + ';' + currentcolor);
+                        }
+                    });
+
+                    // $this.parent().find('>.popover .rowtextcolor').show();
+
+                }, 300, base_el, values[1]);
+
+                $('#' + base_id + '_type').change(function() {
+                    var values  =   (base_el.val()).split(';');
+                    base_el.attr('value', $('#' + base_id + '_type').val() + ';' + values[1]);
+                });
+            });
+
+        },
+
         initFontStyle: function () {
             $('.tzfont_form').each(function(i, el) {
                 el = $(el);
@@ -824,6 +867,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
     $(window).load(function () {
         PlazartAdmin.initPreset();
         PlazartAdmin.initFontStyle();
+        PlazartAdmin.initColorStyle();
         PlazartAdmin.checkVersion();
     });
 	

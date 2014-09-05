@@ -157,6 +157,14 @@ class plgSystemPlazart extends JPlugin
                     JError::raiseNotice(403,'TPL_TZ_LANG_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
                 }
             }
+
+            // save default layout
+            $defaultlayout  =   JRequest::getInt('layoutbuiderdefault',0);
+            if ($defaultlayout) {
+                $layoutsettings =   json_encode($params->get('generate',''));
+                jimport('joomla.filesystem.file');
+                JFile::write(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'generate'.DIRECTORY_SEPARATOR.'default.json',$layoutsettings);
+            }
         }
     }
 	

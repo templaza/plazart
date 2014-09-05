@@ -4,8 +4,8 @@ defined('JPATH_BASE') or die;
 
 jimport('joomla.form.formfield');
 
-class JFormFieldUrl extends JFormField {
-	protected $type = 'Url';
+class JFormFieldPlazartUrl extends JFormField {
+	protected $type = 'PlazartUrl';
 
 	protected function getInput() {
 		$url	= (string) $this->element['url'];

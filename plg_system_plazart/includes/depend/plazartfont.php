@@ -9,9 +9,9 @@ jimport('joomla.form.formfield');
 jimport('joomla.form.helper');
 JFormHelper::loadFieldClass('list');
 
-class JFormFieldTzfont extends JFormField
+class JFormFieldPlazartfont extends JFormField
 {
-	public $type = 'Tzfont';
+	public $type = 'Plazartfont';
 
 	protected function getInput() {
 		$options_type = array(
@@ -66,15 +66,15 @@ class JFormFieldTzfont extends JFormField
 		if(count($options_squirrel)) {
 			$html .= JHtml::_('select.genericlist', $options_squirrel, 'name', '', 'value', 'text', $normal, $this->name . '_squirrel');
 		} else {
-			$html .= JHtml::_('select.genericlist', array(JHTML::_('select.option', 'Arial, Helvetica, sans-serif', '- - - ' . JText::_('TPL_TZ_LANG_NO_SQUIRREL') . ' - - -')), 'name', '', 'value', 'text', 'default', $this->name . '_squirrel');
+			$html .= JHtml::_('select.genericlist', array(JHTML::_('select.option', 'Arial, Helvetica, sans-serif', '- - - ' . JText::_('PLAZART_NO_SQUIRREL') . ' - - -')), 'name', '', 'value', 'text', 'default', $this->name . '_squirrel');
 		}
 
 		$html .= '<input type="text" name="'.$this->name.'" id="'.$this->id.'" class="tzFormHide" value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '" />';
-		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_link_label"><strong>'.JText::_('TPL_TZ_LANG_OWN_GOOGLE_FONT_LINK').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_link" size="40" /></span>';
-		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_font_label"><strong>'.JText::_('TPL_TZ_LANG_OWN_GOOGLE_FONT_FAMILY').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_font" size="40" /></span>';
+		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_link_label"><strong>'.JText::_('PLAZART_OWN_GOOGLE_FONT_LINK').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_link" size="40" /></span>';
+		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_font_label"><strong>'.JText::_('PLAZART_OWN_GOOGLE_FONT_FAMILY').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_google_own_font" size="40" /></span>';
 		
-		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_link_label"><strong>'.JText::_('TPL_TZ_LANG_OWN_EDGE_FONT_LINK').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_link" size="40" /></span>';
-		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_font_label"><strong>'.JText::_('TPL_TZ_LANG_OWN_EDGE_FONT_FAMILY').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_font" size="40" /></span>';
+		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_link_label"><strong>'.JText::_('PLAZART_OWN_EDGE_FONT_LINK').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_link" size="40" /></span>';
+		$html .= '<span class="tz-label" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_font_label"><strong>'.JText::_('PLAZART_OWN_EDGE_FONT_FAMILY').'</strong><input type="text" id="'.str_replace(array('[', ']'), '', $this->name).'_edge_own_font" size="40" /></span>';
 		
 		$html .= '</div>';
 

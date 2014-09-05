@@ -122,6 +122,10 @@ hr{border-color:#dadada}
     font-weight: bold;
     float: left;
 }
+.plazart-admin-layout-header span {
+    font-size: 14px;
+    font-weight: normal;
+}
 #plazart-admin-device .btn {
     border-radius: 0;
 }

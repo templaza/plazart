@@ -39,7 +39,7 @@ defined('_JEXEC') or die('Restricted access');
  * three arguments.
  */
 
-$modChromes = array('tzxhtml', 'tztabs', 'tzslider','tzmodal', 'tzpopover' );
+$modChromes = array('tzxhtml', 'tznone', 'tztabs', 'tzslider','tzmodal', 'tzpopover' );
 
 /*
  * Default Module Chrome that has sematic markup and has best SEO support
@@ -68,6 +68,13 @@ function modChrome_tzxhtml($module, &$params, &$attribs)
     }
 }
 
+function modChrome_tznone($module, &$params, &$attribs)
+{
+    if ($module->content)
+    {
+        echo $module->content;
+    }
+}
 
 function modChrome_tztabs($module, $params, $attribs)
 {

@@ -184,8 +184,8 @@
   margin-right: 3px;
 }
 .plazart-megamenu .navbar-nav a:hover {
-  background: transparent !important;
-  color: #000 !important;
+  background: inherit;
+  color: inherit;
 }
 .plazart-megamenu .navbar-nav .active > a {
   background: transparent;
@@ -195,7 +195,7 @@
   box-shadow: 0 0 0 #ffffff;
 }
 .plazart-megamenu .mega-inner {
-  padding: 20px;
+  padding: 10px;
 }
 .plazart-megamenu .mega-dropdown-inner .row {
   margin-left: 0;
@@ -254,6 +254,10 @@
   border-right: none;
 }
 .plazart-megamenu .mega-col-nav {
+  padding-left: 0;
+  padding-right: 0;
+}
+.plazart-megamenu .mega-col-module {
   padding-left: 0;
   padding-right: 0;
 }
@@ -450,7 +454,7 @@
   }
 }
 .plazart-megamenu .mega-inner {
-  padding: 20px;
+  padding: 10px;
 }
 .plazart-megamenu .row-fluid + .row-fluid {
   border-top: 1px solid #ddd;

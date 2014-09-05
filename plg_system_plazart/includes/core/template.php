@@ -461,18 +461,130 @@ class PlazartTemplate extends ObjectExtendable
     }
 
     /**
+     * @param $name Link to your css without extension
+     * @param bool $base if true will load css from plazart plugin
+     */
+    function addCoreCss ($name, $base = false) {
+        if ($this->getParam('devmode',0) == 0) {
+            $base ? $this->addStyleSheet (PLAZART_URL.'/'.$name.'.min.css') : $this->addStyleSheet (PlazartPath::getUrl($name.'.min.css'));
+        } else {
+            $base ? $this->addStyleSheet (PLAZART_URL.'/'.$name.'.css') : $this->addStyleSheet (PlazartPath::getUrl($name.'.css'));
+        }
+    }
+
+    /**
+     * Add fonts in configuration
+     * @return bool
+     */
+    function addFonts() {
+        // include fonts
+        $font_css   =   '';
+        $font_iter = 1;
+        while($this->getParam('font_name_group'.$font_iter, 'tzFontNull') !== 'tzFontNull') {
+            $font_data = explode(';', $this->getParam('font_name_group'.$font_iter, ''));
+
+            if(isset($font_data) && count($font_data) >= 2) {
+                $font_type = $font_data[0];
+                $font_name = $font_data[1];
+
+                if($this->getParam('font_rules_group'.$font_iter, '') != ''){
+                    if($font_type == 'standard') {
+                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . '; }'."\n");
+                    } elseif($font_type == 'google') {
+                        $font_link   = $font_data[2];
+                        $font_family = $font_data[3];
+                        $this->addStyleSheet($font_link);
+                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: '.$font_family.', Arial, sans-serif; }'."\n");
+                    } elseif($font_type == 'squirrel') {
+                        $this->addStyleSheet($this->API->URLtemplate() . '/fonts/' . $font_name . '/stylesheet.css');
+                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . ', Arial, sans-serif; }'."\n");
+                    } elseif($font_type == 'edge') {
+                        $font_link      =   $font_data[2];
+                        $font_family    =   $font_data[3];
+                        $this->addScript($font_link);
+                        $font_css       .=   ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_family . ', sans-serif; }'."\n");
+                    }
+                }
+            }
+
+            $font_iter++;
+        }
+
+        if (!$this->addExtraCSS($font_css,'font')) {
+            $this->addStyleDeclaration($font_css);
+        }
+    }
+
+    function addColorCSS() {
+        // include fonts
+        $color_css   =   '';
+        $color_iter = 1;
+        while($this->getParam('font_name_group'.$color_iter, 'tzColorNull') !== 'tzColorNull') {
+            $color_data = explode(';', $this->getParam('color_code_group'.$color_iter, ''));
+
+            if(isset($color_data) && count($color_data) >= 2) {
+                $color_type = $color_data[0];
+                $color_code = $color_data[1];
+
+                if($this->getParam('color_rules_group'.$color_iter, '') != ''){
+                    $color_css   .=  $this->getParam('color_rules_group'.$color_iter, '') . ' { '.$color_type.': ' . $color_code . '; }'."\n";
+                }
+            }
+
+            $color_iter++;
+        }
+
+        if (!$this->addExtraCSS($color_css,'color')) {
+            $this->addStyleDeclaration($color_css);
+        }
+    }
+
+    /**
+     * Insert extra CSS to file
+     * @param string $data
+     * @param string $prefix
+     * @return bool
+     */
+    function addExtraCSS($data='', $prefix='css') {
+        $outputpath = JPATH_ROOT . '/' . $this->getParam('plazart-assets', 'plazart-assets') . '/css';
+        $outputurl = JURI::root(true) . '/' . $this->getParam('plazart-assets', 'plazart-assets') . '/css';
+
+        if (!JFile::exists($outputpath)){
+            JFolder::create($outputpath);
+            @chmod($outputpath, 0755);
+        }
+
+        if (!is_writeable($outputpath) || $this->getParam('devmode',1)) {
+            return false;
+        }
+
+        $filename = $prefix.'-' . substr(md5($data), 0, 15) . '.css';
+        $filepart = $outputpath . '/' . $filename;
+        $filetime = JFile::exists($filepart) ? @filemtime($filepart) : -1;
+        $rebuild = $filetime < 0; //filemtime == -1 => rebuild
+
+        if($rebuild){
+            JFile::write($filepart, $data);
+            @chmod($filepart, 0644);
+        }
+
+        self::getInstance()->document->addStyleSheet($outputurl . '/' . $filename);
+        return true;
+    }
+
+    /**
      * Add Plazart basic head
      */
     function addHead () {
         // BOOTSTRAP CSS
         if ($this->getParam('bootstrapversion',3) == 3) {
             if ($this->getParam('bootstraplegacy',1)) {
-                $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/legacy.css'));
+                $this->addCoreCss('bootstrap/css/legacy');
             }
-            $this->addStyleSheet (PlazartPath::getUrl('bootstrap/css/bootstrap.min.css'));
+            $this->addCoreCss('bootstrap/css/bootstrap');
         } else {
-            $this->addStyleSheet (PlazartPath::getUrl('bootstrap/legacy/css/bootstrap.min.css'));
-            $this->addStyleSheet (PlazartPath::getUrl('bootstrap/legacy/css/bootstrap-responsive.min.css'));
+            $this->addCoreCss('bootstrap/legacy/css/bootstrap');
+            $this->addCoreCss('bootstrap/legacy/css/bootstrap-responsive');
         }
 
         // TEMPLATE CSS
@@ -482,12 +594,16 @@ class PlazartTemplate extends ObjectExtendable
             // add core megamenu.css in plugin
             // deprecated - will extend the core style into template megamenu.less & megamenu-responsive.less
             // to use variable overridden in template
-            $this->addStyleSheet(PLAZART_URL.'/css/megamenu.css');
-            if ($this->getParam('responsive', 1)) $this->addStyleSheet(PLAZART_URL.'/css/megamenu-responsive.css');
+            $this->addCoreCss('css/megamenu');
+            if ($this->getParam('responsive', 1)) $this->addCoreCss('css/megamenu-responsive');
 
             // megamenu.css override in template
             $this->addCss ('megamenu');
         endif;
+
+        // Add Font Type
+        $this->addFonts();
+        $this->addColorCSS();
 
         // Add scripts
         if(version_compare(JVERSION, '3.0', 'ge')){
@@ -521,7 +637,7 @@ class PlazartTemplate extends ObjectExtendable
 
         // add css/js for off-canvas
         if ($this->getParam('navigation_collapse_offcanvas', 1)) {
-            $this->addCss ('off-canvas', false);
+            $this->addCoreCss ('css/off-canvas');
             $this->addScript (PLAZART_URL.'/js/off-canvas.min.js');
         }
 
@@ -1268,7 +1384,9 @@ class PlazartTemplate extends ObjectExtendable
         }
 
         $css = self::getInstance()->inline_css;
-        self::getInstance()->addInlineCSS( $css );
+        if (!self::getInstance()->addExtraCSS($css,'layout')) {
+            self::getInstance()->addInlineCSS($css);
+        }
     }
 
     /**

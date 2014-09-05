@@ -170,7 +170,7 @@ class PlazartMinify
 				$stylesheets = array(); // empty - begin a new group
 			}
 		}
-		
+
 		if(count($stylesheets)){
 			$cssgroup = array();
 			$groupname = array();
@@ -182,7 +182,7 @@ class PlazartMinify
 			$cssgroup['groupname'] = implode('', $groupname);
 			$cssgroups[] = $cssgroup;
 		}
-		
+
 		//======================= Group css ================= //
 
 		$output = array();
@@ -213,7 +213,7 @@ class PlazartMinify
 						$cssdata[] = $furl;
 						$cssdata[] = "================================================================================*/";
 
-                        if (preg_match('/bootstrap\.min\.css/i', $furl)) {
+                        if (preg_match('/min\.css/i', $furl)) {
                             $cssmin =  $fsheet['data'];
                         } else {
                             $cssmin = Minify_CSS_Compressor::process($fsheet['data']);

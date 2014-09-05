@@ -38,7 +38,7 @@ class JFormFieldPlazartLayout extends JFormField
         $positions = $this->getPositions();
         $data   =   '<input type="hidden" name='.$this->name.' />';
         $data   .=  '<div id="plazart-admin-device">';
-        $data   .=  '<div class="plazart-admin-layout-header">'.JText::_('PLAZART_LAYOUTBUIDER_HEADER').'</div>';
+        $data   .=  '<div class="plazart-admin-layout-header">'.JText::_('PLAZART_LAYOUTBUIDER_HEADER').'  <span>|</span>  <input type="checkbox" name="layoutbuiderdefault" value="1" />  <span>Default Data?</span></div>';
         $data   .=  '<button class="btn tz-admin-dv-lg active" data-device="lg"><i class="fa fa-desktop"></i>Large</button>';
         $data   .=  '<button class="btn tz-admin-dv-md" data-device="md" data-toggle="tooltip" title="Only for Bootstrap 3"><i class="fa fa-laptop"></i>Medium</button>';
         $data   .=  '<button class="btn tz-admin-dv-sm" data-device="sm" data-toggle="tooltip" title="Only for Bootstrap 3"><i class="fa fa-tablet"></i>Small</button>';

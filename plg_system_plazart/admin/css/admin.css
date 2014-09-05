@@ -1208,7 +1208,11 @@ button.btn-primary:active {
   font-family: "FontAwesome";
 }
 
-/* Font configuration */
+/* Color configuration */
+.plazartcolor_form > .sp-replacer {
+    margin: 0 10px 0 0;
+    vertical-align: top;
+}
 
 /* hide specific elements - JS/CSS/translations/labels */
 

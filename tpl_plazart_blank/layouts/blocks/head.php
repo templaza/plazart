@@ -23,9 +23,10 @@ $this->addHead();
 $max_page_width =   $this->getParam('max_page_width', 0);
 
 $theme  =   $this->getParam('theme', 'default');
-
+$css_custom =   '';
 if ($max_page_width) {
-    $this->addStyleDeclaration('.container-fluid { max-width: '.$this->getParam('max_page_width', '1200').$this->getParam('max_page_width_value', 'px').'!important; } .container { max-width: '.$this->getParam('max_page_width', '1200').$this->getParam('max_page_width_value', 'px').'!important; }');
+
+    $css_custom .=  ('.container-fluid { max-width: '.$this->getParam('max_page_width', '1200').$this->getParam('max_page_width_value', 'px').'!important; } .container { max-width: '.$this->getParam('max_page_width', '1200').$this->getParam('max_page_width_value', 'px').'!important; }');
 }
 
 // CSS override on two methods
@@ -33,41 +34,8 @@ if($this->getParam("css_override", '0')) {
 	$this->addCSS('override', false);
 }
 
-
-$this->addStyleDeclaration($this->getParam('css_custom', ''));
-
-// include fonts
-$font_iter = 1;
-$inlinecss  =   '';
-while($this->getParam('font_name_group'.$font_iter, 'tzFontNull') !== 'tzFontNull') {
-	$font_data = explode(';', $this->getParam('font_name_group'.$font_iter, ''));
-
-	if(isset($font_data) && count($font_data) >= 2) {
-		$font_type = $font_data[0];
-		$font_name = $font_data[1];
-
-		if($this->getParam('font_rules_group'.$font_iter, '') != ''){
-			if($font_type == 'standard') {
-                $this->addStyleDeclaration($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . '; }'."\n");
-			} elseif($font_type == 'google') {
-				$font_link = $font_data[2];
-				$font_family = $font_data[3];
-				$this->addStyleSheet($font_link);
-                $this->addStyleDeclaration($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: '.$font_family.', Arial, sans-serif; }'."\n");
-			} elseif($font_type == 'squirrel') {
-				$this->addStyleSheet($this->API->URLtemplate() . '/fonts/' . $font_name . '/stylesheet.css');
-				$this->addStyleDeclaration($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . ', Arial, sans-serif; }'."\n");
-			} elseif($font_type == 'edge') {
-	            $font_link = $font_data[2];
-	            $font_family = $font_data[3];
-	            $this->addScript($font_link);
-	            $this->addStyleDeclaration($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_family . ', sans-serif; }'."\n");
-	        }
-		}
-	}
-	
-	$font_iter++;
-}
+$css_custom .=  ($this->getParam('css_custom', ''));
+if (trim($css_custom)) $this->addExtraCSS($css_custom,'custom');
 
 // load prefixer
 if($this->getParam("css_prefixer", '0')) {

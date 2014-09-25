@@ -519,7 +519,7 @@ class PlazartTemplate extends ObjectExtendable
         // include fonts
         $color_css   =   '';
         $color_iter = 1;
-        while($this->getParam('font_name_group'.$color_iter, 'tzColorNull') !== 'tzColorNull') {
+        while($this->getParam('color_code_group'.$color_iter, 'tzColorNull') !== 'tzColorNull') {
             $color_data = explode(';', $this->getParam('color_code_group'.$color_iter, ''));
 
             if(isset($color_data) && count($color_data) >= 2) {

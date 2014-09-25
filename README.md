@@ -34,6 +34,11 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+09/25/14 - 3.8
+
+	[bug fixed] Error can't load color
+	[feature] Update color type ('border-color', 'outline-color', 'text-decoration-color', 'column-rule-color')
+
 09/05/14 - 3.7
 
 	[feature] Update Font Awesome 4.2.0

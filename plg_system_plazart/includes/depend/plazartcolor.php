@@ -14,7 +14,11 @@ class JFormFieldPlazartcolor extends JFormField
     protected function getInput() {
         $options_type = array(
             JHTML::_('select.option', 'background-color', 'Background Color'),
-            JHTML::_('select.option', 'color', 'Font Color')
+            JHTML::_('select.option', 'color', 'Font Color'),
+            JHTML::_('select.option', 'border-color', 'Border Color'),
+            JHTML::_('select.option', 'column-rule-color', 'Column Rule Color'),
+            JHTML::_('select.option', 'outline-color', 'Outline Color'),
+            JHTML::_('select.option', 'text-decoration-color', 'Text Decoration Color')
         );
 
         $value      =   htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8');

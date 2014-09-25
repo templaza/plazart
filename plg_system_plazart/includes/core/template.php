@@ -527,7 +527,13 @@ class PlazartTemplate extends ObjectExtendable
                 $color_code = $color_data[1];
 
                 if($this->getParam('color_rules_group'.$color_iter, '') != ''){
-                    $color_css   .=  $this->getParam('color_rules_group'.$color_iter, '') . ' { '.$color_type.': ' . $color_code . '; }'."\n";
+                    $color_css   .=  $this->getParam('color_rules_group'.$color_iter, '') . ' { '.$color_type.': ' . $color_code . ';';
+                    if ($color_type == 'column-rule-color' || $color_type == 'text-decoration-color') {
+                        $color_css   .=  '-webkit-'.$color_type.': ' . $color_code . ';';
+                        $color_css   .=  '-moz-'.$color_type.': ' . $color_code . ';';
+                    }
+
+                    $color_css   .=  '}'."\n";
                 }
             }
 

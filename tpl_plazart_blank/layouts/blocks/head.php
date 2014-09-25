@@ -35,7 +35,9 @@ if($this->getParam("css_override", '0')) {
 }
 
 $css_custom .=  ($this->getParam('css_custom', ''));
-if (trim($css_custom)) $this->addExtraCSS($css_custom,'custom');
+if (trim($css_custom)) {
+    if (!$this->addExtraCSS($css_custom,'custom')) $this->addStyleDeclaration($css_custom);;
+}
 
 // load prefixer
 if($this->getParam("css_prefixer", '0')) {

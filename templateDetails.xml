@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN"
+        "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
+<extension version="3.0" type="template" client="site" method="upgrade">
+    <name>plazart_blank</name>
+    <version>3.0</version>
+    <creationDate>02/28/2013</creationDate>
+    <author>TemPlaza</author>
+    <authorEmail>info@templaza.com</authorEmail>
+    <copyright>Copyright (C) 2012 TemPlaza. All rights reserved.</copyright>
+    <description><![CDATA[This is Plazart Framework]]></description>
+    <group>plazart</group>
+    <tzupdate>http://www.templaza.com/</tzupdate>
+    <files>
+        <filename>component.php</filename>
+        <filename>error.php</filename>
+        <filename>favicon.ico</filename>
+        <filename>index.php</filename>
+        <filename>offline.php</filename>
+        <filename>templateDetails.xml</filename>
+		<filename>templateInfo.php</filename>
+        <filename>template_preview.png</filename>
+        <filename>template_thumbnail.png</filename>
+        <folder>admin</folder>
+        <folder>config</folder>
+        <folder>css</folder>
+        <folder>html</folder>
+        <folder>fonts</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+        <folder>layouts</folder>
+        <folder>less</folder>
+        <folder>libraries</folder>
+    </files>
+    <positions>
+        <position>debug</position>
+        <position>menu</position>
+        <position>banner</position>
+        <position>position-0</position>
+        <position>position-1</position>
+        <position>position-2</position>
+        <position>position-3</position>
+        <position>position-4</position>
+        <position>position-5</position>
+        <position>position-6</position>
+        <position>position-7</position>
+        <position>position-8</position>
+        <position>position-9</position>
+        <position>position-10</position>
+        <position>position-11</position>
+        <position>position-12</position>
+        <position>position-13</position>
+        <position>position-14</position>
+        <position>footer</position>
+    </positions>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.tpl_plazart_blank.ini</language>
+        <language tag="en-GB">en-GB/en-GB.tpl_plazart_blank.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="theme_params" label="TZ_THEME_LABEL" description="TZ_THEME_DESC"
+                      addfieldpath="/templates/plazart_blank/admin/elements">
+
+                <field name="logo_type" type="list" default="image" label="TPL_TZ_LANG_LOGO_TYPE"
+                       description="TPL_TZ_LANG_LOGO_TYPE_DESC">
+                    <option value="image">TPL_TZ_LANG_LOGO_TYPE_IMAGE</option>
+                    <option value="text">TPL_TZ_LANG_LOGO_TYPE_TEXT</option>
+                    <option value="css">TPL_TZ_LANG_LOGO_TYPE_CSS</option>
+                    <option value="none">TPL_TZ_LANG_LOGO_TYPE_NONE</option>
+                </field>
+
+                <field name="logo_image" type="media" default="" label="TPL_TZ_LANG_LOGO_IMAGE"
+                       description="TPL_TZ_LANG_LOGO_IMAGE_DESC"/>
+
+                <field name="logo_text" type="text" default="" label="TPL_TZ_LANG_LOGO_TEXT"
+                       description="TPL_TZ_LANG_LOGO_TEXT_DESC"/>
+
+                <field name="logo_slogan" type="text" default="" label="TPL_TZ_LANG_LOGO_SLOGAN"
+                       description="TPL_TZ_LANG_LOGO_SLOGAN_DESC"/>
+
+                <field name="favicon_image" type="media" default="" label="TPL_TZ_LANG_FAVICON_IMAGE"
+                       description="TPL_TZ_LANG_FAVICON_IMAGE_DESC"/>
+                <field
+                        name="framework_logo"
+                        type="radio"
+                        class="btn-group"
+                        label="TPL_TZ_LANG_FRAMEWORK_LOGO"
+                        default="1"
+                        description="TPL_TZ_LANG_FRAMEWORK_LOGO_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="google_analytics" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_GOOGLE_ANALYTICS"
+                       description="TPL_TZ_LANG_GOOGLE_ANALYTICS_DESC"/>
+            </fieldset>
+            <fieldset name="layout_params">
+                <field type="plazartlayout" name="generate" />
+            </fieldset>
+
+            <!-- Font settings -->
+            <fieldset name="font_params" addfieldpath="/plugins/system/plazart/includes/depend">
+                <field name="font_name_group1" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G1" description="PLAZART_FONT_NAME_G1_DESC"/>
+                <field name="font_rules_group1" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G1"
+                       description="PLAZART_FONT_RULES_G1_DESC"/>
+                <field name="font_name_group2" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G2" description="PLAZART_FONT_NAME_G2_DESC"/>
+                <field name="font_rules_group2" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G2"
+                       description="PLAZART_FONT_RULES_G2_DESC"/>
+                <field name="font_name_group3" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G3" description="PLAZART_FONT_NAME_G3_DESC"/>
+                <field name="font_rules_group3" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G3"
+                       description="PLAZART_FONT_RULES_G3_DESC"/>
+                <field name="font_name_group4" type="plazartfont" directory="templates/plazart_blank/fonts/"
+                       label="PLAZART_FONT_NAME_G4" description="PLAZART_FONT_NAME_G4_DESC"/>
+                <field name="font_rules_group4" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G4"
+                       description="PLAZART_FONT_RULES_G4_DESC"/>
+            </fieldset>
+
+            <!-- Dev settings -->
+            <fieldset name="dev_params">
+                <field
+                        name="css_override"
+                        type="radio"
+                        class="btn-group"
+                        label="TPL_TZ_LANG_CSS_OVERRIDE"
+                        default="0"
+                        description="TPL_TZ_LANG_CSS_OVERRIDE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="css_prefixer"
+                        type="radio"
+                        class="btn-group"
+                        label="TPL_TZ_LANG_CSS_PREFIXER"
+                        default="0"
+                        description="TPL_TZ_LANG_CSS_PREFIXER_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="max_page_width" type="text" default="" label="TPL_TZ_LANG_MAX_PAGE_WIDTH"
+                       description="TPL_TZ_LANG_MAX_PAGE_WIDTH_DESC"/>
+
+                <field name="max_page_width_value" type="list" default="px" label="TPL_TZ_LANG_MAX_PAGE_WIDTH_UNIT"
+                       description="TPL_TZ_LANG_MAX_PAGE_WIDTH_UNIT_DESC">
+                    <option value="px">TPL_TZ_LANG_PIXEL</option>
+                    <option value="%">TPL_TZ_LANG_PERCENT</option>
+                </field>
+                <field name="css_custom" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_CSS_CUSTOM"
+                       description="TPL_TZ_LANG_CSS_CUSTOM_DESC"/>
+                <field
+                        name="chrome_frame_support"
+                        type="radio"
+                        class="btn-group"
+                        label="TPL_TZ_LANG_CHROME_FRAME_SUPPORT"
+                        default="0"
+                        description="TPL_TZ_LANG_CHROME_FRAME_SUPPORT_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

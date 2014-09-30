@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<updates>
+		<update>
+			<name>Plazart - Package Version 3.8</name>
+			<description>Package Plazart Framework https://github.com/templaza/plazart</description>
+			<element>pkg_plazart</element>
+			<type>package</type>
+			<version>3.8</version>
+			<folder/>
+			<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
+			<downloads>
+				<downloadurl type="full" format="zip">
+					https://github.com/templaza/plazart/archive/v3.8.zip
+				</downloadurl>
+			</downloads>
+			<maintainer>Plazart</maintainer>
+			<maintainerurl>https://github.com/templaza/plazart</maintainerurl>
+			<targetplatform name="joomla" version="3.[012345]"/>
+		</update>
+		<update>
+			<name>Plazart - Plugin Version 3.8</name>
+			<description>Plugin Plazart https://github.com/templaza/plazart</description>
+			<element>plazart</element>
+			<type>plugin</type>
+			<version>3.8</version>
+			<folder/>
+			<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
+			<downloads>
+				<downloadurl type="full" format="zip">
+					https://github.com/templaza/plazart/archive/plg_plazart_v3.8.zip
+				</downloadurl>
+			</downloads>
+			<maintainer>Plazart</maintainer>
+			<maintainerurl>https://github.com/templaza/plazart</maintainerurl>
+			<targetplatform name="joomla" version="3.[012345]"/>
+		</update>
+		<update>
+			<name>Plazart Blank Template Version 3.0</name>
+			<description>Plazart Blank Template https://github.com/templaza/plazart</description>
+			<element>plazart_blank</element>
+			<type>template</type>
+			<version>3.0</version>
+			<folder/>
+			<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
+			<downloads>
+				<downloadurl type="full" format="zip">
+					https://github.com/templaza/plazart/archive/tpl_v3.0.zip
+				</downloadurl>
+			</downloads>
+			<maintainer>Plazart</maintainer>
+			<maintainerurl>https://github.com/templaza/plazart</maintainerurl>
+			<targetplatform name="joomla" version="3.[012345]"/>
+		</update>
+</updates>

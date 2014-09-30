@@ -27,6 +27,7 @@
         <file type="plugin" id="plazart" group="system">plg_system_plazart</file>
         <file type="template" id="plazart_blank" client="site">tpl_plazart_blank</file>
     </files>
-    <updateservers>        
+    <updateservers>     
+        <server type="extension" priority="1" name="Plazart Framework Update"><![CDATA[https://raw.githubusercontent.com/templaza/plazart/master/update.xml]]></server>   
     </updateservers>
 </extension>

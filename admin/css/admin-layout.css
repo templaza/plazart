@@ -87,7 +87,6 @@ input.readonly,input.required{background:none}
 .popover .tab-pane > div{width:110px;display:inline-block;margin:0 10px 0 0}
 .popover .tab-pane > div label{display:block;width:auto}
 .popover .tab-pane > div input.customclass{width:88px}
-.popover .tab-pane > div select{max-width: 110px}
 .popover select,
 .popover .tab-pane input[type="text"]{float:left}
 .rownameOuter input,
@@ -96,7 +95,7 @@ input.readonly,input.required{background:none}
 .rowcolorOuter input{width:90px}
 .rowcolorOuter label{
 	width: 89px;
-	/*border: 1px solid #dadada;*/
+	border: 1px solid #dadada;
 	border-right: 0;
 	float: left;
 	height: 30px;

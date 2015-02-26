@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <updates>
 		<update>
-			<name>Plazart - Package Version 3.8</name>
+			<name>Plazart - Package Version 3.9</name>
 			<description>Package Plazart Framework https://github.com/templaza/plazart</description>
 			<element>pkg_plazart</element>
 			<type>package</type>
-			<version>3.8</version>
+			<version>3.9</version>
 			<folder/>
 			<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
 			<downloads>
 				<downloadurl type="full" format="zip">
-					https://github.com/templaza/plazart/archive/v3.8.zip
+					https://github.com/templaza/plazart/archive/pkg_plazart_v3.9.tar.gz
 				</downloadurl>
 			</downloads>
 			<maintainer>Plazart</maintainer>
@@ -22,12 +22,12 @@
 			<description>Plugin Plazart https://github.com/templaza/plazart</description>
 			<element>plazart</element>
 			<type>plugin</type>
-			<version>3.8</version>
+			<version>3.9</version>
 			<folder/>
 			<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
 			<downloads>
 				<downloadurl type="full" format="zip">
-					https://github.com/templaza/plazart/archive/plg_plazart_v3.8.zip
+					https://github.com/templaza/plazart/archive/plg_v3.9.tar.gz
 				</downloadurl>
 			</downloads>
 			<maintainer>Plazart</maintainer>
@@ -35,16 +35,16 @@
 			<targetplatform name="joomla" version="3.[012345]"/>
 		</update>
 		<update>
-			<name>Plazart Blank Template Version 3.0</name>
+			<name>Plazart Blank Template Version 3.1</name>
 			<description>Plazart Blank Template https://github.com/templaza/plazart</description>
 			<element>plazart_blank</element>
 			<type>template</type>
-			<version>3.0</version>
+			<version>3.1</version>
 			<folder/>
 			<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
 			<downloads>
 				<downloadurl type="full" format="zip">
-					https://github.com/templaza/plazart/archive/tpl_v3.0.zip
+					https://github.com/templaza/plazart/archive/tpl_v3.1.tar.gz
 				</downloadurl>
 			</downloads>
 			<maintainer>Plazart</maintainer>

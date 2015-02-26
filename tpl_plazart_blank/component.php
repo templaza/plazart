@@ -14,17 +14,22 @@ defined('_JEXEC') or die;
 $doc = JFactory::getDocument();
 
 // Check for the print page
-$print = JRequest::getCmd('print');
+$print      = JRequest::getCmd('print');
 // Check for the mail page
-$mailto = JRequest::getCmd('option') == 'com_mailto';
-$config = new JConfig();
+$mailto     = JRequest::getCmd('option') == 'com_mailto';
+$config     = new JConfig();
+
+$app        = JFactory::getApplication();
+$template   = $app -> getTemplate(true);
+$tplparams  = $template -> params;
+$theme      =   $tplparams->get('theme', 'default');
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
 
     <jdoc:include type="head" />
-    <?php $this->loadBlock ('head') ?>
+<!--    --><?php //$this->loadBlock ('head') ?>
 
     <?php if($mailto == true) : ?>
 	<?php $this->addStyleSheet(PLAZART_TEMPLATE_REL.'/css/mail.css'); ?>
@@ -34,6 +39,52 @@ $config = new JConfig();
 	<link rel="stylesheet" href="<?php echo PLAZART_TEMPLATE_REL.'/css/print.css'; ?>" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?php echo PLAZART_TEMPLATE_REL.'/css/print.css'; ?>" type="text/css" media="print" />
 	<?php endif; ?>
+
+    <?php $this->addStyleSheet(PLAZART_URL . '/bootstrap/css/bootstrap.css'); ?>
+
+    <?php
+    $doc -> addScript(PLAZART_TEMPLATE_REL.'/js/tz_aragon.js');
+    $uri    = JUri::getInstance();
+    $doc -> addScriptDeclaration('
+        jQuery(document).ready(function(){
+            var $tzbase = \''.JUri::base(true).'/'.PLAZART_TEMPLATE_REL.'\',
+                $path   = \'/\',
+                $domain = \''.$uri ->root().'\',
+                $secure = \''.$uri -> getScheme().'\';
+
+            if(readCookie(\'tz_aragon_theme_panel_tpl\')){
+                if(!jQuery(\'#tz-link-theme-panel\').length){
+                    jQuery(\'head\').append(\'<link rel="stylesheet" type="text/css" id="tz-link-theme-panel"\' +
+                        \' rel="stylesheet" href="\'+$tzbase+\'/css/themes/\'+
+                        readCookie(\'tz_aragon_theme_panel_tpl\')+\'/template.css"/> \');
+                }
+                else{
+                    jQuery(\'#tz-link-theme-panel\').attr(\'href\',$tzbase+\'/css/themes/\'+
+                        readCookie(\'tz_aragon_theme_panel_tpl\')+\'/template.css\');
+                }
+            }
+
+            jQuery(\'.tz-theme-panel\').find(\'.color-link a\').click(function(){
+                var $link   = jQuery(\'head link\'),
+                    $bool    = false,
+                    $name    = jQuery(this).attr(\'data-profile\'),
+                    $match   = \'/.*?css\\/themes\\/\'+($name)+\'\\/template\\.css.*?/i\';
+                createCookie(\'tz_aragon_theme_panel_tpl\',$name);
+                if(!jQuery(\'#tz-link-theme-panel\').length){
+                    jQuery(\'head\').append(\'<link rel="stylesheet" type="text/css" id="tz-link-theme-panel"\' +
+                        \' rel="stylesheet" href="\'+$tzbase+\'/css/themes/\'+
+                        $name+\'/template.css"/> \');
+                }
+                else{
+                    jQuery(\'#tz-link-theme-panel\').attr(\'href\',$tzbase+\'/css/themes/\'+
+                        $name+\'/template.css\');
+                }
+           });
+        });
+    ');
+    ?>
+
+    <?php $this -> addStyleSheet(PLAZART_TEMPLATE_REL.'/css/themes/'.$theme.'/template.css');?>
 </head>
 <body class="contentpane">
 	<?php 

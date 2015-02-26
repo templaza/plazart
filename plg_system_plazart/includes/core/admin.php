@@ -47,6 +47,11 @@ class PlazartAdmin {
         $body = $this->replaceToolbar($body);
         $body = $this->replaceDoctype($body);
 
+        // Remove chosen script
+        if(preg_match('/jQuery\(\'select\'\)\.chosen\(\{/',$body)){
+            $body   = preg_replace('/jQuery\(\'select\'\)\.chosen\(\{.*\}\)\;/','',$body);
+        }
+
         JResponse::setBody($body);
     }
 

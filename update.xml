@@ -18,7 +18,7 @@
 			<targetplatform name="joomla" version="3.[012345]"/>
 		</update>
 		<update>
-			<name>Plazart - Plugin Version 3.8</name>
+			<name>Plazart - Plugin Version 3.9</name>
 			<description>Plugin Plazart https://github.com/templaza/plazart</description>
 			<element>plazart</element>
 			<type>plugin</type>

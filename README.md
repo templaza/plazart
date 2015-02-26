@@ -34,6 +34,12 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+02/26/15 - 3.9
+
+[bug fixed] Fix error with Joomla 3.4.0
+[feature] Update Font Awesome 4.3.0
+[feature] Update Bootstrap 3.3.2
+
 09/25/14 - 3.8
 
 	[bug fixed] Error can't load color

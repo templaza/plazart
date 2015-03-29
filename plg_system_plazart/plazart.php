@@ -42,7 +42,7 @@ class plgSystemPlazart extends JPlugin
 
 		PlazartBot::preload();
 		$template = Plazart::detect();
-		if($template){
+		if($template){			
 			PlazartBot::beforeInit();
 			Plazart::init($template);
 			PlazartBot::afterInit();
@@ -50,7 +50,7 @@ class plgSystemPlazart extends JPlugin
             Plazart::import('core/parser');
 		}
 	}
-
+	
 	function onBeforeRender(){
 		if(Plazart::detect()){
 			$japp = JFactory::getApplication();
@@ -63,7 +63,7 @@ class plgSystemPlazart extends JPlugin
 			}
 		}
 	}
-
+	
 	function onBeforeCompileHead () {
 		$app = JFactory::getApplication();
 		if(Plazart::detect() && !$app->isAdmin()){
@@ -97,7 +97,7 @@ class plgSystemPlazart extends JPlugin
             }
         }
 	}
-
+	
 	/**
 	 * Add JA Extended menu parameter in administrator
 	 *
@@ -121,7 +121,7 @@ class plgSystemPlazart extends JPlugin
 				$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.noconflict.js');
 			}
 
-		} else
+		} else 
 		*/
 		if(Plazart::detect() && $form->getName() == 'com_templates.style'){
 			$this->loadLanguage();
@@ -167,7 +167,7 @@ class plgSystemPlazart extends JPlugin
             }
         }
     }
-
+	
 	function onExtensionAfterSave($option, $data){
 		if(Plazart::detect() && $option == 'com_templates.style' && !empty($data->id)){
 			//get new params value
@@ -195,7 +195,7 @@ class plgSystemPlazart extends JPlugin
 
 				$db->setQuery($query);
 				$themes = $db->loadObjectList();
-
+				
 				//update all global parameters
 				foreach($themes as $theme){
 					$registry = new JRegistry;

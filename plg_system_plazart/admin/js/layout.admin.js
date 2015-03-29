@@ -15,7 +15,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 jQuery(function($){
-
+    "use strict"
     var reArrangePopOvers = function(){
 
         $('#layout-options .row-fluid').each(function(){
@@ -393,7 +393,7 @@ jQuery(function($){
 
                     event.stopImmediatePropagation();
                     var newPosition = $(this).val();
-                    if( newPosition=='' ) newPosition='(none)';
+                    if( newPosition==='' ) newPosition='(none)';
                     $(this).parents('.popover').parent().parent().find('>.positioninput').val(newPosition);
                     $(this).parents('.popover').parent().parent().find('>.position-name').text(newPosition);
                 });
@@ -434,7 +434,7 @@ jQuery(function($){
 
                     var id = $(this).attr('href');
 
-                    if( id=='' || id=='#' ){  return;}
+                    if( id==='' || id=='#' ){  return;}
 
                     $(this).parents('ul').find('li').removeClass('active');
                     $(this).parent().addClass('active');
@@ -469,12 +469,13 @@ jQuery(function($){
                         currentResponsive = '';
                     }
 
+                    var value;
                     if( $(this).is(':checked') ){
-                        var value = currentResponsive+' '+newResponsive;
+                        value = currentResponsive+' '+newResponsive;
                         value = $.unique( value.split(/\s+/) );
                         value = value.join(' ');
                     } else  {
-                        var value = currentResponsive.replace(newResponsive, '');
+                        value = currentResponsive.replace(newResponsive, '');
                     }
 
                     $(this).parents('.popover').parent().parent().find('>.responsiveclassinput').val($.trim(value));
@@ -745,13 +746,14 @@ jQuery(function($){
                         currentResponsive = '';
                     }
 
+                    var value;
                     if( $(this).is(':checked') ){
-                        var value = currentResponsive+' '+newResponsive;
+                        value = currentResponsive+' '+newResponsive;
                         value = $.unique( value.split(/\s+/) );
                         value = value.join(' ');
 
                     } else  {
-                        var value = currentResponsive.replace(newResponsive, '');
+                        value = currentResponsive.replace(newResponsive, '');
                     }
 
                     $(this).parents('.popover').parent().prev().find('span.rowdocs>input.rowresponsiveinput').val($.trim(value));
@@ -794,7 +796,7 @@ jQuery(function($){
     $("#content,#element-box").delegate("a.columndelete",'click', function(){
 
         if( confirm('Are you sure to delete this column?') ){
-            $parent2 = $(this).parent().parent().parent();
+            var $parent2 = $(this).parent().parent().parent();
             $(this).parent().parent().fadeOut('fast').remove();
             var totalSpan =  $parent2.find('>.column').length;
             resetColumns($parent2);
@@ -967,10 +969,10 @@ jQuery(function($){
 
     addRowInColumn();
 
-    var $getnextdevice = new Array();
-    $getnextdevice['lg'] =  'md';
-    $getnextdevice['md'] =  'sm';
-    $getnextdevice['sm'] =  'xs';
+    var $getnextdevice = [];
+    $getnextdevice.lg =  'md';
+    $getnextdevice.md =  'sm';
+    $getnextdevice.sm =  'xs';
 
     /**
      *  Update column
@@ -980,7 +982,7 @@ jQuery(function($){
             var $widthinput = $(this).find('.widthinput-'+datadevice).val();
             var $offsetinput = $(this).find('.offsetinput-'+datadevice).val();
             var $nextdevice = datadevice;
-            while ($widthinput == '') {
+            while ($widthinput === '') {
                 if ($nextdevice == 'xs') {
                     //if xs is null so it will be span12
                     $widthinput =   '12';
@@ -989,7 +991,7 @@ jQuery(function($){
                     $widthinput =   $(this).find('.widthinput-'+$nextdevice).val();
                 }
             }
-            $offsetinput = $offsetinput != '' ? ' offset'+$offsetinput : '';
+            $offsetinput = $offsetinput !== '' ? ' offset'+$offsetinput : '';
             $(this).removeClass().addClass('ui-sortable column span'+$widthinput+$offsetinput);
         });
     }

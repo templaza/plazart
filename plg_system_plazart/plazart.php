@@ -42,7 +42,7 @@ class plgSystemPlazart extends JPlugin
 
 		PlazartBot::preload();
 		$template = Plazart::detect();
-		if($template){			
+		if($template){
 			PlazartBot::beforeInit();
 			Plazart::init($template);
 			PlazartBot::afterInit();
@@ -50,7 +50,7 @@ class plgSystemPlazart extends JPlugin
             Plazart::import('core/parser');
 		}
 	}
-	
+
 	function onBeforeRender(){
 		if(Plazart::detect()){
 			$japp = JFactory::getApplication();
@@ -63,7 +63,7 @@ class plgSystemPlazart extends JPlugin
 			}
 		}
 	}
-	
+
 	function onBeforeCompileHead () {
 		$app = JFactory::getApplication();
 		if(Plazart::detect() && !$app->isAdmin()){
@@ -97,7 +97,7 @@ class plgSystemPlazart extends JPlugin
             }
         }
 	}
-	
+
 	/**
 	 * Add JA Extended menu parameter in administrator
 	 *
@@ -121,7 +121,7 @@ class plgSystemPlazart extends JPlugin
 				$jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.noconflict.js');
 			}
 
-		} else 
+		} else
 		*/
 		if(Plazart::detect() && $form->getName() == 'com_templates.style'){
 			$this->loadLanguage();
@@ -167,7 +167,7 @@ class plgSystemPlazart extends JPlugin
             }
         }
     }
-	
+
 	function onExtensionAfterSave($option, $data){
 		if(Plazart::detect() && $option == 'com_templates.style' && !empty($data->id)){
 			//get new params value
@@ -195,7 +195,7 @@ class plgSystemPlazart extends JPlugin
 
 				$db->setQuery($query);
 				$themes = $db->loadObjectList();
-				
+
 				//update all global parameters
 				foreach($themes as $theme){
 					$registry = new JRegistry;
@@ -229,23 +229,23 @@ class plgSystemPlazart extends JPlugin
 	 *
 	 * @return  bool
 	 */
-	function onRenderModule (&$module, $attribs)
-	{
-		static $chromed = false;
-		// Detect layout path in Plazart themes
-		if (Plazart::detect()) {
-			// Chrome for module
-			if (!$chromed) {
-				$chromed = true;
-				// We don't need chrome multi times
-				$chromePath = PlazartPath::getPath('html/modules.php');
-				if (file_exists($chromePath)) {
-					include_once $chromePath;
-				}
-			}
-		}
-		return false;
-	}
+//	function onRenderModule (&$module, $attribs)
+//	{
+//		static $chromed = false;
+//		// Detect layout path in Plazart themes
+//		if (Plazart::detect()) {
+//			// Chrome for module
+//			if (!$chromed) {
+//				$chromed = true;
+//				// We don't need chrome multi times
+//				$chromePath = PlazartPath::getPath('html/modules.php');
+//				if (file_exists($chromePath)) {
+//					include_once $chromePath;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	/**
 	 * Implement event onGetLayoutPath to return the layout which override by Plazart & Plazart templates
@@ -258,14 +258,14 @@ class plgSystemPlazart extends JPlugin
 	 *
 	 * @return  null
 	 */
-	function onGetLayoutPath($module, $layout)
-	{
-		// Detect layout path in Plazart themes
-		if (Plazart::detect()) {
-			$tPath = PlazartPath::getPath('html/' . $module . '/' . $layout . '.php');
-			if ($tPath)
-				return $tPath;
-		}
-		return false;
-	}	
+//	function onGetLayoutPath($module, $layout)
+//	{
+//		// Detect layout path in Plazart themes
+//		if (Plazart::detect()) {
+//			$tPath = PlazartPath::getPath('html/' . $module . '/' . $layout . '.php');
+//			if ($tPath)
+//				return $tPath;
+//		}
+//		return false;
+//	}
 }

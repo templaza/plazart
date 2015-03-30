@@ -34,19 +34,19 @@ defined('_JEXEC') or die;
   ?>
 
 	<div id="plazart-admin-tb-global" class="btn-group">
-		<button class="btn active"><i class="fa fa-cog"></i><?php echo JText::_('PLAZART_GLOBAL_LABEL') ?></button>
+		<button class="btn btn-config active"><i class="fa fa-cog"></i><?php echo JText::_('PLAZART_GLOBAL_LABEL') ?></button>
 	</div>
 
     <div id="plazart-admin-tb-megamenu" class="btn-group">
-        <button class="btn hasTip" title="<?php echo JText::_('PLAZART_NAVIGATION_LABEL') ?>::<?php echo JText::_('PLAZART_NAVIGATION_DESC') ?>"><i class="fa fa-bars"></i><?php echo JText::_('PLAZART_NAVIGATION_LABEL') ?></button>
+        <button class="btn btn-config"><i class="fa fa-bars"></i><?php echo JText::_('PLAZART_NAVIGATION_LABEL') ?></button>
     </div>
 
     <div id="plazart-admin-tb-layout" class="btn-group">
-        <button class="btn"><i class="fa fa-columns"></i><?php echo JText::_('PLAZART_LAYOUT_LABEL') ?></button>
+        <button class="btn btn-config"><i class="fa fa-columns"></i><?php echo JText::_('PLAZART_LAYOUT_LABEL') ?></button>
     </div>
 
 	<div id="plazart-admin-tb-close" class="btn-group <?php echo $input->getCmd('view') ?>">
-		<button class="btn"><i class="fa fa-times"></i><?php echo JText::_('PLAZART_TOOLBAR_CLOSE') ?></button>
+		<button class="btn "><i class="fa fa-times"></i><?php echo JText::_('PLAZART_TOOLBAR_CLOSE') ?></button>
 	</div>
 	<div id="plazart-admin-tb-help" class="btn-group <?php echo $input->getCmd('view') ?>">
 		<button class="btn"><i class="fa fa-wheelchair"></i><?php echo JText::_('PLAZART_TOOLBAR_HELP') ?></button>

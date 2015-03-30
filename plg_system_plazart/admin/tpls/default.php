@@ -22,7 +22,6 @@ $user = JFactory::getUser();
 $canDo = version_compare( JVERSION, '3.2.2', 'ge' ) ? JHelperContent::getActions('com_templates') : TemplatesHelper::getActions();
 $iswritable = is_writable('plazarttest.txt');
 $fieldSets = $form->getFieldsets('params');
-
 ?>
 <?php if($iswritable): ?>
 <div id="plazart-admin-writable-message" class="alert warning">
@@ -32,35 +31,37 @@ $fieldSets = $form->getFieldsets('params');
 <?php endif;?>
 <div class="plazart-admin-form clearfix">
 <form action="<?php echo JRoute::_('index.php?option=com_templates&layout=edit&id='.$input->getInt('id')); ?>" method="post" name="adminForm" id="style-form" class="form-validate form-horizontal">
-    <div class="config-view" id="global-config">
-        <?php
-        $default_global_override = PLAZART_TEMPLATE_PATH . '/admin/default_global.php';
-        if(file_exists($default_global_override)) {
-            include_once $default_global_override;
-        } else {
-            include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_global.php';
-        }
-        ?>
-    </div>
-    <div class="config-view" id="menu-config">
-        <?php
-        $default_menu_override = PLAZART_TEMPLATE_PATH . '/admin/default_megamenu.php';
-        if(file_exists($default_menu_override)) {
-            include_once $default_menu_override;
-        } else {
-            include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_megamenu.php';
-        }
-        ?>
-    </div>
-    <div class="config-view" id="layout-config">
-        <?php
-        $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_layout.php';
-        if(file_exists($default_layout_override)) {
-            include_once $default_layout_override;
-        } else {
-            include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_layout.php';
-        }
-        ?>
+    <div class="configure-content">
+        <div class="config-view active" id="global-config">
+            <?php
+            $default_global_override = PLAZART_TEMPLATE_PATH . '/admin/default_global.php';
+            if(file_exists($default_global_override)) {
+                include_once $default_global_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_global.php';
+            }
+            ?>
+        </div>
+        <div class="config-view" id="menu-config">
+            <?php
+            $default_menu_override = PLAZART_TEMPLATE_PATH . '/admin/default_megamenu.php';
+            if(file_exists($default_menu_override)) {
+                include_once $default_menu_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_megamenu.php';
+            }
+            ?>
+        </div>
+        <div class="config-view" id="layout-config">
+            <?php
+            $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_layout.php';
+            if(file_exists($default_layout_override)) {
+                include_once $default_layout_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_layout.php';
+            }
+            ?>
+        </div>
     </div>
 	<input type="hidden" name="task" value="" />
 	<?php echo JHtml::_('form.token'); ?>

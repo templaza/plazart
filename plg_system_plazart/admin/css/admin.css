@@ -146,7 +146,14 @@ h1.page-title small {
   line-height: normal;
 }
 
+/* Configuration View */
+.plazart-admin-form .configure-content > .config-view {
+    display: none;
+}
 
+.plazart-admin-form .configure-content > .active {
+    display: block;
+}
 
 /* ADMIN MAIN NAVIGATION
 ---------------------------------------------------*/

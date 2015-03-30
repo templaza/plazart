@@ -662,9 +662,24 @@ var PlazartAdmin = window.PlazartAdmin || {};
 			}
 		},
 
-        swicthConfig: function() {
+        switchConfig: function() {
+            $('#plazart-admin-tb-global').on('click', function(){
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#global-config').addClass('active');
+                $('#plazart-admin-tb-global > button').addClass('active');
+            });
             $('#plazart-admin-tb-megamenu').on('click', function(){
-                $('.config-view')
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#menu-config').addClass('active');
+                $('#plazart-admin-tb-megamenu > button').addClass('active');
+            });
+            $('#plazart-admin-tb-layout').on('click', function(){
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#layout-config').addClass('active');
+                $('#plazart-admin-tb-layout > button').addClass('active');
             });
         },
 
@@ -754,6 +769,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
 		PlazartAdmin.initChangeStyle();
         PlazartAdmin.initLayoutBuilder();
 		PlazartAdmin.switchTab();
+		PlazartAdmin.switchConfig();
         PlazartAdmin.fixValidate();
 	});
 

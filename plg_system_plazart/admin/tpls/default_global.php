@@ -79,12 +79,14 @@ defined('_JEXEC') or die;
                 </li>
                 <?php
                 foreach ($fieldSets as $name => $fieldSet) :
+                if (!in_array($name,array('layout_params', 'navigation_params'))):
                     $label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_TEMPLATES_' . $name . '_FIELDSET_LABEL';
                     ?>
                     <li<?php echo $plazartlock == preg_replace('/\s+/', ' ', $name) ? ' class="active"' : '' ?>><a
                             href="#<?php echo preg_replace('/\s+/', ' ', $name); ?>"
                             data-toggle="tab"><?php echo JText::_($label) ?></a></li>
                 <?php
+                endif;
                 endforeach;
                 ?>
                 <?php if ($user->authorise('core.edit', 'com_menu') && ($form->getValue('client_id') == 0)): ?>
@@ -107,6 +109,7 @@ defined('_JEXEC') or die;
             </div>
             <?php
             foreach ($fieldSets as $name => $fieldSet) :
+                if (!in_array($name,array('layout_params', 'navigation_params'))):
                 ?>
                 <div class="tab-pane<?php echo $plazartlock == preg_replace('/\s+/', ' ', $name) ? ' active' : '' ?>"
                      id="<?php echo preg_replace('/\s+/', ' ', $name); ?>">
@@ -137,7 +140,9 @@ defined('_JEXEC') or die;
                     <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
-            <?php endforeach; ?>
+            <?php
+                endif;
+            endforeach; ?>
 
             <?php if ($user->authorise('core.edit', 'com_menu') && $form->getValue('client_id') == 0): ?>
                 <?php if ($canDo->get('core.edit.state')) : ?>

@@ -102,7 +102,7 @@
 
 
 /* Fullscreen Toggle */
-#navigation_params .plazart-admin-tog-fullscreen {
+#plazart-admin-megamenu .plazart-admin-tog-fullscreen {
   position: absolute;
   right: 0;
   top: -50px;

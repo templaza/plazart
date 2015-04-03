@@ -33,35 +33,35 @@ input.readonly,input.required{background:none}
 .tab-pane hr:last-child{display:none}
 
 /*Start Layout Tab*/
-#layout_params ul{margin:0}
-#layout_params{min-height:500px}
-#layout_params .row-fluid{width:auto}
-#layout_params .layoutmainrow{-webkit-box-shadow:0 0 3px rgba(0,0,0,.2);background:#fbfbfb;box-shadow:0 0 3px rgba(0,0,0,.2);margin-bottom:15px;padding:15px}
-#layout_params .layoutmainrow:hover{-webkit-box-shadow:0 0 3px rgba(0,0,0,.5);background:#f5f5f5;box-shadow:0 0 3px rgba(0,0,0,.5)}
-#layout_params .layoutmainrow .row-fluid.show-grid,
-#layout_params .layoutmainrow .row-fluid.show-grid{border-top:1px solid #ddd;margin:15px -15px 0;padding:15px 15px 0}
-#layout_params .layoutmainrow .rowpropperties .rowname,
-#layout_params .layoutmainrow .position-name{color:#666;font-size:20px}
-#layout_params .layoutmainrow .position-name{font-size:14px;margin-left:15px}
-#layout_params .type-message > span.position-name{color:red}
-#layout_params .row-fluid.child-row{border-top:1px solid #ddd;margin:0;padding:0 15px 15px}
-#layout_params .layoutmainrow .child-row .row-fluid.show-grid{margin-top:0}
-#layout_params .show-grid > [class*=span]{background:#fff;margin:0;border:1px solid #dadada;border-radius:0;line-height:50px;min-height:50px;box-shadow:0 0 3px 0 rgba(0,0,0,.1);-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,.1)}
-#layout_params .show-grid > [class*=span].type-component{background:#f8fde9;border:1px solid #809c36}
-#layout_params .show-grid > [class*=span].type-message > .type-message{text-align:center}
-#layout_params .show-grid > [class*=span]:hover{border-color:rgba(82,168,236,0.8);outline:thin dotted 9}
-#layout_params .show-grid .show-grid [class*=span]{margin-top:5px}
-#layout_params .row-tools{margin-top:3px}
-#layout_params .row-tools a{color:#a5a5a5;font-size:18px;margin:0 0 0 6px}
-#layout_params .row-tools a.icon-move{border-right:1px solid #ccc;cursor:move;padding-right:6px}
-#layout_params .columntools{-webkit-transition:opacity 300ms;float:right;margin-right:15px;opacity:0}
-#layout_params .columntools a{color:#a5a5a5;font-size:14px;margin:0 0 0 3px}
-#layout_params .columntools a.icon-move{cursor:move}
-#layout_params .row-tools a.icon-remove,
-#layout_params .columntools a.icon-remove{color:#e52626}
-#layout_params .columntools.open,
-#layout_params .column:hover >.columntools,
-#layout_params .column:focus >.columntools{opacity:1}
+#plazart-layout-config ul{margin:0}
+#plazart-layout-config{min-height:500px}
+#plazart-layout-config .row-fluid{width:auto}
+#plazart-layout-config .layoutmainrow{-webkit-box-shadow:0 0 3px rgba(0,0,0,.2);background:#fbfbfb;box-shadow:0 0 3px rgba(0,0,0,.2);margin-bottom:15px;padding:15px}
+#plazart-layout-config .layoutmainrow:hover{-webkit-box-shadow:0 0 3px rgba(0,0,0,.5);background:#f5f5f5;box-shadow:0 0 3px rgba(0,0,0,.5)}
+#plazart-layout-config .layoutmainrow .row-fluid.show-grid,
+#plazart-layout-config .layoutmainrow .row-fluid.show-grid{border-top:1px solid #ddd;margin:15px -15px 0;padding:15px 15px 0}
+#plazart-layout-config .layoutmainrow .rowpropperties .rowname,
+#plazart-layout-config .layoutmainrow .position-name{color:#666;font-size:20px}
+#plazart-layout-config .layoutmainrow .position-name{font-size:14px;margin-left:15px}
+#plazart-layout-config .type-message > span.position-name{color:red}
+#plazart-layout-config .row-fluid.child-row{border-top:1px solid #ddd;margin:0;padding:0 15px 15px}
+#plazart-layout-config .layoutmainrow .child-row .row-fluid.show-grid{margin-top:0}
+#plazart-layout-config .show-grid > [class*=span]{background:#fff;margin:0;border:1px solid #dadada;border-radius:0;line-height:50px;min-height:50px;box-shadow:0 0 3px 0 rgba(0,0,0,.1);-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,.1)}
+#plazart-layout-config .show-grid > [class*=span].type-component{background:#f8fde9;border:1px solid #809c36}
+#plazart-layout-config .show-grid > [class*=span].type-message > .type-message{text-align:center}
+#plazart-layout-config .show-grid > [class*=span]:hover{border-color:rgba(82,168,236,0.8);outline:thin dotted 9}
+#plazart-layout-config .show-grid .show-grid [class*=span]{margin-top:5px}
+#plazart-layout-config .row-tools{margin-top:3px}
+#plazart-layout-config .row-tools a{color:#a5a5a5;font-size:18px;margin:0 0 0 6px}
+#plazart-layout-config .row-tools a.icon-move{border-right:1px solid #ccc;cursor:move;padding-right:6px}
+#plazart-layout-config .columntools{-webkit-transition:opacity 300ms;float:right;margin-right:15px;opacity:0}
+#plazart-layout-config .columntools a{color:#a5a5a5;font-size:14px;margin:0 0 0 3px}
+#plazart-layout-config .columntools a.icon-move{cursor:move}
+#plazart-layout-config .row-tools a.icon-remove,
+#plazart-layout-config .columntools a.icon-remove{color:#e52626}
+#plazart-layout-config .columntools.open,
+#plazart-layout-config .column:hover >.columntools,
+#plazart-layout-config .column:focus >.columntools{opacity:1}
 
 #plazart_layout_builder select {
     width: auto;
@@ -140,80 +140,80 @@ hr{border-color:#dadada}
 }
 
 /*override bootstrap*/
-#layout_params .show-grid > .span12 {
+#plazart-layout-config .show-grid > .span12 {
     width: 100%;
 }
-#layout_params .show-grid > .span11 {
+#plazart-layout-config .show-grid > .span11 {
     width: 91.66666667%;
 }
-#layout_params .show-grid > .span10 {
+#plazart-layout-config .show-grid > .span10 {
     width: 83.33333333%;
 }
-#layout_params .show-grid > .span9 {
+#plazart-layout-config .show-grid > .span9 {
     width: 75%;
 }
-#layout_params .show-grid > .span8 {
+#plazart-layout-config .show-grid > .span8 {
     width: 66.66666667%;
 }
-#layout_params .show-grid > .span7 {
+#plazart-layout-config .show-grid > .span7 {
     width: 58.33333333%;
 }
-#layout_params .show-grid > .span6 {
+#plazart-layout-config .show-grid > .span6 {
     width: 50%;
 }
-#layout_params .show-grid > .span5 {
+#plazart-layout-config .show-grid > .span5 {
     width: 41.66666667%;
 }
-#layout_params .show-grid > .span4 {
+#plazart-layout-config .show-grid > .span4 {
     width: 33.33333333%;
 }
-#layout_params .show-grid > .span3 {
+#plazart-layout-config .show-grid > .span3 {
     width: 25%;
 }
-#layout_params .show-grid > .span2 {
+#plazart-layout-config .show-grid > .span2 {
     width: 16.66666667%;
 }
-#layout_params .show-grid > .span1 {
+#plazart-layout-config .show-grid > .span1 {
     width: 8.33333333%;
 }
 
-#layout_params .show-grid > .offset12 {
+#plazart-layout-config .show-grid > .offset12 {
     margin-left: 100%;
 }
-#layout_params .show-grid > .offset11 {
+#plazart-layout-config .show-grid > .offset11 {
     margin-left: 91.66666667%;
 }
-#layout_params .show-grid > .offset10 {
+#plazart-layout-config .show-grid > .offset10 {
     margin-left: 83.33333333%;
 }
-#layout_params .show-grid > .offset9 {
+#plazart-layout-config .show-grid > .offset9 {
     margin-left: 75%;
 }
-#layout_params .show-grid > .offset8 {
+#plazart-layout-config .show-grid > .offset8 {
     margin-left: 66.66666667%;
 }
-#layout_params .show-grid > .offset7 {
+#plazart-layout-config .show-grid > .offset7 {
     margin-left: 58.33333333%;
 }
-#layout_params .show-grid > .offset6 {
+#plazart-layout-config .show-grid > .offset6 {
     margin-left: 50%;
 }
-#layout_params .show-grid > .offset5 {
+#plazart-layout-config .show-grid > .offset5 {
     margin-left: 41.66666667%;
 }
-#layout_params .show-grid > .offset4 {
+#plazart-layout-config .show-grid > .offset4 {
     margin-left: 33.33333333%;
 }
-#layout_params .show-grid > .offset3 {
+#plazart-layout-config .show-grid > .offset3 {
     margin-left: 25%;
 }
-#layout_params .show-grid > .offset2 {
+#plazart-layout-config .show-grid > .offset2 {
     margin-left: 16.66666667%;
 }
-#layout_params .show-grid > .offset1 {
+#plazart-layout-config .show-grid > .offset1 {
     margin-left: 8.33333333%;
 }
-#layout_params .show-grid > .offset0 {
+#plazart-layout-config .show-grid > .offset0 {
     margin-left: 0;
 }
 
@@ -223,80 +223,80 @@ hr{border-color:#dadada}
     .row-fluid [class*="span"] {
         float: left;
     }
-    #layout_params .show-grid > .span12 {
+    #plazart-layout-config .show-grid > .span12 {
         width: 100%;
     }
-    #layout_params .show-grid > .span11 {
+    #plazart-layout-config .show-grid > .span11 {
         width: 91.66666667%;
     }
-    #layout_params .show-grid > .span10 {
+    #plazart-layout-config .show-grid > .span10 {
         width: 83.33333333%;
     }
-    #layout_params .show-grid > .span9 {
+    #plazart-layout-config .show-grid > .span9 {
         width: 75%;
     }
-    #layout_params .show-grid > .span8 {
+    #plazart-layout-config .show-grid > .span8 {
         width: 66.66666667%;
     }
-    #layout_params .show-grid > .span7 {
+    #plazart-layout-config .show-grid > .span7 {
         width: 58.33333333%;
     }
-    #layout_params .show-grid > .span6 {
+    #plazart-layout-config .show-grid > .span6 {
         width: 50%;
     }
-    #layout_params .show-grid > .span5 {
+    #plazart-layout-config .show-grid > .span5 {
         width: 41.66666667%;
     }
-    #layout_params .show-grid > .span4 {
+    #plazart-layout-config .show-grid > .span4 {
         width: 33.33333333%;
     }
-    #layout_params .show-grid > .span3 {
+    #plazart-layout-config .show-grid > .span3 {
         width: 25%;
     }
-    #layout_params .show-grid > .span2 {
+    #plazart-layout-config .show-grid > .span2 {
         width: 16.66666667%;
     }
-    #layout_params .show-grid > .span1 {
+    #plazart-layout-config .show-grid > .span1 {
         width: 8.33333333%;
     }
 
-    #layout_params .show-grid > .offset12 {
+    #plazart-layout-config .show-grid > .offset12 {
         margin-left: 100%;
     }
-    #layout_params .show-grid > .offset11 {
+    #plazart-layout-config .show-grid > .offset11 {
         margin-left: 91.66666667%;
     }
-    #layout_params .show-grid > .offset10 {
+    #plazart-layout-config .show-grid > .offset10 {
         margin-left: 83.33333333%;
     }
-    #layout_params .show-grid > .offset9 {
+    #plazart-layout-config .show-grid > .offset9 {
         margin-left: 75%;
     }
-    #layout_params .show-grid > .offset8 {
+    #plazart-layout-config .show-grid > .offset8 {
         margin-left: 66.66666667%;
     }
-    #layout_params .show-grid > .offset7 {
+    #plazart-layout-config .show-grid > .offset7 {
         margin-left: 58.33333333%;
     }
-    #layout_params .show-grid > .offset6 {
+    #plazart-layout-config .show-grid > .offset6 {
         margin-left: 50%;
     }
-    #layout_params .show-grid > .offset5 {
+    #plazart-layout-config .show-grid > .offset5 {
         margin-left: 41.66666667%;
     }
-    #layout_params .show-grid > .offset4 {
+    #plazart-layout-config .show-grid > .offset4 {
         margin-left: 33.33333333%;
     }
-    #layout_params .show-grid > .offset3 {
+    #plazart-layout-config .show-grid > .offset3 {
         margin-left: 25%;
     }
-    #layout_params .show-grid > .offset2 {
+    #plazart-layout-config .show-grid > .offset2 {
         margin-left: 16.66666667%;
     }
-    #layout_params .show-grid > .offset1 {
+    #plazart-layout-config .show-grid > .offset1 {
         margin-left: 8.33333333%;
     }
-    #layout_params .show-grid > .offset0 {
+    #plazart-layout-config .show-grid > .offset0 {
         margin-left: 0;
     }
 }
@@ -307,80 +307,80 @@ hr{border-color:#dadada}
     .row-fluid [class*="span"] {
         float: left;
     }
-    #layout_params .show-grid > .span12 {
+    #plazart-layout-config .show-grid > .span12 {
         width: 100%;
     }
-    #layout_params .show-grid > .span11 {
+    #plazart-layout-config .show-grid > .span11 {
         width: 91.66666667%;
     }
-    #layout_params .show-grid > .span10 {
+    #plazart-layout-config .show-grid > .span10 {
         width: 83.33333333%;
     }
-    #layout_params .show-grid > .span9 {
+    #plazart-layout-config .show-grid > .span9 {
         width: 75%;
     }
-    #layout_params .show-grid > .span8 {
+    #plazart-layout-config .show-grid > .span8 {
         width: 66.66666667%;
     }
-    #layout_params .show-grid > .span7 {
+    #plazart-layout-config .show-grid > .span7 {
         width: 58.33333333%;
     }
-    #layout_params .show-grid > .span6 {
+    #plazart-layout-config .show-grid > .span6 {
         width: 50%;
     }
-    #layout_params .show-grid > .span5 {
+    #plazart-layout-config .show-grid > .span5 {
         width: 41.66666667%;
     }
-    #layout_params .show-grid > .span4 {
+    #plazart-layout-config .show-grid > .span4 {
         width: 33.33333333%;
     }
-    #layout_params .show-grid > .span3 {
+    #plazart-layout-config .show-grid > .span3 {
         width: 25%;
     }
-    #layout_params .show-grid > .span2 {
+    #plazart-layout-config .show-grid > .span2 {
         width: 16.66666667%;
     }
-    #layout_params .show-grid > .span1 {
+    #plazart-layout-config .show-grid > .span1 {
         width: 8.33333333%;
     }
 
-    #layout_params .show-grid > .offset12 {
+    #plazart-layout-config .show-grid > .offset12 {
         margin-left: 100%;
     }
-    #layout_params .show-grid > .offset11 {
+    #plazart-layout-config .show-grid > .offset11 {
         margin-left: 91.66666667%;
     }
-    #layout_params .show-grid > .offset10 {
+    #plazart-layout-config .show-grid > .offset10 {
         margin-left: 83.33333333%;
     }
-    #layout_params .show-grid > .offset9 {
+    #plazart-layout-config .show-grid > .offset9 {
         margin-left: 75%;
     }
-    #layout_params .show-grid > .offset8 {
+    #plazart-layout-config .show-grid > .offset8 {
         margin-left: 66.66666667%;
     }
-    #layout_params .show-grid > .offset7 {
+    #plazart-layout-config .show-grid > .offset7 {
         margin-left: 58.33333333%;
     }
-    #layout_params .show-grid > .offset6 {
+    #plazart-layout-config .show-grid > .offset6 {
         margin-left: 50%;
     }
-    #layout_params .show-grid > .offset5 {
+    #plazart-layout-config .show-grid > .offset5 {
         margin-left: 41.66666667%;
     }
-    #layout_params .show-grid > .offset4 {
+    #plazart-layout-config .show-grid > .offset4 {
         margin-left: 33.33333333%;
     }
-    #layout_params .show-grid > .offset3 {
+    #plazart-layout-config .show-grid > .offset3 {
         margin-left: 25%;
     }
-    #layout_params .show-grid > .offset2 {
+    #plazart-layout-config .show-grid > .offset2 {
         margin-left: 16.66666667%;
     }
-    #layout_params .show-grid > .offset1 {
+    #plazart-layout-config .show-grid > .offset1 {
         margin-left: 8.33333333%;
     }
-    #layout_params .show-grid > .offset0 {
+    #plazart-layout-config .show-grid > .offset0 {
         margin-left: 0;
     }
 }

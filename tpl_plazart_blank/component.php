@@ -15,8 +15,6 @@ $doc = JFactory::getDocument();
 
 // Check for the print page
 $print      = JRequest::getCmd('print');
-// Check for the mail page
-$mailto     = JRequest::getCmd('option') == 'com_mailto';
 $config     = new JConfig();
 
 $app        = JFactory::getApplication();
@@ -29,11 +27,6 @@ $theme      =   $tplparams->get('theme', 'default');
 <head>
 
     <jdoc:include type="head" />
-<!--    --><?php //$this->loadBlock ('head') ?>
-
-    <?php if($mailto == true) : ?>
-	<?php $this->addStyleSheet(PLAZART_TEMPLATE_REL.'/css/mail.css'); ?>
-	<?php endif; ?>
 	
 	<?php if($print == 1) : ?>     
 	<link rel="stylesheet" href="<?php echo PLAZART_TEMPLATE_REL.'/css/print.css'; ?>" type="text/css" media="screen" />

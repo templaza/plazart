@@ -24,66 +24,80 @@
 var PlazartAdmin = window.PlazartAdmin || {};
 
 !function ($) {
-
+    "use strict"
 	$.extend(PlazartAdmin, {
 		
 		initBuildLessBtn: function(){
 			//plazart added
-			$('#plazart-admin-tb-recompile').on('click', function(){
-				var jrecompile = $(this);
-				jrecompile.addClass('loading');
+			//$('#plazart-admin-tb-recompile').on('click', function(){
+			//	var jrecompile = $(this);
+			//	jrecompile.addClass('loading');
+            //
+			//	$.ajax({
+			//		url: PlazartAdmin.adminurl,
+			//		data: {'plazartaction': 'lesscall', 'styleid': PlazartAdmin.templateid },
+			//		success: function(rsp){
+			//			jrecompile.removeClass('loading');
+            //
+			//			rsp = $.trim(rsp);
+			//			if(rsp){
+			//				var json = rsp;
+			//				if(rsp.charAt(0) != '[' && rsp.charAt(0) != '{'){
+			//					json = rsp.match(new RegExp('{[\["].*}'));
+			//					if(json && json[0]){
+			//						json = json[0];
+			//					}
+			//				}
+            //
+			//				if(json && typeof json == 'string'){
+			//					try {
+			//						json = $.parseJSON(json);
+			//					} catch (e){
+			//						json = {
+			//							error: PlazartAdmin.langs.unknownError
+			//						}
+			//					}
+            //
+			//					if(json && (json.error || json.successful)){
+			//						PlazartAdmin.systemMessage(json.error || json.successful);
+			//					}
+			//				}
+			//			}
+			//		},
+            //
+			//		error: function(){
+			//			jrecompile.removeClass('loading');
+			//			PlazartAdmin.systemMessage(PlazartAdmin.langs.unknownError);
+			//		}
+			//	});
+			//	return false;
+			//});
 
-				$.ajax({
-					url: PlazartAdmin.adminurl,
-					data: {'plazartaction': 'lesscall', 'styleid': PlazartAdmin.templateid },
-					success: function(rsp){
-						jrecompile.removeClass('loading');
-
-						rsp = $.trim(rsp);
-						if(rsp){
-							var json = rsp;
-							if(rsp.charAt(0) != '[' && rsp.charAt(0) != '{'){
-								json = rsp.match(new RegExp('{[\["].*}'));
-								if(json && json[0]){
-									json = json[0];
-								}
-							}
-
-							if(json && typeof json == 'string'){
-								try {
-									json = $.parseJSON(json);
-								} catch (e){
-									json = {
-										error: PlazartAdmin.langs.unknownError
-									}
-								}
-
-								if(json && (json.error || json.successful)){
-									PlazartAdmin.systemMessage(json.error || json.successful);
-								}
-							}
-						}
-					},
-
-					error: function(){
-						jrecompile.removeClass('loading');
-						PlazartAdmin.systemMessage(PlazartAdmin.langs.unknownError);
-					}
-				});
-				return false;
-			});
-
-			$('#plazart-admin-tb-themer').on('click', function(){
-				if(!PlazartAdmin.themermode){
-					alert(PlazartAdmin.langs.enableThemeMagic);
-				} else {
-					window.location.href = PlazartAdmin.themerUrl;
-				}
-				return false;
-			});
+			//$('#plazart-admin-tb-themer').on('click', function(){
+			//	if(!PlazartAdmin.themermode){
+			//		alert(PlazartAdmin.langs.enableThemeMagic);
+			//	} else {
+			//		window.location.href = PlazartAdmin.themerUrl;
+			//	}
+			//	return false;
+			//});
 
 			//for style toolbar
 			$('#plazart-admin-tb-style-save-save').on('click', function(){
+                var form = document.adminForm;
+                var urlparts = form.action.split('#');
+                var hash = window.location.hash;
+
+                if(hash){
+                    hash = hash.substring(1);
+                    if(urlparts[0].indexOf('?') == -1){
+                        urlparts[0] += '?plazartlock=' + hash;
+                    } else {
+                        urlparts[0] += '&plazartlock=' + hash;
+                    }
+                    form.action = urlparts.join('#');
+
+                }
 				Joomla.submitbutton('style.apply');
 			});
 
@@ -98,6 +112,12 @@ var PlazartAdmin = window.PlazartAdmin || {};
 			$('#plazart-admin-tb-close').on('click', function(){
 				Joomla.submitbutton(($(this).hasClass('template') ? 'template' : 'style') + '.cancel');
 			});
+            $('#plazart-admin-tb-help').on('click', function(){
+                if (PlazartAdmin.documentation) {
+                    var win = window.open(PlazartAdmin.documentation, '_blank');
+                    win.focus();
+                }
+            });
 		},
 
 		initRadioGroup: function(){
@@ -113,7 +133,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
 						.find('label')
 						.removeClass('active btn-success btn-danger btn-primary');
 
-					label.addClass('active ' + (input.val() == '' ? 'btn-primary' : (input.val() == 0 ? 'btn-danger' : 'btn-success')));
+					label.addClass('active ' + (input.val() === '' ? 'btn-primary' : (input.val() === 0 ? 'btn-danger' : 'btn-success')));
 					
 					input.prop('checked', true).trigger('change');
 				}
@@ -125,14 +145,14 @@ var PlazartAdmin = window.PlazartAdmin || {};
 						.closest('.btn-group')
 						.find('label').removeClass('active btn-success btn-danger btn-primary')
 						.filter('[for="' + this.id + '"]')
-							.addClass('active ' + ($(this).val() == '' ? 'btn-primary' : ($(this).val() == 0 ? 'btn-danger' : 'btn-success')));
+							.addClass('active ' + ($(this).val() === '' ? 'btn-primary' : ($(this).val() === 0 ? 'btn-danger' : 'btn-success')));
 				}
 			});
 
 			$('.btn-group input[checked=checked]').each(function(){
-				if($(this).val() == ''){
+				if($(this).val() === ''){
 					$('label[for=' + $(this).attr('id') + ']').addClass('active btn-primary');
-				} else if($(this).val() == 0){
+				} else if($(this).val() === 0){
 					$('label[for=' + $(this).attr('id') + ']').addClass('active btn-danger');
 				} else {
 					$('label[for=' + $(this).attr('id') + ']').addClass('active btn-success');
@@ -176,36 +196,35 @@ var PlazartAdmin = window.PlazartAdmin || {};
 			}).closest('.control-group').hide();
 		},
 
-		initPreSubmit: function(){
+        initPreSubmit: function(){
 
-			var form = document.adminForm;
-			if(!form){
-				return false;
-			}
+            var form = document.adminForm;
+            if(!form){
+                return false;
+            }
 
-			var onsubmit = form.onsubmit;
+            var onsubmit = form.onsubmit;
 
-			form.onsubmit = function(e){
-				var json = {},
-					urlparts = form.action.split('#');
-					
-				if(/apply|save2copy/.test(form['task'].value)){
-					plazartactive = $('.plazart-admin-nav .active a').attr('href').replace(/.*(?=#[^\s]*$)/, '').substr(1);
+            form.onsubmit = function(e){
+                var urlparts = form.action.split('#');
 
-					if(urlparts[0].indexOf('?') == -1){
-						urlparts[0] += '?plazartlock=' + plazartactive;
-					} else {
-						urlparts[0] += '&plazartlock=' + plazartactive;
-					}
-					
-					form.action = urlparts.join('#');
-				}
-					
-				if($.isFunction(onsubmit)){
-					onsubmit();
-				}
-			};
-		},
+                if(/apply|save2copy/.test(form.task.value)){
+                    var plazartactive = $('.plazart-admin-nav .active a').attr('href').replace(/.*(?=#[^\s]*$)/, '').substr(1);
+
+                    if(urlparts[0].indexOf('?') == -1){
+                        urlparts[0] += '?plazartlock=' + plazartactive;
+                    } else {
+                        urlparts[0] += '&plazartlock=' + plazartactive;
+                    }
+
+                    form.action = urlparts.join('#');
+                }
+
+                if($.isFunction(onsubmit)){
+                    onsubmit();
+                }
+            };
+        },
 
 		initChangeStyle: function(){
 			$('#plazart-styles-list').on('change', function(){
@@ -247,114 +266,12 @@ var PlazartAdmin = window.PlazartAdmin || {};
 						jpane = jgroup.closest('.tab-pane'),
 						chretain = Math.max(0, (jgroup.data('chretain') || 0) + (eq ? -1 : 1));
 
-					jgroup.data('chretain', chretain)
-						[chretain ? 'addClass' : 'removeClass']('plazart-changed');
+					jgroup.data('chretain', chretain) [chretain ? 'addClass' : 'removeClass']('plazart-changed');
 
 					$('.plazart-admin-nav .nav li').eq(jpane.index())[(!eq || jpane.find('.plazart-changed').length) ? 'addClass' : 'removeClass']('plazart-changed');
 
 				});
 			}, 500);
-		},
-
-		initCheckupdate: function(){
-			
-			var tinfo = $('#plazart-admin-tpl-info dd'),
-				finfo = $('#plazart-admin-frmk-info dd');
-
-			PlazartAdmin.chkupdating = null;
-			PlazartAdmin.tplname = tinfo.eq(0).html();
-			PlazartAdmin.tplversion = tinfo.eq(1).html();
-			PlazartAdmin.frmkname = finfo.eq(0).html();
-			PlazartAdmin.frmkversion = finfo.eq(1).html();
-			
-			$('#plazart-admin-framework-home .updater, #plazart-admin-template-home .updater').on('click', 'a.btn', function(){
-				
-				//if it is outdated, then we go direct to link
-				if($(this).closest('.updater').hasClass('outdated')){
-					return true;
-				}
-
-				//if we are checking, ignore this click, wait for it complete
-				if(PlazartAdmin.chkupdating){
-					return false;
-				}
-
-				//checking
-				$(this).addClass('loading');
-				PlazartAdmin.chkupdating = this;
-				PlazartAdmin.checkUpdate();
-
-				return false;
-			});
-		},
-
-		checkUpdate: function(){
-			$.ajax({
-				url: PlazartAdmin.plazartupdateurl,
-				data: {eid: PlazartAdmin.eids},
-				success: function(data) {
-					var jfrmk = $('#plazart-admin-framework-home .updater:first'),
-						jtemp = $('#plazart-admin-template-home .updater:first');
-
-					jfrmk.find('.btn').removeClass('loading');
-					jtemp.find('.btn').removeClass('loading');
-					
-					try {
-						var ulist = $.parseJSON(data);
-					} catch(e) {
-						PlazartAdmin.alert(PlazartAdmin.langs.updateFailedGetList, PlazartAdmin.chkupdating);
-					}
-
-					if (ulist instanceof Array) {
-						if (ulist.length > 0) {
-							
-							var	chkfrmk = !jfrmk.hasClass('outdated'),
-								chktemp = !jtemp.hasClass('outdated');
-
-							if(chkfrmk || chktemp){
-								for(var i = 0, il = ulist.length; i < il; i++){
-
-									if(chkfrmk && ulist[i].element == PlazartAdmin.felement && ulist[i].type == 'plugin'){
-										jfrmk.addClass('outdated');
-										jfrmk.find('.btn').attr('href', PlazartAdmin.jupdateUrl).html(PlazartAdmin.langs.updateDownLatest);
-										jfrmk.find('h3').html(PlazartAdmin.langs.updateHasNew.replace(/%s/g, PlazartAdmin.frmkname));
-										
-										var ridx = 0,
-											rvals = [PlazartAdmin.frmkversion, PlazartAdmin.frmkname, ulist[i].version];
-										jfrmk.find('p').html(PlazartAdmin.langs.updateCompare.replace(/%s/g, function(){
-											return rvals[ridx++];
-										}));
-
-										PlazartAdmin.langs.updateCompare.replace(/%s/g, function(){ return '' })
-									}
-									if(chktemp && ulist[i].element == PlazartAdmin.telement && ulist[i].type == 'template'){
-										jtemp.addClass('outdated');
-										jtemp.find('.btn').attr('href', PlazartAdmin.jupdateUrl).html(PlazartAdmin.langs.updateDownLatest);
-
-										jtemp.find('h3').html(PlazartAdmin.langs.updateHasNew.replace(/%s/g, PlazartAdmin.tplname));
-										
-										var ridx = 0,
-											rvals = [PlazartAdmin.tplversion, PlazartAdmin.tplname, ulist[i].version];
-										jtemp.find('p').html(PlazartAdmin.langs.updateCompare.replace(/%s/g, function(){
-											return rvals[ridx++];
-										}));
-									}
-								}
-
-								PlazartAdmin.alert(PlazartAdmin.langs.updateChkComplete, PlazartAdmin.chkupdating);
-							}
-						}
-					} else {
-						PlazartAdmin.alert(PlazartAdmin.langs.updateFailedGetList, PlazartAdmin.chkupdating);
-					}
-
-					PlazartAdmin.chkupdating = null;
-				},
-				error: function() {
-					PlazartAdmin.alert(PlazartAdmin.langs.updateFailedGetList, PlazartAdmin.chkupdating);
-					PlazartAdmin.chkupdating = null;
-				}
-			});
 		},
 
 		initSystemMessage: function(){
@@ -378,13 +295,13 @@ var PlazartAdmin = window.PlazartAdmin || {};
         },
 
         initPreset: function () {
-            $('.preset').click (function (e) {
+            $('.btn-preset').click (function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 $('#loadPreset').modal('toggle');
-                $thisPreset = jQuery(this);
+                var $thisPreset = jQuery(this);
                 $('#loadPresetAccept').click(function(e){
-                    $("#config_manager_load_filename").val($thisPreset.text());
+                    $("#config_manager_load_filename").val($thisPreset.attr('data-preset'));
                     loadSaveOperation();
                 });
             });
@@ -393,9 +310,9 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 e.stopPropagation();
                 e.preventDefault();
                 $('#removePreset').modal('toggle');
-                $thisPreset = jQuery(this);
+                var $thisPreset = jQuery(this);
                 $('#removePresetAccept').click(function(e){
-                    $("#config_manager_load_filename").val($thisPreset.parent().text());
+                    $("#config_manager_load_filename").val($thisPreset.attr('data-preset'));
                     deleteOperation();
                 });
             });
@@ -407,7 +324,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 base_id        =   $(base_id).attr('id');
 
                 var base_el    =   $('#'+base_id);
-                if(base_el.val() == '') base_el.attr('value','color;rgba(0,0,0,0.8)');
+                if(base_el.val() === '') base_el.attr('value','color;rgba(0,0,0,0.8)');
                 var values  =   (base_el.val()).split(';');
                 // id of selectbox are different from input id
                 base_id = base_id.replace('jform_params_color_', 'jformparamscolor_');
@@ -452,7 +369,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 base_id = $(base_id).attr('id');
 
                 var base_el = $('#' + base_id);
-                if(base_el.val() == '') base_el.attr('value','standard;Arial, Helvetica, sans-serif');
+                if(base_el.val() === '') base_el.attr('value','standard;Arial, Helvetica, sans-serif');
                 var values = (base_el.val()).split(';');
                 // id of selectbox are different from input id
                 base_id = base_id.replace('jform_params_font_', 'jformparamsfont_');
@@ -745,24 +662,63 @@ var PlazartAdmin = window.PlazartAdmin || {};
 				}, 5000));
 		},
 
-		switchTab: function () {
-			$('a[data-toggle="tab"]').on('shown', function (e) {
-				var url = e.target.href;
-			  	window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
-			});
+        switchTab: function () {
+            var hash = window.location.hash, config_arr = ['#global-config','#menu-config','#layout-config'];
+            $('a[data-toggle="tab"]').on('shown', function (e) {
+                var url = e.target.href;
+                //window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
+                hash = url.substring(url.indexOf('#')).replace ('_params', '');
+            });
 
-			var hash = window.location.hash;
-			if (hash) {
-				$('a[href="' + hash + '_params' + '"]').tab ('show');
-			} else {
-				var url = $('ul.nav-tabs li.active a').attr('href');
-				if (url) {
-			  		window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
-				} else {
-					$('ul.nav-tabs li:first a').tab ('show');
-				}
-			}
-		},
+            if (hash) {
+                $('a[href="' + hash + '_params' + '"]').tab ('show');
+
+            } else {
+                var url = $('ul.nav-tabs li.active a').attr('href');
+                if (url) {
+                    //window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
+                } else {
+                    $('ul.nav-tabs li:first a').tab ('show');
+                }
+            }
+        },
+
+        switchConfig: function() {
+            $('.config-view').each(function (){
+                if ($(this).hasClass('active')){
+                    var plazartactive = $(this).attr('id').replace('plazart','plazart-tb');
+                    $('#'+plazartactive).addClass('active');
+                }
+            });
+            $('#plazart-tb-global-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-global-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-preset-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-preset-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-menu-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-menu-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-layout-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-layout-config').addClass('active');
+                $(this).addClass('active');
+            });
+        },
 
         fixValidate: function(){
             if(typeof JFormValidator != 'undefined'){
@@ -775,7 +731,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
                     // Precompute label-field associations
                     var labels = document.getElementsByTagName('label');
                     for (var i = 0; i < labels.length; i++) {
-                        if (labels[i].htmlFor != '') {
+                        if (labels[i].htmlFor !== '') {
                             var element = document.getElementById(labels[i].htmlFor);
                             if (element) {
                                 element.labelref = labels[i];
@@ -785,15 +741,15 @@ var PlazartAdmin = window.PlazartAdmin || {};
 
                     // Validate form fields
                     var elements = form.getElements('fieldset').concat(Array.from(form.elements));
-                    for (var i = 0; i < elements.length; i++) {
-                        if (this.validate(elements[i]) == false) {
+                    for (i = 0; i < elements.length; i++) {
+                        if (this.validate(elements[i]) === false) {
                             valid = false;
                         }
                     }
 
                     // Run custom form validators if present
                     new Hash(this.custom).each(function (validator) {
-                        if (validator.exec() != true) {
+                        if (validator.exec() !== true) {
                             valid = false;
                         }
                     });
@@ -801,9 +757,9 @@ var PlazartAdmin = window.PlazartAdmin || {};
                     if (!valid) {
                         var message = Joomla.JText._('JLIB_FORM_FIELD_INVALID');
                         var errors = jQuery("label.invalid");
-                        var error = new Object();
-                        error.error = new Array();
-                        for (var i=0;i < errors.length; i++) {
+                        var error = {};
+                        error.error = [];
+                        for (i=0;i < errors.length; i++) {
                             var label = jQuery(errors[i]).text();
                             if (label != 'undefined') {
                                 error.error[i] = message+label.replace("*", "");
@@ -816,18 +772,8 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 };
 
                 JFormValidator.prototype.handleResponse = function(state, el){
-                    // Find the label object for the given field if it exists
-                    //if (!(el.labelref)) {
-                    //	var labels = $$('label');
-                    //	labels.each(function(label){
-                    //		if (label.get('for') == el.get('id')) {
-                    //			el.labelref = label;
-                    //		}
-                    //	});
-                    //}
-
                     // Set the element and its label (if exists) invalid state
-                    if (state == false) {
+                    if (state === false) {
                         el.addClass('invalid');
                         el.set('aria-invalid', 'true');
                         if (el.labelref) {
@@ -859,8 +805,8 @@ var PlazartAdmin = window.PlazartAdmin || {};
 		PlazartAdmin.hideDisabled();
 		PlazartAdmin.initChangeStyle();
         PlazartAdmin.initLayoutBuilder();
-//		PlazartAdmin.initCheckupdate();
 		PlazartAdmin.switchTab();
+		PlazartAdmin.switchConfig();
         PlazartAdmin.fixValidate();
 	});
 

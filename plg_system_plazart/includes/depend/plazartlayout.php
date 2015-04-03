@@ -31,10 +31,10 @@ class JFormFieldPlazartLayout extends JFormField
         $layoutsettings = $this->value;
 
         $modChromes = array();
+
         if (file_exists($theme_path . 'html/modules.php')) {
             include_once($theme_path . 'html/modules.php');
         }
-
         $positions = $this->getPositions();
         $data   =   '<input type="hidden" name='.$this->name.' />';
         $data   .=  '<div id="plazart-admin-device">';

@@ -1,46 +1,65 @@
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.clearfix:after {
-  clear: both;
-}
-.hide-text {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-.input-block-level {
-  display: block;
-  width: 100%;
-  min-height: 30px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+/** 
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org 
+ *------------------------------------------------------------------------------
+ */
+/**
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org
+ *------------------------------------------------------------------------------
+ */
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org 
+ *------------------------------------------------------------------------------
+ */
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         https://github.com/plazartframework/ 
+ *------------------------------------------------------------------------------
+*/
 .plazart-megamenu .mega-inner {
-  padding: 10px;
-  *zoom: 1;
+  padding: 20px / 2;
 }
 .plazart-megamenu .mega-inner:before,
 .plazart-megamenu .mega-inner:after {
+  content: " ";
   display: table;
-  content: "";
-  line-height: 0;
 }
 .plazart-megamenu .mega-inner:after {
   clear: both;
 }
 .plazart-megamenu .row-fluid + .row-fluid {
-  padding-top: 10px;
-  border-top: 1px solid #eee;
+  padding-top: 20px / 2;
+  border-top: 1px solid #eeeeee;
 }
 .plazart-megamenu .mega > .mega-dropdown-menu {
   min-width: 200px;
@@ -50,14 +69,10 @@
 .plazart-megamenu .mega.dropdown-submenu:hover > .mega-dropdown-menu {
   display: block;
 }
-.plazart-megamenu .mega-group {
-  *zoom: 1;
-}
 .plazart-megamenu .mega-group:before,
 .plazart-megamenu .mega-group:after {
+  content: " ";
   display: table;
-  content: "";
-  line-height: 0;
 }
 .plazart-megamenu .mega-group:after {
   clear: both;
@@ -72,13 +87,13 @@
   margin: 0;
 }
 .plazart-megamenu .mega-nav .mega-group > .mega-group-title:hover,
-.plazart-megamenu .mega-nav .mega-group > .mega-group-title:active,
-.plazart-megamenu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:hover,
-.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:active,
-.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:hover,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:active,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:focus,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:focus {
   background: inherit;
   color: inherit;
@@ -86,13 +101,11 @@
 .plazart-megamenu .mega-group-ct {
   margin: 0;
   padding: 0;
-  *zoom: 1;
 }
 .plazart-megamenu .mega-group-ct:before,
 .plazart-megamenu .mega-group-ct:after {
+  content: " ";
   display: table;
-  content: "";
-  line-height: 0;
 }
 .plazart-megamenu .mega-group-ct:after {
   clear: both;
@@ -127,7 +140,7 @@
   margin-right: 5px;
 }
 .plazart-megamenu .plazart-module {
-  margin-bottom: 0;
+  margin-bottom: 0 / 2;
 }
 .plazart-megamenu .plazart-module .module-title {
   margin-bottom: 0;
@@ -177,8 +190,18 @@
 .plazart-megamenu .nav [class*=" icon-"] {
   margin-right: 5px;
 }
+/**
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
 .plazart-megamenu .navbar-nav a {
-  color: #666;
+  color: #666666;
 }
 .plazart-megamenu .navbar-nav a .fa {
   margin-right: 3px;
@@ -189,9 +212,8 @@
 }
 .plazart-megamenu .navbar-nav .active > a {
   background: transparent;
-  color: #222;
+  color: #222222;
   -webkit-box-shadow: 0 0 0 #ffffff;
-  -moz-box-shadow: 0 0 0 #ffffff;
   box-shadow: 0 0 0 #ffffff;
 }
 .plazart-megamenu .mega-inner {
@@ -218,31 +240,31 @@
   padding: 0;
 }
 .plazart-megamenu .row-fluid + .row-fluid {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 .plazart-megamenu .mega-nav .mega-group > .mega-group-title,
 .plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title {
   background: inherit;
-  border-bottom: solid 1px #eee;
-  color: #fff;
-  font-size: 12px;
+  border-bottom: solid 1px #eeeeee;
+  color: #ffffff;
+  font-size: 14px - 2px;
   font-weight: 400;
   margin-bottom: 10px;
   padding-bottom: 10px;
   text-transform: uppercase;
 }
 .plazart-megamenu .mega-nav .mega-group > .mega-group-title:hover,
-.plazart-megamenu .mega-nav .mega-group > .mega-group-title:active,
-.plazart-megamenu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:hover,
-.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:active,
-.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:hover,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:active,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:focus,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:focus {
   background: inherit;
-  color: #fff;
+  color: #ffffff;
 }
 .plazart-megamenu .mega-group-ct .mega-dropdown-inner .mega-col-nav .mega-inner {
   border-right: none;
@@ -262,7 +284,7 @@
   padding-right: 0;
 }
 .plazart-megamenu .mega-dropdown-inner .mega-col-nav .mega-inner {
-  border-right: solid 1px #eee;
+  border-right: solid 1px #eeeeee;
 }
 .plazart-megamenu .mega-dropdown-inner .mega-col-nav:last-child .mega-inner {
   border-right: none;
@@ -288,11 +310,11 @@
   display: block;
   line-height: 20px;
   border-bottom: 1px solid #333333;
-  color: #fff;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 400;
-  margin-bottom: 0;
-  padding-bottom: 10px;
+  margin-bottom: 0/2;
+  padding-bottom: 20px/2;
   text-transform: uppercase;
 }
 .plazart-megamenu .plazart-module .module-ct {
@@ -324,10 +346,10 @@
   white-space: normal;
 }
 .plazart-megamenu .plazart-module ul li a:hover,
-.plazart-megamenu .plazart-module ul li a:focus,
-.plazart-megamenu .plazart-module ul li a:active,
 .plazart-megamenu .plazart-module .nav li a:hover,
+.plazart-megamenu .plazart-module ul li a:focus,
 .plazart-megamenu .plazart-module .nav li a:focus,
+.plazart-megamenu .plazart-module ul li a:active,
 .plazart-megamenu .plazart-module .nav li a:active {
   background: none;
   color: inherit;
@@ -335,7 +357,7 @@
 }
 .plazart-megamenu .plazart-module .category-module {
   margin: 0;
-  color: #666;
+  color: #666666;
   font-weight: 400;
 }
 .plazart-megamenu .plazart-module .category-module li {
@@ -348,98 +370,153 @@
   padding-bottom: 10px;
 }
 .plazart-megamenu .plazart-module .category-module li h4 a {
-  color: #fff;
+  color: #ffffff;
 }
 .plazart-megamenu .plazart-module .category-module li h4 a:hover,
 .plazart-megamenu .plazart-module .category-module li h4 a:focus,
 .plazart-megamenu .plazart-module .category-module li h4 a:active {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a {
   background: #01a3d4;
-  color: #fff;
+  color: #ffffff;
   display: inline-block;
   font-size: 11px;
   opacity: 1;
   padding: 3px 14px;
   text-indent: 0;
   text-transform: uppercase;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
   -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.1);
-  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.1);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.1);
 }
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover,
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus,
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
-  color: 0 -1px 0 rgba(0,0,0,0.25);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
-  background-color: #0077bb;
-  background-image: -moz-linear-gradient(top,#07b,#07b);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#07b),to(#07b));
-  background-image: -webkit-linear-gradient(top,#07b,#07b);
-  background-image: -o-linear-gradient(top,#07b,#07b);
-  background-image: linear-gradient(to bottom,#07b,#07b);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0077bb', endColorstr='#ff0077bb', GradientType=0);
-  border-color: #07b #07b #00466f;
-  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
-  *background-color: #07b;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  color: #333333;
+  background-color: #eeeeee;
+  border-color: #cccccc;
 }
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:hover,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:focus,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.disabled,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover[disabled],
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:hover,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:focus,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.disabled,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus[disabled],
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active:hover,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:focus,
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:active,
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.active,
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.disabled,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active[disabled] {
-  color: 0 -1px 0 rgba(0,0,0,0.25);
-  background-color: #07b;
-  *background-color: #0067a2;
+.open > .dropdown-toggle.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover,
+.open > .dropdown-toggle.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus,
+.open > .dropdown-toggle.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active {
+  color: #333333;
+  background-color: #d5d5d5;
+  border-color: #adadad;
 }
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.active,
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.active,
 .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active:active,
-.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.active {
-  background-color: #005788 \9;
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.active,
+.open > .dropdown-toggle.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover,
+.open > .dropdown-toggle.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus,
+.open > .dropdown-toggle.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active {
+  background-image: none;
+}
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.disabled,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.disabled,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.disabled,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover[disabled],
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus[disabled],
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active[disabled],
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.disabled:hover,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.disabled:hover,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.disabled:hover,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover[disabled]:hover,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus[disabled]:hover,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active[disabled]:hover,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:hover,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:hover,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active:hover,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.disabled:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.disabled:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.disabled:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover[disabled]:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus[disabled]:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active[disabled]:focus,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:focus,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:focus,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active:focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.disabled.focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.disabled.focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.disabled.focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover[disabled].focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus[disabled].focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active[disabled].focus,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.focus,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.focus,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.focus,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.disabled:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.disabled:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.disabled:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover[disabled]:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus[disabled]:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active[disabled]:active,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover:active,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus:active,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active:active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.disabled.active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.disabled.active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.disabled.active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover[disabled].active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus[disabled].active,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active[disabled].active,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover.active,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus.active,
+fieldset[disabled] .plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active.active {
+  background-color: #eeeeee;
+  border-color: #cccccc;
+}
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:hover .badge,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:focus .badge,
+.plazart-megamenu .plazart-module .category-module li p.mod-articles-category-readmore a:active .badge {
+  color: #eeeeee;
+  background-color: #333333;
 }
 .plazart-megamenu .mega-caption {
-  color: #999;
-  font-size: 12px;
+  color: #999999;
+  font-size: 14px - 2px;
   margin-top: 3px;
   font-weight: normal;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .vertical-nav .plazart-megamenu.elastic .level0 > .mega .mega-dropdown-menu {
-    transform: scale(0,1);
-    -webkit-transform: scale(0,1);
-    -ms-transform: scale(0,1);
-    -o-transform: scale(0,1);
+    transform: scale(0, 1);
+    -webkit-transform: scale(0, 1);
+    -ms-transform: scale(0, 1);
+    -o-transform: scale(0, 1);
   }
   .vertical-nav .plazart-megamenu.elastic .level0 > .mega.open > .mega-dropdown-menu {
-    transform: scale(1,1);
-    -webkit-transform: scale(1,1);
-    -ms-transform: scale(1,1);
-    -o-transform: scale(1,1);
+    transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
   }
   .vertical-nav .plazart-megamenu.slide .mega > .mega-dropdown-menu {
     min-width: 0;
@@ -457,28 +534,28 @@
   padding: 10px;
 }
 .plazart-megamenu .row-fluid + .row-fluid {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 .plazart-megamenu .mega-nav .mega-group > .mega-group-title,
 .plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title {
   background: inherit;
-  color: #222;
-  font-size: 16px;
+  color: #222222;
+  font-size: 14px + 2px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 .plazart-megamenu .mega-nav .mega-group > .mega-group-title:hover,
-.plazart-megamenu .mega-nav .mega-group > .mega-group-title:active,
-.plazart-megamenu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:hover,
-.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:active,
-.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:hover,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:active,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:active,
+.plazart-megamenu .mega-nav .mega-group > .mega-group-title:focus,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .mega-group-title:focus,
 .plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .mega-group-title:focus {
   background: inherit;
-  color: #222;
+  color: #222222;
 }
 .plazart-megamenu .mega-nav > li a,
 .plazart-megamenu .dropdown-menu .mega-nav > li a {
@@ -488,8 +565,8 @@
   margin-right: 0;
 }
 .plazart-megamenu .plazart-module .module-title {
-  font-size: 16px;
-  color: #222;
+  font-size: 14px + 2px;
+  color: #222222;
   display: block;
   line-height: 20px;
   margin-bottom: 5px;
@@ -519,12 +596,13 @@
   white-space: normal;
 }
 .plazart-megamenu .plazart-module ul li a:hover,
-.plazart-megamenu .plazart-module ul li a:focus,
-.plazart-megamenu .plazart-module ul li a:active,
 .plazart-megamenu .plazart-module .nav li a:hover,
+.plazart-megamenu .plazart-module ul li a:focus,
 .plazart-megamenu .plazart-module .nav li a:focus,
+.plazart-megamenu .plazart-module ul li a:active,
 .plazart-megamenu .plazart-module .nav li a:active {
   background: none;
   color: inherit;
   font: inherit;
 }
+/*# sourceMappingURL=megamenu.css.map */

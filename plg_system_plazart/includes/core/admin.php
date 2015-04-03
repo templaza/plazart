@@ -93,7 +93,7 @@ class PlazartAdmin {
         $params->loadString($db->loadResult());
 
         //notice requirement extensions
-        if ($params->get('requiredmode',0)) {
+        if ($params->get('requiredmode',1)) {
             PlazartAdmin::noticeRequired($xml);
         }
 

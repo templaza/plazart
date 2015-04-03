@@ -230,7 +230,7 @@ class Plazart {
 					// parse xml
 				$filePath = JPath::clean(JPATH_ROOT.'/templates/'.$tplname.'/templateDetails.xml');
 				if (is_file ($filePath)) {
-					$xml = $xml = simplexml_load_file($filePath);
+					$xml = simplexml_load_file($filePath);
 					// check plazart or group=plazart (compatible with previous definition)
 					if (isset($xml->plazart) || (isset($xml->group) && strtolower($xml->group) == 'plazart')) {
 						$xml->tplname = $tplname;

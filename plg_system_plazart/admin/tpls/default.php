@@ -32,7 +32,7 @@ $fieldSets = $form->getFieldsets('params');
 <div class="plazart-admin-form clearfix">
 <form action="<?php echo JRoute::_('index.php?option=com_templates&layout=edit&id='.$input->getInt('id')); ?>" method="post" name="adminForm" id="style-form" class="form-validate form-horizontal">
     <div class="configure-content">
-        <div class="config-view active" id="global-config">
+        <div class="config-view<?php echo $plazartlock=='global-config' || !in_array($plazartlock,array('global-config', 'menu-config', 'layout-config','preset-config')) ? ' active': ''; ?>" id="plazart-global-config">
             <?php
             $default_global_override = PLAZART_TEMPLATE_PATH . '/admin/default_global.php';
             if(file_exists($default_global_override)) {
@@ -42,7 +42,17 @@ $fieldSets = $form->getFieldsets('params');
             }
             ?>
         </div>
-        <div class="config-view" id="menu-config">
+        <div class="config-view<?php echo $plazartlock=='preset-config'? ' active': ''; ?>" id="plazart-preset-config">
+            <?php
+            $default_menu_override = PLAZART_TEMPLATE_PATH . '/admin/default_preset.php';
+            if(file_exists($default_menu_override)) {
+                include_once $default_menu_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_preset.php';
+            }
+            ?>
+        </div>
+        <div class="config-view<?php echo $plazartlock=='menu-config'? ' active': ''; ?>" id="plazart-menu-config">
             <?php
             $default_menu_override = PLAZART_TEMPLATE_PATH . '/admin/default_megamenu.php';
             if(file_exists($default_menu_override)) {
@@ -52,7 +62,7 @@ $fieldSets = $form->getFieldsets('params');
             }
             ?>
         </div>
-        <div class="config-view" id="layout-config">
+        <div class="config-view<?php echo $plazartlock=='layout-config'? ' active': ''; ?>" id="plazart-layout-config">
             <?php
             $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_layout.php';
             if(file_exists($default_layout_override)) {

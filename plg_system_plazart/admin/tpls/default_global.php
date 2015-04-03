@@ -58,16 +58,6 @@ defined('_JEXEC') or die;
                 <?php echo $form->getInput('home'); ?>
             </div>
         </div>
-        <div class="control-group plazart-control-group">
-            <div class="control-label plazart-control-label">
-                <label id="config_manager_save_filename-lbl" for="config_manager_save_filename" class="hasTip"
-                       title="<?php echo JText::_('PLAZART_PRESET_TPL_SAVE_DESC'); ?>"><?php echo JText::_('PLAZART_PRESET_TPL_SAVE'); ?></label>
-            </div>
-            <div class="controls plazart-controls">
-                <input type="text" id="config_manager_save_filename" name="config_manager_save_filename"
-                       class="input-medium" placeholder="<?php echo JText::_('PLAZART_PRESET_TPL_SAVE_PLACE'); ?>"/>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -79,7 +69,7 @@ defined('_JEXEC') or die;
                 </li>
                 <?php
                 foreach ($fieldSets as $name => $fieldSet) :
-                if (!in_array($name,array('layout_params', 'navigation_params'))):
+                if (!in_array($name,array('layout_params', 'navigation_params', 'preset_params'))):
                     $label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_TEMPLATES_' . $name . '_FIELDSET_LABEL';
                     ?>
                     <li<?php echo $plazartlock == preg_replace('/\s+/', ' ', $name) ? ' class="active"' : '' ?>><a
@@ -109,7 +99,7 @@ defined('_JEXEC') or die;
             </div>
             <?php
             foreach ($fieldSets as $name => $fieldSet) :
-                if (!in_array($name,array('layout_params', 'navigation_params'))):
+                if (!in_array($name,array('layout_params', 'navigation_params', 'preset_params'))):
                 ?>
                 <div class="tab-pane<?php echo $plazartlock == preg_replace('/\s+/', ' ', $name) ? ' active' : '' ?>"
                      id="<?php echo preg_replace('/\s+/', ' ', $name); ?>">

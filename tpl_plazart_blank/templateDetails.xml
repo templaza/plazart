@@ -3,14 +3,22 @@
         "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
 <extension version="3.0" type="template" client="site" method="upgrade">
     <name>plazart_blank</name>
-    <version>3.1</version>
+    <version>3.2</version>
     <creationDate>02/28/2013</creationDate>
     <author>TemPlaza</author>
     <authorEmail>info@templaza.com</authorEmail>
-    <copyright>Copyright (C) 2012 TemPlaza. All rights reserved.</copyright>
+    <copyright>Copyright (C) 2015 TemPlaza. All rights reserved.</copyright>
     <description><![CDATA[This is Plazart Framework]]></description>
     <group>plazart</group>
+    <documentation>http://www.templaza.com/</documentation>
     <tzupdate>http://www.templaza.com/</tzupdate>
+    <tzrequired>
+        <item>
+            <name>TZ Portfolio</name>
+            <code>com_tz_portfolio</code>
+            <url>http://www.tzportfolio.com/</url>
+        </item>
+    </tzrequired>
     <files>
         <filename>component.php</filename>
         <filename>error.php</filename>
@@ -91,8 +99,6 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
-                <field name="google_analytics" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_GOOGLE_ANALYTICS"
-                       description="TPL_TZ_LANG_GOOGLE_ANALYTICS_DESC"/>
             </fieldset>
             <fieldset name="layout_params">
                 <field type="plazartlayout" name="generate" />
@@ -100,22 +106,43 @@
 
             <!-- Font settings -->
             <fieldset name="font_params" addfieldpath="/plugins/system/plazart/includes/depend">
+
                 <field name="font_name_group1" type="plazartfont" directory="templates/plazart_blank/fonts/"
                        label="PLAZART_FONT_NAME_G1" description="PLAZART_FONT_NAME_G1_DESC"/>
+                <field name="font_size_group1" type="text" default="" label="PLAZART_FONT_SIZE_G1"
+                       description="PLAZART_FONT_SIZE_G1_DESC"/>
+                <field name="font_height_group1" type="text" default="" label="PLAZART_FONT_HEIGHT_G1"
+                       description="PLAZART_FONT_HEIGHT_G1_DESC"/>
                 <field name="font_rules_group1" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G1"
                        description="PLAZART_FONT_RULES_G1_DESC"/>
+
                 <field name="font_name_group2" type="plazartfont" directory="templates/plazart_blank/fonts/"
                        label="PLAZART_FONT_NAME_G2" description="PLAZART_FONT_NAME_G2_DESC"/>
+                <field name="font_size_group2" type="text" default="" label="PLAZART_FONT_SIZE_G2"
+                       description="PLAZART_FONT_SIZE_G2_DESC"/>
+                <field name="font_height_group2" type="text" default="" label="PLAZART_FONT_HEIGHT_G2"
+                       description="PLAZART_FONT_HEIGHT_G2_DESC"/>
                 <field name="font_rules_group2" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G2"
                        description="PLAZART_FONT_RULES_G2_DESC"/>
+
                 <field name="font_name_group3" type="plazartfont" directory="templates/plazart_blank/fonts/"
                        label="PLAZART_FONT_NAME_G3" description="PLAZART_FONT_NAME_G3_DESC"/>
+                <field name="font_size_group3" type="text" default="" label="PLAZART_FONT_SIZE_G3"
+                       description="PLAZART_FONT_SIZE_G3_DESC"/>
+                <field name="font_height_group3" type="text" default="" label="PLAZART_FONT_HEIGHT_G3"
+                       description="PLAZART_FONT_HEIGHT_G3_DESC"/>
                 <field name="font_rules_group3" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G3"
                        description="PLAZART_FONT_RULES_G3_DESC"/>
+
                 <field name="font_name_group4" type="plazartfont" directory="templates/plazart_blank/fonts/"
                        label="PLAZART_FONT_NAME_G4" description="PLAZART_FONT_NAME_G4_DESC"/>
+                <field name="font_size_group4" type="text" default="" label="PLAZART_FONT_SIZE_G4"
+                       description="PLAZART_FONT_SIZE_G4_DESC"/>
+                <field name="font_height_group4" type="text" default="" label="PLAZART_FONT_HEIGHT_G4"
+                       description="PLAZART_FONT_HEIGHT_G4_DESC"/>
                 <field name="font_rules_group4" type="textarea" rows="6" cols="40" label="PLAZART_FONT_RULES_G4"
                        description="PLAZART_FONT_RULES_G4_DESC"/>
+
             </fieldset>
 
             <!-- Dev settings -->
@@ -148,18 +175,9 @@
                     <option value="px">TPL_TZ_LANG_PIXEL</option>
                     <option value="%">TPL_TZ_LANG_PERCENT</option>
                 </field>
-                <field name="css_custom" type="textarea" rows="6" cols="40" label="TPL_TZ_LANG_CSS_CUSTOM"
+                <field name="css_custom" type="textarea" class="plazart-admin-textarea" global="1"
+                       filter="raw" default="" label="TPL_TZ_LANG_CSS_CUSTOM"
                        description="TPL_TZ_LANG_CSS_CUSTOM_DESC"/>
-                <field
-                        name="chrome_frame_support"
-                        type="radio"
-                        class="btn-group"
-                        label="TPL_TZ_LANG_CHROME_FRAME_SUPPORT"
-                        default="0"
-                        description="TPL_TZ_LANG_CHROME_FRAME_SUPPORT_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
             </fieldset>
         </fields>
     </config>

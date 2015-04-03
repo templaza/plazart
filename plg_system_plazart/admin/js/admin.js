@@ -84,6 +84,20 @@ var PlazartAdmin = window.PlazartAdmin || {};
 
 			//for style toolbar
 			$('#plazart-admin-tb-style-save-save').on('click', function(){
+                var form = document.adminForm;
+                var urlparts = form.action.split('#');
+                var hash = window.location.hash;
+
+                if(hash){
+                    hash = hash.substring(1);
+                    if(urlparts[0].indexOf('?') == -1){
+                        urlparts[0] += '?plazartlock=' + hash;
+                    } else {
+                        urlparts[0] += '&plazartlock=' + hash;
+                    }
+                    form.action = urlparts.join('#');
+
+                }
 				Joomla.submitbutton('style.apply');
 			});
 
@@ -98,6 +112,12 @@ var PlazartAdmin = window.PlazartAdmin || {};
 			$('#plazart-admin-tb-close').on('click', function(){
 				Joomla.submitbutton(($(this).hasClass('template') ? 'template' : 'style') + '.cancel');
 			});
+            $('#plazart-admin-tb-help').on('click', function(){
+                if (PlazartAdmin.documentation) {
+                    var win = window.open(PlazartAdmin.documentation, '_blank');
+                    win.focus();
+                }
+            });
 		},
 
 		initRadioGroup: function(){
@@ -176,36 +196,35 @@ var PlazartAdmin = window.PlazartAdmin || {};
 			}).closest('.control-group').hide();
 		},
 
-		initPreSubmit: function(){
+        initPreSubmit: function(){
 
-			var form = document.adminForm;
-			if(!form){
-				return false;
-			}
+            var form = document.adminForm;
+            if(!form){
+                return false;
+            }
 
-			var onsubmit = form.onsubmit;
+            var onsubmit = form.onsubmit;
 
-			form.onsubmit = function(e){
-				var json = {},
-					urlparts = form.action.split('#');
-					
-				if(/apply|save2copy/.test(form.task.value)){
-					var plazartactive = $('.plazart-admin-nav .active a').attr('href').replace(/.*(?=#[^\s]*$)/, '').substr(1);
+            form.onsubmit = function(e){
+                var urlparts = form.action.split('#');
 
-					if(urlparts[0].indexOf('?') == -1){
-						urlparts[0] += '?plazartlock=' + plazartactive;
-					} else {
-						urlparts[0] += '&plazartlock=' + plazartactive;
-					}
-					
-					form.action = urlparts.join('#');
-				}
-					
-				if($.isFunction(onsubmit)){
-					onsubmit();
-				}
-			};
-		},
+                if(/apply|save2copy/.test(form.task.value)){
+                    var plazartactive = $('.plazart-admin-nav .active a').attr('href').replace(/.*(?=#[^\s]*$)/, '').substr(1);
+
+                    if(urlparts[0].indexOf('?') == -1){
+                        urlparts[0] += '?plazartlock=' + plazartactive;
+                    } else {
+                        urlparts[0] += '&plazartlock=' + plazartactive;
+                    }
+
+                    form.action = urlparts.join('#');
+                }
+
+                if($.isFunction(onsubmit)){
+                    onsubmit();
+                }
+            };
+        },
 
 		initChangeStyle: function(){
 			$('#plazart-styles-list').on('change', function(){
@@ -276,13 +295,13 @@ var PlazartAdmin = window.PlazartAdmin || {};
         },
 
         initPreset: function () {
-            $('.preset').click (function (e) {
+            $('.btn-preset').click (function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 $('#loadPreset').modal('toggle');
                 var $thisPreset = jQuery(this);
                 $('#loadPresetAccept').click(function(e){
-                    $("#config_manager_load_filename").val($thisPreset.text());
+                    $("#config_manager_load_filename").val($thisPreset.attr('data-preset'));
                     loadSaveOperation();
                 });
             });
@@ -293,7 +312,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 $('#removePreset').modal('toggle');
                 var $thisPreset = jQuery(this);
                 $('#removePresetAccept').click(function(e){
-                    $("#config_manager_load_filename").val($thisPreset.parent().text());
+                    $("#config_manager_load_filename").val($thisPreset.attr('data-preset'));
                     deleteOperation();
                 });
             });
@@ -643,43 +662,61 @@ var PlazartAdmin = window.PlazartAdmin || {};
 				}, 5000));
 		},
 
-		switchTab: function () {
-			$('a[data-toggle="tab"]').on('shown', function (e) {
-				var url = e.target.href;
-			  	window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
-			});
+        switchTab: function () {
+            var hash = window.location.hash, config_arr = ['#global-config','#menu-config','#layout-config'];
+            $('a[data-toggle="tab"]').on('shown', function (e) {
+                var url = e.target.href;
+                //window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
+                hash = url.substring(url.indexOf('#')).replace ('_params', '');
+            });
 
-			var hash = window.location.hash;
-			if (hash) {
-				$('a[href="' + hash + '_params' + '"]').tab ('show');
-			} else {
-				var url = $('ul.nav-tabs li.active a').attr('href');
-				if (url) {
-			  		window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
-				} else {
-					$('ul.nav-tabs li:first a').tab ('show');
-				}
-			}
-		},
+            if (hash) {
+                $('a[href="' + hash + '_params' + '"]').tab ('show');
+
+            } else {
+                var url = $('ul.nav-tabs li.active a').attr('href');
+                if (url) {
+                    //window.location.hash = url.substring(url.indexOf('#')).replace ('_params', '');
+                } else {
+                    $('ul.nav-tabs li:first a').tab ('show');
+                }
+            }
+        },
 
         switchConfig: function() {
-            $('#plazart-admin-tb-global').on('click', function(){
-                $('.config-view').removeClass('active');
-                $('.btn-config').removeClass('active');
-                $('#global-config').addClass('active');
-                $('#plazart-admin-tb-global > button').addClass('active');
+            $('.config-view').each(function (){
+                if ($(this).hasClass('active')){
+                    var plazartactive = $(this).attr('id').replace('plazart','plazart-tb');
+                    $('#'+plazartactive).addClass('active');
+                }
             });
-            $('#plazart-admin-tb-megamenu').on('click', function(){
+            $('#plazart-tb-global-config').on('click', function(e){
+                e.stopImmediatePropagation();
                 $('.config-view').removeClass('active');
                 $('.btn-config').removeClass('active');
-                $('#menu-config').addClass('active');
-                $('#plazart-admin-tb-megamenu > button').addClass('active');
+                $('#plazart-global-config').addClass('active');
+                $(this).addClass('active');
             });
-            $('#plazart-admin-tb-layout').on('click', function(){
+            $('#plazart-tb-preset-config').on('click', function(e){
+                e.stopImmediatePropagation();
                 $('.config-view').removeClass('active');
                 $('.btn-config').removeClass('active');
-                $('#layout-config').addClass('active');
-                $('#plazart-admin-tb-layout > button').addClass('active');
+                $('#plazart-preset-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-menu-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-menu-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-layout-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-layout-config').addClass('active');
+                $(this).addClass('active');
             });
         },
 

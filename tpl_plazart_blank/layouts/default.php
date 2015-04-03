@@ -26,8 +26,6 @@ defined('_JEXEC') or die;
     } else {
         $this->loadBlock('body');
     }
-    $this->loadBlock('utilities');
 ?>
-
 </body>
 </html>

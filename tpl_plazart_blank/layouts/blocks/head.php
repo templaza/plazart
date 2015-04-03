@@ -5,18 +5,11 @@
 // No direct access.
 defined('_JEXEC') or die;
 ?>
-<?php if($this->browser->get('browser') == 'ie8' || $this->browser->get('browser') == 'ie7' || $this->browser->get('browser') == 'ie6') : ?>
-<meta http-equiv="X-UA-Compatible" content="IE=9">
-<?php endif; ?>
-<?php if($this->getParam("chrome_frame_support", '0') == '1' && ($this->browser->get('browser') == 'ie8' || $this->browser->get('browser') == 'ie7' || $this->browser->get('browser') == 'ie6')) : ?>
-<meta http-equiv="X-UA-Compatible" content="chrome=1"/>
-<?php endif; ?>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="HandheldFriendly" content="true" />
 <meta name="apple-mobile-web-app-capable" content="YES" />
 <?php
-//
-$doc = JFactory::getDocument();
 // PLAZART BASE HEAD
 $this->addHead();
 // generate the max-width rules
@@ -51,26 +44,9 @@ if($this->getParam("js_lazyload", '0')) {
 
 $this->addScript(PLAZART_TEMPLATE_REL.'/js/page.js');
 ?>
-
-<!--[if IE 9]>
-<link rel="stylesheet" href="<?php echo PLAZART_TEMPLATE_REL.'/css/'.$theme; ?>/ie9.css" type="text/css" />
-<![endif]-->
-
-<!--[if IE 8]>
-<link rel="stylesheet" href="<?php echo PLAZART_TEMPLATE_REL.'/css/'.$theme; ?>/ie8.css" type="text/css" />
-<![endif]-->
-
-<!--[if lte IE 7]>
-<link rel="stylesheet" href="<?php echo PLAZART_TEMPLATE_REL.'/css/'.$theme; ?>/css/ie7.css" type="text/css" />
-<script src="<?php echo PLAZART_TEMPLATE_REL.'/js/icon-font-ie7.js'; ?>"></script>
-<![endif]-->
-
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
-<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-
-<!-- For IE6-8 support of media query -->
-<!--[if lt IE 9]>
-<script type="text/javascript" src="<?php echo PLAZART_URL ?>/js/respond.min.js"></script>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->

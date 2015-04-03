@@ -49,9 +49,19 @@ class JFormFieldPlazartPreset extends JFormField
             }
         }
         $html = '';
+
         for ($i = 0; $i < count($profiles); $i++) {
+            //get new params value
+            $params = new JRegistry;
+            $params->loadString(JFile::read(PLAZART_TEMPLATE_PATH . DIRECTORY_SEPARATOR . 'config'.DIRECTORY_SEPARATOR.$profiles[$i].'.json'));
+            $imagename  =   $params->get('preset_image','');
+            $presetname =   $params->get('presetname','');
+            $demolink   =   $params->get('demo_link','');
+            $imagepath  =   trim($imagename) ? PLAZART_TEMPLATE_URL.'/images/presets/'.$imagename : 'http://placehold.it/350x270';
+            $presetname =   trim($presetname) ? $presetname : $profiles[$i];
+            $demolink   =   trim($demolink) ? '<a href="'.$demolink.'" class="btn btn-success" target="_blank">'.JText::_('PLAZART_LIVE_PREVIEW').'</a>' : '';
             $active =   ($this->value == $profiles[$i]) ? ' active' : '';
-            $html.= '<div class="preset'.$active.'" data-toggle="modal" data-target="#loadPreset"><label>' . $profiles[$i] . '</label><i class="fa fa-times removepreset" title="Remove this Preset?" data-toggle="modal" data-target="#removePreset"></i></div>';
+            $html.= '<div class="preset'.$active.'"><div class="preset-screenshot"><img alt="'.$presetname.'" src="'.$imagepath.'" /></div><h3 class="preset-name">' . $presetname . '</h3><div class="preset-demo-link"><button class="btn btn-warning btn-preset" data-toggle="modal" data-target="#loadPreset" data-preset="'.$profiles[$i].'">'.JText::_('PLAZART_ACTIVE').'</button>  '.$demolink.'</div><i class="fa fa-times removepreset" title="Remove this Preset?" data-toggle="modal" data-target="#removePreset" data-preset="'.$profiles[$i].'"></i></div>';
         }
         $html.= '<input type="hidden" name="'.$this->name.'" id="config_manager_load_filename" value="'.$this->value.'" />';
         $html.= '<!-- Load Preset Modal -->

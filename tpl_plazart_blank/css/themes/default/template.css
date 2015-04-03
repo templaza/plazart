@@ -1,3 +1,13 @@
+/**
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
 .inline-block {
   display: inline-block;
   zoom: 1;
@@ -18,13 +28,19 @@
   filter: unquote("progid:DXImageTransform.Microsoft.gradient(enabled = false)");
 }
 .dropdown-arrow-inverse {
-  border-bottom-color: #666 !important;
-  border-top-color: #666 !important;
+  border-bottom-color: #666666 !important;
+  border-top-color: #666666 !important;
 }
+/*!
+ *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+/* FONT PATH
+ * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../../../../../plugins/system/plazart/admin/fonts/font-awesome/fonts/fontawesome-webfont.eot?v=4.3.0');
-  src: url('../../../../../plugins/system/plazart/admin/fonts/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('../../../../../plugins/system/plazart/admin/fonts/font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('../../../../../plugins/system/plazart/admin/fonts/font-awesome/fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('../../../../../plugins/system/plazart/admin/fonts/font-awesome/fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('../../../../../plugins/system/plazart/admin/fonts/font-awesome/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+  src: url('../../../fonts/font-awesome/fonts/fontawesome-webfont.eot?v=4.3.0');
+  src: url('../../../fonts/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('../../../fonts/font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('../../../fonts/font-awesome/fonts/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('../../../fonts/font-awesome/fonts/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('../../../fonts/font-awesome/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -35,10 +51,11 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transform: translate(0,0);
+  transform: translate(0, 0);
 }
+/* makes the font 33% larger relative to the icon container */
 .fa-lg {
-  font-size: 1.3333333333333em;
+  font-size: 1.33333333em;
   line-height: 0.75em;
   vertical-align: -15%;
 }
@@ -55,12 +72,12 @@
   font-size: 5em;
 }
 .fa-fw {
-  width: 1.2857142857143em;
+  width: 1.28571429em;
   text-align: center;
 }
 .fa-ul {
   padding-left: 0;
-  margin-left: 2.1428571428571em;
+  margin-left: 2.14285714em;
   list-style-type: none;
 }
 .fa-ul > li {
@@ -68,17 +85,17 @@
 }
 .fa-li {
   position: absolute;
-  left: -2.1428571428571em;
-  width: 2.1428571428571em;
-  top: 0.14285714285714em;
+  left: -2.14285714em;
+  width: 2.14285714em;
+  top: 0.14285714em;
   text-align: center;
 }
 .fa-li.fa-lg {
-  left: -1.8571428571429em;
+  left: -1.85714286em;
 }
 .fa-border {
   padding: .2em .25em .15em;
-  border: solid .08em #eee;
+  border: solid 0.08em #eeeeee;
   border-radius: .1em;
 }
 .pull-right {
@@ -140,16 +157,16 @@
   transform: rotate(270deg);
 }
 .fa-flip-horizontal {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0,mirror=1);
-  -webkit-transform: scale(-1,1);
-  -ms-transform: scale(-1,1);
-  transform: scale(-1,1);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }
 .fa-flip-vertical {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2,mirror=1);
-  -webkit-transform: scale(1,-1);
-  -ms-transform: scale(1,-1);
-  transform: scale(1,-1);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  transform: scale(1, -1);
 }
 :root .fa-rotate-90,
 :root .fa-rotate-180,
@@ -180,8 +197,10 @@
   font-size: 2em;
 }
 .fa-inverse {
-  color: #fff;
+  color: #ffffff;
 }
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
 .fa-glass:before {
   content: "\f000";
 }
@@ -1815,8 +1834,8 @@
 }
 @font-face {
   font-family: 'icomoon';
-  src: url('../../../../../plugins/system/plazart/admin/fonts/icomoon/fonts/icomoon.eot?-b1fdqe');
-  src: url('../../../../../plugins/system/plazart/admin/fonts/icomoon/fonts/icomoon.eot?#iefix-b1fdqe') format('embedded-opentype'), url('../../../../../plugins/system/plazart/admin/fonts/icomoon/fonts/icomoon.woff?-b1fdqe') format('woff'), url('../../../../../plugins/system/plazart/admin/fonts/icomoon/fonts/icomoon.ttf?-b1fdqe') format('truetype'), url('../../../../../plugins/system/plazart/admin/fonts/icomoon/fonts/icomoon.svg?-b1fdqe#icomoon') format('svg');
+  src: url('../../../fonts/icomoon/fonts/icomoon.eot?-b1fdqe');
+  src: url('../../../fonts/icomoon/fonts/icomoon.eot?#iefix-b1fdqe') format('embedded-opentype'), url('../../../fonts/icomoon/fonts/icomoon.woff?-b1fdqe') format('woff'), url('../../../fonts/icomoon/fonts/icomoon.ttf?-b1fdqe') format('truetype'), url('../../../fonts/icomoon/fonts/icomoon.svg?-b1fdqe#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -1829,6 +1848,7 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+  /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -4037,30 +4057,42 @@
 .icon-smashing:before {
   content: "\e8de";
 }
+/** 
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         http://plazart-framework.org
+ *------------------------------------------------------------------------------
+ */
 #plazart-mainnav .nav {
   margin-bottom: 0;
 }
 #plazart-mainnav .nav > li > a:hover {
-  background-color: #666;
-  color: #eee;
+  background-color: #666666;
+  color: #eeeeee;
 }
 #plazart-mainnav .nav .dropdown-toggle .caret {
-  border-top-color: #07b;
-  border-bottom-color: #07b;
+  border-top-color: #0077bb;
+  border-bottom-color: #0077bb;
   margin-top: 8px;
   margin-left: 5px;
 }
 #plazart-mainnav .nav .dropdown-toggle:hover .caret {
-  border-top-color: #00466f;
-  border-bottom-color: #00466f;
+  border-top-color: #00466e;
+  border-bottom-color: #00466e;
 }
 #plazart-mainnav .nav .active .dropdown-toggle .caret {
   border-top-color: #fff;
   border-bottom-color: #fff;
 }
 #plazart-mainnav .nav-tabs .active .dropdown-toggle .caret {
-  border-top-color: #666;
-  border-bottom-color: #666;
+  border-top-color: #666666;
+  border-bottom-color: #666666;
 }
 #plazart-mainnav .dropup,
 #plazart-mainnav .dropdown {
@@ -4078,7 +4110,7 @@
   width: 0;
   height: 0;
   vertical-align: top;
-  border-top: 4px solid #000;
+  border-top: 4px solid #000000;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
   content: "";
@@ -4096,9 +4128,9 @@
   float: left;
   min-width: 160px;
   list-style: none;
-  background-color: #fff;
+  background-color: #ffffff;
   border: 1px solid #ccc;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   padding: 0;
@@ -4106,9 +4138,9 @@
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   background-clip: padding-box;
@@ -4117,9 +4149,15 @@
   right: 0;
   left: auto;
 }
+#plazart-mainnav .dropdown-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
 #plazart-mainnav .dropdown-menu li > a {
   clear: both;
-  color: #444;
+  color: #444444;
   display: block;
   line-height: 20px;
   font-weight: normal;
@@ -4130,20 +4168,30 @@
 #plazart-mainnav .dropdown-menu li > a:hover,
 #plazart-mainnav .dropdown-menu li > a:focus,
 #plazart-mainnav .dropdown-submenu:hover > a {
-  color: #eee;
+  color: #eeeeee;
   text-decoration: none;
-  background-color: #666;
+  background-color: #666666;
+  background-image: -webkit-linear-gradient(top, #808080 0%, #666666 100%);
+  background-image: -o-linear-gradient(top, #808080 0%, #666666 100%);
+  background-image: linear-gradient(to bottom, #808080 0%, #666666 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff808080', endColorstr='#ff666666', GradientType=0);
 }
 #plazart-mainnav .dropdown-menu .active > a,
 #plazart-mainnav .dropdown-menu .active > a:hover {
-  color: #000;
+  color: #000000;
   text-decoration: none;
   outline: 0;
   background-color: transparent;
+  background-image: -webkit-linear-gradient(top, rgba(26, 26, 26, 0) 0%, transparent 100%);
+  background-image: -o-linear-gradient(top, rgba(26, 26, 26, 0) 0%, transparent 100%);
+  background-image: linear-gradient(to bottom, rgba(26, 26, 26, 0) 0%, transparent 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001a1a1a', endColorstr='#00000000', GradientType=0);
 }
 #plazart-mainnav .dropdown-menu .disabled > a,
 #plazart-mainnav .dropdown-menu .disabled > a:hover {
-  color: #999;
+  color: #999999;
 }
 #plazart-mainnav .dropdown-menu .disabled > a:hover {
   text-decoration: none;
@@ -4162,21 +4210,21 @@
 #plazart-mainnav .nav li.dropdown.open.active > .dropdown-toggle,
 #plazart-mainnav .nav > li.dropdown.open.active > a:hover {
   background-color: transparent;
-  color: #000;
+  color: #000000;
 }
 #plazart-mainnav .nav li.dropdown > .dropdown-toggle .caret {
-  border-top-color: #666;
-  border-bottom-color: #666;
+  border-top-color: #666666;
+  border-bottom-color: #666666;
 }
 #plazart-mainnav .nav li.dropdown > .dropdown-toggle:hover .caret {
-  border-top-color: #000;
-  border-bottom-color: #000;
+  border-top-color: #000000;
+  border-bottom-color: #000000;
 }
 #plazart-mainnav .nav li.dropdown.open > .dropdown-toggle .caret,
 #plazart-mainnav .nav li.dropdown.active > .dropdown-toggle .caret,
 #plazart-mainnav .nav li.dropdown.open.active > .dropdown-toggle .caret {
-  border-top-color: #000;
-  border-bottom-color: #000;
+  border-top-color: #000000;
+  border-bottom-color: #000000;
 }
 #plazart-mainnav .pull-right > .dropdown-menu {
   right: 0;
@@ -4185,7 +4233,7 @@
 #plazart-mainnav .dropup .caret,
 #plazart-mainnav .navbar-fixed-bottom .dropdown .caret {
   border-top: 0;
-  border-bottom: 4px solid #000;
+  border-bottom: 4px solid #000000;
   content: "";
 }
 #plazart-mainnav .dropup .dropdown-menu,
@@ -4238,7 +4286,7 @@
   margin-right: -10px;
 }
 #plazart-mainnav .dropdown-submenu:hover > a:after {
-  border-left-color: #eee;
+  border-left-color: #eeeeee;
 }
 #plazart-mainnav .dropdown-submenu.pull-left {
   float: none;
@@ -4262,7 +4310,7 @@
 }
 #plazart-mainnav .plazart-navhelper {
   background: #2f2f2f;
-  color: #666;
+  color: #666666;
 }
 #plazart-mainnav .breadcrumb {
   padding: 10px 0;
@@ -4272,6 +4320,14 @@
   -moz-border-radius: 0;
   border-radius: 0;
   *zoom: 1;
+}
+#plazart-mainnav .breadcrumb:before,
+#plazart-mainnav .breadcrumb:after {
+  content: " ";
+  display: table;
+}
+#plazart-mainnav .breadcrumb:after {
+  clear: both;
 }
 #plazart-mainnav .breadcrumb:before,
 #plazart-mainnav .breadcrumb:after {
@@ -4287,19 +4343,36 @@
   float: left;
 }
 #plazart-mainnav .breadcrumb a {
-  color: #666;
+  color: #666666;
 }
 #plazart-mainnav .breadcrumb .divider {
   padding: 0 5px;
-  color: #666;
+  color: #666666;
 }
 #plazart-mainnav .breadcrumb .divider img {
   vertical-align: middle;
 }
 #plazart-mainnav .breadcrumb .active {
-  color: #999;
+  color: #999999;
 }
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org 
+ *------------------------------------------------------------------------------
+ */
 .plazart-mainnav {
+  background-image: -webkit-linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0%, #e6e6e6 100%);
+  background-image: linear-gradient(to bottom, #ffffff 0%, #e6e6e6 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
   background: transparent;
   border-radius: 0;
   border: none;
@@ -4309,7 +4382,7 @@
   height: 40px;
 }
 .plazart-mainnav .navbar {
-  color: #666;
+  color: #666666;
   margin-bottom: 0;
   margin-top: 0;
 }
@@ -4324,6 +4397,7 @@
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .plazart-mainnav .navbar .nav {
   margin: 0;
@@ -4336,15 +4410,25 @@
 }
 .plazart-mainnav .navbar .nav > li > a:focus,
 .plazart-mainnav .navbar .nav > li > a:hover {
-  background-color: #666;
+  background-color: #666666;
+  background-image: -webkit-linear-gradient(top, #808080 0%, #666666 100%);
+  background-image: -o-linear-gradient(top, #808080 0%, #666666 100%);
+  background-image: linear-gradient(to bottom, #808080 0%, #666666 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff808080', endColorstr='#ff666666', GradientType=0);
   text-shadow: none;
   outline: none;
 }
 .plazart-mainnav .navbar .nav > .active > a,
 .plazart-mainnav .navbar .nav > .active > a:hover,
 .plazart-mainnav .navbar .nav > .active > a:focus {
-  color: #000;
+  color: #000000;
   text-shadow: none;
+  background-image: -webkit-linear-gradient(top, rgba(26, 26, 26, 0) 0%, transparent 100%);
+  background-image: -o-linear-gradient(top, rgba(26, 26, 26, 0) 0%, transparent 100%);
+  background-image: linear-gradient(to bottom, rgba(26, 26, 26, 0) 0%, transparent 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001a1a1a', endColorstr='#00000000', GradientType=0);
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -4354,25 +4438,68 @@
   float: left;
   padding: 5px 10px;
   margin: 5px 20px 0;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
   -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.075);
   -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.075);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.075);
 }
+.plazart-mainnav .navbar .btn-navbar:hover,
+.plazart-mainnav .navbar .btn-navbar:focus,
+.plazart-mainnav .navbar .btn-navbar.focus,
+.plazart-mainnav .navbar .btn-navbar:active,
+.plazart-mainnav .navbar .btn-navbar.active,
+.open > .dropdown-toggle.plazart-mainnav .navbar .btn-navbar {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.plazart-mainnav .navbar .btn-navbar:active,
+.plazart-mainnav .navbar .btn-navbar.active,
+.open > .dropdown-toggle.plazart-mainnav .navbar .btn-navbar {
+  background-image: none;
+}
+.plazart-mainnav .navbar .btn-navbar.disabled,
+.plazart-mainnav .navbar .btn-navbar[disabled],
+fieldset[disabled] .plazart-mainnav .navbar .btn-navbar,
+.plazart-mainnav .navbar .btn-navbar.disabled:hover,
+.plazart-mainnav .navbar .btn-navbar[disabled]:hover,
+fieldset[disabled] .plazart-mainnav .navbar .btn-navbar:hover,
+.plazart-mainnav .navbar .btn-navbar.disabled:focus,
+.plazart-mainnav .navbar .btn-navbar[disabled]:focus,
+fieldset[disabled] .plazart-mainnav .navbar .btn-navbar:focus,
+.plazart-mainnav .navbar .btn-navbar.disabled.focus,
+.plazart-mainnav .navbar .btn-navbar[disabled].focus,
+fieldset[disabled] .plazart-mainnav .navbar .btn-navbar.focus,
+.plazart-mainnav .navbar .btn-navbar.disabled:active,
+.plazart-mainnav .navbar .btn-navbar[disabled]:active,
+fieldset[disabled] .plazart-mainnav .navbar .btn-navbar:active,
+.plazart-mainnav .navbar .btn-navbar.disabled.active,
+.plazart-mainnav .navbar .btn-navbar[disabled].active,
+fieldset[disabled] .plazart-mainnav .navbar .btn-navbar.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.plazart-mainnav .navbar .btn-navbar .badge {
+  color: #ffffff;
+  background-color: #333333;
+}
 .plazart-mainnav .navbar .btn-navbar [class^="icon-"],
 .plazart-mainnav .navbar .btn-navbar [class^=" icon-"] {
-  color: #666;
+  color: #666666;
   text-shadow: none;
 }
 .plazart-mainnav .dropdown .caret {
   margin-left: 5px;
 }
 .plazart-mainnav .dropdown-menu {
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 .plazart-mainnav .dropdown-menu li > a {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #eeeeee;
   padding: 5px 20px;
   text-shadow: none;
 }
@@ -4387,22 +4514,22 @@
 }
 .plazart-mainnav .dropdown-menu .disabled > a,
 .plazart-mainnav .dropdown-menu .disabled > a:hover {
-  color: #999;
+  color: #999999;
 }
 .plazart-mainnav .dropdown-menu .disabled > a:hover {
   background-color: transparent;
 }
 .plazart-mainnav .nav li.dropdown.open > .dropdown-toggle {
-  background-color: #fff;
-  color: #222;
+  background-color: #ffffff;
+  color: #222222;
 }
 .plazart-mainnav .nav li.dropdown.active > .dropdown-toggle,
 .plazart-mainnav .nav li.dropdown.open.active > .dropdown-toggle {
   background-color: transparent;
-  color: #000;
+  color: #000000;
 }
 .plazart-mainnav.vertical-nav {
-  background: #222;
+  background: #222222;
   position: fixed;
   width: 200px;
   margin-left: -220px;
@@ -4428,11 +4555,11 @@
   text-shadow: none;
   text-transform: uppercase;
   background: none;
-  color: #666;
+  color: #666666;
 }
 .plazart-mainnav.vertical-nav .navbar .nav > li > a:hover,
 .plazart-mainnav.vertical-nav .navbar .nav > li > a:focus {
-  color: #eee;
+  color: #eeeeee;
 }
 .plazart-mainnav.vertical-nav .navbar .nav > li > a .mega-caption {
   text-transform: none;
@@ -4441,7 +4568,7 @@
 .plazart-mainnav.vertical-nav .navbar .nav li.dropdown > .dropdown-toggle .caret {
   border-bottom: 4px solid transparent;
   border-right: 0;
-  border-left: 4px solid #666;
+  border-left: 4px solid #666666;
   border-top: 4px solid transparent;
   margin-top: 5px;
   float: right;
@@ -4451,14 +4578,14 @@
 .plazart-mainnav.vertical-nav .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
   border-bottom: 4px solid transparent;
   border-right: 0;
-  border-left: 4px solid #000;
+  border-left: 4px solid #000000;
   border-top: 4px solid transparent;
 }
 .plazart-mainnav.vertical-nav .navbar .nav > .active > a,
 .plazart-mainnav.vertical-nav .navbar .nav > .active > a:hover,
 .plazart-mainnav.vertical-nav .navbar .nav > .active > a:focus {
   border-bottom-color: #2c2c2c;
-  color: #666;
+  color: #666666;
 }
 .plazart-mainnav.vertical-nav .navbar .nav > .active:before {
   content: "";
@@ -4466,7 +4593,7 @@
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-left: 10px solid #222;
+  border-left: 10px solid #222222;
   position: absolute;
   right: -5px;
   top: 20px;
@@ -4481,6 +4608,18 @@
 .plazart-mainnav.vertical-nav .navbar .nav > li > .dropdown-menu:before {
   display: none;
 }
+/** 
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org 
+ *------------------------------------------------------------------------------
+ */
 @media (max-width: 767px) {
   .always-show .mega > .mega-dropdown-menu,
   .always-show .dropdown-menu {
@@ -4543,7 +4682,7 @@
   }
   .plazart-mainnav .nav-collapse .nav > li > a,
   .plazart-mainnav .nav-collapse .dropdown-menu a {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eeeeee;
     padding: 10px 20px;
     font-weight: bold;
     text-shadow: none;
@@ -4555,8 +4694,9 @@
     margin-bottom: 0;
   }
   .plazart-mainnav .nav-collapse .nav > li > a:hover {
-    background-color: #666;
+    background-color: #666666;
     background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   }
   .plazart-mainnav .nav-collapse .dropdown-menu a {
     border-top: 1px solid #d9d9d9;
@@ -4565,8 +4705,9 @@
     padding: 10px 20px;
   }
   .plazart-mainnav .nav-collapse .dropdown-menu a:hover {
-    background-color: #666;
+    background-color: #666666;
     background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   }
   .plazart-mainnav .nav-collapse .dropdown-menu {
     margin: 0;
@@ -4593,109 +4734,4 @@
     display: none;
   }
 }
-.container-fluid {
-  margin: 0 auto;
-  max-width: 1180px;
-  padding: 0;
-}
-.tz-mainmenu-toggle {
-  display: none;
-}
-img {
-  max-width: 100%;
-}
-div.imgcaption {
-  max-width: 100% !important;
-}
-.btn-toolbar {
-  clear: both;
-}
-.article-index + .btn-toolbar {
-  clear: left;
-}
-aside .btn-group > .dropdown-toggle {
-  padding: 0 !important;
-}
-.btn.btn-primary [class^="icon-"] {
-  margin-top: -1px;
-  opacity: 1;
-}
-a [class^="icon-"] {
-  margin-top: -3px;
-}
-.label,
-.badge {
-  vertical-align: text-top !important;
-}
-.well {
-  background: #fff;
-}
-.nav-pills li:hover a {
-  background: #5990de;
-  color: #fff;
-}
-.form-actions {
-  background: #fff;
-  border-top: 1px solid #ddd;
-  overflow: hidden;
-}
-[class^="icon-"],
-[class*=" icon-"] {
-  position: relative;
-  top: 2px;
-}
-.btn-group.open .btn.dropdown-toggle,
-.btn.dropdown-toggle {
-  background: transparent;
-  border: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-[class*="span"]:first-child {
-  margin-left: 0 !important;
-}
-.row {
-  margin-left: 0 !important;
-}
-[class*="span"] {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.breadcrumb {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #e5e5e5;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  padding: 15px 0;
-}
-.breadcrumb > li:first-child {
-  margin-right: 10px;
-}
-table {
-  clear: both;
-}
-aside .dropdown-menu {
-  min-width: 80px !important;
-}
-.list-striped {
-  border: 1px solid #eee;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  list-style-type: none;
-  margin: 0;
-  padding: 3px;
-}
-.list-striped li {
-  padding: 7px 10px;
-}
-.list-striped li:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-.list-striped li:hover {
-  background-color: #f5f5f5;
-}
+/*# sourceMappingURL=template.css.map */

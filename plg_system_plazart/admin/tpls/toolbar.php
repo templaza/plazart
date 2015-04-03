@@ -33,16 +33,11 @@ defined('_JEXEC') or die;
   endif;
   ?>
 
-	<div id="plazart-admin-tb-global" class="btn-group">
-		<button class="btn btn-config active"><i class="fa fa-cog"></i><?php echo JText::_('PLAZART_GLOBAL_LABEL') ?></button>
-	</div>
-
-    <div id="plazart-admin-tb-megamenu" class="btn-group">
-        <button class="btn btn-config"><i class="fa fa-bars"></i><?php echo JText::_('PLAZART_NAVIGATION_LABEL') ?></button>
-    </div>
-
-    <div id="plazart-admin-tb-layout" class="btn-group">
-        <button class="btn btn-config"><i class="fa fa-columns"></i><?php echo JText::_('PLAZART_LAYOUT_LABEL') ?></button>
+	<div class="btn-group">
+		<a id="plazart-tb-global-config" href="#global-config" class="btn btn-config"><i class="fa fa-cog"></i><?php echo JText::_('PLAZART_GLOBAL_LABEL') ?></a>
+        <a id="plazart-tb-preset-config" href="#preset-config" class="btn btn-config"><i class="fa fa-rocket"></i><?php echo JText::_('PLAZART_PRESET_LABEL') ?></a>
+        <a id="plazart-tb-menu-config" href="#menu-config" class="btn btn-config"><i class="fa fa-bars"></i><?php echo JText::_('PLAZART_NAVIGATION_LABEL') ?></a>
+        <a id="plazart-tb-layout-config" href="#layout-config" class="btn btn-config"><i class="fa fa-columns"></i><?php echo JText::_('PLAZART_LAYOUT_LABEL') ?></a>
     </div>
 
 	<div id="plazart-admin-tb-close" class="btn-group <?php echo $input->getCmd('view') ?>">

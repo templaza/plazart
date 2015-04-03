@@ -34,6 +34,17 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+04/03/15 - 4.2
+
+    [improved] Interface
+    [feature] Update font attribute
+    [feature] Add Custom Code
+    [feature] Improve Preset feature
+    [feature] Minify JS integrated
+    [feature] Add documentation link
+    [feature] Add required extension notice
+    [removed] Remove Compile LESS to CSS
+
 02/26/15 - 3.9
 
 	[bug fixed] Fix error with Joomla 3.4.0

@@ -1,0 +1,56 @@
+/** 
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/plazartfw
+ * @Link:         https://github.com/plazartframework/ 
+ *------------------------------------------------------------------------------
+*/
+
+//
+// NAVIGATION RESPONSIVE
+// ---------------------------------------------------------
+@media (max-width: @navbarCollapseWidth) {
+  // Always show submenu for navigation
+  .always-show .mega > .mega-dropdown-menu,
+  .always-show .dropdown-menu {
+    display: block !important;
+  }
+
+  // ------------------------------------------------------
+  // Support fixed navbar when collapsed
+  // -------------------------------------------------------
+  .navbar-collapse-fixed-top,
+  .navbar-collapse-fixed-bottom {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    // style for normal collapsed menu
+    .nav-collapse.in {
+      position: fixed;
+      width: 100%;
+      overflow-y: auto;
+      top: @navbarHeight;
+      bottom: 0;
+      > * {
+        padding-bottom: 50px;
+      }
+    }
+  }
+
+  .navbar-collapse-fixed-bottom {
+    bottom: 0;
+    top: auto;
+    .nav-collapse.in {
+      top: 0;
+      bottom: @navbarHeight;
+    }
+  }
+
+}

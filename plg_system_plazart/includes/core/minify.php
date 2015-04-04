@@ -65,8 +65,6 @@ class PlazartMinify
      * @return string
      */
     public static function minifyCss( $css ) {
-        //T3::import('minify/csscompressor');
-
         $css = preg_replace( '#\s+#', ' ', $css );
         $css = preg_replace( '#/\*.*?\*/#s', '', $css );
         $css = str_replace( '; ', ';', $css );
@@ -288,7 +286,7 @@ class PlazartMinify
                         $cssdata[] = "================================================================================*/";
 
                         $cssmin = self::minifyCss($fsheet['data']);
-                        $cssmin = T3Path::updateUrl($cssmin, T3Path::relativePath($outputurl, dirname($furl)));
+                        $cssmin = PlazartPath::updateUrl($cssmin, PlazartPath::relativePath($outputurl, dirname($furl)));
 
                         $cssdata[] = $cssmin;
                     }
@@ -499,7 +497,7 @@ class PlazartMinify
                         //already minify?
                         if(!preg_match('@.*\.min\.js.*@', $furl)){
                             $jsmin = self::minifyJs($fsheet['data']);
-                            //$jsmin = T3Path::updateUrl($jsmin, T3Path::relativePath($outputurl, dirname($furl)));
+                            //$jsmin = PlazartPath::updateUrl($jsmin, PlazartPath::relativePath($outputurl, dirname($furl)));
                         }
 
                         $jsdata[] = $jsmin;

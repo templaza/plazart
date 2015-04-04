@@ -57,11 +57,14 @@ class JFormFieldPlazartPreset extends JFormField
             $imagename  =   $params->get('preset_image','');
             $presetname =   $params->get('presetname','');
             $demolink   =   $params->get('demo_link','');
+            $doclink    =   $params->get('doc_link','');
             $imagepath  =   trim($imagename) ? PLAZART_TEMPLATE_URL.'/images/presets/'.$imagename : 'http://placehold.it/350x270';
             $presetname =   trim($presetname) ? $presetname : $profiles[$i];
             $demolink   =   trim($demolink) ? '<a href="'.$demolink.'" class="btn btn-success" target="_blank">'.JText::_('PLAZART_LIVE_PREVIEW').'</a>' : '';
+            $doclink    =   trim($doclink) ? '<a href="'.$doclink.'" class="btn btn-primary" target="_blank">'.JText::_('PLAZART_DOCUMENTATION').'</a>' : '';
+            $preset_demo_link   =   ($demolink || $doclink) ? '<div class="preset-demo-link">'.$doclink.'   '.$demolink.'</div>' : '';
             $active =   ($this->value == $profiles[$i]) ? ' active' : '';
-            $html.= '<div class="preset'.$active.'"><div class="preset-screenshot"><img alt="'.$presetname.'" src="'.$imagepath.'" /></div><h3 class="preset-name">' . $presetname . '</h3><div class="preset-demo-link"><button class="btn btn-warning btn-preset" data-toggle="modal" data-target="#loadPreset" data-preset="'.$profiles[$i].'">'.JText::_('PLAZART_ACTIVE').'</button>  '.$demolink.'</div><i class="fa fa-times removepreset" title="Remove this Preset?" data-toggle="modal" data-target="#removePreset" data-preset="'.$profiles[$i].'"></i></div>';
+            $html.= '<div class="preset'.$active.'"><div class="preset-screenshot"><img alt="'.$presetname.'" src="'.$imagepath.'" /></div><span class="load-preset" data-toggle="modal" data-target="#loadPreset" data-preset="'.$profiles[$i].'">'.JText::_('PLAZART_ACTIVE').'</span><h3 class="preset-name">' . $presetname . '</h3>'.$preset_demo_link.'<i class="fa fa-times removepreset" title="Remove this Preset?" data-toggle="modal" data-target="#removePreset" data-preset="'.$profiles[$i].'"></i></div>';
         }
         $html.= '<input type="hidden" name="'.$this->name.'" id="config_manager_load_filename" value="'.$this->value.'" />';
         $html.= '<!-- Load Preset Modal -->

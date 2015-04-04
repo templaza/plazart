@@ -154,6 +154,7 @@ class plgSystemPlazart extends JPlugin
             // save profile
             $profile    = JRequest::getString('config_manager_save_filename','');
             $demolink   = JRequest::getString('config_manager_presetdemo','');
+            $doclink    = JRequest::getString('config_manager_presetdoc','');
             jimport('joomla.filesystem.file');
             jimport('joomla.filesystem.folder');
             if (trim($profile)) {
@@ -187,6 +188,7 @@ class plgSystemPlazart extends JPlugin
                 $imagename = $image_path.DIRECTORY_SEPARATOR. ($i !=0 ? 'p'.$i : ''). $imagename;
                 $params->set('preset_image', JFile::getName($imagename));
                 $params->set('demo_link', $demolink);
+                $params->set('doc_link', $doclink);
                 $data->params = $params->toString();
 
                 if (!JFile::copy(JPATH_SITE.DIRECTORY_SEPARATOR.$presetimage,$imagename)) {

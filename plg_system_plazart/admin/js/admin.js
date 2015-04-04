@@ -295,7 +295,7 @@ var PlazartAdmin = window.PlazartAdmin || {};
         },
 
         initPreset: function () {
-            $('.btn-preset').click (function (e) {
+            $('.load-preset').click (function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 $('#loadPreset').modal('toggle');

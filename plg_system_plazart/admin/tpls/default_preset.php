@@ -49,6 +49,16 @@ $fields     =   $form->getFieldset($name);
             </div>
         </div>
 
+        <div class="control-group plazart-control-group">
+            <div class="control-label plazart-control-label">
+                <label id="config_manager_presetdoc-lbl" for="config_manager_presetdoc" class="hasTip"
+                       title="<?php echo JText::_('PLAZART_PRESET_DOC_DESC'); ?>"><?php echo JText::_('PLAZART_PRESET_DOC'); ?></label>
+            </div>
+            <div class="controls plazart-controls">
+                <input type="text" id="config_manager_presetdoc" name="config_manager_presetdoc"
+                       class="input-medium" placeholder="<?php echo JText::_('PLAZART_PRESET_DOC_PLACE'); ?>"/>
+            </div>
+        </div>
     </div>
 </div>
 <fieldset>

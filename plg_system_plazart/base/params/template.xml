@@ -226,7 +226,7 @@
                    global="1"
                    label="PLAZART_GENERAL_ASSETS_MINIFYJS_EXCLUDE_LABEL"
                    description="PLAZART_GENERAL_ASSETS_MINIFYJS_EXCLUDE_DESC"/>
-            <field name="animate" type="radio" class="btn-group" default="1"
+            <field name="animate" type="radio" class="btn-group" default="0"
                    global="1"
                    label="PLAZART_GENERAL_ANIMATE_LABEL"
                    description="PLAZART_GENERAL_ANIMATE_DESC" >

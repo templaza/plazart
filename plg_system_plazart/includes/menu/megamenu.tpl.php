@@ -18,7 +18,8 @@ class PlazartMenuMegamenuTpl {
 
 		$animation = $menu->getParam ('navigation_animation', '');
 		$animation_duration = $menu->getParam ('navigation_animation_duration', 0);
-		$cls = ' class="plazart-megamenu'.($animation ? ' animate '.$animation : '').'"';
+        $always_show = $menu->getParam('navigation_collapse_showsub', 1) ? ' always-show' : '';
+		$cls = ' class="plazart-megamenu'.($animation ? ' animate '.$animation : '').$always_show.'"';
 		$data = $animation && $animation_duration ? ' data-duration="'.$animation_duration.'"' : '';
 		return "<div$cls$data>";
 	}

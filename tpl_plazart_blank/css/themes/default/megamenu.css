@@ -1,0 +1,514 @@
+/**
+ *------------------------------------------------------------------------------
+ * @package       Plazart Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 TemPlaza.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       TemPlaza
+ * @Link:         http://templaza.com
+ *------------------------------------------------------------------------------
+ */
+/** 
+ *------------------------------------------------------------------------------
+ * @package       T3 Framework for Joomla!
+ *------------------------------------------------------------------------------
+ * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
+ * @license       GNU General Public License version 2 or later; see LICENSE.txt
+ * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github 
+ *                & Google group to become co-author)
+ * @Google group: https://groups.google.com/forum/#!forum/t3fw
+ * @Link:         http://t3-framework.org 
+ *------------------------------------------------------------------------------
+ */
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -5px;
+  margin-left: -1px;
+}
+.dropdown-submenu.open > .dropdown-menu {
+  display: block;
+}
+.dropdown-submenu > .dropdown-menu {
+  border-radius: 4px;
+}
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -5px;
+}
+.dropdown-submenu.open > a:after {
+  border-left-color: #262626;
+}
+/*
+//
+// Hide the submenu on Touch Devices
+@media screen and (max-width: @screen-xs-max) {
+  .dropdown-submenu > .dropdown-menu {
+    display: none !important;
+  }
+  .dropdown-submenu > a:after {
+    display: none !important;
+  }
+}
+*/
+.plazart-megamenu .mega-inner:before,
+.plazart-megamenu .mega-inner:after {
+  content: " ";
+  display: table;
+}
+.plazart-megamenu .mega-inner:after {
+  clear: both;
+}
+.plazart-megamenu .mega > .mega-dropdown-menu {
+  min-width: 200px;
+  display: none;
+}
+.plazart-megamenu .mega.open > .mega-dropdown-menu,
+.plazart-megamenu .mega.dropdown-submenu.open > .mega-dropdown-menu {
+  display: block;
+}
+.plazart-megamenu .mega-group:before,
+.plazart-megamenu .mega-group:after {
+  content: " ";
+  display: table;
+}
+.plazart-megamenu .mega-group:after {
+  clear: both;
+}
+.plazart-megamenu .dropdown-header,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: normal;
+}
+.plazart-megamenu .dropdown-header:hover,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header:hover,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header:hover,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header:hover,
+.plazart-megamenu .dropdown-header:active,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header:active,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header:active,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header:active,
+.plazart-megamenu .dropdown-header:focus,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header:focus,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header:focus,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header:focus {
+  background: inherit;
+  color: inherit;
+}
+.plazart-megamenu .mega-group-ct {
+  margin: 0;
+  padding: 0;
+}
+.plazart-megamenu .mega-group-ct:before,
+.plazart-megamenu .mega-group-ct:after {
+  content: " ";
+  display: table;
+}
+.plazart-megamenu .mega-group-ct:after {
+  clear: both;
+}
+.plazart-megamenu .mega-nav,
+.plazart-megamenu .dropdown-menu .mega-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.plazart-megamenu .mega-nav > li,
+.plazart-megamenu .dropdown-menu .mega-nav > li {
+  list-style: none;
+  margin-left: 0;
+}
+.plazart-megamenu .mega-nav > li a,
+.plazart-megamenu .dropdown-menu .mega-nav > li a {
+  white-space: normal;
+  display: block;
+  padding: 5px;
+}
+.plazart-megamenu .mega-nav > li a:hover,
+.plazart-megamenu .dropdown-menu .mega-nav > li a:hover,
+.plazart-megamenu .mega-nav > li a:focus,
+.plazart-megamenu .dropdown-menu .mega-nav > li a:focus {
+  text-decoration: none;
+  color: #262626;
+  background-color: #f5f5f5;
+}
+.plazart-megamenu .mega-nav > li .separator {
+  display: block;
+  padding: 5px;
+}
+.plazart-megamenu .mega-group > .mega-nav,
+.plazart-megamenu .dropdown-menu .mega-group > .mega-nav {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.plazart-megamenu .mega-nav .dropdown-submenu > a::after {
+  margin-right: 5px;
+}
+.plazart-megamenu .plazart-module {
+  margin-bottom: 10px;
+}
+.plazart-megamenu .plazart-module .module-title {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: normal;
+  margin-bottom: 5px;
+}
+.plazart-megamenu .plazart-module .module-title:hover,
+.plazart-megamenu .plazart-module .module-title:active,
+.plazart-megamenu .plazart-module .module-title:focus {
+  background: inherit;
+  color: inherit;
+}
+.plazart-megamenu .plazart-module .module-ct {
+  margin: 0;
+  padding: 0;
+}
+.plazart-megamenu .mega-caption {
+  display: block;
+  white-space: nowrap;
+}
+.plazart-megamenu .nav .caret,
+.plazart-megamenu .dropdown-submenu .caret,
+.plazart-megamenu .mega-menu .caret {
+  display: none;
+}
+.plazart-megamenu .nav > .dropdown > .dropdown-toggle .caret {
+  display: inline-block;
+}
+.plazart-megamenu .nav [class^="icon-"],
+.plazart-megamenu .nav [class*=" icon-"],
+.plazart-megamenu .nav .fa {
+  margin-right: 5px;
+}
+.plazart-megamenu .nav .input-group-addon [class^="icon-"],
+.plazart-megamenu .nav .input-group-addon [class*=" icon-"],
+.plazart-megamenu .nav .input-group-addon .fa {
+  margin-right: 0;
+}
+.plazart-megamenu .mega-align-left > .dropdown-menu {
+  left: 0;
+}
+.plazart-megamenu .mega-align-right > .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+.plazart-megamenu .mega-align-center > .dropdown-menu {
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+.plazart-megamenu .dropdown-submenu.mega-align-left > .dropdown-menu {
+  left: 100%;
+}
+.plazart-megamenu .dropdown-submenu.mega-align-right > .dropdown-menu {
+  left: auto;
+  right: 100%;
+}
+.plazart-megamenu .mega-align-justify {
+  position: static;
+}
+.plazart-megamenu .mega-align-justify > .dropdown-menu {
+  left: 0;
+  margin-left: 0;
+  top: auto;
+}
+@media (min-width: 768px) {
+  .plazart-megamenu.animate .mega > .mega-dropdown-menu {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    opacity: 0;
+  }
+  .plazart-megamenu.animate .mega.animating > .mega-dropdown-menu {
+    -webkit-transition: all 400ms;
+    -o-transition: all 400ms;
+    transition: all 400ms;
+    display: block;
+  }
+  .plazart-megamenu.animate .mega.open > .mega-dropdown-menu,
+  .plazart-megamenu.animate .mega.animating.open > .mega-dropdown-menu {
+    opacity: 1;
+  }
+  .plazart-megamenu.animate.zoom .mega > .mega-dropdown-menu {
+    -webkit-transform: scale(0, 0);
+    -ms-transform: scale(0, 0);
+    -o-transform: scale(0, 0);
+    transform: scale(0, 0);
+    -webkit-transform-origin: 20% 20%;
+    -moz-transform-origin: 20% 20%;
+    -ms-transform-origin: 20% 20%;
+    transform-origin: 20% 20%;
+  }
+  .plazart-megamenu.animate.zoom .mega.open > .mega-dropdown-menu {
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+  .plazart-megamenu.animate.zoom .level0 > .mega-align-center > .mega-dropdown-menu {
+    -webkit-transform: scale(0, 0) translate(-50%, 0);
+    -ms-transform: scale(0, 0) translate(-50%, 0);
+    transform: scale(0, 0) translate(-50%, 0);
+    -webkit-transform-origin: 0% 20%;
+    -moz-transform-origin: 0% 20%;
+    -ms-transform-origin: 0% 20%;
+    transform-origin: 0% 20%;
+  }
+  .plazart-megamenu.animate.zoom .level0 > .mega-align-center.open > .mega-dropdown-menu {
+    -webkit-transform: scale(1, 1) translate(-50%, 0);
+    -ms-transform: scale(1, 1) translate(-50%, 0);
+    transform: scale(1, 1) translate(-50%, 0);
+  }
+  .plazart-megamenu.animate.elastic .mega > .mega-dropdown-menu {
+    -webkit-transform: scale(0, 1);
+    -ms-transform: scale(0, 1);
+    -o-transform: scale(0, 1);
+    transform: scale(0, 1);
+    -webkit-transform-origin: 10% 0;
+    -moz-transform-origin: 10% 0;
+    -ms-transform-origin: 10% 0;
+    transform-origin: 10% 0;
+  }
+  .plazart-megamenu.animate.elastic .mega.open > .mega-dropdown-menu {
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+  .plazart-megamenu.animate.elastic .level0 > .mega > .mega-dropdown-menu {
+    -webkit-transform: scale(1, 0);
+    -ms-transform: scale(1, 0);
+    -o-transform: scale(1, 0);
+    transform: scale(1, 0);
+  }
+  .plazart-megamenu.animate.elastic .level0 .open > .mega-dropdown-menu {
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+  .plazart-megamenu.animate.elastic .level0 > .mega-align-center > .mega-dropdown-menu {
+    transform: scale(1, 0) translate(-50%, 0);
+    -webkit-transform: scale(1, 0) translate(-50%, 0);
+    -ms-transform: scale(1, 0) translate(-50%, 0);
+  }
+  .plazart-megamenu.animate.elastic .level0 > .mega-align-center.open > .mega-dropdown-menu {
+    transform: scale(1, 1) translate(-50%, 0);
+    -webkit-transform: scale(1, 1) translate(-50%, 0);
+    -ms-transform: scale(1, 1) translate(-50%, 0);
+  }
+  .plazart-megamenu.animate.slide .mega {
+    /* Level 0 */
+    /* Level > 0 */
+  }
+  .plazart-megamenu.animate.slide .mega.animating > .mega-dropdown-menu {
+    overflow: hidden;
+  }
+  .plazart-megamenu.animate.slide .mega > .mega-dropdown-menu > div {
+    -webkit-transition: all 400ms;
+    -o-transition: all 400ms;
+    transition: all 400ms;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    margin-top: -100%;
+  }
+  .plazart-megamenu.animate.slide .mega.open > .mega-dropdown-menu > div {
+    margin-top: 0%;
+  }
+  .plazart-megamenu.animate.slide .mega .mega > .mega-dropdown-menu {
+    min-width: 0;
+  }
+  .plazart-megamenu.animate.slide .mega .mega > .mega-dropdown-menu > div {
+    min-width: 200px;
+    margin-top: 0;
+    margin-left: -500px;
+    width: 100%;
+  }
+  .plazart-megamenu.animate.slide .mega .mega.open > .mega-dropdown-menu > div {
+    margin-left: 0;
+  }
+}
+@media (max-width: 767px) {
+  .plazart-megamenu .mega-inner:before,
+  .plazart-megamenu .mega-inner:after {
+    content: " ";
+    display: table;
+  }
+  .plazart-megamenu .mega-inner:after {
+    clear: both;
+  }
+  .plazart-megamenu .row,
+  .plazart-megamenu .mega-dropdown-menu,
+  .plazart-megamenu .row [class*="col-lg-"],
+  .plazart-megamenu .row [class*="col-md-"],
+  .plazart-megamenu .row [class*="col-sm-"],
+  .plazart-megamenu .row [class*="col-xs-"] {
+    width: 100% !important;
+    min-width: 100% !important;
+    left: 0 !important;
+    margin-left: 0 !important;
+    -webkit-transform: none !important;
+    -ms-transform: none !important;
+    transform: none !important;
+  }
+  .plazart-megamenu .hidden-collapse,
+  .plazart-megamenu .always-show .caret,
+  .plazart-megamenu .always-show .dropdown-submenu > a:after .sub-hidden-collapse > .nav-child,
+  .plazart-megamenu .sub-hidden-collapse .caret,
+  .plazart-megamenu .sub-hidden-collapse > a:after {
+    display: none !important;
+  }
+  .always-show .mega > .mega-dropdown-menu {
+    display: block;
+  }
+  .always-show .navbar-nav .dropdown-menu {
+    background-color: transparent;
+    border: 0 none;
+    box-shadow: none;
+    float: none;
+    margin-top: 0;
+    position: static;
+    width: auto;
+  }
+  .mega-caption {
+    display: none !important;
+  }
+  html[dir="rtl"] .plazart-megamenu .row,
+  html[dir="rtl"] .plazart-megamenu .mega-dropdown-menu,
+  html[dir="rtl"] .plazart-megamenu .row [class*="col-lg-"],
+  html[dir="rtl"] .plazart-megamenu .row [class*="col-md-"],
+  html[dir="rtl"] .plazart-megamenu .row [class*="col-sm-"],
+  html[dir="rtl"] .plazart-megamenu .row [class*="col-xs-"] {
+    left: auto;
+    right: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+.plazart-megamenu .mega-inner {
+  padding: 10px 0;
+}
+.plazart-megamenu .row {
+  margin-left: auto;
+  margin-right: auto;
+}
+.plazart-megamenu .row + .row {
+  padding-top: 10px;
+  border-top: 1px solid #eeeeee;
+}
+.plazart-megamenu .dropdown-header,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: normal;
+}
+.plazart-megamenu .dropdown-header:hover,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header:hover,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header:hover,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header:hover,
+.plazart-megamenu .dropdown-header:active,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header:active,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header:active,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header:active,
+.plazart-megamenu .dropdown-header:focus,
+.plazart-megamenu .mega-nav .mega-group > .dropdown-header:focus,
+.plazart-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header:focus,
+.plazart-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header:focus {
+  background: inherit;
+  color: inherit;
+}
+.plazart-megamenu .mega-group-ct .row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.plazart-megamenu .dropdown-menu .mega-group .mega-nav > li.active a {
+  color: #333333;
+}
+.plazart-megamenu .mega-nav .dropdown-submenu > a::after {
+  margin-right: 0;
+}
+.plazart-megamenu .plazart-module .module-title {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+.plazart-megamenu .plazart-module .module-title:hover,
+.plazart-megamenu .plazart-module .module-title:active,
+.plazart-megamenu .plazart-module .module-title:focus {
+  background: inherit;
+  color: inherit;
+}
+.plazart-megamenu .plazart-module ul li,
+.plazart-megamenu .plazart-module .nav li {
+  list-style: disc;
+  display: list-item;
+  float: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.plazart-megamenu .plazart-module ul li a,
+.plazart-megamenu .plazart-module .nav li a {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  background: none;
+  font: inherit;
+  white-space: normal;
+}
+.plazart-megamenu .plazart-module ul li a:hover,
+.plazart-megamenu .plazart-module .nav li a:hover,
+.plazart-megamenu .plazart-module ul li a:focus,
+.plazart-megamenu .plazart-module .nav li a:focus,
+.plazart-megamenu .plazart-module ul li a:active,
+.plazart-megamenu .plazart-module .nav li a:active {
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+.plazart-megamenu .mega-caption {
+  color: #777777;
+  font-size: 12px;
+  margin-top: 3px;
+  font-weight: normal;
+}
+.plazart-megamenu .nav .input-group-addon [class^="icon-"],
+.plazart-megamenu .nav .input-group-addon [class*=" icon-"],
+.plazart-megamenu .nav .input-group-addon .fa {
+  margin-right: 0;
+}
+/*# sourceMappingURL=megamenu.css.map */

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package   T3 Blank
+ * @package   Plazart Blank
  * @copyright Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license   GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -18,10 +18,8 @@ defined('_JEXEC') or die;
   	  <div class="nav-collapse navbar-collapse collapse">
       <?php if ($this->getParam('navigation_type') == 'megamenu') : ?>
         <?php $this->megamenu($this->getParam('mm_type', 'mainmenu')) ?>
-      <?php else : ?>
-        <jdoc:include type="modules" name="menu" style="raw" />
-      <?php endif ?>
-  		</div>
+      <?php endif; ?>
+      </div>
     </div>
 </nav>
 <!-- //MAIN NAVIGATION -->

@@ -82,7 +82,7 @@
 				<option value="click">Mouse Click</option>
 			</field>
 
-			<field name="navigation_collapse_offcanvas" type="radio" class="btn-group" default="1"
+			<field name="navigation_collapse_offcanvas" type="radio" class="btn-group" default="0"
 				global="1"
 				label="PLAZART_NAVIGATION_COLLAPSE_OFFCANVAS"
 				description="PLAZART_NAVIGATION_COLLAPSE_OFFCANVAS_DESC">
@@ -90,7 +90,7 @@
 				<option value="1">JYES</option>
 			</field>
 
-			<field name="navigation_collapse_showsub" type="radio" class="btn-group" default="1"
+			<field name="navigation_collapse_showsub" type="radio" class="btn-group" default="0"
 				global="1"
 				label="PLAZART_NAVIGATION_COLLAPSE_LABEL"
 				description="PLAZART_NAVIGATION_COLLAPSE_DESC">
@@ -101,7 +101,7 @@
 			<field name="navigation_type" type="list" class="btn-group" default="megamenu"
 				label="PLAZART_NAVIGATION_TYPE_LABEL"
 				description="PLAZART_NAVIGATION_TYPE_DESC">
-				<option value="joomla">Joomla Module</option>
+				<option value="none">None</option>
 				<option value="megamenu">Megamenu</option>
 			</field>
 

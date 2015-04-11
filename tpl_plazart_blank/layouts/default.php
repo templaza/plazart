@@ -26,6 +26,7 @@ defined('_JEXEC') or die;
     } else {
         $this->loadBlock('body');
     }
+    if ($this->getParam('framework_logo',1)) $this->loadBlock('framework');
 ?>
 </body>
 </html>

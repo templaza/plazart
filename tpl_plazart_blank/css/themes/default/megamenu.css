@@ -71,7 +71,7 @@
 .plazart-megamenu .mega-inner:after {
   clear: both;
 }
-.plazart-megamenu .mega > .mega-dropdown-menu {
+.plazart-megamenu .mega .mega-dropdown-menu {
   min-width: 200px;
   display: none;
 }

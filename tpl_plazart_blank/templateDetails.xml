@@ -24,6 +24,7 @@
         <filename>error.php</filename>
         <filename>favicon.ico</filename>
         <filename>index.php</filename>
+        <filename>offline.php</filename>
         <filename>templateDetails.xml</filename>
 		<filename>templateInfo.php</filename>
         <filename>template_preview.png</filename>
@@ -36,6 +37,7 @@
         <folder>images</folder>
         <folder>js</folder>
         <folder>layouts</folder>
+        <folder>libraries</folder>
     </files>
     <positions>
         <position>debug</position>

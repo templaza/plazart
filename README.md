@@ -34,6 +34,11 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+04/13/15 - 4.3
+
+    [feature] Support RTL Direction
+    [fixed bug] Fix some small bug with Megamenu.
+
 04/03/15 - 4.2
 
     [improved] Interface

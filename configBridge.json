@@ -26,6 +26,7 @@
         "plazart_base": ["./joomla/plugins/system/plazart/base"],
         "plazart_includes": ["./joomla/plugins/system/plazart/includes"],
         "tpl_less": ["./less/template"],
-        "tpl_css": ["./joomla/templates/plazart_blank/css"]
+        "tpl_css": ["./joomla/templates/plazart_blank/css"],
+        "tpl_bootstrap": ["./joomla/templates/plazart_blank/bootstrap"]
     }
 }

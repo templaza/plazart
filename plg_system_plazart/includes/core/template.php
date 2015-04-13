@@ -458,9 +458,11 @@ class PlazartTemplate extends ObjectExtendable
                 $this->addCoreCss('bootstrap/css/legacy');
             }
             $this->addCoreCss('bootstrap/css/bootstrap');
+            if ($this->direction == 'rtl') $this->addCoreCss('bootstrap/css/bootstrap-rtl');
         } else {
             $this->addCoreCss('bootstrap/legacy/css/bootstrap');
             $this->addCoreCss('bootstrap/legacy/css/bootstrap-responsive');
+            if ($this->direction == 'rtl') $this->addCoreCss('bootstrap/legacy/css/bootstrap-rtl');
         }
 
         // TEMPLATE CSS

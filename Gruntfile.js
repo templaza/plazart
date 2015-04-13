@@ -10,6 +10,7 @@ module.exports = function(grunt) {
         plazartincludes: configBridge.config.plazart_includes.join('\n'),
         tplcss: configBridge.config.tpl_css.join('\n'),
         tplless: configBridge.config.tpl_less.join('\n'),
+        tpl_bootstrap: configBridge.config.tpl_bootstrap.join('\n'),
 
 
         jshint: {
@@ -81,6 +82,26 @@ module.exports = function(grunt) {
                     "<%= tplcss %>/themes/default/offline.css": "<%= tplless %>/themes/default/offline.less",
                     "<%= tplcss %>/themes/default/print.css": "<%= tplless %>/themes/default/print.less"
                 }
+            },
+            bootstrap: {
+                options: {
+                    sourceMap: true,
+                    outputSourceFiles: true,
+                    sourceMapURL: 'bootstrap.css.map',
+                    sourceMapFilename: '<%= tpl_bootstrap %>/css/bootstrap.css.map'
+                },
+                src: './less/bootstrap/bootstrap.less',
+                dest: '<%= tpl_bootstrap %>/css/bootstrap.css'
+            },
+            bootstrap_rtl: {
+                options: {
+                    sourceMap: true,
+                    outputSourceFiles: true,
+                    sourceMapURL: 'bootstrap-rtl.css.map',
+                    sourceMapFilename: '<%= tpl_bootstrap %>/css/bootstrap-rtl.css.map'
+                },
+                src: './less/bootstrap-rtl/bootstrap-rtl.less',
+                dest: '<%= tpl_bootstrap %>/css/bootstrap-rtl.css'
             }
         },
 
@@ -105,25 +126,20 @@ module.exports = function(grunt) {
         cssmin: {
             options: {
                 compatibility: 'ie8',
-                //keepSpecialComments: '*',
+                keepSpecialComments: false,
                 advanced: false
             },
             minifyCore: {
-                src: '<%= yourcss %>/bootstrap.css',
-                dest: '<%= yourcss %>/bootstrap.min.css'
+                src: '<%= tpl_bootstrap %>/css/bootstrap.css',
+                dest: '<%= tpl_bootstrap %>/css/bootstrap.min.css'
             },
-            minifyTheme: {
-                src: '<%= yourcss %>/bootstrap-theme.css',
-                dest: '<%= yourcss %>/bootstrap-theme.min.css'
+            minifyRtl: {
+                src: '<%= tpl_bootstrap %>/css/bootstrap-rtl.css',
+                dest: '<%= tpl_bootstrap %>/css/bootstrap-rtl.min.css'
             },
-            all: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yourcss %>',
-                    src: ['*.css', '!*.min.css', '!*.css.map'],
-                    dest: '<%= yourcss %>',
-                    ext: '.min.css'
-                }]
+            minifyRtlLegacy: {
+                src: '<%= plazartbase %>/bootstrap/legacy/css/bootstrap-rtl.css',
+                dest: '<%= plazartbase %>/bootstrap/legacy/css/bootstrap-rtl.min.css'
             }
         },
 
@@ -164,10 +180,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('plazat-hint', ['jshint:plazart_admin']);
     grunt.registerTask('less-compile', ['less:template', 'less:megamenu', 'less:others']);
+    grunt.registerTask('less-bootstrap', ['less:bootstrap', 'less:bootstrap_rtl','cssmin:minifyCore', 'cssmin:minifyRtl']);
     grunt.registerTask('minify-bootstrap', ['cssmin:minifyCore', 'cssmin:minifyTheme']);
     grunt.registerTask('minify-all', ['cssmin:all']);
     grunt.registerTask('minifyjs-bootstrap', ['uglify:bootstrap']);
     grunt.registerTask('concat-js-bootstrap', ['concat:catscript']);
     grunt.registerTask('watch-less', ['watch:less']);
+    grunt.registerTask('minify_rtl_legacy', ['cssmin:minifyRtlLegacy']);
 
 };

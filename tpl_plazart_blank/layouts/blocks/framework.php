@@ -2,8 +2,11 @@
 <div class="container">
     <hr />
     <div class="framework-logo">
+        <p class="pull-right">
+            Based on <a href="http://www.templaza.com/">Plazart Framework</a>
+        </p>
         <p>
-            <img src="<?php echo PLAZART_TEMPLATE_REL.'/images/framework-logo.png'; ?>" alt="Plazart Framework" />
+            &copy; <?php echo date('Y'); ?> <?php echo JFactory::getApplication()->get('sitename'); ?>
         </p>
     </div>
 </div>

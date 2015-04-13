@@ -3,7 +3,7 @@
         "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
 <extension version="3.0" type="template" client="site" method="upgrade">
     <name>plazart_blank</name>
-    <version>3.2</version>
+    <version>3.5</version>
     <creationDate>02/28/2013</creationDate>
     <author>TemPlaza</author>
     <authorEmail>info@templaza.com</authorEmail>
@@ -29,6 +29,7 @@
         <filename>template_preview.png</filename>
         <filename>template_thumbnail.png</filename>
         <folder>admin</folder>
+        <folder>bootstrap</folder>
         <folder>config</folder>
         <folder>css</folder>
         <folder>html</folder>

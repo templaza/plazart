@@ -20,3 +20,154 @@
     padding-right: 5px;
   }
 }
+
+.article-info {
+  font-size: 0.9em;
+  dd {
+    display: inline-block;
+    margin-left: 0;
+    margin-right: 10px;
+    white-space: nowrap;
+  }
+}
+
+.muted {
+  color: @text-muted;
+}
+
+.tagspopular {
+  ul {
+    display: block;
+    list-style: outside none none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    > li {
+      color: @text-color;
+      display: inline-block;
+      margin: 0 5px 5px 0;
+      > a {
+        background: none repeat scroll 0 0 @gray-lighter;
+        border-radius: 3px;
+        color: @text-color;
+        display: block;
+        padding: 2px 5px;
+        &:hover {
+          background: none repeat scroll 0 0 @link-hover-color;
+          color: @gray-lighter;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.tagssimilar {
+  ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    > li {
+      border-bottom: 1px solid @hr-border;
+      padding: 8px 0;
+      > a {
+        color: @text-color;
+        &:hover {
+          color: @link-hover-color;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+//
+// CATEGORY LIST
+// ---------------------------------------------------------
+.categories-list {
+  margin-bottom: @line-height-computed;
+  .clearfix();
+
+  .page-header {
+    line-height: normal;
+    padding: (@line-height-computed / 2) 5px;
+    margin: 0;
+    font-size: @font-size-large;
+    font-weight: normal;
+  }
+
+  // Sub Categories
+  .category-item {
+    margin-bottom: 0;
+    margin-left: @grid-gutter-width;
+    .page-header {
+      font-size: @font-size-base;
+    }
+  }
+}
+
+.readmore {
+  > .btn {
+    background-color: @btn-default-bg;
+    border-color: @btn-default-border;
+    color: @btn-default-color;
+  }
+}
+
+.counter {
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 6px 12px;
+}
+
+// Striped
+// -------
+.list-striped,
+.row-striped {
+  list-style: none;
+  line-height: @line-height-computed;
+  text-align: left;
+  vertical-align: middle;
+  border-top: 1px solid @table-border-color;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.list-striped li,
+.list-striped dd,
+.row-striped .row,
+.row-striped .row-fluid {
+  border-bottom: 1px solid @table-border-color;
+  padding: 10px 15px;
+}
+
+.list-striped li:nth-child(odd),
+.list-striped dd:nth-child(odd),
+.row-striped .row:nth-child(odd),
+.row-striped .row-fluid:nth-child(odd) {
+  background-color: @table-bg-accent;
+}
+
+.list-striped li:hover,
+.list-striped dd:hover,
+.row-striped .row:hover,
+.row-striped .row-fluid:hover {
+  background-color: @table-bg-hover;
+}
+
+.row-striped .row-fluid {
+  width: 97%; // lower than 100% since we have padding
+}
+
+.row-striped .row-fluid [class*="span"] {
+  min-height: 10px;
+}
+
+.row-striped .row-fluid [class*="span"] {
+  margin-left: 8px;
+}
+
+.row-striped .row-fluid [class*="span"]:first-child {
+  margin-left: 0;
+}

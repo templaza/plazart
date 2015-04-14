@@ -468,7 +468,7 @@ class PlazartTemplate extends ObjectExtendable
         // TEMPLATE CSS
         $this->addCss ('template', false);
 
-        if ($this->getParam('navigation_type') == 'megamenu') :
+        if ($this->getParam('navigation_type','megamenu') == 'megamenu') :
             // add core megamenu.css in plugin
             // deprecated - will extend the core style into template megamenu.less & megamenu-responsive.less
             // to use variable overridden in template
@@ -513,7 +513,7 @@ class PlazartTemplate extends ObjectExtendable
 
 
         // add css/js for off-canvas
-        if ($this->getParam('navigation_collapse_offcanvas', 1)) {
+        if ($this->getParam('navigation_collapse_offcanvas', 0)) {
             $this->addCoreCss ('css/off-canvas',false);
             $this->addScript (PLAZART_URL.'/js/off-canvas.js');
         }
@@ -526,7 +526,7 @@ class PlazartTemplate extends ObjectExtendable
         }
 
         //menu control script
-        if ($this->getParam ('animate', 1)){
+        if ($this->getParam ('animate', 0)){
             $this->addScript (PLAZART_URL.'/js/animate.min.js');
         }
 

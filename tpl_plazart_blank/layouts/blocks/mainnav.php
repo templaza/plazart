@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
       </button>
       </div>
   	  <div class="nav-collapse navbar-collapse collapse">
-      <?php if ($this->getParam('navigation_type') == 'megamenu') : ?>
+      <?php if ($this->getParam('navigation_type','megamenu') == 'megamenu') : ?>
         <?php $this->megamenu($this->getParam('mm_type', 'mainmenu')) ?>
       <?php endif; ?>
       </div>

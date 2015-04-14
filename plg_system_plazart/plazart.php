@@ -175,27 +175,30 @@ class plgSystemPlazart extends JPlugin
                 $params->set('preset', JFile::getName($filename));
                 $params->set('presetname', JFile::getName($profile));
                 $presetimage = $params->get('presetimage','');
-                $imagename  =   JFile::getName($presetimage);
-                if (!JFolder::exists($image_path)) {
-                    JFolder::create($image_path);
-                }
+                if (trim($presetimage)) {
+                    $imagename  =   JFile::getName($presetimage);
+                    if (!JFolder::exists($image_path)) {
+                        JFolder::create($image_path);
+                    }
 
-                $i = 0;
-                if (JFile::exists($image_path.DIRECTORY_SEPARATOR.$imagename)) {
-                    $i =1;
-                    while (JFile::exists($image_path.DIRECTORY_SEPARATOR.'p'.$i.$imagename)) { $i++; }
+                    $i = 0;
+                    if (JFile::exists($image_path.DIRECTORY_SEPARATOR.$imagename)) {
+                        $i =1;
+                        while (JFile::exists($image_path.DIRECTORY_SEPARATOR.'p'.$i.$imagename)) { $i++; }
+                    }
+                    $imagename = $image_path.DIRECTORY_SEPARATOR. ($i !=0 ? 'p'.$i : ''). $imagename;
+                    $params->set('preset_image', JFile::getName($imagename));
+                    if (!JFile::copy(JPATH_SITE.DIRECTORY_SEPARATOR.$presetimage,$imagename)) {
+                        JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+                    }
                 }
-                $imagename = $image_path.DIRECTORY_SEPARATOR. ($i !=0 ? 'p'.$i : ''). $imagename;
-                $params->set('preset_image', JFile::getName($imagename));
                 $params->set('demo_link', $demolink);
                 $params->set('doc_link', $doclink);
                 $data->params = $params->toString();
 
-                if (!JFile::copy(JPATH_SITE.DIRECTORY_SEPARATOR.$presetimage,$imagename)) {
-                    JError::raiseNotice(403,'TPL_TZ_LANG_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
-                }
+
                 if (!JFile::write($filename . '.json' , $data->params)){
-                    JError::raiseNotice(403,'TPL_TZ_LANG_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+                    JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
                 }
             }
 

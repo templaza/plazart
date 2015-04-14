@@ -1,7 +1,0 @@
-# Travis CI (MIT License) configuration file
-# @link https://travis-ci.org/
-
-# Declare project language.
-# @link http://about.travis-ci.org/docs/user/languages/php/
-language: php
-

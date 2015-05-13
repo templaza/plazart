@@ -366,7 +366,7 @@ class PlazartTemplate extends ObjectExtendable
                         $this->addStyleSheet($font_link);
                         $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: '.$font_family.', Arial, sans-serif; '.$font_size.$line_height.' }'."\n");
                     } elseif($font_type == 'squirrel') {
-                        $this->addStyleSheet($this->API->URLtemplate() . '/fonts/' . $font_name . '/stylesheet.css');
+                        $this->addStyleSheet(PLAZART_TEMPLATE_REL . '/fonts/' . $font_name . '/stylesheet.css');
                         $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . ', Arial, sans-serif; '.$font_size.$line_height.' }'."\n");
                     } elseif($font_type == 'edge') {
                         $font_link      =   $font_data[2];

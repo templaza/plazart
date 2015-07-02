@@ -92,6 +92,11 @@ class PlazartAdmin {
         $db->setQuery($query);
         $params->loadString($db->loadResult());
 
+        //notice requirement extensions
+        if ($params->get('requiredmode',1)) {
+            PlazartAdmin::noticeRequired($xml);
+        }
+
         //get extension id of framework and template
         $query = $db->getQuery(true);
         $query
@@ -154,6 +159,7 @@ class PlazartAdmin {
 			PlazartAdmin.felement = \'' . PLAZART_ADMIN . '\';
 			PlazartAdmin.plazartupdateurl = \'' . JURI::base() . 'index.php?option=com_installer&view=update&task=update.ajax' . '\';
 			PlazartAdmin.jupdateUrl = \'' . JURI::base() . 'index.php?option=com_installer&view=update' . '\';
+			PlazartAdmin.documentation = \'' . addslashes($xml->documentation) . '\';
 
 			var tzclient = new Object();
 			tzclient.name = \''.$xml->name.'\';
@@ -211,6 +217,35 @@ class PlazartAdmin {
         );
     }
 
+    /**
+     * @param $xml data of templateDetails.xml
+     */
+    public static function noticeRequired ($xml) {
+        $db = JFactory::getDbo();
+
+        if (!count($xml->tzrequired)) {
+            return false;
+        }
+
+        $arrext =   array();
+        foreach ($xml->tzrequired->item as $item) {
+            $query = $db->getQuery(true);
+            $query
+                ->select('name')
+                ->from('#__extensions')
+                ->where('element='. $db->quote($item->code));
+
+            $db->setQuery($query);
+            if (!$db->loadResult()) {
+                $arrext[]   =   '<a href="'.$item->url.'" title="'.$item->name.'" class="plazart-link-ext" target="_blank">'.$item->name.'</a>';
+            }
+        }
+
+        if (count($arrext)) {
+            JError::raiseNotice(100,JText::sprintf('PLAZART_MSG_NOTICE_EXT', implode(', ', $arrext)));
+        }
+    }
+
     public function addJSLang($key = '', $value = '', $overwrite = true){
         if($key && $value && ($overwrite || !array_key_exists($key, $this->langs))){
             $this->langs[$key] = $value ? $value : JText::_($key);
@@ -256,7 +291,7 @@ class PlazartAdmin {
 
             $session = JFactory::getSession();
             $plazartlock = $session->get('Plazart.plazartlock', 'overview_params');
-            $session->set('Plazart.plazartlock', null);
+//            $session->set('Plazart.plazartlock', null);
             $input = JFactory::getApplication()->input;
 
             // $profile
@@ -324,7 +359,7 @@ class PlazartAdmin {
             // message
             $msg = '';
             // helping variables
-            $redirectUrl = $uri->root() . 'administrator/index.php?option=com_templates&view=style&layout=edit&id=' . $tpl_id.'#preset';
+            $redirectUrl = $uri->root() . 'administrator/index.php?option=com_templates&view=style&layout=edit&id=' . $tpl_id.'#preset-config';
             if($task == 'load') {
                 $file   .=  '.json';
 

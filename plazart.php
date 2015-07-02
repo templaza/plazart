@@ -79,23 +79,39 @@ class plgSystemPlazart extends JPlugin
 
 	function onAfterRender ()
 	{
-		$japp = JFactory::getApplication();
+        if(defined('PLAZART_PLUGIN') && Plazart::detect()){
+            $plazartapp = Plazart::getApp();
+            if ($plazartapp) {
+                if (JFactory::getApplication()->isAdmin()) {
+                    $plazartapp->render();
+                } else {
+                    $plazartapp->snippet();
+//                    $optimized  =   Plazart::OptimizeCode();
+//                    $optimized->OptimizeCode();
 
-		if($japp->isAdmin()){
-			if(Plazart::detect()){
-				$plazartapp = Plazart::getApp();
-				$plazartapp->render();
-			}
-		} else {
-            if(Plazart::detect()){
-                $optimized  =   Plazart::OptimizeCode();
-                $optimized->OptimizeCode();
-                if (class_exists('TZRules')) {
-                    $buf = TZRules::parseIt();
-                    JResponse::setBody($buf);
+                    if (class_exists('TZRules')) {
+                        $buf = TZRules::parseIt();
+                        JResponse::setBody($buf);
+                    }
                 }
             }
         }
+//		if($japp->isAdmin()){
+//			if(Plazart::detect()){
+//				$plazartapp = Plazart::getApp();
+//				$plazartapp->render();
+//			}
+//		} else {
+//            if(Plazart::detect()){
+//                $optimized  =   Plazart::OptimizeCode();
+//                $optimized->OptimizeCode();
+//
+//                if (class_exists('TZRules')) {
+//                    $buf = TZRules::parseIt();
+//                    JResponse::setBody($buf);
+//                }
+//            }
+//        }
 	}
 	
 	/**
@@ -136,10 +152,15 @@ class plgSystemPlazart extends JPlugin
             $params = new JRegistry;
             $params->loadString($data->params);
             // save profile
-            $profile = JRequest::getString('config_manager_save_filename','');
+            $profile    = JRequest::getString('config_manager_save_filename','');
+            $demolink   = JRequest::getString('config_manager_presetdemo','');
+            $doclink    = JRequest::getString('config_manager_presetdoc','');
+            jimport('joomla.filesystem.file');
+            jimport('joomla.filesystem.folder');
             if (trim($profile)) {
-                jimport('joomla.filesystem.file');
+
                 $base_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
+                $image_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'presets';
                 $file = JFilterOutput::stringURLSafe(trim($profile));
                 // variable used to detect if the specified file exists
                 $i = 0;
@@ -152,9 +173,32 @@ class plgSystemPlazart extends JPlugin
                 // get the settings from the database
                 $filename   =   $base_path . $file . (($i != 0) ? $i : '');
                 $params->set('preset', JFile::getName($filename));
+                $params->set('presetname', JFile::getName($profile));
+                $presetimage = $params->get('presetimage','');
+                if (trim($presetimage)) {
+                    $imagename  =   JFile::getName($presetimage);
+                    if (!JFolder::exists($image_path)) {
+                        JFolder::create($image_path);
+                    }
+
+                    $i = 0;
+                    if (JFile::exists($image_path.DIRECTORY_SEPARATOR.$imagename)) {
+                        $i =1;
+                        while (JFile::exists($image_path.DIRECTORY_SEPARATOR.'p'.$i.$imagename)) { $i++; }
+                    }
+                    $imagename = $image_path.DIRECTORY_SEPARATOR. ($i !=0 ? 'p'.$i : ''). $imagename;
+                    $params->set('preset_image', JFile::getName($imagename));
+                    if (!JFile::copy(JPATH_SITE.DIRECTORY_SEPARATOR.$presetimage,$imagename)) {
+                        JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+                    }
+                }
+                $params->set('demo_link', $demolink);
+                $params->set('doc_link', $doclink);
                 $data->params = $params->toString();
+
+
                 if (!JFile::write($filename . '.json' , $data->params)){
-                    JError::raiseNotice(403,'TPL_TZ_LANG_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+                    JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
                 }
             }
 
@@ -162,7 +206,6 @@ class plgSystemPlazart extends JPlugin
             $defaultlayout  =   JRequest::getInt('layoutbuiderdefault',0);
             if ($defaultlayout) {
                 $layoutsettings =   json_encode($params->get('generate',''));
-                jimport('joomla.filesystem.file');
                 JFile::write(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'generate'.DIRECTORY_SEPARATOR.'default.json',$layoutsettings);
             }
         }
@@ -229,23 +272,23 @@ class plgSystemPlazart extends JPlugin
 	 *
 	 * @return  bool
 	 */
-	function onRenderModule (&$module, $attribs)
-	{
-		static $chromed = false;
-		// Detect layout path in Plazart themes
-		if (Plazart::detect()) {
-			// Chrome for module
-			if (!$chromed) {
-				$chromed = true;
-				// We don't need chrome multi times
-				$chromePath = PlazartPath::getPath('html/modules.php');
-				if (file_exists($chromePath)) {
-					include_once $chromePath;
-				}
-			}
-		}
-		return false;
-	}
+//	function onRenderModule (&$module, $attribs)
+//	{
+//		static $chromed = false;
+//		// Detect layout path in Plazart themes
+//		if (Plazart::detect()) {
+//			// Chrome for module
+//			if (!$chromed) {
+//				$chromed = true;
+//				// We don't need chrome multi times
+//				$chromePath = PlazartPath::getPath('html/modules.php');
+//				if (file_exists($chromePath)) {
+//					include_once $chromePath;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	/**
 	 * Implement event onGetLayoutPath to return the layout which override by Plazart & Plazart templates
@@ -258,14 +301,14 @@ class plgSystemPlazart extends JPlugin
 	 *
 	 * @return  null
 	 */
-	function onGetLayoutPath($module, $layout)
-	{
-		// Detect layout path in Plazart themes
-		if (Plazart::detect()) {
-			$tPath = PlazartPath::getPath('html/' . $module . '/' . $layout . '.php');
-			if ($tPath)
-				return $tPath;
-		}
-		return false;
-	}	
+//	function onGetLayoutPath($module, $layout)
+//	{
+//		// Detect layout path in Plazart themes
+//		if (Plazart::detect()) {
+//			$tPath = PlazartPath::getPath('html/' . $module . '/' . $layout . '.php');
+//			if ($tPath)
+//				return $tPath;
+//		}
+//		return false;
+//	}
 }

@@ -33,12 +33,15 @@ defined('_JEXEC') or die;
   endif;
   ?>
 
-	<div id="plazart-admin-tb-recompile" class="btn-group">
-		<button class="btn hasTip" title="<?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS') ?>::<?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS_DESC') ?>"><i class="fa fa-spinner fa-spin"></i><i class="fa fa-magic"></i><?php echo JText::_('PLAZART_TOOLBAR_COMPILE_LESS_CSS') ?></button>
-	</div>
+	<div class="btn-group">
+		<a id="plazart-tb-global-config" href="#global-config" class="btn btn-config"><i class="fa fa-cog"></i><?php echo JText::_('PLAZART_GLOBAL_LABEL') ?></a>
+        <a id="plazart-tb-preset-config" href="#preset-config" class="btn btn-config"><i class="fa fa-rocket"></i><?php echo JText::_('PLAZART_PRESET_LABEL') ?></a>
+        <a id="plazart-tb-menu-config" href="#menu-config" class="btn btn-config"><i class="fa fa-bars"></i><?php echo JText::_('PLAZART_NAVIGATION_LABEL') ?></a>
+        <a id="plazart-tb-layout-config" href="#layout-config" class="btn btn-config"><i class="fa fa-columns"></i><?php echo JText::_('PLAZART_LAYOUT_LABEL') ?></a>
+    </div>
 
 	<div id="plazart-admin-tb-close" class="btn-group <?php echo $input->getCmd('view') ?>">
-		<button class="btn"><i class="fa fa-times"></i><?php echo JText::_('PLAZART_TOOLBAR_CLOSE') ?></button>
+		<button class="btn "><i class="fa fa-times"></i><?php echo JText::_('PLAZART_TOOLBAR_CLOSE') ?></button>
 	</div>
 	<div id="plazart-admin-tb-help" class="btn-group <?php echo $input->getCmd('view') ?>">
 		<button class="btn"><i class="fa fa-wheelchair"></i><?php echo JText::_('PLAZART_TOOLBAR_HELP') ?></button>

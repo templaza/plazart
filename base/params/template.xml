@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fields name="params" addfieldpath="/plugins/system/plazart/includes/depend">
-        <fieldset name="preset_params" label="PLAZART_PRESET_LABEL">
+        <fieldset name="preset_params" label="PLAZART_PRESET_LABEL" description="PLAZART_PRESET_DESC">
+
+            <field name="presetimage" type="media" />
             <field name="preset" type="plazartpreset" default="default"
                    label="PLAZART_PRESETS_LABEL"
                    description="PLAZART_PRESETS_DESC"
@@ -12,13 +14,13 @@
 				label="PLAZART_THEME_THEME_LABEL"
 				description="PLAZART_THEME_THEME_DESC"
 				filter=".*"
-				directory="less/themes"
+				directory="css/themes"
 				stripext="true"
                 hide_default="1"
                 hide_none="1" />
 		</fieldset>
 
-        <fieldset name="layout_params">
+        <fieldset name="layout_params" description="PLAZART_LAYOUT_DESC">
             <field name="layoutbuilder_group_default" type="plazartdepend" function="@group">
                 <option for="layout_enable" value="1">
                     generate,hide_component_area
@@ -80,7 +82,7 @@
 				<option value="click">Mouse Click</option>
 			</field>
 
-			<field name="navigation_collapse_offcanvas" type="radio" class="btn-group" default="1"
+			<field name="navigation_collapse_offcanvas" type="radio" class="btn-group" default="0"
 				global="1"
 				label="PLAZART_NAVIGATION_COLLAPSE_OFFCANVAS"
 				description="PLAZART_NAVIGATION_COLLAPSE_OFFCANVAS_DESC">
@@ -88,7 +90,7 @@
 				<option value="1">JYES</option>
 			</field>
 
-			<field name="navigation_collapse_showsub" type="radio" class="btn-group" default="1"
+			<field name="navigation_collapse_showsub" type="radio" class="btn-group" default="0"
 				global="1"
 				label="PLAZART_NAVIGATION_COLLAPSE_LABEL"
 				description="PLAZART_NAVIGATION_COLLAPSE_DESC">
@@ -99,7 +101,7 @@
 			<field name="navigation_type" type="list" class="btn-group" default="megamenu"
 				label="PLAZART_NAVIGATION_TYPE_LABEL"
 				description="PLAZART_NAVIGATION_TYPE_DESC">
-				<option value="joomla">Joomla Module</option>
+				<option value="none">None</option>
 				<option value="megamenu">Megamenu</option>
 			</field>
 
@@ -170,6 +172,13 @@
         </fieldset>
 
         <fieldset name="dev_params">
+            <field name="requiredmode" type="radio" class="btn-group" default="1"
+                   global="1"
+                   label="PLAZART_REQUIRE_EXT_LABEL"
+                   description="PLAZART_REQUIRE_EXT_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
             <field name="devmode" type="radio" class="btn-group" default="0"
                    global="1"
                    label="PLAZART_GENERAL_DEVELOPMENT_LABEL"
@@ -198,37 +207,72 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="animate" type="radio" class="btn-group" default="1"
+            <field name="minify_js" type="radio" class="btn-group" default="0"
+                   global="1"
+                   label="PLAZART_GENERAL_ASSETS_MINIFYJS_LABEL"
+                   description="PLAZART_GENERAL_ASSETS_MINIFYJS_DESC">
+                <option value="0" class="off">JNO</option>
+                <option value="1" class="on">JYES</option>
+            </field>
+            <field name="minify_js_tool" type="list" default="jsmin"
+                   global="1"
+                   label="PLAZART_GENERAL_ASSETS_MINIFYJS_TOOL_LABEL"
+                   description="PLAZART_GENERAL_ASSETS_MINIFYJS_TOOL_DESC">
+                <option value="jsmin">PLAZART_GENERAL_ASSETS_MINIFYJS_TOOL_JSMIN</option>
+                <option value="closurecompiler">PLAZART_GENERAL_ASSETS_MINIFYJS_TOOL_CLOSURE</option>
+            </field>
+
+            <field name="minify_exclude" type="text" default=""
+                   global="1"
+                   label="PLAZART_GENERAL_ASSETS_MINIFYJS_EXCLUDE_LABEL"
+                   description="PLAZART_GENERAL_ASSETS_MINIFYJS_EXCLUDE_DESC"/>
+            <field name="animate" type="radio" class="btn-group" default="0"
                    global="1"
                    label="PLAZART_GENERAL_ANIMATE_LABEL"
                    description="PLAZART_GENERAL_ANIMATE_DESC" >
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
-            <field name="scriptdown" type="radio" class="btn-group" default="0"
+        </fieldset>
+
+        <fieldset name="injection_params" label="PLAZART_INJECTION_LABEL" description="PLAZART_INJECTION_DESC">
+
+            <field name="snippet_open_head" type="textarea"
+                   class="plazart-admin-textarea"
                    global="1"
-                   label="PLAZART_GENERAL_SCRIPTDOWN_LABEL"
-                   description="PLAZART_GENERAL_SCRIPTDOWN_DESC" >
-                <option value="0">JNO</option>
-                <option value="1">JYES</option>
-            </field>
-            <field name="pretty" type="radio" class="radio btn-group" label="PLAZART_GENERAL_PRETTY_LABEL" description="PLAZART_GENERAL_PRETTY_DESC" default="0">
-                <option value="0">JNo</option>
-                <option value="1">JYes</option>
-            </field>
-            <field name="stripcomments" type="radio" class="radio btn-group" label="PLAZART_GENERAL_STRIPCOMMENTS_LABEL" description="PLAZART_GENERAL_STRIPCOMMENTS_DESC" default="0">
-                <option value="0">JNo</option>
-                <option value="1">JYes</option>
-            </field>
-            <field name="sanitize" type="radio" class="radio btn-group" label="PLAZART_GENERAL_SANITIZE_LABEL" description="PLAZART_GENERAL_SANITIZE_DESC" default="0">
-                <option value="0">JNo</option>
-                <option value="1">JYes</option>
-            </field>
-            <field name="exclude" type="radio" class="radio btn-group" label="PLAZART_GENERAL_SCRIPTSDOWN_EXCLUDE_LABEL" description="PLAZART_GENERAL_SCRIPTSDOWN_EXCLUDE_DESC" default="1">
-                <option value="0">JNo</option>
-                <option value="1">JYes</option>
-            </field>
-            <field name="omit" type="textarea" rows="10" cols="25" label="PLAZART_GENERAL_SCRIPTSDOWN_OMIT_LABEL" description="PLAZART_GENERAL_SCRIPTSDOWN_OMIT_DESC" />
+                   filter="raw"
+                   default=""
+                   label="PLAZART_INJECTION_OPEN_HEAD_LABEL"
+                   description="PLAZART_INJECTION_OPEN_HEAD_DESC"
+                    />
+
+            <field name="snippet_close_head" type="textarea"
+                   class="plazart-admin-textarea"
+                   global="1"
+                   filter="raw"
+                   default=""
+                   label="PLAZART_INJECTION_CLOSE_HEAD_LABEL"
+                   description="PLAZART_INJECTION_CLOSE_HEAD_DESC"
+                    />
+
+            <field name="snippet_open_body" type="textarea"
+                   class="plazart-admin-textarea"
+                   global="1"
+                   filter="raw"
+                   default=""
+                   label="PLAZART_INJECTION_OPEN_BODY_LABEL"
+                   description="PLAZART_INJECTION_OPEN_BODY_DESC"
+                    />
+
+            <field name="snippet_close_body" type="textarea"
+                   class="plazart-admin-textarea"
+                   global="1"
+                   filter="raw"
+                   default=""
+                   label="PLAZART_INJECTION_CLOSE_BODY_LABEL"
+                   description="PLAZART_INJECTION_CLOSE_BODY_DESC"
+                    />
+
         </fieldset>
 
 	</fields>

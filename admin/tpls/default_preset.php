@@ -3,54 +3,75 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @copyright     Copyright (C) 2012-2015 TemPlaza.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @authors       TemPlaza
- * @Link:         http://templaza.com
+ * @authors       TemPlaza (contribute to this project at github
+ * @Link:         http://www.templaza.com/
  *------------------------------------------------------------------------------
  */
-/**
- *------------------------------------------------------------------------------
- * @package       T3 Framework for Joomla!
- *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2004-2013 JoomlArt.com. All Rights Reserved.
- * @license       GNU General Public License version 2 or later; see LICENSE.txt
- * @authors       JoomlArt, JoomlaBamboo, (contribute to this project at github
- *                & Google group to become co-author)
- * @Google group: https://groups.google.com/forum/#!forum/t3fw
- * @Link:         http://t3-framework.org
- *------------------------------------------------------------------------------
- */
+
+defined('_JEXEC') or die;
+$fieldSet   =   $fieldSets["preset_params"];
+$name       =   'preset_params';
+$fields     =   $form->getFieldset($name);
 ?>
-<div class="plazart-admin-preset">
 
-<legend class="plazart-admin-form-legend"><?php echo JText::_('PLAZART_PRESET_TPL_INFO')?></legend>
-<div id="plazart-admin-template-home" class="section">
-    <div class="row-fluid">
-
-        <div class="controls-row">
-            <div class="control-group plazart-control-group preset-group">
-
-                <div class="control-label plazart-control-label">
-                    <label id="tz-profiles-list-lbl" for="config_manager_load_filename" class="hasTip" title="<?php echo JText::_('TZ_SELECT_PROFILE_DESC'); ?>"><?php echo JText::_('TZ_SELECT_PROFILE_LABEL'); ?></label>
-                </div>
-                <div class="controls plazart-controls">
-                    <?php
-                    for ($i=0; $i<count($profiles); $i++ ) {
-                        echo '<div class="preset active"><label>'.$profiles[$i]->text.'</label></div>';
-                    }
-                    echo '<input type="hidden" name="config_manager_load_filename" value="" />';
-                    ?>
-                    <div style="clear: both"></div>
-                    <?php // echo JHTML::_('select.genericlist', $profiles, 'config_manager_load_filename', 'autocomplete="off"', 'value', 'text','default'); ?>
-                    <button id="config_manager_load" class="btn"><i class="icon-download"></i><?php echo JText::_('TPL_TZ_LANG_CONFIG_LOAD_BTN'); ?></button>
-                    <button id="config_manager_delete" class="btn"><i class="icon-remove"></i><?php echo JText::_('TPL_TZ_LANG_CONFIG_DELETE_BTN'); ?></button>
-                </div>
-
+<div class="plazart-admin-header clearfix">
+    <div class="controls-row">
+        <div class="control-group plazart-control-group">
+            <div class="control-label plazart-control-label">
+                <label id="config_manager_save_filename-lbl" for="config_manager_save_filename" class="hasTip"
+                       title="<?php echo JText::_('PLAZART_PRESET_TPL_SAVE_DESC'); ?>"><?php echo JText::_('PLAZART_PRESET_TPL_SAVE'); ?></label>
             </div>
-
+            <div class="controls plazart-controls">
+                <input type="text" id="config_manager_save_filename" name="config_manager_save_filename"
+                       class="input-medium" placeholder="<?php echo JText::_('PLAZART_PRESET_TPL_SAVE_PLACE'); ?>"/>
+            </div>
+        </div>
+        <div class="control-group plazart-control-group">
+            <div class="control-label plazart-control-label">
+                <label id="jform_params_presetimage-lbl" for="jform_params_presetimage" class="hasTip"
+                       title="<?php echo JText::_('PLAZART_PRESET_IMAGE_SAVE_DESC'); ?>"><?php echo JText::_('PLAZART_PRESET_IMAGE_SAVE'); ?></label>
+            </div>
+            <div class="controls plazart-controls">
+                <?php echo $fields["jform_params_presetimage"]->input; ?>
+            </div>
         </div>
 
+        <div class="control-group plazart-control-group">
+            <div class="control-label plazart-control-label">
+                <label id="config_manager_presetdemo-lbl" for="config_manager_presetdemo" class="hasTip"
+                       title="<?php echo JText::_('PLAZART_PRESET_DEMO_DESC'); ?>"><?php echo JText::_('PLAZART_PRESET_DEMO'); ?></label>
+            </div>
+            <div class="controls plazart-controls">
+                <input type="text" id="config_manager_presetdemo" name="config_manager_presetdemo"
+                       class="input-medium" placeholder="<?php echo JText::_('PLAZART_PRESET_DEMO_PLACE'); ?>"/>
+            </div>
+        </div>
+
+        <div class="control-group plazart-control-group">
+            <div class="control-label plazart-control-label">
+                <label id="config_manager_presetdoc-lbl" for="config_manager_presetdoc" class="hasTip"
+                       title="<?php echo JText::_('PLAZART_PRESET_DOC_DESC'); ?>"><?php echo JText::_('PLAZART_PRESET_DOC'); ?></label>
+            </div>
+            <div class="controls plazart-controls">
+                <input type="text" id="config_manager_presetdoc" name="config_manager_presetdoc"
+                       class="input-medium" placeholder="<?php echo JText::_('PLAZART_PRESET_DOC_PLACE'); ?>"/>
+            </div>
+        </div>
     </div>
 </div>
-</div>
+<fieldset>
+    <?php
+    if (isset($fieldSet->description) && trim($fieldSet->description)) :
+        echo '<div class="plazart-admin-fieldset-desc">' . (JText::_($fieldSet->description)) . '</div>';
+    endif;
+    ?>
+
+    <div class="control-group plazart-control-group">
+        <div class="plazart-presets">
+            <?php echo $fields["jform_params_preset"]->input; ?>
+        </div>
+    </div>
+
+</fieldset>

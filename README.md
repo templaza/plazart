@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+07/01/15 - 4.4
+
+    [bug fixed] Fix error "Can not click toolbar button" with Joomla 3.4.2 in back-end.
+
 02/26/15 - 3.9
 
 	[bug fixed] Fix error with Joomla 3.4.0

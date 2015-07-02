@@ -141,107 +141,6 @@ class PlazartTemplate extends ObjectExtendable
         }
     }
 
-    /**
-     * Load spotlight block
-     *
-     * @param $name string
-     *     Name of the spotlight. Default will load positions base on this name: [name]-1, [name]-2...
-     * @param $default_cols integer
-     *     Default columns in the spotlight, changable in admin
-     *
-     */
-    function spotlight($name, $positions, array $info = array())
-    {
-        $defpos = preg_split('/\s*,\s*/', $positions);
-        $vars = is_array($info) ? $info : array();
-        $cols = count($defpos);
-        $poss = $defpos;
-
-        $splparams = array();
-        for($i = 1; $i <= self::$maxcolumns; $i++){
-            $param = $this->getLayoutSetting('block'.$i.'@'.$name);
-            if(empty($param)){
-                break;
-            } else {
-                $splparams[] = $param;
-            }
-        }
-
-        //we have configuration in setting file
-        if(!empty($splparams)){
-            $poss = array();
-            foreach ($splparams as $idx => $splparam) {
-                $param = (object)$splparam;
-                $poss[] = isset($param->position) ? $param->position : $defpos[$idx];
-            }
-
-            $cols = count($poss);
-        }
-
-        // check if there's any modules
-        if (!$this->countModules (implode(' or ', $poss))){
-            return;
-        }
-
-        //empty - so we will use default configuration
-        if(empty($splparams)){
-            //generate a optimize default width
-            $default = $this->genWidth('default', $cols);
-            foreach ($poss as $i => $pos) {
-                //is there any configuration param
-                $var = isset($vars[$pos]) ? $vars[$pos] : '';
-
-                $param = new stdClass;
-                $param->position = $pos;
-
-                $param->default = ($var && isset($var['default'])) ? $var['default'] : 'span' . $default[$i];
-                if($var){
-                    if(isset($var['wide'])){
-                        $param->wide = $var['wide'];
-                    }
-                    if(isset($var['normal'])){
-                        $param->normal = $var['normal'];
-                    }
-                    if(isset($var['xtablet'])){
-                        $param->xtablet = $var['xtablet'];
-                    }
-                    if(isset($var['tablet'])){
-                        $param->tablet = $var['tablet'];
-                    }
-                    if(isset($var['mobile'])){
-                        $param->mobile = $var['mobile'];
-                    }
-                }
-
-                $splparams[$i] = $param;
-            }
-        }
-
-        //build data
-        $datas = array();
-        foreach ($splparams as $idx => $splparam){
-            $param = (object)$splparam;
-
-            $data = '';
-            $data .= isset($param->default) ? ' data-default="' . $param->default . '"' : '';
-            $data .= isset($param->wide) ? ' data-wide="' . $param->wide . '"' : '';
-            $data .= isset($param->normal) ? ' data-normal="' . $param->normal . '"' : '';
-            $data .= isset($param->xtablet) ? ' data-xtablet="' . $param->xtablet . '"' : '';
-            $data .= isset($param->tablet) ? ' data-tablet="' . $param->tablet . '"' : '';
-            $data .= isset($param->mobile) ? ' data-mobile="' . $param->mobile . '"' : '';
-
-            $datas[] = $data;
-        }
-
-        //
-        $vars['name'] = $name;
-        $vars['splparams'] = $splparams;
-        $vars['datas'] = $datas;
-        $vars['cols'] = $cols;
-
-        $this->loadBlock ('spotlight', $vars);
-    }
-
     function megamenu($menutype){
         Plazart::import('menu/megamenu');
         $currentconfig = json_decode($this->getParam('mm_config', ''), true);
@@ -344,39 +243,6 @@ class PlazartTemplate extends ObjectExtendable
 
 
         return implode(' ', $classes);
-    }
-
-    /**
-     * Wrap of document countModules function, get position from configuration before calculate
-     */
-//    function countModules($positions)
-//    {
-//        $pos = $this->getPosname ($positions);
-//        return $this->_tpl && method_exists($this->_tpl, 'countModules') ? $this->_tpl->countModules ($pos) : 0;
-//    }
-
-    /**
-     * Wrap of document countModules function, get position from configuration before calculate
-     */
-    function checkSpotlight($name, $positions)
-    {
-        $poss = array();
-
-        for($i = 1; $i <= self::$maxcolumns; $i++){
-            $param = $this->getLayoutSetting('block'.$i.'@'.$name);
-            if(empty($param)){
-                break;
-            } else {
-                $param = (object)$param;
-                $poss[] = isset($param->position) ? $param->position : '';
-            }
-        }
-
-        if(empty($poss)){
-            $poss = preg_split('/\s*,\s*/', $positions);
-        }
-
-        return $this->_tpl && method_exists($this->_tpl, 'countModules') ? $this->_tpl->countModules (implode(' or ', $poss)) : 0;
     }
 
     /**
@@ -484,25 +350,29 @@ class PlazartTemplate extends ObjectExtendable
             $font_data = explode(';', $this->getParam('font_name_group'.$font_iter, ''));
 
             if(isset($font_data) && count($font_data) >= 2) {
-                $font_type = $font_data[0];
-                $font_name = $font_data[1];
+                $font_type      =   $font_data[0];
+                $font_name      =   $font_data[1];
+                $font_size      =   $this->getParam('font_size_group'.$font_iter, '');
+                $font_size      =   $font_size ? 'font-size: '. $font_size.';' : '';
+                $line_height    =   $this->getParam('font_height_group'.$font_iter, '');
+                $line_height    =   $line_height ? 'line-height: '. $line_height.';' : '';
 
                 if($this->getParam('font_rules_group'.$font_iter, '') != ''){
                     if($font_type == 'standard') {
-                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . '; }'."\n");
+                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . '; '.$font_size.$line_height.' }'."\n");
                     } elseif($font_type == 'google') {
                         $font_link   = $font_data[2];
                         $font_family = $font_data[3];
                         $this->addStyleSheet($font_link);
-                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: '.$font_family.', Arial, sans-serif; }'."\n");
+                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: '.$font_family.', Arial, sans-serif; '.$font_size.$line_height.' }'."\n");
                     } elseif($font_type == 'squirrel') {
-                        $this->addStyleSheet($this->API->URLtemplate() . '/fonts/' . $font_name . '/stylesheet.css');
-                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . ', Arial, sans-serif; }'."\n");
+                        $this->addStyleSheet(PLAZART_TEMPLATE_REL . '/fonts/' . $font_name . '/stylesheet.css');
+                        $font_css   .=  ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_name . ', Arial, sans-serif; '.$font_size.$line_height.' }'."\n");
                     } elseif($font_type == 'edge') {
                         $font_link      =   $font_data[2];
                         $font_family    =   $font_data[3];
                         $this->addScript($font_link);
-                        $font_css       .=   ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_family . ', sans-serif; }'."\n");
+                        $font_css       .=   ($this->getParam('font_rules_group'.$font_iter, '') . ' { font-family: ' . $font_family . ', sans-serif; '.$font_size.$line_height.' }'."\n");
                     }
                 }
             }
@@ -588,23 +458,24 @@ class PlazartTemplate extends ObjectExtendable
                 $this->addCoreCss('bootstrap/css/legacy');
             }
             $this->addCoreCss('bootstrap/css/bootstrap');
+            if ($this->direction == 'rtl') $this->addCoreCss('bootstrap/css/bootstrap-rtl');
         } else {
             $this->addCoreCss('bootstrap/legacy/css/bootstrap');
             $this->addCoreCss('bootstrap/legacy/css/bootstrap-responsive');
+            if ($this->direction == 'rtl') $this->addCoreCss('bootstrap/legacy/css/bootstrap-rtl');
         }
 
         // TEMPLATE CSS
         $this->addCss ('template', false);
 
-        if ($this->getParam('navigation_type') == 'megamenu') :
+        if ($this->getParam('navigation_type','megamenu') == 'megamenu') :
             // add core megamenu.css in plugin
             // deprecated - will extend the core style into template megamenu.less & megamenu-responsive.less
             // to use variable overridden in template
-            $this->addCoreCss('css/megamenu');
-            if ($this->getParam('responsive', 1)) $this->addCoreCss('css/megamenu-responsive');
+            //$this->addCoreCss('css/megamenu');
 
             // megamenu.css override in template
-            $this->addCss ('megamenu');
+            $this->addCss ('megamenu', false);
         endif;
 
         // Add Font Type
@@ -642,9 +513,9 @@ class PlazartTemplate extends ObjectExtendable
 
 
         // add css/js for off-canvas
-        if ($this->getParam('navigation_collapse_offcanvas', 1)) {
-            $this->addCoreCss ('css/off-canvas');
-            $this->addScript (PLAZART_URL.'/js/off-canvas.min.js');
+        if ($this->getParam('navigation_collapse_offcanvas', 0)) {
+            $this->addCoreCss ('css/off-canvas',false);
+            $this->addScript (PLAZART_URL.'/js/off-canvas.js');
         }
 
         $this->addScript (PLAZART_URL.'/js/script.min.js');
@@ -655,7 +526,7 @@ class PlazartTemplate extends ObjectExtendable
         }
 
         //menu control script
-        if ($this->getParam ('animate', 1)){
+        if ($this->getParam ('animate', 0)){
             $this->addScript (PLAZART_URL.'/js/animate.min.js');
         }
 
@@ -701,11 +572,18 @@ class PlazartTemplate extends ObjectExtendable
         // end update javascript
 
         $minify = $this->getParam('minify', 0);
+        $minifyjs = $this->getParam('minify_js', 0);
+        $devmode    = $this->getParam('devmode', 0);
         //only check for minify if devmode is disabled
 
-        if($minify){
+        if (!$devmode && ($minify || $minifyjs)) {
             Plazart::import ('core/minify');
-            PlazartMinify::optimizecss($this);
+            if($minify){
+                PlazartMinify::optimizecss($this);
+            }
+            if($minifyjs){
+                PlazartMinify::optimizejs($this);
+            }
         }
     }
 
@@ -769,50 +647,47 @@ class PlazartTemplate extends ObjectExtendable
     }
 
     /**
-     * Auto generate optimize width in a row fit to 12 grid
-     * @var (int) numpos: number columns in row
+     * Render snippet
+     *
+     * @return null
      */
-    function fitWidth($numpos){
-        $result = array();
-        $avg = floor(self::$maxgrid / $numpos);
-        $sum = 0;
+    public function snippet()
+    {
 
-        for($i = 0; $i < $numpos - 1; $i++){
-            $result[] = $avg;
-            $sum += $avg;
+        $places   = array();
+        $contents = array();
+
+        if (($openhead = $this->getParam('snippet_open_head', ''))) {
+            $places[] = '<head>';	//not sure that any attritube can be place in head open tag, profile is not support in html5
+            $contents[] = "<head>\n" . $openhead;
         }
+        if (($closehead = $this->getParam('snippet_close_head', ''))) {
+            $places[] = '</head>';
+            $contents[] = $closehead . "\n</head>";
+        }
+        if (($openbody = $this->getParam('snippet_open_body', ''))) {
+            $body = JResponse::getBody();
 
-        $result[] = self::$maxgrid - $sum;
-
-        return $result;
-    }
-
-    /**
-     * Generate auto calculate width
-     */
-    function genWidth($layout, $numpos){
-
-        $cmaxcol = self::$maxcol[$layout];
-        $cminspan = ($layout == 'mobile') ? self::$maxgrid : self::$minspan[$layout];
-        $total = $cminspan * $numpos;
-        $sum = 0;
-
-        if($total < self::$maxgrid) {
-            return $this->fitWidth($numpos);
-        } else {
-            $result = array();
-            $rows = ceil($total / self::$maxgrid);
-            $cols = ceil($numpos / $rows);
-
-            for($i = 0; $i < $rows - 1; $i++){
-                $result = array_merge($result, $this->fitWidth($cols));
-                $numpos -= $cols;
+            if(strpos($body, '<body>') !== false){
+                $places[] = '<body>';
+                $contents[] = "<body>\n" . $openbody;
+            } else {	//in case the body has other attribute
+                $body = preg_replace('@<body[^>]*?>@msU', "$0\n" . $openbody, $body);
+                JResponse::setBody($body);
             }
-
-            $result = array_merge($result, $this->fitWidth($numpos));
         }
 
-        return $result;
+        if (($closebody = $this->getParam('snippet_close_body', ''))) {
+            $places[] = '</body>';
+            $contents[] = $closebody . "\n</body>";
+        }
+
+        if (count($places)) {
+            $body = JResponse::getBody();
+            $body = str_replace($places, $contents, $body);
+
+            JResponse::setBody($body);
+        }
     }
 
     //Layout generater loading...

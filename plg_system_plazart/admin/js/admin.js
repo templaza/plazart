@@ -28,6 +28,28 @@ var PlazartAdmin = window.PlazartAdmin || {};
 	$.extend(PlazartAdmin, {
 		
 		initBuildLessBtn: function(){
+
+            var tzsubmitform = function(task, form) {
+                if (typeof(form) === 'undefined') {
+                    form = document.getElementById('adminForm');
+                }
+
+                if (typeof(task) !== 'undefined' && task !== "") {
+                    form.task.value = task;
+                }
+
+                // Submit the form.
+                if (typeof form.onsubmit == 'function') {
+                    form.onsubmit();
+                }
+                if (typeof form.fireEvent == "function") {
+                    form.fireEvent('onsubmit');
+                }
+                if (typeof $ == "function") {
+                    $(form).submit();
+                }
+                form.submit();
+            };
 			//plazart added
 			//$('#plazart-admin-tb-recompile').on('click', function(){
 			//	var jrecompile = $(this);
@@ -98,19 +120,19 @@ var PlazartAdmin = window.PlazartAdmin || {};
                     form.action = urlparts.join('#');
 
                 }
-				Joomla.submitbutton('style.apply');
+                tzsubmitform('style.apply',document.adminForm);
 			});
 
 			$('#plazart-admin-tb-style-save-close').on('click', function(){
-				Joomla.submitbutton('style.save');
+                tzsubmitform('style.save',document.adminForm);
 			});
 			
 			$('#plazart-admin-tb-style-save-clone').on('click', function(){
-				Joomla.submitbutton('style.save2copy');
+                tzsubmitform('style.save2copy',document.adminForm);
 			});
 
 			$('#plazart-admin-tb-close').on('click', function(){
-				Joomla.submitbutton(($(this).hasClass('template') ? 'template' : 'style') + '.cancel');
+                tzsubmitform(($(this).hasClass('template') ? 'template' : 'style') + '.cancel',document.adminForm);
 			});
             $('#plazart-admin-tb-help').on('click', function(){
                 if (PlazartAdmin.documentation) {

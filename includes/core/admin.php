@@ -42,14 +42,14 @@ class PlazartAdmin {
             $this->loadParams();
             $buffer = ob_get_clean();
             $body = preg_replace('@<form\s[^>]*name="adminForm"[^>]*>?.*</form>@siu', $buffer, $body);
-        }
 
-        $body = $this->replaceToolbar($body);
-        $body = $this->replaceDoctype($body);
+            $body = $this->replaceToolbar($body);
+            $body = $this->replaceDoctype($body);
 
-        // Remove chosen script
-        if(preg_match('/jQuery\(\'select\'\)\.chosen\(\{/',$body)){
-            $body   = preg_replace('/jQuery\(\'select\'\)\.chosen\(\{.*\}\)\;/','',$body);
+            // Remove chosen script
+            if(preg_match('/jQuery\(\'select\'\)\.chosen\(\{/',$body)){
+                $body   = preg_replace('/jQuery\(\'select\'\)\.chosen\(\{.*\}\)\;/','',$body);
+            }
         }
 
         JResponse::setBody($body);

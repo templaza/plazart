@@ -34,11 +34,16 @@ defined('_JEXEC') or die('Restricted access');
 
 class plgSystemPlazart extends JPlugin
 {
+    function __construct(&$subject,$config=array()){
+
+        parent::__construct($subject,$config);
+        include_once dirname(__FILE__) . '/includes/core/defines.php';
+        include_once dirname(__FILE__) . '/includes/core/plazart.php';
+        include_once dirname(__FILE__) . '/includes/core/bot.php';
+    }
+
 	//function onAfterInitialise(){
 	function onAfterRoute(){
-		include_once dirname(__FILE__) . '/includes/core/defines.php';
-		include_once dirname(__FILE__) . '/includes/core/plazart.php';
-		include_once dirname(__FILE__) . '/includes/core/bot.php';
 
 		PlazartBot::preload();
 		$template = Plazart::detect();

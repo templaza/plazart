@@ -61,12 +61,26 @@ class PlazartMenuMegamenu {
 			$this->children[$item->parent_id] = $parent;
 			$this->_items[$item->id]          = $item;
 		}
-		
+
+
 		foreach ($items as &$item) {
 			// bind setting for this item
 			$key     = 'item-' . $item->id;
 			$setting = isset($this->settings[$key]) ? $this->settings[$key] : array();
-			
+
+			// delete setting if not items
+			if(isset($setting['sub']) && isset($setting['sub']['rows']) && count($setting['sub']['rows'])){
+				foreach($setting['sub']['rows'] as $rows){
+					if($rows && count($rows)){
+						foreach($rows as $i => $row){
+							if(isset($row['item']) && ($row['item'] == -1 || $row['item'] == 0)){
+								unset($setting['sub']);
+							}
+						}
+					}
+				}
+			}
+
 			// decode html tag
 			if (isset($setting['caption']) && $setting['caption'])
 				$setting['caption'] = str_replace(array('[lt]', '[gt]'), array('<', '>'), $setting['caption']);
@@ -93,6 +107,7 @@ class PlazartMenuMegamenu {
 			$item->mega     = 0;
 			$item->group    = 0;
 			$item->dropdown = 0;
+
 			if (isset($setting['group']) && $item->level > 1) {
 				$item->group = 1;
 			} else {
@@ -105,10 +120,13 @@ class PlazartMenuMegamenu {
 			if ($item->mega) {
 			 	if (!isset($setting['sub'])) $setting['sub'] = array();
 			 	if (isset($this->children[$item->id]) && (!isset($setting['sub']['rows']) || !count($setting['sub']['rows']))) {
-					$c = $this->children[$item->id][0]->id;
-					$setting['sub'] = array('rows'=>array(array(array('width'=>12, 'item'=>$c))));
+					if($c = $this->children[$item->id][0]->id){
+						$setting['sub'] = array('rows' => array(array(array('width' => 12, 'item' => $c))));
+					}
 				}
 			}
+
+
 			$item->setting = $setting;
 			
 			$item->flink = $item->link;

@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+08/04/15 - 4.6
+
+	[bug fixed] Fix the error on the submenu permission.
+
 07/13/15 - 4.5
 
 	[bug fixed] Fix error with sh404sef in back-end.

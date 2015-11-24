@@ -59,6 +59,11 @@ $fields     =   $form->getFieldset($name);
                        class="input-medium" placeholder="<?php echo JText::_('PLAZART_PRESET_DOC_PLACE'); ?>"/>
             </div>
         </div>
+        <div class="control-group plazart-control-group">
+            <div class="controls plazart-controls">
+                <button id="config_manager_presetsave-btn" class="btn btn-success"><i class="fa fa-floppy-o"></i><?php echo JText::_('JAPPLY'); ?></button>
+            </div>
+        </div>
     </div>
 </div>
 <fieldset>

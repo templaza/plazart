@@ -2,7 +2,7 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2012-2014 TemPlaza.com. All Rights Reserved.
+ * @copyright     Copyright (C) 2012-2015 TemPlaza.com. All Rights Reserved.
  * @license       http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  * @authors       TemPlaza
  * @Link:         http://templaza.com
@@ -48,6 +48,8 @@ jQuery(function($){
         $(element).find('>.positioninput').attr('name', name+'[position]');
         $(element).find('>.styleinput').attr('name', name+'[style]');
         $(element).find('>.customclassinput').attr('name', name+'[customclass]');
+        $(element).find('>.customtitleinput').attr('name', name+'[customtitle]');
+        $(element).find('>.customhtmlinput').attr('name', name+'[customhtml]');
         $(element).find('>.responsiveclassinput').attr('name', name+'[responsiveclass]');
         $(element).find('>.animationType').attr('name', name+'[animationType]');
         $(element).find('>.animationSpeed').attr('name', name+'[animationSpeed]');
@@ -71,6 +73,22 @@ jQuery(function($){
         $(element).find('>div>.row-container .containertype').attr('name', name+'[containertype]');
 
     }
+
+    var customhtmlEncode = function (str) {
+        var map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+
+        return str.replace(/[&<>"']/g, function(m) { return map[m]; });
+    };
+
+    var customhtmlDecode = function (str) {
+        return $('<textarea />').html(str).text();
+    };
 
     document.adminForm.onsubmit = function(){
         $('#content .generator >.row-fluid, #element-box .generator >.row-fluid').each(function(rowl0){
@@ -352,16 +370,30 @@ jQuery(function($){
                 //$(id).find('#includetypes option').removeAttr('selected');
                 //$(id).find('#includetypes option[value="'+currentIncludetype+'"]').attr('selected', true);
 
-
-
                 setTimeout(function(value, $this){
                     $this.next().find('#includetypes select').val(value);
+                    if( currentIncludetype==='modules' ){
+                        $this.next().find('#positions').show();
+                        $this.next().find('#modchrome').show();
+                        $this.next().find('#customhtml').hide();
+                    }
+                    else if (currentIncludetype==='custom_html') {
+                        $this.next().find('#customhtml').show();
+                        $this.next().find('#positions').hide();
+                        $this.next().find('#modchrome').hide();
+                    }
+                    else{
+                        $this.next().find('#positions').hide();
+                        $this.next().find('#modchrome').hide();
+                        $this.next().find('#customhtml').hide();
+                    }
                 }, 300, currentIncludetype, $(this));
 
                 $("#content,#element-box").delegate(".popover select.includetypes",'change', function(event){
 
                     event.stopImmediatePropagation();
                     var newIncludetype = $(this).val();
+
                     $(this).parents('.popover').parent().parent().find('>.typeinput').val(newIncludetype);
 
                     $(this).parents('.popover').parent().parent().removeClass('type-component type-message');
@@ -369,11 +401,26 @@ jQuery(function($){
 
                     if( newIncludetype==='modules' ){
                         $(this).closest('.tab-pane').find('#positions').show();
+                        $(this).closest('.tab-pane').find('#modchrome').show();
+                        $(this).closest('.tab-pane').find('#customhtml').hide();
                         $(this).closest('.tab-pane').find('#positions option[value=""]').attr('selected', true);
                         $(this).parents('.popover').parent().parent().find('>.position-name').text('(none)');
                     }
+                    else if (newIncludetype==='custom_html') {
+                        $(this).closest('.tab-pane').find('#customhtml').show();
+                        $(this).closest('.tab-pane').find('#positions').hide();
+                        $(this).closest('.tab-pane').find('#modchrome').hide();
+                        var customTitle =   $(this).closest('.tab-pane').find('#inputcustomtitle').val().trim();
+                        if (customTitle != '') {
+                            $(this).parents('.popover').parent().parent().find('>.position-name').text(customTitle + ' - Custom HTML');
+                        } else {
+                            $(this).parents('.popover').parent().parent().find('>.position-name').text('Custom HTML');
+                        }
+                    }
                     else{
                         $(this).closest('.tab-pane').find('#positions').hide();
+                        $(this).closest('.tab-pane').find('#modchrome').hide();
+                        $(this).closest('.tab-pane').find('#customhtml').hide();
                         $(this).parents('.popover').parent().parent().find('>.position-name').text(newIncludetype.toUpperCase());
                     }
                 });
@@ -428,6 +475,36 @@ jQuery(function($){
                     event.stopImmediatePropagation();
                     var newCustomClass = $(this).val();
                     $(this).parents('.popover').parent().parent().find('>.customclassinput').val(newCustomClass);
+                });
+
+                var currentCustomTitle = $(this).closest('.column').find('.customtitleinput').val();
+
+                setTimeout(function(value, $this){
+                    $this.next().find('#inputcustomtitle').val(value);
+                }, 300, currentCustomTitle, $(this));
+
+                $("#content,#element-box").delegate(".popover input.customtitle",'blur', function(event){
+                    event.stopImmediatePropagation();
+                    var newCustomTitle = $(this).val();
+                    $(this).parents('.popover').parent().parent().find('>.customtitleinput').val(newCustomTitle);
+                    if (newCustomTitle != '') {
+                        $(this).parents('.popover').parent().parent().find('>.position-name').text(newCustomTitle + ' - Custom HTML');
+                    } else {
+                        $(this).parents('.popover').parent().parent().find('>.position-name').text('Custom HTML');
+                    }
+                });
+
+                var currentCustomHTML = $(this).closest('.column').find('.customhtmlinput').val();
+
+                setTimeout(function(value, $this){
+                    $this.next().find('#inputcustomhtml').val(customhtmlDecode(value));
+                }, 300, currentCustomHTML, $(this));
+
+                $("#content,#element-box").delegate(".popover textarea.customhtml",'blur', function(event){
+
+                    event.stopImmediatePropagation();
+                    var newCustomHTML = customhtmlEncode($(this).val());
+                    $(this).parents('.popover').parent().parent().find('>.customhtmlinput').val(newCustomHTML);
                 });
 
                 $("#content,#element-box").delegate(".popover #columnsettings a",'click', function(event){

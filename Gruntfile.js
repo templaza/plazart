@@ -140,6 +140,18 @@ module.exports = function(grunt) {
             minifyRtlLegacy: {
                 src: '<%= plazartbase %>/bootstrap/legacy/css/bootstrap-rtl.css',
                 dest: '<%= plazartbase %>/bootstrap/legacy/css/bootstrap-rtl.min.css'
+            },
+            minifyAdmin: {
+                src: '<%= plazart_admin %>/css/admin.css',
+                dest: '<%= plazart_admin %>/css/admin.min.css'
+            },
+            minifyLayout: {
+                src: '<%= plazart_admin %>/css/admin-layout.css',
+                dest: '<%= plazart_admin %>/css/admin-layout.min.css'
+            },
+            minifySpectrum: {
+                src: '<%= plazart_admin %>/css/spectrum.css',
+                dest: '<%= plazart_admin %>/css/spectrum.min.css'
             }
         },
 
@@ -182,6 +194,7 @@ module.exports = function(grunt) {
     grunt.registerTask('less-compile', ['less:template', 'less:megamenu', 'less:others']);
     grunt.registerTask('less-bootstrap', ['less:bootstrap', 'less:bootstrap_rtl','cssmin:minifyCore', 'cssmin:minifyRtl']);
     grunt.registerTask('minify-bootstrap', ['cssmin:minifyCore', 'cssmin:minifyTheme']);
+    grunt.registerTask('minify-admin', ['cssmin:minifyAdmin', 'cssmin:minifyLayout', 'cssmin:minifySpectrum']);
     grunt.registerTask('minify-all', ['cssmin:all']);
     grunt.registerTask('minifyjs-bootstrap', ['uglify:bootstrap']);
     grunt.registerTask('concat-js-bootstrap', ['concat:catscript']);

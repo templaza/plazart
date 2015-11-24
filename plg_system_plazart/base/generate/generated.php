@@ -3,7 +3,7 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @copyright     Copyright (C) 2012-2015 TemPlaza.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @authors       TemPlaza
  * @Link:         http://templaza.com
@@ -61,6 +61,7 @@ if( !function_exists('get_color') ){
                     <option value="component">Component</option>
                     <option value="megamenu">Megamenu</option>
                     <option value="logo">Logo</option>
+                    <option value="custom_html">Custom HTML</option>
                 </select>
             </div>
 
@@ -121,6 +122,13 @@ if( !function_exists('get_color') ){
             <div id="customclass">
                 <label>Custom Class: </label>
                 <input type="text" class="customclass" id="inputcustomclass">
+            </div>
+            <div id="customhtml">
+                <label>Custom Title: </label>
+                <input type="text" class="customtitle" id="inputcustomtitle">
+
+                <label>Custom HTML: </label>
+                <textarea class="customhtml" id="inputcustomhtml"></textarea>
             </div>
         </div>
 
@@ -319,7 +327,10 @@ foreach($layout as $items )
 
                                 <span class="position-name"><?php
 
-                                    if(get_value($item,"type")=='component' || get_value($item,"type")=='message' || get_value($item,"type")=='megamenu' || get_value($item,"type")=='logo') echo strtoupper(get_value($item,"type"));
+                                    if(get_value($item,"type")=='component' || get_value($item,"type")=='message' || get_value($item,"type")=='megamenu' || get_value($item,"type")=='logo') { echo strtoupper(get_value($item,"type")); }
+                                        elseif (get_value($item,"type")=='custom_html') {
+                                            if (trim(get_value($item,"customtitle")) != '') echo trim(get_value($item,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                        }
                                     elseif(empty($item["position"])) echo '(none)';
                                     else echo get_value($item,"position");
 
@@ -343,6 +354,8 @@ foreach($layout as $items )
                                 <input type="hidden" class="positioninput" name="" value="<?php echo get_value($item,"position") ?>">
                                 <input type="hidden" class="styleinput" name="" value="<?php echo get_value($item,"style") ?>">
                                 <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($item,"customclass") ?>">
+                                <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($item,"customtitle") ?>">
+                                <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($item,"customhtml")) ?>">
                                 <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($item,"responsiveclass") ?>">
                                 <input type="hidden" class="animationType" name="" value="<?php echo get_value($item,"animationType") ?>">
                                 <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($item,"animationSpeed") ?>">
@@ -399,7 +412,10 @@ foreach($layout as $items )
 
                                                             <span class="position-name"><?php
 
-                                                                if(get_value($children,"type")=='component' or get_value($children,"type")=='message') echo strtoupper($children["type"]);
+                                                                if(get_value($children,"type")=='component' || get_value($children,"type")=='message' || get_value($children,"type")=='megamenu' || get_value($children,"type")=='logo') echo strtoupper($children["type"]);
+                                                                elseif (get_value($children,"type")=='custom_html') {
+                                                                    if (trim(get_value($children,"customtitle")) != '') echo trim(get_value($children,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                                                }
                                                                 elseif(empty($children["position"])) echo '(none)';
                                                                 else echo get_value($children,"position");
 
@@ -424,6 +440,8 @@ foreach($layout as $items )
                                                             <input type="hidden" class="positioninput" name="" value="<?php echo get_value($children,"position") ?>">
                                                             <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                             <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
+                                                            <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($children,"customtitle") ?>">
+                                                            <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($children,"customhtml")) ?>">
                                                             <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
                                                             <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
                                                             <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">
@@ -485,7 +503,10 @@ foreach($layout as $items )
                                                                                     ?>
                                                                                     <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.get_value($children,"type"):'' ?>  span<?php echo get_value($children,"col-lg"); ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
                                                                                         <span class="position-name"><?php
-                                                                                            if(get_value($children,"type")=='component' or get_value($children,"type")=='message') echo strtoupper($children["type"]);
+                                                                                            if(get_value($children,"type")=='component' || get_value($children,"type")=='message' || get_value($children,"type")=='megamenu' || get_value($children,"type")=='logo') echo strtoupper($children["type"]);
+                                                                                            elseif (get_value($children,"type")=='custom_html') {
+                                                                                                if (trim(get_value($children,"customtitle")) != '') echo trim(get_value($children,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                                                                            }
                                                                                             elseif(empty($children["position"])) echo '(none)';
                                                                                             else echo get_value($children,"position");
                                                                                             ?></span>
@@ -507,6 +528,8 @@ foreach($layout as $items )
                                                                                         <input type="hidden" class="positioninput" name="" value="<?php echo get_value($children,"position") ?>">
                                                                                         <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                                                         <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
+                                                                                        <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($children,"customtitle") ?>">
+                                                                                        <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($children,"customhtml")) ?>">
                                                                                         <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
                                                                                         <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
                                                                                         <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">
@@ -556,7 +579,10 @@ foreach($layout as $items )
 
                                                                                                                     <span class="position-name"><?php
 
-                                                                                                                        if(get_value($children,"type")=='component' or get_value($children,"type")=='message') echo strtoupper($children["type"]);
+                                                                                                                        if(get_value($children,"type")=='component' || get_value($children,"type")=='message' || get_value($children,"type")=='megamenu' || get_value($children,"type")=='logo') echo strtoupper($children["type"]);
+                                                                                                                        elseif (get_value($children,"type")=='custom_html') {
+                                                                                                                            if (trim(get_value($children,"customtitle")) != '') echo trim(get_value($children,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                                                                                                        }
                                                                                                                         elseif(empty($children["position"])) echo '(none)';
                                                                                                                         else echo get_value($children,"position");
 
@@ -580,6 +606,8 @@ foreach($layout as $items )
                                                                                                                     <input type="hidden" class="positioninput" name="" value="<?php echo get_value($children,"position") ?>">
                                                                                                                     <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                                                                                     <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
+                                                                                                                    <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($children,"customtitle") ?>">
+                                                                                                                    <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($children,"customhtml")) ?>">
                                                                                                                     <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
                                                                                                                     <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
                                                                                                                     <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">

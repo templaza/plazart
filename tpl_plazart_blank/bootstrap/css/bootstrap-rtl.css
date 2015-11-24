@@ -949,8 +949,6 @@ th {
   .navbar-right .dropdown-menu-left {
     left: 0;
     right: auto;
-    left: auto;
-    right: 0;
   }
 }
 .btn-group > .btn,
@@ -1364,6 +1362,9 @@ th {
 .modal-footer {
   text-align: left;
 }
+.modal-footer.flip {
+  text-align: right;
+}
 .modal-footer .btn + .btn {
   margin-left: auto;
   margin-right: 5px;
@@ -1463,78 +1464,5 @@ th {
 }
 .pull-left.flip {
   float: right !important;
-}
-.pull-right {
-  float: left !important;
-}
-.pull-left {
-  float: right !important;
-}
-.dropdown-menu-left {
-  left: auto;
-  right: 0;
-}
-.media-right,
-.media > .pull-right {
-  padding-right: 10px;
-  padding-left: initial;
-}
-.media-left,
-.media > .pull-left {
-  padding-left: 10px;
-  padding-right: initial;
-}
-@media (min-width: 768px) {
-  .navbar-left {
-    float: right !important;
-  }
-  .navbar-left.flip {
-    float: right !important;
-  }
-  .navbar-right {
-    float: left !important;
-    margin-left: -15px;
-    margin-right: initial;
-  }
-  .navbar-right.flip {
-    float: left !important;
-  }
-  .navbar-right ~ .navbar-right {
-    margin-left: 0;
-    margin-right: initial;
-  }
-}
-.tooltip.top-left .tooltip-arrow {
-  left: 5px;
-}
-.tooltip.top-right .tooltip-arrow {
-  right: 5px;
-}
-.tooltip.right .tooltip-arrow {
-  right: 0;
-  border-left-color: #000000;
-}
-.tooltip.left .tooltip-arrow {
-  left: 0;
-  border-right-color: #000000;
-}
-.tooltip.bottom-left .tooltip-arrow {
-  left: 5px;
-}
-.tooltip.bottom-right .tooltip-arrow {
-  right: 5px;
-}
-.text-left {
-  text-align: right;
-}
-.text-right {
-  text-align: left;
-}
-blockquote.pull-right {
-  padding-left: 15px;
-  padding-right: 0;
-  border-left: 5px solid #eeeeee;
-  border-right: 0;
-  text-align: left;
 }
 /*# sourceMappingURL=bootstrap-rtl.css.map */

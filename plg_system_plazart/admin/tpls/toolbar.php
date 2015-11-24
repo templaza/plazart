@@ -20,13 +20,13 @@ defined('_JEXEC') or die;
 	if($input->getCmd('view') == 'style'):
 	?>
   <div id="plazart-admin-tb-save" class="btn-group">
-    <button id="plazart-admin-tb-style-save-save" class="btn btn-success"><i class="fa fa-floppy-o"></i>Save</button>
+    <button id="plazart-admin-tb-style-save-save" class="btn btn-success"><i class="fa fa-floppy-o"></i><?php echo JText::_('JAPPLY'); ?></button>
     <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>&nbsp;
     </button>
     <ul class="dropdown-menu">
-      <li id="plazart-admin-tb-style-save-close"><a href="#"><?php echo JText::_('PLAZART_TOOLBAR_SAVECLOSE') ?></a></li>
-      <li id="plazart-admin-tb-style-save-clone"><a href="#"><?php echo JText::_('PLAZART_TOOLBAR_SAVE_AS_CLONE') ?></a></li>
+      <li id="plazart-admin-tb-style-save-close"><a href="#"><?php echo JText::_('JTOOLBAR_SAVE') ?></a></li>
+      <li id="plazart-admin-tb-style-save-clone"><a href="#"><?php echo JText::_('JTOOLBAR_SAVE_AS_COPY') ?></a></li>
     </ul>
   </div>
   <?php 

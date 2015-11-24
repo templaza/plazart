@@ -3,7 +3,7 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @copyright     Copyright (C) 2012-2015 TemPlaza.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @authors       TemPlaza
  * @Link:         http://templaza.com
@@ -156,63 +156,23 @@ class plgSystemPlazart extends JPlugin
             //get new params value
             $params = new JRegistry;
             $params->loadString($data->params);
-            // save profile
-            $profile    = JRequest::getString('config_manager_save_filename','');
-            $demolink   = JRequest::getString('config_manager_presetdemo','');
-            $doclink    = JRequest::getString('config_manager_presetdoc','');
-            jimport('joomla.filesystem.file');
-            jimport('joomla.filesystem.folder');
-            if (trim($profile)) {
 
-                $base_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
-                $image_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'presets';
-                $file = JFilterOutput::stringURLSafe(trim($profile));
-                // variable used to detect if the specified file exists
-                $i = 0;
-                // check if the file to save doesn't exist
-                if(JFile::exists($base_path . $file . '.json')) {
-                    // find the proper name for the file by incrementing
-                    $i = 1;
-                    while(JFile::exists($base_path . $file . $i . '.json')) { $i++; }
-                }
-                // get the settings from the database
-                $filename   =   $base_path . $file . (($i != 0) ? $i : '');
-                $params->set('preset', JFile::getName($filename));
-                $params->set('presetname', JFile::getName($profile));
-                $presetimage = $params->get('presetimage','');
-                if (trim($presetimage)) {
-                    $imagename  =   JFile::getName($presetimage);
-                    if (!JFolder::exists($image_path)) {
-                        JFolder::create($image_path);
-                    }
+            //get App
+            $plazartapp = Plazart::getApp();
+            if ($plazartapp) {
+                if (JFactory::getApplication()->isAdmin()) {
+                    // save preset
+                    $plazartapp->save_preset($params,$data);
 
-                    $i = 0;
-                    if (JFile::exists($image_path.DIRECTORY_SEPARATOR.$imagename)) {
-                        $i =1;
-                        while (JFile::exists($image_path.DIRECTORY_SEPARATOR.'p'.$i.$imagename)) { $i++; }
-                    }
-                    $imagename = $image_path.DIRECTORY_SEPARATOR. ($i !=0 ? 'p'.$i : ''). $imagename;
-                    $params->set('preset_image', JFile::getName($imagename));
-                    if (!JFile::copy(JPATH_SITE.DIRECTORY_SEPARATOR.$presetimage,$imagename)) {
-                        JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
-                    }
-                }
-                $params->set('demo_link', $demolink);
-                $params->set('doc_link', $doclink);
-                $data->params = $params->toString();
+                    // save default style
+                    $plazartapp->save_default_config($params);
 
-
-                if (!JFile::write($filename . '.json' , $data->params)){
-                    JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+                    // save plazart styles
+                    $plazartapp->save_style($params, $data);
                 }
             }
 
-            // save default layout
-            $defaultlayout  =   JRequest::getInt('layoutbuiderdefault',0);
-            if ($defaultlayout) {
-                $layoutsettings =   json_encode($params->get('generate',''));
-                JFile::write(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'generate'.DIRECTORY_SEPARATOR.'default.json',$layoutsettings);
-            }
+
         }
     }
 	

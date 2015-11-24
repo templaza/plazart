@@ -36,10 +36,10 @@ input.readonly,input.required{background:none}
 #plazart-layout-config ul{margin:0}
 #plazart-layout-config{min-height:500px}
 #plazart-layout-config .row-fluid{width:auto}
-#plazart-layout-config .layoutmainrow{-webkit-box-shadow:0 0 3px rgba(0,0,0,.2);background:#fbfbfb;box-shadow:0 0 3px rgba(0,0,0,.2);margin-bottom:15px;padding:15px}
-#plazart-layout-config .layoutmainrow:hover{-webkit-box-shadow:0 0 3px rgba(0,0,0,.5);background:#f5f5f5;box-shadow:0 0 3px rgba(0,0,0,.5)}
+#plazart-layout-config .layoutmainrow{background:#fbfbfb;border: 2px solid rgba(0, 0, 0, 0.05);margin-bottom:15px;padding:15px}
+#plazart-layout-config .layoutmainrow:hover{border-color: #fffa72;background: #fffee5;}
 #plazart-layout-config .layoutmainrow .row-fluid.show-grid,
-#plazart-layout-config .layoutmainrow .row-fluid.show-grid{border-top:1px solid #ddd;margin:15px -15px 0;padding:15px 15px 0}
+#plazart-layout-config .layoutmainrow .row-fluid.show-grid{border-top:1px solid rgba(0, 0, 0, 0.05);margin:15px -15px 0;padding:15px 15px 0}
 #plazart-layout-config .layoutmainrow .rowpropperties .rowname,
 #plazart-layout-config .layoutmainrow .position-name{color:#666;font-size:20px}
 #plazart-layout-config .layoutmainrow .position-name{font-size:14px;margin-left:15px}
@@ -49,7 +49,7 @@ input.readonly,input.required{background:none}
 #plazart-layout-config .show-grid > [class*=span]{background:#fff;margin:0;border:1px solid #dadada;border-radius:0;line-height:50px;min-height:50px;box-shadow:0 0 3px 0 rgba(0,0,0,.1);-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,.1)}
 #plazart-layout-config .show-grid > [class*=span].type-component{background:#f8fde9;border:1px solid #809c36}
 #plazart-layout-config .show-grid > [class*=span].type-message > .type-message{text-align:center}
-#plazart-layout-config .show-grid > [class*=span]:hover{border-color:rgba(82,168,236,0.8);outline:thin dotted 9}
+#plazart-layout-config .show-grid > [class*=span]:hover{border-color:#DBB727;outline:thin dotted 9}
 #plazart-layout-config .show-grid .show-grid [class*=span]{margin-top:5px}
 #plazart-layout-config .row-tools{margin-top:3px}
 #plazart-layout-config .row-tools a{color:#a5a5a5;font-size:18px;margin:0 0 0 6px}
@@ -85,9 +85,12 @@ input.readonly,input.required{background:none}
 .popover .nav-tab > li.active >a{border-top:3px solid #21b8ef;color:#21b8ef;margin-top:-3px!important}
 .popover .tab-pane#responsive {padding-top:10px}
 .popover .tab-pane > div{width:110px;display:inline-block;margin:0 10px 0 0}
+.popover .tab-pane > div#customhtml {margin-top: 15px; width: 335px;}
 .popover .tab-pane > div label{display:block;width:auto}
 .popover .tab-pane > div input.customclass{width:88px}
 .popover .tab-pane > div select{max-width: 110px}
+.popover .tab-pane > div input.customtitle{width: 335px;margin-bottom: 15px;}
+.popover .tab-pane > div textarea{width: 335px; min-height: 150px;}
 .popover select,
 .popover .tab-pane input[type="text"]{float:left}
 .rownameOuter input,

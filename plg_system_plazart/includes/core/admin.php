@@ -3,7 +3,7 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @copyright     Copyright (C) 2012-2015 TemPlaza.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @authors       TemPlaza
  * @Link:         http://templaza.com
@@ -443,6 +443,119 @@ class PlazartAdmin {
                     $app->redirect($redirectUrl, $file . ' ' . JText::_('TPL_TZ_LANG_CONFIG_FILE_WASNT_DELETED_PLEASE_CHECK_FILE'), 'error');
                 }
             }
+        }
+    }
+
+    public function save_preset($params = null, $data = null) {
+        // Check data
+        if (!$params || !$data) {
+            return false;
+        }
+
+        // save profile
+        $profile    = JRequest::getString('config_manager_save_filename','');
+        $demolink   = JRequest::getString('config_manager_presetdemo','');
+        $doclink    = JRequest::getString('config_manager_presetdoc','');
+        jimport('joomla.filesystem.file');
+        jimport('joomla.filesystem.folder');
+        if (trim($profile)) {
+            $base_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
+            $image_path = PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'presets';
+            $file = JFilterOutput::stringURLSafe(trim($profile));
+            // variable used to detect if the specified file exists
+            $i = 0;
+            // check if the file to save doesn't exist
+            if(JFile::exists($base_path . $file . '.json')) {
+                // find the proper name for the file by incrementing
+                $i = 1;
+                while(JFile::exists($base_path . $file . $i . '.json')) { $i++; }
+            }
+            // get the settings from the database
+            $filename   =   $base_path . $file . (($i != 0) ? $i : '');
+            $params->set('preset', JFile::getName($filename));
+            $params->set('presetname', JFile::getName($profile));
+            $presetimage = $params->get('presetimage','');
+            if (trim($presetimage)) {
+                $imagename  =   JFile::getName($presetimage);
+                if (!JFolder::exists($image_path)) {
+                    JFolder::create($image_path);
+                }
+
+                $i = 0;
+                if (JFile::exists($image_path.DIRECTORY_SEPARATOR.$imagename)) {
+                    $i =1;
+                    while (JFile::exists($image_path.DIRECTORY_SEPARATOR.'p'.$i.$imagename)) { $i++; }
+                }
+                $imagename = $image_path.DIRECTORY_SEPARATOR. ($i !=0 ? 'p'.$i : ''). $imagename;
+                $params->set('preset_image', JFile::getName($imagename));
+                if (!JFile::copy(JPATH_SITE.DIRECTORY_SEPARATOR.$presetimage,$imagename)) {
+                    JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+                }
+            }
+            $params->set('demo_link', $demolink);
+            $params->set('doc_link', $doclink);
+            $data->params = $params->toString();
+
+            if (!JFile::write($filename . '.json' , $data->params)){
+                JError::raiseNotice(403,'PLAZART_CONFIG_FILE_WASNT_SAVED_PLEASE_CHECK_PERM');
+            }
+        }
+    }
+
+    public function save_style (&$params = null, &$data = null) {
+        // Check data
+        if (!$params || !$data) {
+            return false;
+        }
+
+        // Check if plazart_style table exist
+        $db     =   JFactory::getDbo();
+        $tables =   $db->getTableList();
+        $prefix =   $db->getPrefix();
+        if (!in_array($prefix.'plazart_styles', $tables)) {
+            $query  =   "CREATE TABLE IF NOT EXISTS `#__plazart_styles` (
+                          `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                          `template` varchar(50) NOT NULL,
+                          `style_id` int(10) unsigned NOT NULL DEFAULT '0',
+                          `style_type` varchar(20) NOT NULL,
+                          `style_content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                          PRIMARY KEY (`id`)
+                        ) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+            $db->setQuery($query);
+            if (!$db->query()) {
+                JError::raiseError(500,$db->getErrorMsg());
+                return false;
+            }
+        }
+        // Set the table directory
+        JTable::addIncludePath(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'tables');
+        $row    =   JTable::getInstance('plazart_styles');
+        $id     =   JRequest::getInt('layout_id',0);
+        if ($id) $row->id   =   $id;
+        $row->template      =   $data->template;
+        $row->style_id      =   $data->id;
+        $row->style_type    =   'layout';
+        $row->style_content =   json_encode($params->get('generate',''));
+
+        if (!$row->check()) {
+            JError::raiseError(500, $row->getError() );
+        }
+        if (!$row->store()) {
+            JError::raiseError(500, $row->getError() );
+        }
+
+        $params->set('generate','{"styleid":"'.$row->id.'"}');
+        $data->params   =   $params->toString();
+    }
+
+    public function save_default_config($params = null) {
+        if (!$params) return false;
+
+        // save default layout
+        $defaultlayout  =   JRequest::getInt('layoutbuiderdefault',0);
+        if ($defaultlayout) {
+            $layoutsettings =   json_encode($params->get('generate',''));
+            JFile::write(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'generate'.DIRECTORY_SEPARATOR.'default.json',$layoutsettings);
         }
     }
 }

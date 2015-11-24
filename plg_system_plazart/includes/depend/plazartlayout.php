@@ -3,7 +3,7 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @copyright     Copyright (C) 2012-2015 TemPlaza.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @authors       TemPlaza
  * @Link:         http://templaza.com
@@ -36,7 +36,7 @@ class JFormFieldPlazartLayout extends JFormField
             include_once($theme_path . 'html/modules.php');
         }
         $positions = $this->getPositions();
-        $data   =   '<input type="hidden" name='.$this->name.' />';
+        $data   =   '<input type="hidden" name="'.$this->name.'" />';
         $data   .=  '<div id="plazart-admin-device">';
         $data   .=  '<div class="plazart-admin-layout-header">'.JText::_('PLAZART_LAYOUTBUIDER_HEADER').'  <span>|</span>  <input type="checkbox" name="layoutbuiderdefault" value="1" />  <span>Default Data?</span></div>';
         $data   .=  '<button class="btn tz-admin-dv-lg active" data-device="lg"><i class="fa fa-desktop"></i>Large</button>';
@@ -44,11 +44,24 @@ class JFormFieldPlazartLayout extends JFormField
         $data   .=  '<button class="btn tz-admin-dv-sm" data-device="sm" data-toggle="tooltip" title="Only for Bootstrap 3"><i class="fa fa-tablet"></i>Small</button>';
         $data   .=  '<button class="btn tz-admin-dv-xs" data-device="xs" data-toggle="tooltip" title="Only for Bootstrap 3"><i class="fa fa-mobile"></i>Extra small</button>';
         $data   .=  '</div>';
+
         if (is_array($layoutsettings)) {
+            //legacy version 4.3
             $layoutsettings =   json_decode(json_encode($layoutsettings),true);
-            $data .= $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
+            $data   .=      $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
+            $data   .=      '<input type="hidden" name="layout_id" />';
             return $data;
         } else {
+            $layoutsettings =   json_decode($layoutsettings);
+            if (isset($layoutsettings->styleid)) {
+                JTable::addIncludePath(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'tables');
+                $row    =   JTable::getInstance('plazart_styles');
+                $row->load($layoutsettings->styleid);
+                $generate   =   json_decode($row->style_content,true);
+                $data   .=      $this->generateLayout($plazart_layout_path, $generate, $positions, $modChromes);
+                $data   .=      '<input type="hidden" name="layout_id" value="'.$layoutsettings->styleid.'" />';
+                return $data;
+            }
             if (file_exists($theme_path.'config/default.json')) {
                 $configure  =   file_get_contents($theme_path.'config/default.json');
                 $object     =   new JRegistry($configure);
@@ -61,6 +74,7 @@ class JFormFieldPlazartLayout extends JFormField
                 $layoutsettings = json_decode(file_get_contents($plazart_layout_path . 'default.json'),true);
             }
             $data   .=   $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
+            $data   .=      '<input type="hidden" name="layout_id" />';
             return $data;
         }
     }

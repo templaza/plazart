@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+11/24/15 - 4.7
+
+    [new feature] Add Custom HTML type for Layout Builder
+
 08/04/15 - 4.6
 
 	[bug fixed] Fix the error on the submenu permission.

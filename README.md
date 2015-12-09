@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+12/09/15 - 4.8
+
+    [new feature] Add Background image option for row in Layout Builder.
+
 08/04/15 - 4.6
 
     [bug fixed] Fix the error on the submenu permission.

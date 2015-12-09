@@ -123,6 +123,24 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 tzsubmitform('style.apply',document.adminForm);
 			});
 
+            $('#config_manager_presetsave-btn').on('click', function(){
+                var form = document.adminForm;
+                var urlparts = form.action.split('#');
+                var hash = window.location.hash;
+
+                if(hash){
+                    hash = hash.substring(1);
+                    if(urlparts[0].indexOf('?') == -1){
+                        urlparts[0] += '?plazartlock=' + hash;
+                    } else {
+                        urlparts[0] += '&plazartlock=' + hash;
+                    }
+                    form.action = urlparts.join('#');
+
+                }
+                tzsubmitform('style.apply',document.adminForm);
+            });
+
 			$('#plazart-admin-tb-style-save-close').on('click', function(){
                 tzsubmitform('style.save',document.adminForm);
 			});

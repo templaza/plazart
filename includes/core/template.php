@@ -858,20 +858,20 @@ class PlazartTemplate extends ObjectExtendable
      */
     private static function showRow($layout)
     {
-        if( isset($layout->children) )
+        if( isset($layout['children']) )
         {
-            foreach( $layout->children as $i=>$v )
+            foreach( $layout['children'] as $i=>$v )
             {
 
-                if( !isset($v->type) or !isset($v->position) ) continue;
+                if( !isset($v['type']) or !isset($v['position']) ) continue;
                 // hide component area
-                if( $v->type=='component' and  self::getInstance()->hideComponentArea()) continue;
+                if( $v['type']=='component' and  self::getInstance()->hideComponentArea()) continue;
 
-                if( $v->type=='component' or $v->type=='message' or $v->type == 'megamenu' or $v->type == 'logo') return true;
+                if( $v['type']=='component' or $v['type']=='message' or $v['type'] == 'megamenu' or $v['type'] == 'logo'  or $v['type'] == 'custom_html') return true;
 
-                if( $v->position!='' ){
-                    if( self::getInstance()->countModules( $v->position )  ) return true;
-                    if( isset($v->children) ) self::getInstance()->showRow($v);
+                if( $v['position']!='' ){
+                    if( self::getInstance()->countModules( $v['position'] )  ) return true;
+                    if( isset($v['children']) ) self::getInstance()->showRow($v);
                 }
             }
         }
@@ -894,12 +894,12 @@ class PlazartTemplate extends ObjectExtendable
     private $inline_css = '';
 
     private static function get_layout_value($class, $method){
-        if( isset($class->$method) and $class->$method=="" ) return false;
-        return (isset( $class->$method )) ? $class->$method : FALSE;
+        if( isset($class[$method]) and $class[$method]=="" ) return false;
+        return (isset( $class[$method] )) ? $class[$method] : FALSE;
     }
 
     private static function get_color_value($class, $method){
-        $get = isset( $class->$method ) ? $class->$method : 'rgba(255, 255, 255, 0)';
+        $get = isset( $class[$method] ) ? $class[$method] : 'rgba(255, 255, 255, 0)';
         return ('rgba(255, 255, 255, 0)'==$get) ? FALSE : $get;
     }
 
@@ -944,12 +944,12 @@ class PlazartTemplate extends ObjectExtendable
         $colstyle   =   array();
         if ($this->getParam('bootstrapversion',3)==2){
             if ($offset) {
-                if (isset($val->{'col-lg-offset'}) && intval($val->{'col-lg-offset'})) {
-                    return 'offset'.$val->{'col-lg-offset'};
+                if (isset($val['col-lg-offset']) && intval($val['col-lg-offset'])) {
+                    return 'offset'.$val['col-lg-offset'];
                 }
             } else {
-                if (isset($val->{'col-lg'}) && intval($val->{'col-lg'})) {
-                    return 'span'.$val->{'col-lg'};
+                if (isset($val['col-lg']) && intval($val['col-lg'])) {
+                    return 'span'.$val['col-lg'];
                 }
             }
             return '';
@@ -957,8 +957,8 @@ class PlazartTemplate extends ObjectExtendable
         while (true) {
             $currentdevice  =   $offset ? 'col-'.$device.'-offset' : 'col-'.$device;
 
-            if (isset($val->$currentdevice) && intval($val->$currentdevice)) {
-                $colstyle[] =   $currentdevice.'-'.$val->$currentdevice;
+            if (isset($val[$currentdevice]) && intval($val[$currentdevice])) {
+                $colstyle[] =   $currentdevice.'-'.$val[$currentdevice];
             }
 
             if ($device == 'xs') {
@@ -974,7 +974,7 @@ class PlazartTemplate extends ObjectExtendable
      */
     private function getResponsiveClass($val = null) {
         if (!$val) return '';
-        $responsiveclass    =   (!isset($val->responsiveclass) or  empty($val->responsiveclass))?'':' '.$val->responsiveclass;
+        $responsiveclass    =   (!isset($val['responsiveclass']) or  empty($val['responsiveclass']))?'':' '.$val['responsiveclass'];
         if ($this->getParam('bootstrapversion',3)==2){
             $responsiveclass    =   preg_replace(array('/(\w+?-)xs/i','/(\w+?-)sm/i','/(\w+?-)md/i','/(\w+?-)lg/i'), array('${1}phone','${1}tablet','${1}desktop','${1}desktop'), $responsiveclass);
         }
@@ -993,7 +993,7 @@ class PlazartTemplate extends ObjectExtendable
             if( is_null( self::getInstance()->showRow($value) ) ) continue;
 
             // set html5 stracture
-            switch( self::getInstance()->slug($value->name) ){
+            switch( self::getInstance()->slug($value['name']) ){
                 case "header":
                     $sematic = 'header';
                     break;
@@ -1011,15 +1011,35 @@ class PlazartTemplate extends ObjectExtendable
             //  start row
 
 
-            $id = ' #tz-'. self::getInstance()->slug($value->name) .'-wrapper{'."\n";
-            $link = ' #tz-'. self::getInstance()->slug($value->name) .'-wrapper a{'."\n";
-            $linkhover = ' #tz-'. self::getInstance()->slug($value->name) .'-wrapper a:hover{'."\n";
+            $id = ' #tz-'. self::getInstance()->slug($value['name']) .'-wrapper{'."\n";
+            $link = ' #tz-'. self::getInstance()->slug($value['name']) .'-wrapper a{'."\n";
+            $linkhover = ' #tz-'. self::getInstance()->slug($value['name']) .'-wrapper a:hover{'."\n";
             $endcss = "\n".'}';
 
 
             self::getInstance()->inline_css .= $id;
             if( self::getInstance()->get_color_value( $value, 'backgroundcolor' ) ){
                 self::getInstance()->inline_css .= 'background: '. self::getInstance()->get_color_value( $value, 'backgroundcolor' ) .' !important;';
+            }
+
+            if( self::getInstance()->get_layout_value( $value, 'backgroundimage' ) ){
+                self::getInstance()->inline_css .= 'background-image: url('. JUri::root(). self::getInstance()->get_layout_value( $value, 'backgroundimage' ) .');';
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundrepeat' ) ){
+                    self::getInstance()->inline_css .= 'background-repeat: '. self::getInstance()->get_layout_value( $value, 'backgroundrepeat' ) .';';
+                }
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundsize' ) ){
+                    self::getInstance()->inline_css .= 'background-size: '. self::getInstance()->get_layout_value( $value, 'backgroundsize' ) .';';
+                }
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundattachment' ) ){
+                    self::getInstance()->inline_css .= 'background-attachment: '. self::getInstance()->get_layout_value( $value, 'backgroundattachment' ) .';';
+                }
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundposition' ) ){
+                    self::getInstance()->inline_css .= 'background-position: '. self::getInstance()->get_layout_value( $value, 'backgroundposition' ) .';';
+                }
             }
 
             if( self::getInstance()->get_color_value( $value, 'textcolor' ) ){
@@ -1047,36 +1067,36 @@ class PlazartTemplate extends ObjectExtendable
             }
             self::getInstance()->inline_css .= $endcss;
 
-            self::getInstance()->layout.='<'.$sematic.' id="tz-'. self::getInstance()->slug($value->name) .'-wrapper"
-                class="'. self::getInstance()->get_row_class($value->class) . ' '.((empty($value->responsive)?'':''.$value->responsive.'')).'">';
+            self::getInstance()->layout.='<'.$sematic.' id="tz-'. self::getInstance()->slug($value['name']) .'-wrapper"
+                class="'. self::getInstance()->get_row_class($value['class']) . ' '.((empty($value['responsive'])?'':''.$value['responsive'].'')).'">';
             //
 
-//            if(self::getInstance()->has_container_class($value->class,'container')
+//            if(self::getInstance()->has_container_class($value['class'],'container')
 //                or
-//                self::getInstance()->has_container_class($value->class,'container-fluid'))
+//                self::getInstance()->has_container_class($value['class'],'container-fluid'))
 //            {
 //                //  start container
 //                self::getInstance()->layout.='<div class="'
-//                    . self::getInstance()->get_container_class($value->class,'container-fluid')
-//                    . self::getInstance()->get_container_class($value->class,'container')
+//                    . self::getInstance()->get_container_class($value['class'],'container-fluid')
+//                    . self::getInstance()->get_container_class($value['class'],'container')
 //                    . '">';
 //            }
 
                 //  start container
-                if (isset($value->containertype)) {
-                    self::getInstance()->layout.='<div class="'.$value->containertype.'">';
+                if (isset($value['containertype'])) {
+                    self::getInstance()->layout.='<div class="'.$value['containertype'].'">';
                 }
 
             //   start row fluid
             $rowstyle   =   'row';
-            if (isset($value->containertype)) {
+            if (isset($value['containertype'])) {
                 if ($this->getParam('bootstrapversion',3)==2){
                     $rowstyle =  'row-fluid';
                 }
             }
-            self::getInstance()->layout.='<div class="'.$rowstyle.'" id="'. self::getInstance()->slug($value->name) .'">';
+            self::getInstance()->layout.='<div class="'.$rowstyle.'" id="'. self::getInstance()->slug($value['name']) .'">';
 
-            if( isset($value->children) )
+            if( isset($value['children']) )
             {
 //                $absspan_lg   = 0;    //   absence span
 //                $absspan_md   = 0;    //   absence span
@@ -1088,10 +1108,10 @@ class PlazartTemplate extends ObjectExtendable
 //                $absoffset_xs = 0;    // absence offset
 //                $i = 1;            //  span increment
 //
-//                $totalItem = count($value->children);  // total children
-//                $totalPublished = count($value->children);  // total publish children
+//                $totalItem = count($value['children']);  // total children
+//                $totalPublished = count($value['children']);  // total publish children
 //
-//                foreach( $value->children as $val )
+//                foreach( $value['children'] as $val )
 //                {
 //                    if( !isset($val->children) )
 //                    {
@@ -1099,11 +1119,11 @@ class PlazartTemplate extends ObjectExtendable
 //                        {
 //                            if( !self::getInstance()->countModules($val->position))
 //                            {
-//                                $absspan_lg+=$val->{'col-lg'};
+//                                $absspan_lg+=$val['col-lg'];
 //                                $absspan_md+=$val->{'col-md'};
 //                                $absspan_sm+=$val->{'col-sm'};
 //                                $absspan_xs+=$val->{'col-xs'};
-//                                $absoffset_lg+=$val->{'col-lg-offset'};
+//                                $absoffset_lg+=$val['col-lg-offset'];
 //                                $absoffset_md+=$val->{'col-md-offset'};
 //                                $absoffset_sm+=$val->{'col-sm-offset'};
 //                                $absoffset_xs+=$val->{'col-xs-offset'};
@@ -1114,18 +1134,18 @@ class PlazartTemplate extends ObjectExtendable
 //                    }
 //                }
 
-                foreach( $value->children as $v )
+                foreach( $value['children'] as $v )
                 {
-                    if( $v->type=='modules' )
+                    if( $v['type']=='modules' )
                     {
-                        if( !self::getInstance()->countModules($v->position))
+                        if( !self::getInstance()->countModules($v['position']))
                         {
                             continue;
                         }
                     }
 
                     // if include type message or compoennt, this span will get all absance spans
-//                    if($v->type=='message' or ($v->type=='component' and !$this->hideComponentArea() ))
+//                    if($v['type']=='message' or ($v['type']=='component' and !$this->hideComponentArea() ))
 //                    {
 //                        $totalItem = $i;
 //                    }
@@ -1147,7 +1167,7 @@ class PlazartTemplate extends ObjectExtendable
 //                    }
 
                     // if position name "left" or "right", this will set html5 aside tag. otherwise div
-                    switch($v->position){
+                    switch($v['position']){
 
                         case "left":
                         case "right":
@@ -1161,40 +1181,40 @@ class PlazartTemplate extends ObjectExtendable
 
                     // self::getInstance()->layout.= ' <!-- Start Span --> ';
                     // start span
-                    //  debugging  data-i="'.$i.'" data-total="'.$totalPublished.'" data-absspan="'.$absspan.'"  data-type="'.$v->type.'"
+                    //  debugging  data-i="'.$i.'" data-total="'.$totalPublished.'" data-absspan="'.$absspan.'"  data-type="'.$v['type'].'"
 
-                    if( $v->type=='component' and $this->hideComponentArea() ) continue;
+                    if( $v['type']=='component' and $this->hideComponentArea() ) continue;
 
-                    if( empty($v->position) ) $wrid = 'tz-'.$v->type.'-area';
-                    else $wrid = 'tz-'.$v->position;
+                    if( empty($v['position']) ) $wrid = 'tz-'.$v['type'].'-area';
+                    else $wrid = 'tz-'.$v['position'];
 
-                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).' '.$this->getColWidth($v, true).''.$this->getResponsiveClass($v).(empty($v->customclass)?'':' '.$v->customclass).'">';
+                    self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).' '.$this->getColWidth($v, true).''.$this->getResponsiveClass($v).(empty($v['customclass'])?'':' '.$v['customclass']).'">';
 
 //                    $i++;
 
                     // animate configure
-                    if ($this->getParam ('animate', 1) && !empty($v->animationType) && ($v->animationType!='none')){
-                        $animationType  =   ' data-animation="'.$v->animationType.'"';
-                        if (!empty($v->animationSpeed)) {
-                            $animationSpeed = ' data-speed="'.$v->animationSpeed.'"';
+                    if ($this->getParam ('animate', 1) && !empty($v['animationType']) && ($v['animationType']!='none')){
+                        $animationType  =   ' data-animation="'.$v['animationType'].'"';
+                        if (!empty($v['animationSpeed'])) {
+                            $animationSpeed = ' data-speed="'.$v['animationSpeed'].'"';
                         } else {
                             $animationSpeed = ' data-speed="0"';
                         }
 
-                        if (!empty($v->animationDelay)) {
-                            $animationDelay = ' data-delay="'.$v->animationDelay.'"';
+                        if (!empty($v['animationDelay'])) {
+                            $animationDelay = ' data-delay="'.$v['animationDelay'].'"';
                         } else {
                             $animationDelay = ' data-delay="0"';
                         }
 
-                        if (!empty($v->animationOffset)) {
-                            $animationOffset = ' data-offset="'.$v->animationOffset.'%"';
+                        if (!empty($v['animationOffset'])) {
+                            $animationOffset = ' data-offset="'.$v['animationOffset'].'%"';
                         } else {
                             $animationOffset = ' data-offset=""';
                         }
 
-                        if (!empty($v->animationEasing) && ($v->animationEasing!='none')) {
-                            $animationEasing = ' data-easing="'.$v->animationEasing.'"';
+                        if (!empty($v['animationEasing']) && ($v['animationEasing']!='none')) {
+                            $animationEasing = ' data-easing="'.$v['animationEasing'].'"';
                         } else {
                             $animationEasing = ' data-easing="ease"';
                         }
@@ -1202,10 +1222,10 @@ class PlazartTemplate extends ObjectExtendable
                     }
                     // end open tag animate
 
-                    if( $v->type=='message' ){
+                    if( $v['type']=='message' ){
                         self::getInstance()->layout.='<jdoc:include type="message" />';
                     }
-                    elseif( $v->type=='component' )
+                    elseif( $v['type']=='component' )
                     {
                         self::getInstance()->layout.='<section id="tz-component-wrapper">';
                         self::getInstance()->layout.='<div id="tz-component">';
@@ -1213,32 +1233,35 @@ class PlazartTemplate extends ObjectExtendable
                         self::getInstance()->layout.='</div>';
                         self::getInstance()->layout.='</section>';
                     }
-                    elseif( $v->type=='modules' ){
-                        if( $v->position!='')
+                    elseif( $v['type']=='modules' ){
+                        if( $v['position']!='')
                         {
-                            self::getInstance()->layout.= self::getInstance()->getFeature($v->position, true);
-                            self::getInstance()->layout.='<jdoc:include type="modules" name="'.$v->position.'"  style="'.$v->style.'" />';
-                            self::getInstance()->layout.= self::getInstance()->getFeature($v->position, false);
+                            self::getInstance()->layout.= self::getInstance()->getFeature($v['position'], true);
+                            self::getInstance()->layout.='<jdoc:include type="modules" name="'.$v['position'].'"  style="'.$v['style'].'" />';
+                            self::getInstance()->layout.= self::getInstance()->getFeature($v['position'], false);
                         }
                     }
-                    elseif( $v->type == 'megamenu' ) {
+                    elseif( $v['type'] == 'megamenu' ) {
                         ob_start();
                         $this->loadBlock('mainnav');
                         self::getInstance()->layout.= ob_get_clean();
                     }
-                    elseif( $v->type == 'logo' ) {
+                    elseif( $v['type'] == 'logo' ) {
                         ob_start();
                         $this->loadBlock('logo');
                         self::getInstance()->layout.= ob_get_clean();
                     }
+                    elseif($v['type'] == 'custom_html') {
+                        self::getInstance()->layout.=htmlspecialchars_decode($v['customhtml']);
+                    }
 
-                    if( isset($v->children) )
+                    if( isset($v['children']) )
                     {
-                        self::getInstance()->generatelayout( $v->children );
+                        self::getInstance()->generatelayout( $v['children'] );
                     }
 
                     // end animate
-                    if ($this->getParam ('animate', 1) && !empty($v->animationType) && ($v->animationType!='none')){
+                    if ($this->getParam ('animate', 1) && !empty($v['animationType']) && ($v['animationType']!='none')){
                         self::getInstance()->layout.='</div>';
                     }
                     // end span
@@ -1251,14 +1274,14 @@ class PlazartTemplate extends ObjectExtendable
             // end row fluid
             self::getInstance()->layout.='</div>';
 
-//            if(self::getInstance()->has_container_class($value->class,'container')
+//            if(self::getInstance()->has_container_class($value['class'],'container')
 //                or
-//                self::getInstance()->has_container_class($value->class,'container-fluid'))
+//                self::getInstance()->has_container_class($value['class'],'container-fluid'))
 //            {
 //                //  end container
 //                self::getInstance()->layout.='</div>';
 //            }
-            if (isset($value->containertype)) self::getInstance()->layout.='</div>';
+            if (isset($value['containertype'])) self::getInstance()->layout.='</div>';
             // end row
             self::getInstance()->layout.='</'.$sematic.'>';
             // self::getInstance()->layout.="\n\n".'<!-- End Row: '.$index.' -->'."\n";
@@ -1272,7 +1295,8 @@ class PlazartTemplate extends ObjectExtendable
     private function get_layout(){
         $layoutInplugin = PLAZART_ADMIN_PATH.'/base/generate/default.json';
         $layoutInTemplate   =   PLAZART_TEMPLATE_PATH.'/generate/default.json';
-        $layout = $this->getParam('generate');
+        $layout = json_decode(json_encode($this->getParam('generate')),true);
+
         if( empty($layout) )
         {
             if (file_exists($layoutInTemplate)) {
@@ -1285,7 +1309,19 @@ class PlazartTemplate extends ObjectExtendable
                     ' file in layout directory. Please goto template manager and save.');
             }
         } else {
-            return $layout;
+            if (is_array($layout)) {
+                //Legacy version 4.3
+                return $layout;
+            } else {
+                $layoutsettings =   json_decode($layout);
+                if (isset($layoutsettings->styleid)) {
+                    JTable::addIncludePath(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'tables');
+                    $row    =   JTable::getInstance('plazart_styles');
+                    $row->load($layoutsettings->styleid);
+                    $generate   =   json_decode($row->style_content,true);
+                    return $generate;
+                }
+            }
         }
         return $layout;
     }

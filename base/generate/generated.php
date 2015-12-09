@@ -3,7 +3,7 @@
  *------------------------------------------------------------------------------
  * @package       Plazart Framework for Joomla!
  *------------------------------------------------------------------------------
- * @copyright     Copyright (C) 2012-2013 TemPlaza.com. All Rights Reserved.
+ * @copyright     Copyright (C) 2012-2015 TemPlaza.com. All Rights Reserved.
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @authors       TemPlaza
  * @Link:         http://templaza.com
@@ -38,7 +38,6 @@ if( !function_exists('get_color') ){
         return isset($item[$method]) ? $item[$method] : 'rgba(255, 255, 255, 0)';
     }
 }
-
 ?>
 
 <div class="container-fluid" id="plazart_layout_builder">
@@ -61,6 +60,7 @@ if( !function_exists('get_color') ){
                     <option value="component">Component</option>
                     <option value="megamenu">Megamenu</option>
                     <option value="logo">Logo</option>
+                    <option value="custom_html">Custom HTML</option>
                 </select>
             </div>
 
@@ -121,6 +121,13 @@ if( !function_exists('get_color') ){
             <div id="customclass">
                 <label>Custom Class: </label>
                 <input type="text" class="customclass" id="inputcustomclass">
+            </div>
+            <div id="customhtml">
+                <label>Custom Title: </label>
+                <input type="text" class="customtitle" id="inputcustomtitle">
+
+                <label>Custom HTML: </label>
+                <textarea class="customhtml" id="inputcustomhtml"></textarea>
             </div>
         </div>
 
@@ -214,8 +221,74 @@ if( !function_exists('get_color') ){
         </div>
 
         <div class="row-fluid">
+            <div class="span12 rowcolorOuter">
+                <label>Background Image: </label>
+                <div class="input-prepend input-append">
+                    <div class="media-preview add-on">
+                        <span title="" class="hasTipPreview"><span class="icon-eye"></span></span>
+                    </div>
+                    <input type="text" class="rowbackgroundimage" readonly="readonly"
+                           title="<?php echo htmlspecialchars('<span class="TipImgpath"></span>', ENT_COMPAT, 'UTF-8');?>"
+                           aria-invalid="false"
+                           value="">
+                    <a rel="{handler: 'iframe', size: {x: 800, y: 500}}" title="<?php echo JText::_('JSELECT');?>"
+                       class="modal btn btn-info"><?php echo JText::_('JSELECT');?></a>
+                    <a href="javascript: void(0)" title="<?php echo JText::_('JCLEAR');?>"
+                       class="btn btn-danger tz_btn-clear-image hasTooltip">
+                        <span class="icon-remove"></span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
             <div class="span6 rowcolorOuter">
-                <label>Background: </label>
+                <label>Background Repeat: </label>
+                <select class="rowbackgroundrepeat">
+                    <option value="no-repeat">No Repeat</option>
+                    <option value="repeat">Repeat All</option>
+                    <option value="repeat-x">Repeat Horizontally</option>
+                    <option value="repeat-y">Repeat Vertically</option>
+                    <option value="inherit">Inherit</option>
+                </select>
+            </div>
+            <div class="span6 rowcolorOuter">
+                <label>Background Size: </label>
+                <select class="rowbackgroundsize">
+                    <option value="cover">Cover</option>
+                    <option value="contain">Contain</option>
+                    <option value="inherit">Inherit</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6 rowcolorOuter">
+                <label>Background Attachment: </label>
+                <select class="rowbackgroundattachment">
+                    <option value="fixed">Fixed</option>
+                    <option value="scroll">Scroll</option>
+                    <option value="inherit">Inherit</option>
+                </select>
+            </div>
+            <div class="span6 rowcolorOuter">
+                <label>Background Position: </label>
+                <select class="rowbackgroundposition">
+                    <option value="0 0">Left Top</option>
+                    <option value="0 50%">Left Center</option>
+                    <option value="0 100%">Left Bottom</option>
+                    <option value="50% 0">Center Top</option>
+                    <option value="50% 50%">Center Center</option>
+                    <option value="50% 100%">Center Bottom</option>
+                    <option value="100% 0">Right Top</option>
+                    <option value="100% 50%">Right Center</option>
+                    <option value="100% 100%">Right Bottom</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6 rowcolorOuter">
+                <label>Background Color: </label>
                 <input type="text" class="rowbackgroundcolor" id="">
             </div>
 
@@ -286,6 +359,12 @@ foreach($layout as $items )
                             <input type="hidden" class="rowcustomclassinput" name="" value="<?php echo get_value($items,"class") ?>">
                             <input type="hidden" class="rowresponsiveinput" name="" value="<?php echo get_value($items,"responsive") ?>">
 
+                            <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($items,'backgroundimage') ?>">
+                            <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($items,'backgroundrepeat') ?>">
+                            <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($items,'backgroundsize') ?>">
+                            <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($items,'backgroundattachment') ?>">
+                            <input type="hidden" class="rowbackgroundpositioninput" name="" value="<?php echo get_value($items,'backgroundposition') ?>">
+
                             <input type="hidden" class="rowbackgroundcolorinput" name="" value="<?php echo get_color($items,'backgroundcolor') ?>">
                             <input type="hidden" class="rowtextcolorinput" name="" value="<?php echo get_color($items,'textcolor') ?>">
                             <input type="hidden" class="rowlinkcolorinput" name="" value="<?php echo get_color($items,'linkcolor') ?>">
@@ -319,7 +398,10 @@ foreach($layout as $items )
 
                                 <span class="position-name"><?php
 
-                                    if(get_value($item,"type")=='component' || get_value($item,"type")=='message' || get_value($item,"type")=='megamenu' || get_value($item,"type")=='logo') echo strtoupper(get_value($item,"type"));
+                                    if(get_value($item,"type")=='component' || get_value($item,"type")=='message' || get_value($item,"type")=='megamenu' || get_value($item,"type")=='logo') { echo strtoupper(get_value($item,"type")); }
+                                        elseif (get_value($item,"type")=='custom_html') {
+                                            if (trim(get_value($item,"customtitle")) != '') echo trim(get_value($item,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                        }
                                     elseif(empty($item["position"])) echo '(none)';
                                     else echo get_value($item,"position");
 
@@ -343,6 +425,8 @@ foreach($layout as $items )
                                 <input type="hidden" class="positioninput" name="" value="<?php echo get_value($item,"position") ?>">
                                 <input type="hidden" class="styleinput" name="" value="<?php echo get_value($item,"style") ?>">
                                 <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($item,"customclass") ?>">
+                                <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($item,"customtitle") ?>">
+                                <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($item,"customhtml")) ?>">
                                 <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($item,"responsiveclass") ?>">
                                 <input type="hidden" class="animationType" name="" value="<?php echo get_value($item,"animationType") ?>">
                                 <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($item,"animationSpeed") ?>">
@@ -368,6 +452,11 @@ foreach($layout as $items )
 
                                                         
 
+                                                        <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($children,'backgroundimage') ?>">
+                                                        <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($children,'backgroundrepeat') ?>">
+                                                        <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($children,'backgroundsize') ?>">
+                                                        <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($children,'backgroundattachment') ?>">
+                                                        <input type="hidden" class="rowbackgroundpositioninput" name="" value="<?php echo get_value($children,'backgroundposition') ?>">
                                                         <input type="hidden" class="rowbackgroundcolorinput" name="" value="<?php echo get_color($children,'backgroundcolor') ?>">
                                                         <input type="hidden" class="rowtextcolorinput" name="" value="<?php echo get_color($children,'textcolor') ?>">
                                                         <input type="hidden" class="rowlinkcolorinput" name="" value="<?php echo get_color($children,'linkcolor') ?>">
@@ -399,7 +488,10 @@ foreach($layout as $items )
 
                                                             <span class="position-name"><?php
 
-                                                                if(get_value($children,"type")=='component' or get_value($children,"type")=='message') echo strtoupper($children["type"]);
+                                                                if(get_value($children,"type")=='component' || get_value($children,"type")=='message' || get_value($children,"type")=='megamenu' || get_value($children,"type")=='logo') echo strtoupper($children["type"]);
+                                                                elseif (get_value($children,"type")=='custom_html') {
+                                                                    if (trim(get_value($children,"customtitle")) != '') echo trim(get_value($children,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                                                }
                                                                 elseif(empty($children["position"])) echo '(none)';
                                                                 else echo get_value($children,"position");
 
@@ -424,6 +516,8 @@ foreach($layout as $items )
                                                             <input type="hidden" class="positioninput" name="" value="<?php echo get_value($children,"position") ?>">
                                                             <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                             <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
+                                                            <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($children,"customtitle") ?>">
+                                                            <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($children,"customhtml")) ?>">
                                                             <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
                                                             <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
                                                             <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">
@@ -458,6 +552,12 @@ foreach($layout as $items )
                                                                                     <input type="hidden" class="rowresponsiveinput" name="" value="<?php echo get_value($children,"responsive") ?>">
 
 
+                                                                                    <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($children,'backgroundimage') ?>">
+                                                                                    <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($children,'backgroundrepeat') ?>">
+                                                                                    <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($children,'backgroundsize') ?>">
+                                                                                    <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($children,'backgroundattachment') ?>">
+                                                                                    <input type="hidden" class="rowbackgroundpositioninput" name="" value="<?php echo get_value($children,'backgroundposition') ?>">
+
                                                                                     <input type="hidden" class="rowbackgroundcolorinput" name="" value="<?php echo get_color($children,'backgroundcolor') ?>">
                                                         <input type="hidden" class="rowtextcolorinput" name="" value="<?php echo get_color($children,'textcolor') ?>">
                                                         <input type="hidden" class="rowlinkcolorinput" name="" value="<?php echo get_color($children,'linkcolor') ?>">
@@ -485,7 +585,10 @@ foreach($layout as $items )
                                                                                     ?>
                                                                                     <div class="<?php echo (get_value($children,"type")=='component' or get_value($children,"type")=='message') ? 'type-'.get_value($children,"type"):'' ?>  span<?php echo get_value($children,"col-lg"); ?> column <?php echo ( empty($children["col-lg-offset"])?'':'offset'.$children["col-lg-offset"] )?>">
                                                                                         <span class="position-name"><?php
-                                                                                            if(get_value($children,"type")=='component' or get_value($children,"type")=='message') echo strtoupper($children["type"]);
+                                                                                            if(get_value($children,"type")=='component' || get_value($children,"type")=='message' || get_value($children,"type")=='megamenu' || get_value($children,"type")=='logo') echo strtoupper($children["type"]);
+                                                                                            elseif (get_value($children,"type")=='custom_html') {
+                                                                                                if (trim(get_value($children,"customtitle")) != '') echo trim(get_value($children,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                                                                            }
                                                                                             elseif(empty($children["position"])) echo '(none)';
                                                                                             else echo get_value($children,"position");
                                                                                             ?></span>
@@ -507,6 +610,8 @@ foreach($layout as $items )
                                                                                         <input type="hidden" class="positioninput" name="" value="<?php echo get_value($children,"position") ?>">
                                                                                         <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                                                         <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
+                                                                                        <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($children,"customtitle") ?>">
+                                                                                        <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($children,"customhtml")) ?>">
                                                                                         <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
                                                                                         <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
                                                                                         <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">
@@ -527,6 +632,13 @@ foreach($layout as $items )
                                                                                                                 <input type="hidden" class="rownameinput" name="" value="<?php echo get_value($children,"name") ?>">
                                                                                                                 <input type="hidden" class="rowcustomclassinput" name="" value="<?php echo get_value($children,"class") ?>">
                                                                                                                 <input type="hidden" class="rowresponsiveinput" name="" value="<?php echo get_value($children,"responsive") ?>">
+
+                                                                                                                <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($children,'backgroundimage') ?>">
+                                                                                                                <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($children,'backgroundrepeat') ?>">
+                                                                                                                <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($children,'backgroundsize') ?>">
+                                                                                                                <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($children,'backgroundattachment') ?>">
+                                                                                                                <input type="hidden" class="rowbackgroundpositioninput" name="" value="<?php echo get_value($children,'backgroundposition') ?>">
+
                                                                                                                 <input type="hidden" class="rowbackgroundcolorinput" name="" value="<?php echo get_color($children,'backgroundcolor') ?>">
                                                         <input type="hidden" class="rowtextcolorinput" name="" value="<?php echo get_color($children,'textcolor') ?>">
                                                         <input type="hidden" class="rowlinkcolorinput" name="" value="<?php echo get_color($children,'linkcolor') ?>">
@@ -556,7 +668,10 @@ foreach($layout as $items )
 
                                                                                                                     <span class="position-name"><?php
 
-                                                                                                                        if(get_value($children,"type")=='component' or get_value($children,"type")=='message') echo strtoupper($children["type"]);
+                                                                                                                        if(get_value($children,"type")=='component' || get_value($children,"type")=='message' || get_value($children,"type")=='megamenu' || get_value($children,"type")=='logo') echo strtoupper($children["type"]);
+                                                                                                                        elseif (get_value($children,"type")=='custom_html') {
+                                                                                                                            if (trim(get_value($children,"customtitle")) != '') echo trim(get_value($children,"customtitle")). ' - Custom HTML'; else echo 'Custom HTML';
+                                                                                                                        }
                                                                                                                         elseif(empty($children["position"])) echo '(none)';
                                                                                                                         else echo get_value($children,"position");
 
@@ -580,6 +695,8 @@ foreach($layout as $items )
                                                                                                                     <input type="hidden" class="positioninput" name="" value="<?php echo get_value($children,"position") ?>">
                                                                                                                     <input type="hidden" class="styleinput" name="" value="<?php echo get_value($children,"style") ?>">
                                                                                                                     <input type="hidden" class="customclassinput" name="" value="<?php echo get_value($children,"customclass") ?>">
+                                                                                                                    <input type="hidden" class="customtitleinput" name="" value="<?php echo get_value($children,"customtitle") ?>">
+                                                                                                                    <input type="hidden" class="customhtmlinput" name="" value="<?php echo htmlspecialchars(get_value($children,"customhtml")) ?>">
                                                                                                                     <input type="hidden" class="responsiveclassinput" name="" value="<?php echo get_value($children,"responsiveclass") ?>">
                                                                                                                     <input type="hidden" class="animationType" name="" value="<?php echo get_value($children,"animationType") ?>">
                                                                                                                     <input type="hidden" class="animationSpeed" name="" value="<?php echo get_value($children,"animationSpeed") ?>">

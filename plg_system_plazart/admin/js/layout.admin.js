@@ -64,6 +64,12 @@ jQuery(function($){
         $(element).find('>div>.rowpropperties .rowcustomclassinput').attr('name', name+'[class]');
         $(element).find('>div>.rowpropperties .rowresponsiveinput').attr('name', name+'[responsive]');
 
+        $(element).find('>div>.rowpropperties .rowbackgroundimageinput').attr('name', name+'[backgroundimage]');
+        $(element).find('>div>.rowpropperties .rowbackgroundrepeatinput').attr('name', name+'[backgroundrepeat]');
+        $(element).find('>div>.rowpropperties .rowbackgroundsizeinput').attr('name', name+'[backgroundsize]');
+        $(element).find('>div>.rowpropperties .rowbackgroundattachmentinput').attr('name', name+'[backgroundattachment]');
+        $(element).find('>div>.rowpropperties .rowbackgroundpositioninput').attr('name', name+'[backgroundposition]');
+
         $(element).find('>div>.rowpropperties .rowbackgroundcolorinput').attr('name', name+'[backgroundcolor]');
         $(element).find('>div>.rowpropperties .rowtextcolorinput').attr('name', name+'[textcolor]');
         $(element).find('>div>.rowpropperties .rowlinkcolorinput').attr('name', name+'[linkcolor]');
@@ -655,6 +661,183 @@ jQuery(function($){
                     var newName = $(this).val();
                     $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rownameinput').val(newName);
                     $(this).parents('.popover').parent().prev().find('>.rowname').text(newName);
+                });
+
+
+                // Start background image script
+                var currentBackgroundImage = $(this).parent().prev().find(">span.rowdocs>.rowbackgroundimageinput");
+
+                var $backgroundImageRootUrl    = '';
+                if(typeof PlazartAdmin == 'object'){
+                    $backgroundImageRootUrl    = PlazartAdmin.rooturl;
+                }
+
+                // Tooltip script
+                function tzMediaRefreshPreview(id) {
+                    var value = $("#" + id).val();
+                    var $img = $("#" + id + "_preview");
+                    if ($img.length) {
+                        if (value) {
+                            $img.attr("src", $backgroundImageRootUrl + value);
+                            $("#" + id + "_preview_empty").hide();
+                            $("#" + id + "_preview_img").show()
+                        } else {
+                            $img.attr("src", "");
+                            $("#" + id + "_preview_empty").show();
+                            $("#" + id + "_preview_img").hide();
+                        }
+                    }
+                }
+
+                function tzMediaRefreshPreviewTip(tip){
+                    var $tip = $(tip);
+                    var $img = $tip.find("img.media-preview");
+                    $tip.find("div.tip").css("max-width", "none");
+                    var id = $img.attr("id");
+                    id = id.substring(0, id.length - "_preview".length);
+                    tzMediaRefreshPreview(id);
+                    $tip.show();
+                }
+
+                function tzMediaTooltip($this, $obj){
+
+                    var $img    = '';
+                    $img    += '<div id="'+ $obj.attr("id") +'_preview_empty">' +
+                        'No image selected.</div>';
+                    $img    += '<div id="'+ $obj.attr("id") +'_preview_img">' +
+                        '<img id="'+ $obj.attr("id") + '_preview" src="'+ $backgroundImageRootUrl + $obj.val()
+                        + '" alt="" class="media-preview" style="max-width: 160px;"/></div>';
+
+
+                    $this.parent().find(">.popover .hasTipPreview").each(function() {
+                        var mtelement = document.id(this);
+                        mtelement.store('tip:title', 'Selected image.');
+                        mtelement.store('tip:text', $img);
+                    });
+
+                    var JTooltips = new Tips($this.parent().find(">.popover .hasTipPreview").get(), {
+                        onShow  : function(tip){
+                            tzMediaRefreshPreviewTip(tip);
+                        }
+                    });
+                }
+
+                function tzMediaRefreshImgpathTip($obj)
+                {
+                    var title = $obj.first().attr('title');
+                    if (title) {
+                        var parts = title.split('::', 2);
+                        var mtelement = document.id($obj[0]);
+                        mtelement.store('tip:title', parts[0]);
+                        mtelement.store('tip:text', parts[1]);
+
+                    }
+
+                    var JImgpathTooltip  = new Tips($obj.get(), {
+                        onShow  : function(tip){
+                            var $tip = $(tip);
+                            $tip.css("max-width", "none");
+                            var $imgpath = $("#" + $obj.attr('id')).val();
+                            $tip.find(".TipImgpath").first().html($imgpath);
+                            if ($imgpath.length) {
+                                $tip.show();
+                            } else {
+                                $tip.hide();
+                            }
+                        }
+                    });
+                }
+
+                setTimeout(function($this, value){
+                    var $rowbackgroundImage = $this.parent().find(">.popover .rowbackgroundimage"),
+                        $date   = new Date(),
+                        $rowBackgroundImageId   = "rowbackgroundimage" + $date.getTime();
+                    $rowbackgroundImage.attr("id", $rowBackgroundImageId);
+
+                    tzMediaTooltip($this, $rowbackgroundImage);
+
+                    tzMediaRefreshImgpathTip($rowbackgroundImage);
+
+                    SqueezeBox.initialize({});
+                    $this.parent().find(">.popover .modal").off("click").on("click",function(e){
+                        e.preventDefault();
+                        SqueezeBox.fromElement(this, {
+                            parse: "rel",
+                            url: "index.php?option=com_media&view=images&tmpl=component&asset=com_templates&author=&folder=&fieldid=" +$rowBackgroundImageId
+                        });
+                    });
+                    $this.parent().find(">.popover .tz_btn-clear-image").off("click").on("click",function(e){
+                        e.preventDefault();
+                        $rowbackgroundImage.val('');
+                    });
+
+                    $this.parent().find('>.popover .rowbackgroundimage').val(value);
+                }, 300, $(this), currentBackgroundImage.val());
+
+                $("#content,#element-box").delegate(".popover input.rowbackgroundimage",'change', function(event){
+
+                    event.stopImmediatePropagation();
+                    var newName = $(this).val();
+                    $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rowbackgroundimageinput').val(newName);
+
+                    tzMediaRefreshPreview($(this).attr("id"));
+                });
+                // End background image script
+
+                // background repeat
+                var backgroundRepeat = $(this).parent().prev().find('>span.rowdocs>.rowbackgroundrepeatinput');
+
+                setTimeout(function($this, value){
+                    $this.parent().find('>.popover .rowbackgroundrepeat').val(value);
+                }, 300, $(this), backgroundRepeat.val());
+
+                $("#content,#element-box").delegate(".popover select.rowbackgroundrepeat",'change', function(event){
+
+                    event.stopImmediatePropagation();
+                    var newName = $(this).val();
+                    $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rowbackgroundrepeatinput').val(newName);
+                });
+
+                // background size
+                var backgroundSize = $(this).parent().prev().find('>span.rowdocs>.rowbackgroundsizeinput');
+
+                setTimeout(function($this, value){
+                    $this.parent().find('>.popover .rowbackgroundsize').val(value);
+                }, 300, $(this), backgroundSize.val());
+
+                $("#content,#element-box").delegate(".popover select.rowbackgroundsize",'change', function(event){
+
+                    event.stopImmediatePropagation();
+                    var newName = $(this).val();
+                    $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rowbackgroundsizeinput').val(newName);
+                });
+
+                // background attachment
+                var backgroundAttachment = $(this).parent().prev().find('>span.rowdocs>.rowbackgroundattachmentinput');
+
+                setTimeout(function($this, value){
+                    $this.parent().find('>.popover .rowbackgroundattachment').val(value);
+                }, 300, $(this), backgroundAttachment.val());
+
+                $("#content,#element-box").delegate(".popover select.rowbackgroundattachment",'change', function(event){
+
+                    event.stopImmediatePropagation();
+                    var newName = $(this).val();
+                    $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rowbackgroundattachmentinput').val(newName);
+                });
+
+                // background position
+                var backgroundPosition = $(this).parent().prev().find('>span.rowdocs>.rowbackgroundpositioninput');
+
+                setTimeout(function($this, value){
+                    $this.parent().find('>.popover .rowbackgroundposition').val(value);
+                }, 300, $(this), backgroundPosition.val());
+
+                $("#content,#element-box").delegate(".popover select.rowbackgroundposition",'change', function(event){
+
+                    event.stopImmediatePropagation();
+                    var newName = $(this).val();
+                    $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rowbackgroundpositioninput').val(newName);
                 });
 
                 // background color

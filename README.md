@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+12/09/15 - 4.8
+
+    [new feature] Add Background image option for row in Layout Builder.
+
 11/24/15 - 4.7
 
     [new feature] Add Custom HTML type for Layout Builder

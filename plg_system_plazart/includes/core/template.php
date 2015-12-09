@@ -1022,6 +1022,26 @@ class PlazartTemplate extends ObjectExtendable
                 self::getInstance()->inline_css .= 'background: '. self::getInstance()->get_color_value( $value, 'backgroundcolor' ) .' !important;';
             }
 
+            if( self::getInstance()->get_layout_value( $value, 'backgroundimage' ) ){
+                self::getInstance()->inline_css .= 'background-image: url('. JUri::root(). self::getInstance()->get_layout_value( $value, 'backgroundimage' ) .');';
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundrepeat' ) ){
+                    self::getInstance()->inline_css .= 'background-repeat: '. self::getInstance()->get_layout_value( $value, 'backgroundrepeat' ) .';';
+                }
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundsize' ) ){
+                    self::getInstance()->inline_css .= 'background-size: '. self::getInstance()->get_layout_value( $value, 'backgroundsize' ) .';';
+                }
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundattachment' ) ){
+                    self::getInstance()->inline_css .= 'background-attachment: '. self::getInstance()->get_layout_value( $value, 'backgroundattachment' ) .';';
+                }
+
+                if( self::getInstance()->get_layout_value( $value, 'backgroundposition' ) ){
+                    self::getInstance()->inline_css .= 'background-position: '. self::getInstance()->get_layout_value( $value, 'backgroundposition' ) .';';
+                }
+            }
+
             if( self::getInstance()->get_color_value( $value, 'textcolor' ) ){
                 self::getInstance()->inline_css .= 'color: '. self::getInstance()->get_color_value( $value, 'textcolor' ) .' !important;';
             }

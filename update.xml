@@ -23,7 +23,7 @@
 			<type>plugin</type>
 			<version>3.9</version>
 			<client>site</client>
-			<folder/>
+			<folder>system</folder>
 			<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
 			<downloads>
 				<downloadurl type="full" format="zip">https://github.com/templaza/plazart/archive/plg_v3.9.tar.gz</downloadurl>

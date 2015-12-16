@@ -26,5 +26,9 @@
 	<config>
 		<fields name="params">
 		</fields>
-	</config>	
+	</config>
+	
+	<updateservers>     
+	        <server type="extension" priority="1" name="Plazart Framework Update"><![CDATA[https://raw.githubusercontent.com/templaza/plazart/master/update.xml]]></server>   
+	</updateservers>
 </extension>

@@ -1017,13 +1017,33 @@ class PlazartTemplate extends ObjectExtendable
             $endcss = "\n".'}';
 
 
+            self::getInstance()->inline_css .= ' #tz-'. self::getInstance()->slug($value['name']) .'-wrapper:before{'."\n";
+            if(self::getInstance()->get_layout_value( $value, 'backgroundimage' )
+                && self::getInstance()->get_color_value( $value, 'backgroundoverlaycolor' ) ){
+                self::getInstance()->inline_css .= '
+                content: "";
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-color: '. self::getInstance()->get_color_value( $value, 'backgroundoverlaycolor' ) .';
+                ';
+            }
+            self::getInstance()->inline_css .= $endcss;
+
+
             self::getInstance()->inline_css .= $id;
             if( self::getInstance()->get_color_value( $value, 'backgroundcolor' ) ){
-                self::getInstance()->inline_css .= 'background: '. self::getInstance()->get_color_value( $value, 'backgroundcolor' ) .' !important;';
+                self::getInstance()->inline_css .= 'background-color: '. self::getInstance()->get_color_value( $value, 'backgroundcolor' ) .' !important;';
             }
 
             if( self::getInstance()->get_layout_value( $value, 'backgroundimage' ) ){
                 self::getInstance()->inline_css .= 'background-image: url('. JUri::root(). self::getInstance()->get_layout_value( $value, 'backgroundimage' ) .');';
+
+                if(self::getInstance()->get_color_value( $value, 'backgroundoverlaycolor' )){
+                    self::getInstance()->inline_css .= 'position: relative;';
+                }
 
                 if( self::getInstance()->get_layout_value( $value, 'backgroundrepeat' ) ){
                     self::getInstance()->inline_css .= 'background-repeat: '. self::getInstance()->get_layout_value( $value, 'backgroundrepeat' ) .';';
@@ -1082,10 +1102,10 @@ class PlazartTemplate extends ObjectExtendable
 //                    . '">';
 //            }
 
-                //  start container
-                if (isset($value['containertype'])) {
-                    self::getInstance()->layout.='<div class="'.$value['containertype'].'">';
-                }
+            //  start container
+            if (isset($value['containertype'])) {
+                self::getInstance()->layout.='<div class="'.$value['containertype'].'">';
+            }
 
             //   start row fluid
             $rowstyle   =   'row';

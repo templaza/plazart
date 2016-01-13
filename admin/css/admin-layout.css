@@ -26,9 +26,9 @@ input.readonly,input.required{background:none}
 .controls{border-left:1px solid #dadada;min-height:75px}
 .controls.span12{border-left:0}
 #plazart_layout_builder .media-preview.add-on{height:26px}
-#plazart_layout_builder .rowcolorOuter .media-preview.add-on{height:auto}
+#plazart_layout_builder .rowcolorOuter .media-preview.add-on{height:auto;font-size:11px;padding:4px}
 #plazart_layout_builder .rowcolorOuter .input-prepend.input-append{margin-left:1px}
-#plazart_layout_builder .rowcolorOuter .input-prepend.input-append .rowbackgroundimage{width: 185px;}
+#plazart_layout_builder .rowcolorOuter .input-prepend.input-append .rowbackgroundimage{width: 66px;vertical-align:top;}
 .media-preview.add-on > div{line-height:normal;margin:0;padding:0}
 .media-preview.add-on > div > img{height:100%;margin:0;padding:0;width:120px}
 .radio.btn-group input[type="radio"],
@@ -50,6 +50,7 @@ input.readonly,input.required{background:none}
 #plazart-layout-config .row-fluid.child-row{border-top:1px solid #ddd;margin:0;padding:0 15px 15px}
 #plazart-layout-config .layoutmainrow .child-row .row-fluid.show-grid{margin-top:0}
 #plazart-layout-config .show-grid > [class*=span]{background:#fff;margin:0;border:1px solid #dadada;border-radius:0;line-height:50px;min-height:50px;box-shadow:0 0 3px 0 rgba(0,0,0,.1);-webkit-box-shadow:0 0 3px 0 rgba(0,0,0,.1)}
+#plazart-layout-config .show-grid > .column{margin-top:5px}
 #plazart-layout-config .show-grid > [class*=span].type-component{background:#f8fde9;border:1px solid #809c36}
 #plazart-layout-config .show-grid > [class*=span].type-message > .type-message{text-align:center}
 #plazart-layout-config .show-grid > [class*=span]:hover{border-color:#DBB727;outline:thin dotted}
@@ -57,6 +58,7 @@ input.readonly,input.required{background:none}
 #plazart-layout-config .row-tools{margin-top:3px}
 #plazart-layout-config .row-tools a{color:#a5a5a5;font-size:18px;margin:0 0 0 6px}
 #plazart-layout-config .row-tools a.icon-move{border-right:1px solid #ccc;cursor:move;padding-right:6px}
+#plazart-layout-config .row-tools .input-prepend.input-append .btn{padding:4px 6px;font-size:11px !important;}
 #plazart-layout-config .columntools{-webkit-transition:opacity 300ms;float:right;margin-right:15px;opacity:0}
 #plazart-layout-config .columntools a{color:#a5a5a5;font-size:14px;margin:0 0 0 3px}
 #plazart-layout-config .columntools a.icon-move{cursor:move}
@@ -101,12 +103,12 @@ input.readonly,input.required{background:none}
 .rowcolorOuter input,
 .rowcolorOuter input{width:90px}
 .rowcolorOuter label{
-	/*width: 89px;*/
-	border-right: 0;
-	float: left;
-	height: 30px;
-	line-height: 30px;
-	padding: 0 5px;
+    /*width: 89px;*/
+    border-right: 0;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
 }
 
 .rowcolorOuter{margin-top: 10px;overflow:hidden}

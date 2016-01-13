@@ -34,6 +34,11 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+01/13/16 - 4.9
+
+    [bug fixed] Fixed error: Can't save data of custom html type when create new row in layout builder.
+	[feature] Add Feature: background overlay for row type in layout builder.
+
 12/09/15 - 4.8
 
     [new feature] Add Background image option for row in Layout Builder.

@@ -65,6 +65,7 @@ jQuery(function($){
         $(element).find('>div>.rowpropperties .rowresponsiveinput').attr('name', name+'[responsive]');
 
         $(element).find('>div>.rowpropperties .rowbackgroundimageinput').attr('name', name+'[backgroundimage]');
+        $(element).find('>div>.rowpropperties .rowbackgroundoverlaycolorinput').attr('name', name+'[backgroundoverlaycolor]');
         $(element).find('>div>.rowpropperties .rowbackgroundrepeatinput').attr('name', name+'[backgroundrepeat]');
         $(element).find('>div>.rowpropperties .rowbackgroundsizeinput').attr('name', name+'[backgroundsize]');
         $(element).find('>div>.rowpropperties .rowbackgroundattachmentinput').attr('name', name+'[backgroundattachment]');
@@ -769,6 +770,7 @@ jQuery(function($){
                     $this.parent().find(">.popover .tz_btn-clear-image").off("click").on("click",function(e){
                         e.preventDefault();
                         $rowbackgroundImage.val('');
+                        currentBackgroundImage.val('');
                     });
 
                     $this.parent().find('>.popover .rowbackgroundimage').val(value);
@@ -783,6 +785,31 @@ jQuery(function($){
                     tzMediaRefreshPreview($(this).attr("id"));
                 });
                 // End background image script
+
+                // background overlay color
+                var currentBackgroundOverlayColor = $(this).parent().prev().find('>span.rowdocs>.rowbackgroundoverlaycolorinput');
+
+                setTimeout(function($this, value){
+                    $this.parent().find('>.popover .rowbackgroundoverlaycolor').val(value);
+
+                    $this.parent().find('>.popover .rowbackgroundoverlaycolor').spectrum({
+                        flat:false,
+                        showInput:true,
+                        preferredFormat: "rgb",
+                        showButtons:true,
+                        showAlpha:true,
+                        showPalette:true,
+                        clickoutFiresChange:true,
+                        cancelText:"cancel",
+                        chooseText:"Choose",
+                        palette : [ ['rgba(255, 255, 255, 0)'] ],
+                        change: function(color) {
+                            var currentcolor = color.toRgbString();
+                            $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rowbackgroundoverlaycolorinput').val(currentcolor);
+                        }
+                    });
+
+                }, 300, $(this), currentBackgroundOverlayColor.val());
 
                 // background repeat
                 var backgroundRepeat = $(this).parent().prev().find('>span.rowdocs>.rowbackgroundrepeatinput');
@@ -1142,8 +1169,6 @@ jQuery(function($){
      * @param $selector
      */
     var resetColumns = function($selector){
-
-        console.log($selector.attr('class'));
 
         var totalSpan =  $selector.find('>.column').length;
         var tzdevice = $("button[class*='tz-admin-dv'].active").attr('data-device');

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <updates>
 	<update>
+		<name>Plazart - Plugin Version 4.9</name>
+		<description>Plugin Plazart https://github.com/templaza/plazart</description>
+		<element>plazart</element>
+		<type>plugin</type>
+		<version>4.9</version>
+		<client>site</client>
+		<folder>system</folder>
+		<infourl title="https://github.com/templaza/plazart">https://github.com/templaza/plazart</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/templaza/plazart/archive/plg_v4.9.zip</downloadurl>
+		</downloads>
+		<maintainer>Plazart</maintainer>
+		<maintainerurl>https://github.com/templaza/plazart</maintainerurl>
+		<targetplatform name="joomla" version="3.[012345]"/>
+	</update>
+	<update>
 		<name>Plazart - Plugin Version 4.8</name>
 		<description>Plugin Plazart https://github.com/templaza/plazart</description>
 		<element>plazart</element>

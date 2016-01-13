@@ -221,7 +221,7 @@ if( !function_exists('get_color') ){
         </div>
 
         <div class="row-fluid">
-            <div class="span12 rowcolorOuter">
+            <div class="span6 rowcolorOuter">
                 <label>Background Image: </label>
                 <div class="input-prepend input-append">
                     <div class="media-preview add-on">
@@ -232,11 +232,15 @@ if( !function_exists('get_color') ){
                            aria-invalid="false"
                            value="">
                     <a rel="{handler: 'iframe', size: {x: 800, y: 500}}" title="<?php echo JText::_('JSELECT');?>"
-                       class="modal btn btn-info"><?php echo JText::_('JSELECT');?></a>
+                       class="modal btn btn-info"><span class="icon-folder"></span></a>
                     <a href="javascript: void(0)" title="<?php echo JText::_('JCLEAR');?>"
                        class="btn btn-danger tz_btn-clear-image hasTooltip">
                         <span class="icon-remove"></span></a>
                 </div>
+            </div>
+            <div class="span6 rowcolorOuter">
+                <label>Background Overlay Color: </label>
+                <input type="text" class="rowbackgroundoverlaycolor" id="">
             </div>
         </div>
 
@@ -360,6 +364,7 @@ foreach($layout as $items )
                             <input type="hidden" class="rowresponsiveinput" name="" value="<?php echo get_value($items,"responsive") ?>">
 
                             <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($items,'backgroundimage') ?>">
+                            <input type="hidden" class="rowbackgroundoverlaycolorinput" name="" value="<?php echo get_color($items,'backgroundoverlaycolor') ?>">
                             <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($items,'backgroundrepeat') ?>">
                             <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($items,'backgroundsize') ?>">
                             <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($items,'backgroundattachment') ?>">
@@ -453,6 +458,7 @@ foreach($layout as $items )
                                                         
 
                                                         <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($children,'backgroundimage') ?>">
+                                                        <input type="hidden" class="rowbackgroundoverlaycolorinput" name="" value="<?php echo get_color($children,'backgroundoverlaycolor') ?>">
                                                         <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($children,'backgroundrepeat') ?>">
                                                         <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($children,'backgroundsize') ?>">
                                                         <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($children,'backgroundattachment') ?>">
@@ -553,6 +559,7 @@ foreach($layout as $items )
 
 
                                                                                     <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($children,'backgroundimage') ?>">
+                                                                                    <input type="hidden" class="rowbackgroundoverlaycolorinput" name="" value="<?php echo get_value($children,'backgroundoverlaycolor') ?>">
                                                                                     <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($children,'backgroundrepeat') ?>">
                                                                                     <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($children,'backgroundsize') ?>">
                                                                                     <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($children,'backgroundattachment') ?>">
@@ -634,6 +641,7 @@ foreach($layout as $items )
                                                                                                                 <input type="hidden" class="rowresponsiveinput" name="" value="<?php echo get_value($children,"responsive") ?>">
 
                                                                                                                 <input type="hidden" class="rowbackgroundimageinput" name="" value="<?php echo get_value($children,'backgroundimage') ?>">
+                                                                                                                <input type="hidden" class="rowbackgroundoverlaycolorinput" name="" value="<?php echo get_value($children,'backgroundoverlaycolor') ?>">
                                                                                                                 <input type="hidden" class="rowbackgroundrepeatinput" name="" value="<?php echo get_value($children,'backgroundrepeat') ?>">
                                                                                                                 <input type="hidden" class="rowbackgroundsizeinput" name="" value="<?php echo get_value($children,'backgroundsize') ?>">
                                                                                                                 <input type="hidden" class="rowbackgroundattachmentinput" name="" value="<?php echo get_value($children,'backgroundattachment') ?>">

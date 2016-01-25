@@ -1205,8 +1205,16 @@ class PlazartTemplate extends ObjectExtendable
 
                     if( $v['type']=='component' and $this->hideComponentArea() ) continue;
 
-                    if( empty($v['position']) ) $wrid = 'tz-'.$v['type'].'-area';
-                    else $wrid = 'tz-'.$v['position'];
+                    if( empty($v['position']) ) {
+                        if($v['type'] == 'custom_html') {
+                            $wrid = 'tz-' . $v['type'] . '-area-'.uniqid();
+                        }else {
+                            $wrid = 'tz-' . $v['type'] . '-area';
+                        }
+                    }
+                    else {
+                        $wrid = 'tz-'.$v['position'];
+                    }
 
                     self::getInstance()->layout.="\n".'<'.$sematicSpan.' id="'.strtolower($wrid).'" class="'.$this->getColWidth($v).' '.$this->getColWidth($v, true).''.$this->getResponsiveClass($v).(empty($v['customclass'])?'':' '.$v['customclass']).'">';
 

@@ -862,6 +862,10 @@ class PlazartTemplate extends ObjectExtendable
         {
             foreach( $layout['children'] as $i=>$v )
             {
+                
+                if(!is_array($v)){
+                    $v = (array)$v;
+                }
 
                 if( !isset($v['type']) or !isset($v['position']) ) continue;
                 // hide component area
@@ -990,6 +994,10 @@ class PlazartTemplate extends ObjectExtendable
     {
         foreach($layout as $index=>$value)
         {
+            if(!is_array($value)){
+                $value = (array)$value;
+            }
+            
             if( is_null( self::getInstance()->showRow($value) ) ) continue;
 
             // set html5 stracture
@@ -1156,6 +1164,9 @@ class PlazartTemplate extends ObjectExtendable
 
                 foreach( $value['children'] as $v )
                 {
+                    if(!is_array($v)){
+                        $v = (array)$v;
+                    }
                     if( $v['type']=='modules' )
                     {
                         if( !self::getInstance()->countModules($v['position']))

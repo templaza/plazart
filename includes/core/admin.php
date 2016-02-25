@@ -513,14 +513,14 @@ class PlazartAdmin {
         $tables =   $db->getTableList();
         $prefix =   $db->getPrefix();
         if (!in_array($prefix.'plazart_styles', $tables)) {
-            $query  =   "CREATE TABLE IF NOT EXISTS `#__plazart_styles` (
-                          `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                          `template` varchar(50) NOT NULL,
-                          `style_id` int(10) unsigned NOT NULL DEFAULT '0',
-                          `style_type` varchar(20) NOT NULL,
-                          `style_content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-                          PRIMARY KEY (`id`)
-                        ) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+                $query  =   "CREATE TABLE IF NOT EXISTS `#__plazart_styles` (
+			  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+			  `template` varchar(50) NOT NULL,
+			  `style_id` int(10) unsigned NOT NULL DEFAULT '0',
+			  `style_type` varchar(20) NOT NULL,
+			  `style_content` longtext NOT NULL,
+			  PRIMARY KEY (`id`)
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8";
             $db->setQuery($query);
             if (!$db->query()) {
                 JError::raiseError(500,$db->getErrorMsg());

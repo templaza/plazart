@@ -24,9 +24,9 @@
 var PlazartAdmin = window.PlazartAdmin || {};
 
 !function ($) {
-    "use strict"
+    "use strict";
 	$.extend(PlazartAdmin, {
-		
+
 		initBuildLessBtn: function(){
 
             var tzsubmitform = function(task, form) {
@@ -41,12 +41,14 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 // Submit the form.
                 if (typeof form.onsubmit == 'function') {
                     form.onsubmit();
-                }
-                if (typeof form.fireEvent == "function") {
-                    form.fireEvent('onsubmit');
-                }
-                if (typeof $ == "function") {
-                    $(form).submit();
+                }else {
+                    if (typeof form.fireEvent == "function") {
+                        form.fireEvent('onsubmit');
+                    }else{
+                        if (typeof $ == "function") {
+                            $(form).submit();
+                        }
+                    }
                 }
                 form.submit();
             };
@@ -758,6 +760,20 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 $('#plazart-layout-config').addClass('active');
                 $(this).addClass('active');
             });
+            $('#plazart-tb-advanced-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-advanced-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-child-override-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-child-override-config').addClass('active');
+                $(this).addClass('active');
+            });
         },
 
         fixValidate: function(){
@@ -831,7 +847,73 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 };
 
             }
+        },
+
+        ovCodeMirror: function() {
+            if($('#child_file_edit2').length > 0) {
+                var $editorOV = '';
+                (function (cm) { cm.keyMap["default"]["Ctrl-Q"] = function (cm) { cm.setOption("fullScreen", !cm.getOption("fullScreen")); }; cm.keyMap["default"]["F10"] = function (cm) { cm.setOption("fullScreen", !cm.getOption("fullScreen")); }; cm.keyMap["default"]["Esc"] = function (cm) { cm.getOption("fullScreen") && cm.setOption("fullScreen", false); }; cm.modeURL = PlazartAdmin.rooturl + "\/media\/editors\/codemirror\/mode\/%N\/%N.min.js"; }(CodeMirror));
+                (function (id, options) {
+                    Joomla.editors.instances[id] = CodeMirror.fromTextArea(document.getElementById(id), options);
+                    CodeMirror.autoLoadMode(Joomla.editors.instances[id], options.mode);
+                    Joomla.editors.instances[id].on("gutterClick", function (cm, n, gutter) {
+                        if (gutter != "CodeMirror-markergutter") { return; }
+                        var info = cm.lineInfo(n);
+                        var hasMarker = !!info.gutterMarkers && !!info.gutterMarkers["CodeMirror-markergutter"];
+                        var makeMarker = function () {
+                            var marker = document.createElement("div");
+                            marker.className = "CodeMirror-markergutter-mark";
+                            return marker;
+                        };
+                        cm.setGutterMarker(n, "CodeMirror-markergutter", hasMarker ? null : makeMarker());
+                    });
+                    !!jQuery && jQuery(function ($) {
+                        $(document.body).on("shown shown.bs.tab shown.bs.modal", function () {
+                            Joomla.editors.instances[id].refresh();
+                        });
+                    });
+                    $editorOV = Joomla.editors.instances[id];
+                }("child_file_edit2", {"autofocus":true,"lineWrapping":true,"styleActiveLine":true,"lineNumbers":true,"gutters":["CodeMirror-linenumbers","CodeMirror-foldgutter","CodeMirror-markergutter"],"foldGutter":true,"mode":"php","theme":"default","autoCloseTags":true,"matchTags":true,"autoCloseBrackets":true,"matchBrackets":true,"scrollbarStyle":"native","vimMode":false}));
+
+                return $editorOV;
+            }
+        },
+
+        ovChildMenuFd: function() {
+            $('.config-view ul.directory-tree li.plz-folder a').click(function(){
+                $(this).next().toggleClass('open');
+            });
+        },
+
+        ovCheckDeleteInput: function() {
+
+            //$('.btn-file-create:not(.disabled)').click(function(e){
+            //    e.preventDefault();
+            //    var $controll = $(this).closest('.control');
+            //    if($(this).hasClass('btn-create-success')) {
+            //        $(this).removeClass('btn-create-success');
+            //        $('input.input-file-create', $controll).prop("checked", false);
+            //    }else {
+            //        $(this).addClass('btn-create-success');
+            //        $('input.input-file-create', $controll).prop("checked", true);
+            //    }
+            //});
+            //
+            //$('.btn-file-delete:not(.disabled)').click(function(e){
+            //    e.preventDefault();
+            //    var $controll = $(this).closest('.control');
+            //    if($(this).hasClass("btn-delete")) {
+            //        $(this).removeClass("btn-delete");
+            //        $('input.input-file-delete', $controll).prop("checked", false);
+            //    }else {
+            //        $(this).addClass("btn-delete");
+            //        $('input.input-file-delete', $controll).prop("checked", true);
+            //    }
+            //});
         }
+
+
+
 	});
 	
 	$(document).ready(function(){
@@ -848,6 +930,9 @@ var PlazartAdmin = window.PlazartAdmin || {};
 		PlazartAdmin.switchTab();
 		PlazartAdmin.switchConfig();
         PlazartAdmin.fixValidate();
+        PlazartAdmin.ovChildMenuFd();
+        PlazartAdmin.ovCheckDeleteInput();
+        PlazartAdmin.ovCodeMirror();
 	});
 
     $(window).load(function () {
@@ -856,5 +941,223 @@ var PlazartAdmin = window.PlazartAdmin || {};
         PlazartAdmin.initColorStyle();
         PlazartAdmin.checkVersion();
     });
-	
+
+
+    window.ovEditDefault = function(e) {
+        e.preventDefault();
+        $('#child_file_edit2').html("");
+        PlazartAdmin.ovCodeMirror();
+    }
+
+    // function child loading
+    window.ovLoading    = function() {
+
+        var $htmlLoading    = '<div id="ov-loader"><div class="ov-loader"><div class="ov-inner one"></div><div class="ov-inner two"></div><div class="ov-inner three"></div></div></div>';
+        $('body').append($htmlLoading);
+
+    }
+
+    window.ovRMLoading  = function() {
+        $('#ov-loader').remove();
+    }
+
+    // End function child loading
+
+    window.ovChildAjax = function($url) {
+
+        var $editOv     = null;
+        var $styleID    = '&styleid=' + PlazartAdmin.templateid;
+
+        $('.btn-file-create').live('click', function(e){
+            e.preventDefault();
+            ovLoading();
+            var $controll = $(this).closest('.control');
+            var $fileValue  = $('input.input-file-create', $controll).val();
+            $(this).removeClass('btn-file-create');
+            $(this).addClass('btn-file-edit');
+
+            jQuery.ajax({
+                type: 'post',
+                url: $url+'?plazartaction=copy_file' + $styleID,
+                data: {
+                    fieldvalue: $fileValue
+                },
+                complete: function(result){
+                    ovRMLoading();
+                    var $getResult  = result.responseText;
+                    var $dataResult = $.parseJSON($getResult);
+                    var $arrMess    = $dataResult.mess;
+                    $arrMess.toString();
+                    var $status     = $dataResult.status;
+                    var $newFile    = $dataResult.newFile;
+                    $('input.input-file-create', $controll).val($newFile);
+                    $('input.input-file-delete', $controll).val($newFile);
+
+                    if($status == 1) {
+                        $controll.find('.btn-file-edit').html('<i class="fa fa-pencil"></i>Edit File');
+                        $controll.find('.btn-file-delete').removeProp('disabled');
+                        $controll.find('.btn-file-delete').addClass('btn-delete');
+                        //$controll.find('.btn-group').append('<p class="mess success">Copy File Success</p>');
+                        //$controll.find('.btn-group .mess').hide(3000,'linear');
+
+                    }else {
+                        $('#ovChildMess-error').append('<p>'+$arrMess+'</p>');
+                        //$controll.find('.btn-group').append('<p class="mess error">Copy File Error</p>');
+                    }
+                }
+            });
+        });
+
+        $('.btn-file-delete').live('click', function(e){
+            e.preventDefault();
+
+            var r = confirm("Do you want to delete the override file?");
+            if (r == true) {
+                ovLoading();
+                var $controll   = $(this).closest('.control');
+                var $fileDelete = $('input.input-file-create', $controll).val();
+                jQuery.ajax({
+                    type: 'post',
+                    url: $url+'?plazartaction=delete_file' + $styleID,
+                    data: {
+                        fileDelete: $fileDelete
+                    },
+                    complete: function(result) {
+                        ovRMLoading();
+                        var $delResult      = result.responseText;
+                        var $dataDResult    = $.parseJSON($delResult);
+                        var $arrMess        = $dataDResult.mess;
+                        $arrMess.toString();
+                        var $status         = $dataDResult.status;
+                        var $fileOld        = $dataDResult.fileOld;
+
+                        if($status == 1) {
+
+                            if($controll.find('.ov-file.btn-file-edit').length > 0) {
+
+                                var $btnFile    = $controll.find('.btn.ov-file');
+                                $btnFile.removeClass('btn-file-edit');
+                                $btnFile.addClass('btn-file-create');
+                                $btnFile.html('<i class="icon-copy"></i> Override File');
+                                $controll.find('.btn-file-delete').prop("disabled", true);
+                                $controll.find('.btn-file-delete').removeClass('btn-delete');
+
+                                //$controll.find('.btn-group').append('<p class="mess success">Delete File Success</p>');
+
+                                $('input.input-file-create', $controll).val($fileOld);
+                                $('input.input-file-delete', $controll).val($fileOld);
+
+                                //$controll.find('.btn-group .mess').hide(3000,'linear');
+
+                            }
+                        }else {
+                            //$controll.find('.btn-group').append('<p class="mess error">'+$arrMess+'</p>');
+                        }
+                    }
+                });
+            }
+
+        });
+
+        $('.btn-file-edit').live('click', function(e){
+            e.preventDefault();
+            ovLoading();
+            ovEditDefault(e);
+            $('.sl-file-edit').css("display","none");
+            $('.ovEditFile .control-head > div.control-button').fadeIn('slow');
+            $('.CodeMirror.cm-s-default.CodeMirror-wrap').remove();
+
+            var $controll   = $(this).closest('.control');
+            var $fileEdit   = $('input.input-file-create', $controll).val();
+
+            jQuery.ajax({
+                type: 'post',
+                url: $url+'?plazartaction=edit_file' + $styleID,
+                data: {
+                    fileEdit: $fileEdit
+                },
+                complete: function(result) {
+                    ovRMLoading();
+                    var $editResult     = result.responseText;
+                    var $dataEFile      = $.parseJSON($editResult);
+                    var $arrMess        = $dataEFile.mess;
+                    $arrMess.toString();
+                    var $status         = $dataEFile.status;
+                    var $dataCFile      = $dataEFile.fileContent;
+                    var $shortPath      = $dataEFile.filePath;
+                    $('#inputFileSave').val($fileEdit);
+
+                    if($status == 1) {
+                        $('#child_file_edit2').html($dataCFile);
+                        $('.fileNameEdit h2 span').html($shortPath);
+                        $editOv = PlazartAdmin.ovCodeMirror();
+                    }
+                }
+            });
+        });
+
+        $('.btnFileSave').live('click', function(e){
+            e.preventDefault();
+            ovLoading();
+            var $fileSave   = $('#inputFileSave').val();
+
+            var $fileNewData = '';
+
+            if(typeof $fileSave != 'undefined') {
+                $fileNewData = $editOv.getValue();
+            }
+
+            if($fileSave != '') {
+                jQuery.ajax({
+                    type: 'post',
+                    url: $url+'?plazartaction=save_file' + $styleID,
+                    data: {
+                        fileSave: $fileSave,
+                        newData: $fileNewData
+                    },
+                    complete: function(result) {
+                        ovRMLoading();
+                        var $saveResult     = result.responseText;
+                        var $dataSFile      = $.parseJSON($saveResult);
+                        var $arrMess        = $dataSFile.mess;
+                        $arrMess.toString();
+                        var $status         = $dataSFile.status;
+
+                        if($status == 1) {
+                            $('.ovEditFile .control-head .mess').html('<p class="success">'+$arrMess+'</p>');
+                            $('.ovEditFile .control-head .mess').find('.success').fadeOut(3000);
+                        }else {
+                            $('.ovEditFile .control-head .mess').html('<p class="error">'+$arrMess+'</p>').hide(3000,'linear');
+                            $('.ovEditFile .control-head .mess').find('.error').fadeOut(3000);
+                        }
+                    }
+                });
+            }
+
+        });
+
+        $('.btnFileCancel').live('click', function(e) {
+
+            e.preventDefault();
+            $('.sl-file-edit').css("display","block");
+            ovEditDefault(e);
+            $('.CodeMirror.cm-s-default.CodeMirror-wrap').remove();
+
+            $('#inputFileSave').val('');
+            $('.fileNameEdit h2 span').html('');
+            $('.ovEditFile .control-head > div.control-button').fadeOut('slow');
+
+        });
+
+    };
+
+    //window.ovCodeMirror = function() {
+    //    var editor = CodeMirror.fromTextArea(document.getElementById("child_file_edit"), {
+    //        mode: 'text/html',
+    //        autoCloseTags: true
+    //    });
+    //}
+
 }(jQuery);
+
+

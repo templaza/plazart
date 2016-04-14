@@ -15,7 +15,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 jQuery(function($){
-    "use strict"
+    "use strict";
     var reArrangePopOvers = function(){
 
         $('#layout-options .row-fluid').each(function(){
@@ -29,7 +29,7 @@ jQuery(function($){
             $(this).find('>.column').last().find('.columntools > .rowcolumnspop')
                 .attr('data-placement', 'left').data('placement', 'left');
         });
-    }
+    };
 
     reArrangePopOvers();
 
@@ -57,7 +57,7 @@ jQuery(function($){
         $(element).find('>.animationOffset').attr('name', name+'[animationOffset]');
         $(element).find('>.animationEasing').attr('name', name+'[animationEasing]');
 
-    }
+    };
     var rowInputs = function(element, name){
 
         $(element).find('>div>.rowpropperties .rownameinput').attr('name', name+'[name]');
@@ -79,7 +79,7 @@ jQuery(function($){
         $(element).find('>div>.rowpropperties .rowpaddinginput').attr('name', name+'[padding]');
         $(element).find('>div>.row-container .containertype').attr('name', name+'[containertype]');
 
-    }
+    };
 
     var customhtmlEncode = function (str) {
         var map = {
@@ -97,7 +97,48 @@ jQuery(function($){
         return $('<textarea />').html(str).text();
     };
 
-    document.adminForm.onsubmit = function(){
+    var columnRowInputs = function (element, name) {
+        $(element).find('>.row-fluid').each(function (rowl4) {
+            var r4name = name + '[children][' + rowl4 + ']';
+            rowInputs(this, r4name);
+            $(this).find('> div >.row-fluid >.column').each(function (columnl4) {
+                var c4name = r4name + '[children][' + columnl4 + ']';
+                columnInputs(this, c4name);
+                if ($(this).find('>.row-fluid').length) {
+                    columnRowInputs(this, c4name);
+                }
+            });
+            columnRowInputs($(this).next(), r4name);
+        });
+    };
+
+    var LayoutSubmit    = function(){
+
+        $('#content .generator >.row-fluid, #element-box .generator >.row-fluid').each(function (rowl0) {
+            var r0name = fieldName + '[' + rowl0 + ']';
+            rowInputs(this, r0name);
+            $(this).find('> div >.row-fluid >.column').each(function (columnl0) {
+                var c0name = r0name + '[children][' + columnl0 + ']';
+                columnInputs(this, c0name);
+                // main rows
+                if ($(this).find('>.row-fluid').length) {
+                    columnRowInputs(this, c0name);
+                } else {
+                    columnRowInputs($(this).next(), c0name);
+                }
+
+            });
+
+        });
+
+        $('.toolbox-saveConfig').trigger('click');
+
+        return false;
+
+    };
+
+    window.LayoutJSave = function(){
+        $('.plazart-admin-tabcontent #root_folder_ovrride > ul.directory-tree, .plazart-admin-tabcontent #root_folder_ovrride > .ovEditFile').remove();
         $('#content .generator >.row-fluid, #element-box .generator >.row-fluid').each(function(rowl0){
             var r0name = fieldName+'['+rowl0+']';
             rowInputs(this, r0name);
@@ -147,13 +188,13 @@ jQuery(function($){
             });
 
         });
+
         $('.toolbox-saveConfig').trigger('click');
         return false;
 
     };
 
-    ;(function(textOnly) {
-
+    (function (textOnly) {
         jQuery.fn.textOnly = function( selector ) {
 
 
@@ -169,20 +210,7 @@ jQuery(function($){
     })(jQuery.fn.textOnly);
 
 
-
-
-    /**
-     * jQuery alterClass plugin
-     *
-     * Remove element classes with wildcard matching. Optionally add classes:
-     *   $( '#foo' ).alterClass( 'foo-* bar-*', 'foobar' )
-     *
-     * Copyright (c) 2011 Pete Boere (the-echoplex.net)
-     * Free under terms of the MIT license: http://www.opensource.org/licenses/mit-license.php
-     *
-     */
-    ;(function ( $ ) {
-
+(function ($) {
         $.fn.alterClass = function ( removals, additions ) {
 
             var self = this;
@@ -214,12 +242,7 @@ jQuery(function($){
     })( jQuery );
 
 
-
-    /**
-     * Get class using regular expression
-     */
-    ;(function(getClass) {
-
+(function (getClass) {
         jQuery.fn.getClass = function( classname ) {
 
             if ( classname && typeof(classname) === "object" ) {
@@ -1053,7 +1076,7 @@ jQuery(function($){
             template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div><a class="btn btn-primary" onclick="jQuery(this).closest(\'.popover\').prev().popover(\'hide\'); jQuery(this).closest(\'.popover\').prev().show(); "><i class="icon-ok"></i> Apply</a></div></div>'
         }).click(function(){  $(this).show();   return false;});
 
-    }
+    };
 
 
     popover();
@@ -1135,7 +1158,7 @@ jQuery(function($){
         });
 
 
-    }
+    };
 
     rowColumnSortable();
 
@@ -1184,8 +1207,6 @@ jQuery(function($){
             $selector.find('>.column').alterClass('span*').addClass('span'+spanClass).find('>.widthinput-'+tzdevice).val(spanClass);
         }
 
-
-
         // data-original-title
         //toolTip('[data-original-title]');
         $('a[rel="popover"]').popover('destroy');
@@ -1195,7 +1216,7 @@ jQuery(function($){
 
         // alert('column reset');
         //reArrangePopOvers();
-    }
+    };
 
 
     /**
@@ -1213,7 +1234,7 @@ jQuery(function($){
             reArrangePopOvers();
             popover();
         });
-    }
+    };
 
     $("#content,#element-box").delegate("a.add-column",'click', function(){
 
@@ -1250,7 +1271,7 @@ jQuery(function($){
             });
             return false;
         });
-    }
+    };
 
     addRowInColumn();
 
@@ -1279,7 +1300,7 @@ jQuery(function($){
             $offsetinput = $offsetinput !== '' ? ' offset'+$offsetinput : '';
             $(this).removeClass().addClass('ui-sortable column span'+$widthinput+$offsetinput);
         });
-    }
+    };
 
     $(document).ready(function(){
         $("button[class*='tz-admin-dv']").click(function() {
@@ -1310,4 +1331,45 @@ jQuery(function($){
             $(this).tooltip('show');
         });
     });
+
+    var layoutAddIcon   = function() {
+        $('#config_manager_layoutsave-btn').append('<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>');
+    };
+
+    window.saveAjaxLayout = function($url) {
+
+        layoutAddIcon();
+
+        setTimeout(function(){
+
+            LayoutSubmit();
+
+            var fields = $('[name^="jform[params][generate]"]').serializeObject();
+
+            $.ajax({
+                type: 'post',
+                url: $url+'?plazartaction=saveAjaxLayout',
+                data: {
+                    fieldvalue: fields
+                },
+
+                complete: function(result){
+                    var $saveResult     = result.responseText;
+                    var $dataResult     = $.parseJSON($saveResult);
+                    var $status         = $dataResult.status;
+                    if($status) {
+                        $('.plazart-controls.layoutsave button i.fa').remove();
+                        $('.plazart-controls.layoutsave .mess').html('<p class="success">Save Success</p>');
+                        $('.plazart-controls.layoutsave .mess').find('.success').fadeOut(3000);
+                    }else {
+                        $('.plazart-controls.layoutsave button i.fa').remove();
+                        $('.plazart-controls.layoutsave .mess').html('<p class="error">Save Failed</p>');
+                        $('.plazart-controls.layoutsave .mess').find('.error').fadeOut(3000);
+                    }
+                }
+            });
+
+        }, 100);
+
+    }
 });

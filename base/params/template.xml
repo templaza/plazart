@@ -186,6 +186,10 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
+            <field name="layoutsave" type="radio" class="btn-group" default="0" label="PLAZART_GENERAL_SAVE_LAYOUT_AJAX_LABEL" global="1">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
             <field name="bootstrapversion" type="radio" class="btn-group" default="3"
                    global="1"
                    label="PLAZART_GENERAL_BOOTSTRAP_VERSION_LABEL"
@@ -233,6 +237,9 @@
                 <option value="0">JNO</option>
                 <option value="1">JYES</option>
             </field>
+
+            <field name="ov_clr_file" type="text" label="TPL_CLR_FILE_CHILD" default="plz_child_" description="TPL_CLR_FILE_CHILD_DESC" />
+
         </fieldset>
 
         <fieldset name="injection_params" label="PLAZART_INJECTION_LABEL" description="PLAZART_INJECTION_DESC">

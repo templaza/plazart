@@ -11,9 +11,7 @@
 //
 function require(arg) {
     return window.less[arg.split('/')[1]];
-};
-
-
+}
 // ecma-5.js
 //
 // -- kriskowal Kris Kowal Copyright (C) 2009-2010 MIT License
@@ -496,7 +494,9 @@ less.Parser = function Parser(env) {
                     }, env);
                 }
 
-                return chunks.map(function (c) { return c.join('') });;
+                return chunks.map(function (c) {
+                    return c.join('')
+                });
             })([[]]);
 
             if (error) {
@@ -1089,7 +1089,7 @@ less.Parser = function Parser(env) {
                             } else {
                                 break;
                             }
-                        } while ($(',') || $(';'))
+                        } while ($(',') || $(';'));
 
                         // .mixincall("@{a}"); 
                         // looks a bit like a mixin definition.. so we have to be nice and restore
@@ -1226,7 +1226,7 @@ less.Parser = function Parser(env) {
 
                 while (e = $(this.element)) {
                     c = input.charAt(i);
-                    elements.push(e)
+                    elements.push(e);
                     if (c === '{' || c === '}' || c === ';' || c === ',' || c === ')') { break }
                 }
 
@@ -3021,7 +3021,7 @@ tree.mixin.Definition.prototype = {
                     if (isNamedFound) {
                         args.splice(i, 1);
                         i--;
-                        continue;
+
                     } else {
                         throw { type: 'Runtime', message: "Named argument for " + this.name +
                             ' ' + args[i].name + ' not found' };
@@ -3699,7 +3699,7 @@ tree.Selector.prototype.match = function (other) {
     oelements = other.elements.slice(
         (other.elements.length && other.elements[0].value === "&") ? 1 : 0);
     olen = oelements.length;
-    max = Math.min(len, olen)
+    max = Math.min(len, olen);
 
     if (olen === 0 || len < olen) {
         return false;

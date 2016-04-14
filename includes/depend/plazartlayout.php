@@ -32,7 +32,11 @@ class JFormFieldPlazartLayout extends JFormField
 
         $modChromes = array();
 
-        if (file_exists($theme_path . 'html/modules.php')) {
+        // check file over
+        $fileOver   = Plazart::getFileOvClf();
+        if(file_exists($theme_path . 'html/'.$fileOver.'modules.php')) {
+            include_once($theme_path . 'html/'.$fileOver.'modules.php');
+        }elseif (file_exists($theme_path . 'html/modules.php')) {
             include_once($theme_path . 'html/modules.php');
         }
         $positions = $this->getPositions();
@@ -50,6 +54,7 @@ class JFormFieldPlazartLayout extends JFormField
             $layoutsettings =   json_decode(json_encode($layoutsettings),true);
             $data   .=      $this->generateLayout($plazart_layout_path, $layoutsettings, $positions, $modChromes);
             $data   .=      '<input type="hidden" name="layout_id" />';
+
             return $data;
         } else {
             $layoutsettings =   json_decode($layoutsettings);

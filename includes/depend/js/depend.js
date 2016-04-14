@@ -173,18 +173,19 @@
 				url: info.site == 'admin' ? PlazartDepend.adminurl : PlazartDepend.rooturl,
 				func: ''
 			}, info);
-
 			if(info.query){
-				var urlparts = info.url.split('#');
-				if(urlparts[0].indexOf('?') == -1){
+
+                var urlparts = info.url.split('#');
+
+                if(urlparts[0].indexOf('?') == -1){
 					urlparts[0] += '?' + info.query;
 				} else {
 					urlparts[0] += '&' + info.query;
 				}
-				
-				info.url = urlparts.join('#');
-			}
 
+				info.url = urlparts.join('#');
+
+			}
 			if(!ajaxs[name]){
 				ajaxs[name] = {};
 
@@ -196,16 +197,15 @@
 						'<div class="bar" style="width: 100%"></div>' +
 					'</div>').next().hide();
 			}
-
 			ajaxs[name].info = info;
 		},
 
 		loadajax: function(ctrlelm){
+
 			var ajaxs = this.ajaxs,
 				name = ctrlelm.name,
 				ctrl = ajaxs[name],
 				form = this;
-
 			if(!ctrl){
 				ctrl = ajaxs[name.substr(name.length - 2)];
 			}
@@ -236,6 +236,7 @@
 
 			ctrl.indicator.show();
 //			$.get(info.url, { jvalue: form.valuesFrom(form.elmsFrom(name))[0], _: $.now() }, function(rsp){
+
 			$.get(info.url, { jvalue: $('#jform_params_mm_type :selected').attr('value') || form.valuesFrom(form.elmsFrom(name))[0], plazartlang:$('#jform_params_mm_type :selected').attr('data-language') || '*', plazartacl:$('#jform_params_mm_access :selected').attr('value') || '1', _: $.now() }, function(rsp){
 				ctrl.indicator.hide();
 
@@ -286,6 +287,7 @@
 			
 			segelm.removeClass('open').addClass('close');  
 		}
+
 	};
 
 	var PlazartFileConfig = window.PlazartFileConfig = window.PlazartFileConfig || {

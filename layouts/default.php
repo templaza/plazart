@@ -13,21 +13,20 @@
 defined('_JEXEC') or die;
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>" class="<?php $this->bodyClass(); ?>">
+<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
 <head>
 	<jdoc:include type="head" />
 	<?php $this->loadBlock('head'); ?>
 </head>
 
-<body<?php if($this->browser->get("tablet") == true) echo ' data-tablet="true"'; ?><?php if($this->browser->get("mobile") == true) echo ' data-mobile="true"'; ?> class="<?php echo $this->bodyClass() ?>">
+<body class="<?php echo $this->bodyClass() ?>">
     <?php
     if ($this->getParam('layout_enable',1)) {
         $this->layout();
     } else {
         $this->loadBlock('body');
     }
-    $this->loadBlock('utilities');
+    if ($this->getParam('framework_logo',1)) $this->loadBlock('framework');
 ?>
-
 </body>
 </html>

@@ -1,14 +1,19 @@
-@import '../../import/default/logo';
+/** 
+ *
+ * Template offline page
+ *
+ **/
 body {
   color: #777;
   font-family: Arial, Verdana, sans-serif;
+  /* ToDo */
   font-size: 13px;
   font-weight: 400;
   padding: 0 20px;
 }
 a {
   color: #5990de;
-  outline: none !important;
+  outline: none!important;
   text-decoration: none;
 }
 a:active,
@@ -22,6 +27,7 @@ h2,
 h3 {
   color: #5c5c5c;
   font-family: 'Colaborate', sans-serif;
+  /* ToDo */
   font-weight: 500;
 }
 h2 {

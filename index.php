@@ -3,8 +3,8 @@
 /**
  * Plazart Framework
  * Author: Sonle
- * Version: 1.0.0
- * @copyright   Copyright (C) 2012 - 2013 TemPlaza.com. All rights reserved.
+ * Version: 4.3
+ * @copyright   Copyright (C) 2012 - 2015 TemPlaza.com. All rights reserved.
  * @license     GNU General Public License version 2 or later
  */
  
@@ -19,8 +19,8 @@ if(!defined('PLAZART')){
 
 // include framework classes and files
 
-Plazart::getApp($this);
+$plazart = Plazart::getApp($this);
 
-require_once('libraries/plazart.render.php');
-// run the framework
-$tpl = new PlazartRender($this);
+// get configured layout
+$layout = $plazart->getLayout();
+$plazart->loadLayout ($layout);

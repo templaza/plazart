@@ -35,12 +35,12 @@ a {
 .article-info {
   background: #eee;
   font-size: 11px;
-  margin: 0 !important;
+  margin: 0!important;
 }
 .article-info > * {
   float: left;
-  margin: 0 10px 0 0 !important;
-  padding: 0 !important;
+  margin: 0 10px 0 0!important;
+  padding: 0!important;
 }
 .article-info > dt {
   clear: both;

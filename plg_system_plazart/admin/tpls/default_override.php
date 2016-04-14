@@ -93,7 +93,8 @@ $tpl_path_root  = $PlazartChildOverride->_path;
                         }else {
                             $arrayFile  = array("php","PHP","html","HTML","css","CSS","js","JS");
                             $fileExt    = JFile::getExt($value->id);
-                            if(in_array($fileExt,$arrayFile)) {
+                            $nameFile   = JFile::getName($value->id);
+                            if(in_array($fileExt,$arrayFile) && $nameFile != 'index.php' && $nameFile != 'templateInfo.php') {
                                 echo $PlazartChildOverride -> getFile($value);
                             }
                         }

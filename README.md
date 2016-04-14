@@ -34,7 +34,7 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
-03/14/2016
+03/14/2016 - 5.0
 
 	Update Child Template: You can change the files in the folder "templates" and these files are still kept when you update the template. 
 	Update option save layout ajax

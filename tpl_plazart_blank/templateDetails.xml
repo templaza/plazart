@@ -3,9 +3,9 @@
         "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
 <extension version="3.0" type="template" client="site" method="upgrade">
     <name>plazart_blank</name>
-    <version>3.5</version>
+    <version>3.6</version>
     <creationDate>02/28/2013</creationDate>
-    <author>TemPlaza</author>
+    <author>TemPlaza.com</author>
     <authorEmail>info@templaza.com</authorEmail>
     <copyright>Copyright (C) 2015 TemPlaza. All rights reserved.</copyright>
     <description><![CDATA[This is Plazart Framework]]></description>

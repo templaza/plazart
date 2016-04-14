@@ -34,6 +34,7 @@ class PlazartAdmin {
      * @return render success or not
      */
     public function render(){
+
         $body = JResponse::getBody();
         $layout = PLAZART_ADMIN_PATH . '/admin/tpls/default.php';
 
@@ -138,8 +139,16 @@ class PlazartAdmin {
         $jdoc->addScript(PLAZART_ADMIN_URL . '/includes/depend/js/depend.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/json2.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jimgload.js');
+        // Check
+        $plazart_base   = JURI::base( true );
+        $jdoc->addScript(JUri::root(true).'/media/editors/codemirror/lib/codemirror.min.js');
+        $jdoc->addScript(JUri::root(true).'/media/editors/codemirror/lib/addons.min.js');
+        $jdoc->addStyleSheet(JUri::root(true).'/media/editors/codemirror/lib/codemirror.min.css');
+        $jdoc->addStyleSheet(JUri::root(true).'/media/editors/codemirror/lib/addons.min.css');
+        // $jdoc->addScriptDeclaration('');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/admin.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery-ui.min.js ');
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.serialize-object.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/layout.admin.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/spectrum.js');
 
@@ -296,17 +305,22 @@ class PlazartAdmin {
 
             // $profile
 
-            include $jtpl;
-
             //search for global parameters
             $japp = JFactory::getApplication();
             $pglobals = array();
             foreach($form->getGroup('params') as $param){
                 if($form->getFieldAttribute($param->fieldname, 'global', 0, 'params')){
-                    $pglobals[] = array('name' => $param->fieldname, 'value' => $form->getValue($param->fieldname, 'params'));
+                    if($param->fieldname == 'layoutsave') {
+                        $pglobals['layoutsave'] = $form->getValue($param->fieldname, 'params');
+                    }else {
+                        $pglobals[] = array('name' => $param->fieldname, 'value' => $form->getValue($param->fieldname, 'params'));
+                    }
                 }
             }
+
             $japp->setUserState('oparams', $pglobals);
+
+            include $jtpl;
 
             return true;
         }
@@ -535,7 +549,10 @@ class PlazartAdmin {
         $row->template      =   $data->template;
         $row->style_id      =   $data->id;
         $row->style_type    =   'layout';
-        $row->style_content =   json_encode($params->get('generate',''));
+
+        if($params->get('generate','') != '') {
+            $row->style_content =   json_encode($params->get('generate',''));
+        }
 
         if (!$row->check()) {
             JError::raiseError(500, $row->getError() );

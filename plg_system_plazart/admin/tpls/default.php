@@ -18,6 +18,7 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
+
 $user = JFactory::getUser();
 $canDo = version_compare( JVERSION, '3.2.2', 'ge' ) ? JHelperContent::getActions('com_templates') : TemplatesHelper::getActions();
 $iswritable = is_writable('plazarttest.txt');
@@ -32,7 +33,7 @@ $fieldSets = $form->getFieldsets('params');
 <div class="plazart-admin-form clearfix">
 <form action="<?php echo JRoute::_('index.php?option=com_templates&layout=edit&id='.$input->getInt('id')); ?>" method="post" name="adminForm" id="style-form" class="form-validate form-horizontal">
     <div class="configure-content">
-        <div class="config-view<?php echo $plazartlock=='global-config' || !in_array($plazartlock,array('global-config', 'menu-config', 'layout-config','preset-config')) ? ' active': ''; ?>" id="plazart-global-config">
+        <div class="config-view<?php echo $plazartlock=='global-config' || !in_array($plazartlock,array('global-config', 'menu-config', 'layout-config','advanced-config','preset-config','child-override-config')) ? ' active': ''; ?>" id="plazart-global-config">
             <?php
             $default_global_override = PLAZART_TEMPLATE_PATH . '/admin/default_global.php';
             if(file_exists($default_global_override)) {
@@ -72,6 +73,31 @@ $fieldSets = $form->getFieldsets('params');
             }
             ?>
         </div>
+
+        <div class="config-view<?php echo $plazartlock=='advanced-config'? ' active': ''; ?>" id="plazart-advanced-config">
+            <?php
+            $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_advanced.php';
+            if(file_exists($default_layout_override)) {
+                include_once $default_layout_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_advanced.php';
+            }
+            ?>
+        </div>
+        <div class="config-view<?php echo $plazartlock=='child-override-config '; ?>" id="plazart-child-override-config">
+
+            <?php
+
+            $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_override.php';
+
+            if(file_exists($default_layout_override)) {
+                include_once $default_layout_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_override.php';
+            }
+            ?>
+        </div>
+
     </div>
 	<input type="hidden" name="task" value="" />
 	<?php echo JHtml::_('form.token'); ?>

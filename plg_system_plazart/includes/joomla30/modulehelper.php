@@ -202,6 +202,13 @@ abstract class JModuleHelper
 		include_once JPATH_THEMES . '/system/html/modules.php';
 		$chromePath = JPATH_THEMES . '/' . $app->getTemplate() . '/html/modules.php';
 
+        // check file ovr
+        $fileOver   = Plazart::getFileOvClf();
+        $checkFile  = JPATH_THEMES . '/' . $app->getTemplate() . '/html/'.$fileOver.'modules.php';
+        if(is_file($checkFile)) {
+            $chromePath = $checkFile;
+        }
+
 		if (!isset($chrome[$chromePath]))
 		{
 			if (file_exists($chromePath))
@@ -322,9 +329,18 @@ abstract class JModuleHelper
 		}
 
 		// If the template has a layout override use it
+
 		if (file_exists($tPath))
 		{
-			return $tPath;
+            // Check
+            $checkFile  = Plazart::OverriderFile($tPath);
+            if($checkFile) {
+
+                return $checkFile;
+            }else {
+
+                return $tPath;
+            }
 		}
 		elseif (file_exists($bPath))
 		{

@@ -38,7 +38,9 @@ class Plazart {
 	 * @return void
 	 */
 	public static function import($package){
-		$path = PLAZART_ADMIN_PATH . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . strtolower($package) . '.php';
+
+        $path = PLAZART_ADMIN_PATH . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . strtolower($package) . '.php';
+
 		if (file_exists($path)) {
 			include_once $path;
 		} else {
@@ -51,7 +53,7 @@ class Plazart {
 			$japp = JFactory::getApplication();
 			self::$plazartapp = $japp->isAdmin() ? self::getAdmin() : self::getSite($tpl); 
 		}
-		
+
 		return self::$plazartapp;
 	}
 
@@ -109,10 +111,15 @@ class Plazart {
 				// override core joomla class
 				// JViewLegacy
 				if (!class_exists('JViewLegacy', false)) Plazart::import ('joomla30/viewlegacy');
+                // JViewLegacy
+                if (!class_exists('JDocumentError', false)) Plazart::import ('joomla30/document/error');
+                // JViewLegacy
+                if (!class_exists('JDocumentPlazartHTML', false)) Plazart::import ('joomla30/document/html');
 				// JModuleHelper
 				if (!class_exists('JModuleHelper', false)) Plazart::import ('joomla30/modulehelper');
 				// JPagination
 				if (!class_exists('JPagination', false)) Plazart::import ('joomla30/pagination');
+
 			} else {
 				// override core joomla class
 				// JViewLegacy
@@ -156,7 +163,7 @@ class Plazart {
 	}
 
 	public static function error($msg, $code = 500){
-		if (JError::$legacy) {
+        if (JError::$legacy) {
 			JError::setErrorHandling(E_ERROR, 'die');
 			JError::raiseError($code, $msg);
 			
@@ -306,5 +313,66 @@ class Plazart {
     public static function OptimizeCode() {
         Plazart::import ('core/scriptsdown');
         return new PlazartScriptsDown();
+    }
+
+    // Get clearfix File
+    public static function getFileOvClf() {
+
+        // get params template
+        $app =  JFactory::getApplication('site');
+        $getTemplate    = $app -> getTemplate(true);
+        $paramsTem      = $getTemplate -> params;
+        $fileOvClf      = $paramsTem -> get('ov_clr_file','plz_child_');
+
+        return $fileOvClf;
+
+    }
+
+    public static function OverriderFile($fileRoot) {
+
+        $fileOvClf  = self::getFileOvClf();
+        $nameFile   = JFile::getName($fileRoot);
+        $fileCheck  = $fileOvClf.JFile::getName($fileRoot);
+        $pathCheck  = str_replace($nameFile,$fileCheck,$fileRoot);
+
+        if(is_file($pathCheck))
+        {
+            return $pathCheck;
+
+        }else{
+
+            return false;
+        }
+    }
+
+    public static function addChildAddFile($file,$type) {
+
+        $doc = JFactory::getDocument();
+//        $uri    = JUri::getInstance();
+//        $uri    -> parse(JUri::root().$file);
+//        $basePathFile   = $uri -> getPath();
+
+        $fileRoot   = JPATH_SITE.DIRECTORY_SEPARATOR.$file;
+        $nameFile   = JFile::getName($fileRoot);
+        $fileChild  = self::OverriderFile($fileRoot);
+        $fileOvClf  = self::getFileOvClf();
+        $fileCheck  = $fileOvClf.$nameFile;
+        if($fileChild) {
+            $fileEnd    = str_replace($nameFile,$fileCheck,$file);
+            if($type == 'js') {
+                $doc -> addScript($fileEnd);
+            }
+            if($type == 'css') {
+                $doc -> addStyleSheet($fileEnd);
+            }
+        }else {
+            if($type == 'js') {
+                $doc -> addScript($file);
+            }
+            if($type == 'css') {
+                $doc -> addStyleSheet($file);
+            }
+        }
+
     }
 }

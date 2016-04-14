@@ -1398,3 +1398,270 @@ span.tz_update_link a:hover { background: #222; text-decoration: none; }
   }
 
 }
+
+/*****************************************************Override Child***************************************************/
+#plazart-child-override-config {
+    overflow-x: hidden;
+}
+.config-view ul.directory-tree ul {
+    display: none;
+    list-style: none;
+}
+.config-view ul.directory-tree, .config-view ul.directory-tree li {
+    width: 100%;
+}
+.config-view ul.directory-tree ul.open {
+    display: block;
+}
+.config-view ul.directory-tree .file-name, .config-view ul.directory-tree div.control {
+    display: block;
+    float: left;
+}
+.config-view ul.directory-tree div.control button.btn {
+    font-size: 12px;
+    line-height: 1;
+    margin: -3px 0;
+    padding: 4px 15px;
+}
+.config-view ul.directory-tree div.control .btn-group {
+    padding-left: 10px;
+}
+.config-view ul.directory-tree li a {
+    clear: both;
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+.config-view ul.directory-tree li.file-name {
+    padding: 4px 0;
+}
+.config-view .ov-file, .control-button .btnFileSave {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #409740;
+    background-image: -moz-linear-gradient(top,#46a546,#378137);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#46a546),to(#378137));
+    background-image: -webkit-linear-gradient(top,#46a546,#378137);
+    background-image: -o-linear-gradient(top,#46a546,#378137);
+    background-image: linear-gradient(to bottom,#46a546,#378137);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff46a546', endColorstr='#ff368136', GradientType=0);
+    border-color: #378137 #378137 #204b20;
+    *background-color: #378137;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.config-view .ov-file:focus, .config-view .ov-file:hover, .config-view .ov-file:active,
+.config-view .btn-delete:focus, .config-view .btn-delete:active, .config-view .btn-delete:hover {
+    background-position: center center;
+    text-decoration: none;
+    outline: none;
+}
+.config-view .btn-delete, .ovEditFile .control-head .btnFileCancel {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #ad312b;
+    background-image: -moz-linear-gradient(top,#bd362f,#942a25);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#bd362f),to(#942a25));
+    background-image: -webkit-linear-gradient(top,#bd362f,#942a25);
+    background-image: -o-linear-gradient(top,#bd362f,#942a25);
+    background-image: linear-gradient(to bottom,#bd362f,#942a25);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbd362f', endColorstr='#ff942a24', GradientType=0);
+    border-color: #942a25 #942a25 #571916;
+    *background-color: #942a25;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.config-view .ov-file.btn-file-edit {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #1d6cb0;
+    background-image: -moz-linear-gradient(top,#2384d3,#15497c);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#2384d3),to(#15497c));
+    background-image: -webkit-linear-gradient(top,#2384d3,#15497c);
+    background-image: -o-linear-gradient(top,#2384d3,#15497c);
+    background-image: linear-gradient(to bottom,#2384d3,#15497c);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2384d3', endColorstr='#ff15497c', GradientType=0);
+    border-color: #15497c #15497c #0a223b;
+    *background-color: #15497c;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.ovChildMess {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 0 0;
+    text-align: center;
+}
+#ovChildMess-success p {
+    color: #409740;
+}
+#ovChildMess-error p {
+    color: #ad312b;
+}
+#plazart-child-override-config .mess {
+    font-size: 14px;
+    padding: 8px 0 0;
+    display: block;
+}
+#plazart-child-override-config .mess.success {
+    color: #409740;
+}
+#plazart-child-override-config .mess.error {
+    color: #ad312b;
+}
+.mess.success, .mess.error {
+
+}
+#root_folder_ovrride .directory-tree {
+    width: 30%;
+    float: left;
+}
+#root_folder_ovrride .ovEditFile {
+    width: 65%;
+    float: left;
+}
+.fileNameEdit h2 {
+    margin: 0;
+}
+.fileNameEdit h2 span {
+    color: #409740;
+}
+.sl-file-edit {
+    clear: both;
+    display: block;
+    padding-top: 10px;
+    position: relative;
+}
+.folder-2 li {
+    padding: 3px 0 !important;
+}
+.ovEditFile .control-head {
+    display: block;
+    position: relative;
+    clear: both;
+    padding-bottom: 10px;
+}
+.ovEditFile .control-head:after {
+    clear: both;
+    content: " ";
+    display: block;
+    float: none;
+}
+.ovEditFile .control-head > div {
+    display: block;
+    float: left;
+}
+.ovEditFile .control-head .control-button {
+    text-align: center;
+    float: none;
+}
+.ovEditFile .control-head .btnFileSave, .ovEditFile .control-head .btnFileCancel {
+    border: none;
+    padding: 5px 16px 5px 20px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+.ovEditFile .control-head .btnFileCancel i.fa-times-circle-o {
+    font-size: 16px;
+    position: relative;
+    top: 1px;
+}
+.ovEditFile .mess .success {color: #409740;}
+.ovEditFile .mess .error {color: #ad312b;}
+.ovEditFile .CodeMirror {
+    height: 550px;
+}
+.ovEditFile .control-head > div.control-button {
+    display: none;
+}
+
+/* Save Ajax Layout */
+.layoutsave .mess {
+    float: right;
+    padding-left: 20px;
+}
+.layoutsave .mess .success {
+    color: #378137;
+    line-height: 30px;
+}
+.layoutsave .mess .error {
+    color: #e52626;
+    line-height: 30px;
+}
+/* End Save Ajax Layout */
+
+/* Loading ajax */
+
+#ov-loader {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999999;
+}
+.ov-loader {
+    position: absolute;
+    top: calc(50% - 32px);
+    left: calc(50% - 32px);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    perspective: 800px;
+}
+.ov-inner {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.ov-inner.one {
+    left: 0%;
+    top: 0%;
+    animation: rotate-one 1s linear infinite;
+    border-bottom: 3px solid #EFEFFA;
+}
+.ov-inner.two {
+    right: 0%;
+    top: 0%;
+    animation: rotate-two 1s linear infinite;
+    border-right: 3px solid #EFEFFA;
+}
+.ov-inner.three {
+    right: 0%;
+    bottom: 0%;
+    animation: rotate-three 1s linear infinite;
+    border-top: 3px solid #EFEFFA;
+}
+@keyframes rotate-one {
+    0% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
+}
+@keyframes rotate-two {
+    0% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
+}
+@keyframes rotate-three {
+    0% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+    }
+}
+
+/* End Loading ajax */

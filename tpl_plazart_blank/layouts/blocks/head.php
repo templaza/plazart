@@ -37,7 +37,7 @@ if($this->getParam("css_prefixer", '0')) {
 	$this->addScript(PLAZART_TEMPLATE_REL . '/js/prefixfree.js');
 }
 
-$this->addScript(PLAZART_TEMPLATE_REL.'/js/page.js');
+Plazart::addChildAddFile(PLAZART_TEMPLATE_REL.'/js/page.js','js');
 ?>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

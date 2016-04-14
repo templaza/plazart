@@ -75,8 +75,8 @@
 	};
 })(jQuery);
 
-;(function($){
-	'use strict';
+(function ($) {
+    'use strict';
 
 	var PlazartMenuI = window.PlazartMenuI = window.PlazartMenuI || {};
 	PlazartMenuI.megamenu = [];

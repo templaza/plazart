@@ -69,7 +69,7 @@ defined('_JEXEC') or die;
                 </li>
                 <?php
                 foreach ($fieldSets as $name => $fieldSet) :
-                if (!in_array($name,array('layout_params', 'navigation_params', 'preset_params'))):
+                if (!in_array($name,array('layout_params', 'navigation_params', 'preset_params','font_params', 'color_params', 'dev_params','injection_params'))):
                     $label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_TEMPLATES_' . $name . '_FIELDSET_LABEL';
                     ?>
                     <li<?php echo $plazartlock == preg_replace('/\s+/', ' ', $name) ? ' class="active"' : '' ?>><a
@@ -99,7 +99,7 @@ defined('_JEXEC') or die;
             </div>
             <?php
             foreach ($fieldSets as $name => $fieldSet) :
-                if (!in_array($name,array('layout_params', 'navigation_params', 'preset_params'))):
+                if (!in_array($name,array('layout_params', 'navigation_params', 'preset_params','font_params', 'color_params', 'dev_params','injection_params'))):
                 ?>
                 <div class="tab-pane<?php echo $plazartlock == preg_replace('/\s+/', ' ', $name) ? ' active' : '' ?>"
                      id="<?php echo preg_replace('/\s+/', ' ', $name); ?>">

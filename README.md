@@ -34,6 +34,11 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+03/14/2016
+
+	Update Child Template: You can change the files in the folder "templates" and these files are still kept when you update the template. 
+	Update option save layout ajax
+
 01/13/16 - 4.9
 
     [bug fixed] Fixed error: Can't save data of custom html type when create new row in layout builder.

@@ -25,6 +25,9 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+jimport('joomla.filesystem.folder');
+jimport('joomla.filesystem.file');
+
 /**
  * Joomla! P3P Header Plugin
  *
@@ -45,9 +48,12 @@ class plgSystemPlazart extends JPlugin
 	//function onAfterInitialise(){
 	function onAfterRoute(){
 
+//        $doc    = JFactory::getDocument(;
+//        $doc    = $doc -> getInstance('Errror');
+
 		PlazartBot::preload();
 		$template = Plazart::detect();
-		if($template){			
+		if($template){
 			PlazartBot::beforeInit();
 			Plazart::init($template);
 			PlazartBot::afterInit();
@@ -57,7 +63,7 @@ class plgSystemPlazart extends JPlugin
 	}
 	
 	function onBeforeRender(){
-		if(Plazart::detect()){
+        if(Plazart::detect()){
 			$japp = JFactory::getApplication();
 			if($japp->isAdmin()){
 				$plazartapp = Plazart::getApp();
@@ -85,7 +91,26 @@ class plgSystemPlazart extends JPlugin
 	function onAfterRender ()
 	{
         if(defined('PLAZART_PLUGIN') && Plazart::detect()){
+
             $plazartapp = Plazart::getApp();
+
+            $app        = JFactory::getApplication();
+            $jinput     = $app -> input;
+            $paramsTem  = $app->getTemplate(true);
+
+            $checkComponent = $jinput->get('tmpl');
+
+            if($checkComponent == 'component') {
+//                $nameTem    = $paramsTem -> template;
+//                ob_start();
+//                    require_once JPATH_ROOT . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $nameTem . DIRECTORY_SEPARATOR . 'plzclf_component.php';
+//                    $contentCpn = ob_get_contents();
+//                ob_end_clean();
+//                ob_start();
+                $content    = JDocumentPlazartHTML::getInstance('PlazartHTML') -> render();
+                JResponse::setBody($content);
+            }
+
             if ($plazartapp) {
                 if (JFactory::getApplication()->isAdmin()) {
                     $plazartapp->render();
@@ -129,6 +154,7 @@ class plgSystemPlazart extends JPlugin
 	 */
 	function onContentPrepareForm($form, $data)
 	{
+
 		// extra option for menu item
 		/*if ($form->getName() == 'com_menus.item') {
 			$this->loadLanguage();
@@ -159,6 +185,7 @@ class plgSystemPlazart extends JPlugin
 
             //get App
             $plazartapp = Plazart::getApp();
+
             if ($plazartapp) {
                 if (JFactory::getApplication()->isAdmin()) {
                     // save preset
@@ -237,7 +264,8 @@ class plgSystemPlazart extends JPlugin
 	 *
 	 * @return  bool
 	 */
-//	function onRenderModule (&$module, $attribs)
+
+    //	function onRenderModule (&$module, $attribs)
 //	{
 //		static $chromed = false;
 //		// Detect layout path in Plazart themes
@@ -276,4 +304,24 @@ class plgSystemPlazart extends JPlugin
 //		}
 //		return false;
 //	}
+
+//    protected $modules  = array();
+//    public function onGetLayoutPath($module, $layout) {
+//        $this -> modules[$module]   = $layout;
+//    }
+//    public function onRenderModule($module, $attributes) {
+//        $params = new JRegistry($module -> params);
+//
+//        ob_start();
+//        require_once JPATH_SITE.'/modules/mod_login/mod_login.php';
+//        ob_end_clean();
+//
+//        ob_start();
+//        require_once JPATH_SITE.'/templates/plazart_blank/html/mod_login/acb_default.php';
+//        $content    = ob_get_contents();
+//        ob_end_clean();
+//        $module -> content  = $content;
+////        require_once
+//    }
+
 }

@@ -152,7 +152,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 		// update toolbox status
 		update_toolbox ();
-	}
+	};
 
 	actions.toggleGroup = function () {
 		if (!currentSelected) return ;
@@ -176,7 +176,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 		// update toolbox status
 		update_toolbox ();
-	}
+	};
 
 	actions.moveItemsLeft = function () {
 		if (!currentSelected) return ;
@@ -216,7 +216,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 		// update toolbox status
 		update_toolbox ();
-	}
+	};
 
 	actions.moveItemsRight = function () {
 		if (!currentSelected) return ;
@@ -254,7 +254,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 		// update toolbox status
 		show_toolbox (currentSelected);
-	}
+	};
 
 	actions.addRow = function () {
 		if (!currentSelected) return ;
@@ -265,7 +265,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		currentSelected = null;
 		// switch selected to new column
 		show_toolbox ($col);
-	}
+	};
 
 	actions.alignment = function () {
 		var liitem = currentSelected.closest ('li');
@@ -279,7 +279,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 		liitem.data('alignsub', actions.datas.align);
 		update_toolbox ();
-	}
+	};
 
 	actions.addColumn = function () {
 		if (!currentSelected) return ;
@@ -303,7 +303,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		});
 		// switch selected to new column
 		show_toolbox ($col);
-	}
+	};
 
 	actions.removeColumn = function () {
 		if (!currentSelected){
@@ -352,7 +352,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 
 		show_toolbox ($(nextActiveCol));
-	}
+	};
 
 	actions.hideWhenCollapse = function () {		
 		if (!currentSelected) return ;
@@ -376,7 +376,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 			}			
 		}
 		update_toolbox ();
-	}
+	};
 
 	// toggle screen
 	actions.toggleScreen = function () {
@@ -389,7 +389,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 			$('#plazart-admin-megamenu').closest('.controls').addClass ('plazart-admin-control-fixed');
 			$('.toolbox-togglescreen').addClass ('plazart-fullscreen-full').find('i').removeClass().addClass(actions.datas.iconsmall);
 		}
-	}
+	};
 
 	actions.saveConfig = function (e) {
 		var config = {},
@@ -465,11 +465,11 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 		curconfig[menutype] = config;
 		jmmconfig.val(JSON.stringify(curconfig));
-	}
+	};
 
 	toolbox_type = function () {
 		return currentSelected.hasClass ('nav-child') ? 'sub' : (currentSelected[0].tagName == 'DIV' ? 'col':'item');
-	}
+	};
 
 	hide_toolbox = function (show_intro) {
 		$('#plazart-admin-mm-tb .admin-toolbox').hide();
@@ -481,7 +481,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		} else {
 			$('#plazart-admin-mm-intro').hide();
 		}
-	}
+	};
 
 	show_toolbox = function (selected) {
 		hide_toolbox (false);
@@ -500,7 +500,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		update_toolbox (type);
 
 		$('#plazart-admin-mm-tb').show();
-	}
+	};
 
 	update_toolbox = function (type) {
 		if (!type) type = toolbox_type ();
@@ -620,13 +620,13 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 					
 				break;
 		}
-	}
+	};
 
 	update_toggle = function (toggle, val) {
 		$input = toggle.find('input[value="'+val+'"]');
 		$input.attr('checked', 'checked');
 		$input.trigger ('update');
-	}
+	};
 
 	apply_toolbox = function (input) {
 		var name = $(input).data ('name'), 
@@ -691,7 +691,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 				}
 				break;
 		}
-	}
+	};
 
 	defaultColumnsWidth = function (count) {
 		if (count < 1) return null;
@@ -703,7 +703,7 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 		}
 		widths[count - 1] = total - min*(count-1);
 		return widths;
-	}
+	};
 
 	bindEvents = function (els) {
 		if (megamenu.data('nav_all')) 
@@ -728,12 +728,12 @@ var PlazartAdminMegamenu = window.PlazartAdminMegamenu || {};
 			event.stopPropagation();                
 			return false;
 		});
-	}
+	};
 
 	unbindEvents = function (els) {
 		megamenu.data('nav_all', megamenu.data('nav_all').not(els));
 		els.unbind('mouseover').unbind('mouseout').unbind('click');
-	}
+	};
 
 	rebindEvents = function (els) {
 		unbindEvents(els);

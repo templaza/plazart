@@ -15,6 +15,7 @@
 Plazart::import('menu/megamenu.tpl');
 
 class PlazartMenuMegamenu {
+
 	protected $children = array();
 	protected $_items = array();
 	protected $settings = null;
@@ -177,6 +178,7 @@ class PlazartMenuMegamenu {
 	}
 	
 	function render($return = false) {
+
 		$this->menu = '';
 		
 		$this->_('beginmenu');

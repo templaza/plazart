@@ -309,7 +309,8 @@ class JPagination
 		$listOverride = false;
 
 		// Plazart: detect if chrome pagination.php in template or in plugin
-		$chromePath = PlazartPath::getPath ('html/pagination.php');		
+		$chromePath = PlazartPath::getPath ('html/pagination.php');
+
 		//$chromePath = JPATH_THEMES . '/' . $app->getTemplate() . '/html/pagination.php';
 		if (file_exists($chromePath))
 		{
@@ -426,7 +427,8 @@ class JPagination
 		$list['pageslinks'] = $this->getPagesLinks();
 
 		// Plazart: detect if chrome pagination.php in template or in plugin
-		$chromePath = PlazartPath::getPath ('html/pagination.php');		
+		$chromePath = PlazartPath::getPath ('html/pagination.php');
+
 		//$chromePath = JPATH_THEMES . '/' . $app->getTemplate() . '/html/pagination.php';
 		if (file_exists($chromePath))
 		{

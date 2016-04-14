@@ -5,7 +5,7 @@
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2011 All Rights Reserved
+ * @copyright       Copyright ï¿½ 2011 All Rights Reserved
  *                  Brandon IT Consulting (http://www.metamodpro.com)
  *                  NoNumber (http://www.nonumber.nl)
  *                  JoomlArt (http://www.joomlart.com)

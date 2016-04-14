@@ -40,26 +40,80 @@ class PlazartPath extends JObject
 	 * Get path in tpls folder. If found in template, use the path, else try in plugin plazart
 	 */
 	public static function getPath ($file, $default = '', $relative = false) {
-		$return = '';
-		if (is_file (PLAZART_TEMPLATE_PATH . '/' . $file)) $return = ($relative ? PLAZART_TEMPLATE_REL : PLAZART_TEMPLATE_PATH) . '/' . $file;
+
+        $return = '';
+        if($relative == false) {
+            $fileRoot   = PLAZART_TEMPLATE_PATH . '/' . $file;
+            if(is_file($fileRoot)) {
+
+                // overrider child template
+                $app =  JFactory::getApplication('site');
+                $getTemplate    = $app -> getTemplate(true);
+                $paramsTem      = $getTemplate -> params;
+                $fileOvClf      = $paramsTem -> get('ov_clr_file','plz_child_');
+
+                $nameFile   = JFile::getName($fileRoot);
+                $fileCheck  = $fileOvClf.JFile::getName($fileRoot);
+                $pathCheck  = str_replace($nameFile,$fileCheck,$fileRoot);
+                if(is_file($pathCheck)) {
+                    $return = $pathCheck;
+                }else {
+                    if (is_file (PLAZART_TEMPLATE_PATH . '/' . $file)) $return = ($relative ? PLAZART_TEMPLATE_REL : PLAZART_TEMPLATE_PATH) . '/' . $file;
+                }
+            }
+        }else {
+            if (is_file (PLAZART_TEMPLATE_PATH . '/' . $file)) $return = ($relative ? PLAZART_TEMPLATE_REL : PLAZART_TEMPLATE_PATH) . '/' . $file;
+        }
+
 		if (!$return && is_file (PLAZART_PATH . '/' . $file)) $return = ($relative ? PLAZART_REL : PLAZART_PATH) . '/' . $file;
 		if (!$return && $default) $return = self::getPath ($default);
+
 		return $return;
+
 	}
  
 	/**
 	 * Get path in tpls folder. If found in template, use the path, else try in plugin plazart
 	 */
 	public static function getUrl ($file, $default = '', $relative = false) {
+
 		$return = '';
-		if (is_file (PLAZART_TEMPLATE_PATH . '/' . $file)) $return =  ($relative ? PLAZART_TEMPLATE_REL : PLAZART_TEMPLATE_URL) . '/' . $file;
+        if($relative == false) {
+            $fileRoot   = PLAZART_TEMPLATE_PATH . '/' . $file;
+            if(is_file($fileRoot)) {
+
+                // overrider child template
+                $app =  JFactory::getApplication('site');
+                $getTemplate    = $app -> getTemplate(true);
+                $paramsTem      = $getTemplate -> params;
+                $fileOvClf      = $paramsTem -> get('ov_clr_file','plz_child_');
+
+                $nameFile   = JFile::getName($fileRoot);
+                $fileCheck  = $fileOvClf.JFile::getName($fileRoot);
+                $pathCheck  = str_replace($nameFile,$fileCheck,$fileRoot);
+
+                if(is_file($pathCheck)) {
+
+                    $fileAdd    = PLAZART_TEMPLATE_URL.'/'.$file;
+                    $return     = str_replace($nameFile,$fileCheck,$fileAdd);
+
+                }else {
+
+                    if (is_file (PLAZART_TEMPLATE_PATH . '/' . $file)) $return = ($relative ? PLAZART_TEMPLATE_REL : PLAZART_TEMPLATE_URL) . '/' . $file;
+                }
+            }
+        }else {
+            if (is_file (PLAZART_TEMPLATE_PATH . '/' . $file)) $return =  ($relative ? PLAZART_TEMPLATE_REL : PLAZART_TEMPLATE_URL) . '/' . $file;
+        }
+
 		if (!$return && is_file (PLAZART_PATH . '/' . $file)) $return =  ($relative ? PLAZART_REL : PLAZART_URL) . '/' . $file;
 		if (!$return && $default) $return =  self::getUrl ($default);
+
 		return $return;
 	}
 
 	public static function cleanPath ($path) {
-		$pattern = '/\w+\/\.\.\//';
+        $pattern = '/\w+\/\.\.\//';
 		while(preg_match($pattern,$path)){
 			$path = preg_replace($pattern, '', $path);
 		}
@@ -110,7 +164,8 @@ class PlazartPath extends JObject
 	}
 
 	public static function updateUrl ($css, $src) {
-		self::$srcurl = $src;
+
+        self::$srcurl = $src;
 
 		$css = preg_replace_callback('/@import\\s+([\'"])(.*?)[\'"]/', array('PlazartPath', 'replaceurl'), $css);
 		$css = preg_replace_callback('/url\\(\\s*([^\\)\\s]+)\\s*\\)/', array('PlazartPath', 'replaceurl'), $css);

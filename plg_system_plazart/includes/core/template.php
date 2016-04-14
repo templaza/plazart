@@ -546,6 +546,7 @@ class PlazartTemplate extends ObjectExtendable
         if(version_compare(JVERSION, '3.0', 'ge')){
             $doc = JFactory::getDocument();
             $scripts = array();
+
             foreach ($doc->_scripts as $url => $script) {
                 if(strpos($url, PLAZART_URL.'/bootstrap'.$legacy.'/js/bootstrap.min.js') !== false || strpos($url, PLAZART_TEMPLATE_URL.'/bootstrap'.$legacy.'/js/bootstrap.min.js') !== false){
                     $plazartbootstrap = true;
@@ -570,7 +571,6 @@ class PlazartTemplate extends ObjectExtendable
             $doc->_scripts = $scripts;
         }
         // end update javascript
-
         $minify = $this->getParam('minify', 0);
         $minifyjs = $this->getParam('minify_js', 0);
         $devmode    = $this->getParam('devmode', 0);
@@ -752,6 +752,7 @@ class PlazartTemplate extends ObjectExtendable
      */
     public static function themePath($base=false)
     {
+
         if( $base==true ) return JURI::root(true).'/templates/'.self::getInstance()->themeName();
 
         return  JPATH_THEMES . '/' . self::getInstance()->themeName();

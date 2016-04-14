@@ -110,8 +110,7 @@
             html.push('<span title="' + tiny.toHexString() + '" data-color="' + tiny.toRgbString() + '" class="' + c + '"><span class="sp-thumb-inner" style="' + swatchStyle + ';" /></span>');
         }
         return "<div class='sp-cf " + className + "'>" + html.join('') + "</div>";
-    };
-
+    }
     function hideAll() {
         for (var i = 0; i < spectrums.length; i++) {
             if (spectrums[i]) {
@@ -987,7 +986,7 @@
 
             return tinycolor(color);
 
-        }
+        };
 
         // Given a string or object, convert that input to RGB
         // Possible string inputs:
@@ -1312,7 +1311,7 @@
             slices = slices || 30;
 
             var hsl = tinycolor(color).toHsl();
-            var part = 360 / slices
+            var part = 360 / slices;
             var ret = [tinycolor(color)];
 
             hsl.h *= 360;

@@ -225,9 +225,8 @@ class PlazartAction extends JObject
 		}
 
 		Plazart::import('admin/megamenu');
-		
 		if(method_exists('PlazartAdminMegamenu', $action)){
-			PlazartAdminMegamenu::$action();	
+			PlazartAdminMegamenu::$action();
 			exit;
 		} else {
 			die(json_encode(array(
@@ -289,4 +288,200 @@ class PlazartAction extends JObject
 		echo "Positions for layout [$layout]: <br />";
 		var_dump ($plazartapp->getPositions());
 	}
+
+
+    ////////////////////////////////////////////////// Child template //////////////////////////////////////////////////
+
+    public static function getParams() {
+
+        $app    = JFactory::getApplication();
+        $tpl    = $app->getTemplate(true);
+        $params = $tpl -> params;
+
+        return $params;
+    }
+
+    public static function copy_file(){
+
+        $params     = self::getParams();
+        $clfFile    = $params->get('ov_clr_file','plz_child_');
+
+        $mess       = array();
+        $data       = array();
+
+        $getValue   = $_POST['fieldvalue'];
+        $fileValue  = json_decode($getValue);
+        $fileName   = $fileValue -> name;
+        $filePath   = $fileValue -> id;
+
+        $fileCopy   = JPath::clean($filePath);
+        $fileChild  = str_replace($fileName,$clfFile.$fileName,$filePath);
+        // check file child
+        if(is_file($fileChild)) {
+            $mess[]             = 'The file exists. You can\'t create a new one.';
+            $data['status']     = 0;
+        }else {
+            JFile::copy($fileCopy, $fileChild);
+            $mess[] = 'The file copy success';
+            $data['status'] = 1;
+            $data['newFile']    = str_replace($fileName,$clfFile.$fileName,$getValue);
+        }
+        $data['mess'] = $mess;
+
+        echo json_encode($data);
+
+    }
+
+    public static function delete_file() {
+
+        $params     = self::getParams();
+        $clfFile    = $params->get('ov_clr_file','plz_child_');
+
+        $mess       = array();
+        $data       = array();
+
+        $getFile    = $_POST['fileDelete'];
+        $fileDelete = json_decode($getFile);
+        $fileName   = $fileDelete->name;
+        $filePath   = $fileDelete->id;
+
+        $deleteFile = JPath::clean($filePath);
+
+        if(is_file($deleteFile)) {
+
+            $statusDel  = JFile::delete($deleteFile);
+
+            if (!$statusDel)
+            {
+                $mess[]             = 'Can not delete file';
+                $data['status']     = 0;
+            }else {
+                $mess[]             = 'Delete file success';
+                $data['status']     = 1;
+
+                // name file old
+                $fileNameO          = str_replace($clfFile,'',$fileName);
+                $fileOld            = str_replace($fileName,$fileNameO,$getFile);
+                $data['fileOld']    = $fileOld;
+
+            }
+
+        }else {
+            $mess[]             = 'File '.$fileName.' not exists';
+            $data['status']     = 0;
+        }
+
+        $data['mess'] = $mess;
+
+        echo json_encode($data);
+    }
+
+    public static function edit_file() {
+
+        $params     = self::getParams();
+        $clfFile    = $params->get('ov_clr_file','plz_child_');
+
+        $mess       = array();
+        $data       = array();
+
+        $getFile    = $_POST['fileEdit'];
+        $fileEdit   = json_decode($getFile);
+        $fileName   = $fileEdit->name;
+        $fileID     = $fileEdit->id;
+        $filePath   = $fileEdit->short_path;
+
+        // check file
+        if(is_file($fileID)) {
+            $data['fileContent']    = htmlspecialchars(JFile::read($fileID));
+            $data['status']         = 1;
+            $mess[]                 = '';
+        }else {
+            $data['fileContent']    = '';
+            $data['status']         = 0;
+            $mess[]                 = 'File not edit';
+        }
+        $data['filePath']          = $filePath;
+        $data['mess'] = $mess;
+
+        echo json_encode($data);
+
+    }
+
+    public static function save_file() {
+
+        $params     = self::getParams();
+        $clfFile    = $params->get('ov_clr_file','plz_child_');
+
+        $mess       = array();
+        $data       = array();
+
+        $getFile    = $_POST['fileSave'];
+        $fileSave   = json_decode($getFile);
+        $fileName   = $fileSave->name;
+        $fileID     = $fileSave->id;
+        $filePath   = $fileSave->short_path;
+        $newfile    = $_POST['newData'];
+
+        // check file in class subfix
+        $check      = strpos($fileName,$clfFile);
+        if($check === false) {
+            $mess[]         = 'You can not write file root';
+            $data['status'] = 0;
+        }else {
+            if(isset($newfile) && $newfile != '') {
+                if (!JFile::write($fileID, $newfile)) {
+                    $mess[]         = 'File not write';
+                    $data['status'] = 0;
+                }else {
+                    $mess[]         = 'File saved successfully';
+                    $data['status'] = 1;
+                }
+            }
+        }
+
+        $data['mess'] = $mess;
+
+        echo json_encode($data);
+
+    }
+
+    public static function saveAjaxLayout() {
+
+        $getValue       = $_POST['fieldvalue'];
+        $paramGenerate  = $getValue['jform']['params']['generate'];
+        $generate       = json_encode($paramGenerate);
+        $app    = JFactory::getApplication();
+        $tpl    = $app->getTemplate(true);
+        $params = $tpl -> params;
+        $id     = $tpl -> id;
+
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+
+        $query
+            ->update('#__plazart_styles')
+            ->set('style_content =' . $db->quote($generate))
+            ->where('style_id =' . (int)$id);
+
+        $db->setQuery($query);
+        $db->execute();
+        $data       = array();
+        if($db->execute()) {
+            $data['status'] = true;
+        }else {
+            $data['status'] = false;
+        }
+
+        echo json_encode($data);
+    }
+
 }
+
+
+
+
+
+
+
+
+

@@ -368,7 +368,6 @@ class JFormFieldPlazartDepend extends JFormField
 			if (!empty($option['func'])){
 				$fparams['func'] = (string)$option['func'];
 			}
-
 			$fcalls[] = 'PlazartDepend.addajax(\'' . $this->getName($option['for']) . '\', ' . json_encode($fparams) . ');';
 		endforeach;
 		?>

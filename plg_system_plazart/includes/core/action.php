@@ -448,12 +448,9 @@ class PlazartAction extends JObject
     public static function saveAjaxLayout() {
 
         $getValue       = $_POST['fieldvalue'];
+        $idTemplate     = $_GET['id'];
         $paramGenerate  = $getValue['jform']['params']['generate'];
         $generate       = json_encode($paramGenerate);
-        $app    = JFactory::getApplication();
-        $tpl    = $app->getTemplate(true);
-        $params = $tpl -> params;
-        $id     = $tpl -> id;
 
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
@@ -461,7 +458,7 @@ class PlazartAction extends JObject
         $query
             ->update('#__plazart_styles')
             ->set('style_content =' . $db->quote($generate))
-            ->where('style_id =' . (int)$id);
+            ->where('style_id =' . (int)$idTemplate);
 
         $db->setQuery($query);
         $db->execute();

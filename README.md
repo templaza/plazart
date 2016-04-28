@@ -34,6 +34,14 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+04/28/2016 - 5.2
+
+	Fixed the error of clicking on the responsive layout buttons.
+
+03/19/2016 - 5.1
+
+	Fixed error save layout ajax
+
 03/14/16 - 5.0
 
 	Update Child Template: You can change the files in the folder "templates" and these files are still kept when you update the template. 

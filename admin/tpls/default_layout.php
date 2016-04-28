@@ -69,14 +69,18 @@ if(isset($layoutSave) && $layoutSave != '' && $layoutSave != 0) {
 
     <?php endforeach; ?>
 </fieldset>
+<?php
+    $idTemplate = JFactory::getApplication()->input->get('id');
+?>
 <script type="text/javascript">
 
     jQuery(document).ready(function($){
 
         $('#config_manager_layoutsave-btn').live('click', function(e){
             var url_base    = "<?php echo JUri::root();?>";
+            var IDTemplate  = <?php echo $idTemplate;?>;
             var result      = '';
-            window.saveAjaxLayout(url_base);
+            window.saveAjaxLayout(url_base,IDTemplate);
         });
         <?php if($layoutSave == 0):?>
         document.adminForm.onsubmit = function() {

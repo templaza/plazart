@@ -76,7 +76,9 @@ class JFormFieldPlazartFolderList extends JFormFieldFolderList
         $this->hideDefault = ($hideDefault == 'true' || $hideDefault == 'hideDefault' || $hideDefault == '1');
 
         // Get the path in which to search for file options.
-        $this->directory = (string) $this->element['directory'];
+		$directory = (string)$this->element['directory'];
+        $directory = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $directory);
+        $this->directory = $directory;
 		
  		return parent::getOptions();
 	}

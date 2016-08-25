@@ -34,6 +34,11 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+08/25/2016 - 5.3
+
+	Fixed error at option "Theme" in tab Template.
+	Fixed error: Class 'T3' not found when use Optimize JS.
+
 04/28/2016 - 5.2
 
 	Fixed the error of clicking on the responsive layout buttons.

@@ -133,7 +133,7 @@ class Minify_JS_ClosureCompiler {
     protected function _fallback($js)
     {
         //T3 Framework
-        T3::import('minify/jsmin');
+        Plazart::import('minify/jsmin');
         return JSMin::minify($js);
     }
 }

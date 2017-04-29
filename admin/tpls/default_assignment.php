@@ -34,7 +34,7 @@ $user = JFactory::getUser();
 
     <div class="controls plazart-controls">
       <div class="btn-toolbar">
-        <button type="button" class="btn" onclick="$$('.chk-menulink').each(function(el) { el.checked = !el.checked; });">
+        <button type="button" class="btn" onclick="jQuery('.chk-menulink').attr('checked', !jQuery('.chk-menulink').attr('checked'));">
           <i class="icon-checkbox-partial"></i> <?php echo JText::_('JGLOBAL_SELECTION_INVERT'); ?>
         </button>
       </div>

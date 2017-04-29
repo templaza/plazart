@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+04/29/2017 - 5.4
+
+	Fixed error styles in back-end with joomla v3.7.
+
 08/25/2016 - 5.3
 
 	Fixed error at option "Theme" in tab Template.

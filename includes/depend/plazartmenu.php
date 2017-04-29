@@ -70,8 +70,8 @@ class JFormFieldPlazartMenu extends JFormField
 
         $query = $db->getQuery(true)
             ->select('menutype, language')
-            ->from($db->quoteName('#__menu'))
-            ->where('home = 1');
+            ->from($db->quoteName('#__menu'));
+            //->where('home = 1');
         $db->setQuery($query);
         $menulangs = $db->loadAssocList('menutype');
 

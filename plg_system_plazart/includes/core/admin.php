@@ -51,6 +51,9 @@ class PlazartAdmin {
             if(preg_match('/jQuery\(\'select\'\)\.chosen\(\{/',$body)){
                 $body   = preg_replace('/jQuery\(\'select\'\)\.chosen\(\{.*\}\)\;/','',$body);
             }
+            if(preg_match('/initChosen\(\)\;/',$body)){
+                $body   = preg_replace('/initChosen\(\)\;/','',$body);
+            }
         }
 
         JResponse::setBody($body);
@@ -122,10 +125,17 @@ class PlazartAdmin {
             $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/bootstrap/js/bootstrap.js');
             $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.noconflict.js');
         }
-
-        $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.css');
+        if(!$jversion->isCompatible('3.7')) {
+            $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.css');
+        }
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/includes/depend/css/depend.css');
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin.css');
+
+
+        if($jversion->isCompatible('3.7')) {
+            $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j37.css');
+        }
+
         if(!$jversion->isCompatible('3.0')){
             $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j25.css');
         } else {
@@ -135,7 +145,10 @@ class PlazartAdmin {
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-layout.css');
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/spectrum.css');
 
-        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.jquery.min.js');
+
+        if(!$jversion->isCompatible('3.7')) {
+            $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/plugins/chosen/chosen.jquery.min.js');
+        }
         $jdoc->addScript(PLAZART_ADMIN_URL . '/includes/depend/js/depend.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/json2.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jimgload.js');
@@ -145,7 +158,7 @@ class PlazartAdmin {
         $jdoc->addScript(JUri::root(true).'/media/editors/codemirror/lib/addons.min.js');
         $jdoc->addStyleSheet(JUri::root(true).'/media/editors/codemirror/lib/codemirror.min.css');
         $jdoc->addStyleSheet(JUri::root(true).'/media/editors/codemirror/lib/addons.min.css');
-        // $jdoc->addScriptDeclaration('');
+
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/admin.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery-ui.min.js ');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.serialize-object.js');

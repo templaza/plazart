@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+05/08/2017 - 5.5
+
+	Fix error styles in version 5.4: Can't select block's background.
+
 04/29/2017 - 5.4
 
 	Fixed error styles in back-end with joomla v3.7.

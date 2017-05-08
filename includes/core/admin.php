@@ -131,7 +131,6 @@ class PlazartAdmin {
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/includes/depend/css/depend.css');
         $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin.css');
 
-
         if($jversion->isCompatible('3.7')) {
             $jdoc->addStyleSheet(PLAZART_ADMIN_URL . '/admin/css/admin-j37.css');
         }
@@ -182,6 +181,7 @@ class PlazartAdmin {
 			PlazartAdmin.plazartupdateurl = \'' . JURI::base() . 'index.php?option=com_installer&view=update&task=update.ajax' . '\';
 			PlazartAdmin.jupdateUrl = \'' . JURI::base() . 'index.php?option=com_installer&view=update' . '\';
 			PlazartAdmin.documentation = \'' . addslashes($xml->documentation) . '\';
+			PlazartAdmin.jversion = \'' . $jversion -> getShortVersion() . '\';
 
 			var tzclient = new Object();
 			tzclient.name = \''.$xml->name.'\';

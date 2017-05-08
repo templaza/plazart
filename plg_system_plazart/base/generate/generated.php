@@ -17,6 +17,7 @@
  */
 // No direct access
 defined('_JEXEC') or die();
+
 if( !function_exists('get_value') ){
 
     function get_value($item, $method){
@@ -223,19 +224,52 @@ if( !function_exists('get_color') ){
         <div class="row-fluid">
             <div class="span6 rowcolorOuter">
                 <label>Background Image: </label>
-                <div class="input-prepend input-append">
-                    <div class="media-preview add-on">
-                        <span title="" class="hasTipPreview"><span class="icon-eye"></span></span>
+                <div class="tzfield-media-wrapper"
+                     data-basepath="<?php echo JUri::root(); ?>"
+                     data-url="index.php?option=com_media&view=images&tmpl=component&asset=com_templates&author=&folder=&fieldid={field-media-id}&ismoo=0"
+                     data-preview="true"
+                     data-modal=".modal"
+                     data-modal-width="100%"
+                     data-modal-height="400px"
+                     data-input=".field-media-input"
+                     data-button-select=".button-select"
+                     data-button-clear=".button-clear"
+                     data-button-save-selected=".button-save-selected"
+                     data-preview-as-tooltip="true"
+                     data-preview-container=".field-media-preview">
+                    <div class="input-prepend input-append">
+                        <?php $jversion  = new JVersion;?>
+                        <?php if(!$jversion -> isCompatible('3.7')){?>
+                        <div class="media-preview add-on field-media-preview" rel="popover">
+                            <span title="" class="hasTipPreview"><span class="icon-eye"></span></span>
+                        </div>
+                        <?php }else{ ?>
+                        <span rel="popover" class="add-on pop-helper field-media-preview"
+                              title="<?php echo	JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'); ?>" data-content="<?php echo JText::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY'); ?>"
+                              data-original-title="<?php echo JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'); ?>" data-trigger="hover">
+                            <span class="icon-eye" aria-hidden="true"></span>
+                        </span>
+                        <?php }?>
+                        <input type="text" class="rowbackgroundimage<?php echo $jversion -> isCompatible('3.7')?' hasTooltip field-media-input':'';?>" readonly="readonly"
+                               title="<?php echo htmlspecialchars('<span class="TipImgpath"></span>', ENT_COMPAT, 'UTF-8');?>"
+                               aria-invalid="false"
+                               value="">
+                        <a rel="{handler: 'iframe', size: {x: 800, y: 500}}" title="<?php echo JText::_('JSELECT');?>"
+                           class="btn hasTooltip btn-info<?php echo ($jversion -> isCompatible('3.7'))?' button-select':' modal';?>"><span class="icon-folder"></span></a>
+                        <a href="javascript: void(0)" title="<?php echo JText::_('JCLEAR');?>"
+                           class="btn btn-danger tz_btn-clear-image hasTooltip button-clear">
+                            <span class="icon-remove"></span></a>
                     </div>
-                    <input type="text" class="rowbackgroundimage" readonly="readonly"
-                           title="<?php echo htmlspecialchars('<span class="TipImgpath"></span>', ENT_COMPAT, 'UTF-8');?>"
-                           aria-invalid="false"
-                           value="">
-                    <a rel="{handler: 'iframe', size: {x: 800, y: 500}}" title="<?php echo JText::_('JSELECT');?>"
-                       class="modal btn btn-info"><span class="icon-folder"></span></a>
-                    <a href="javascript: void(0)" title="<?php echo JText::_('JCLEAR');?>"
-                       class="btn btn-danger tz_btn-clear-image hasTooltip">
-                        <span class="icon-remove"></span></a>
+
+
+                    <div class="modal hide fade modal__rowbackgroundimage">
+                        <div class="modal-header"><button type="button" class="close novalidate" data-dismiss="modal">×</button><h3><?php
+                                echo JText::_('JLIB_FORM_CHANGE_IMAGE'); ?></h3>
+                        </div>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer"><button type="button" class="btn" data-dismiss="modal"><?php
+                                echo JText::_('JCANCEL');?></button></div>
+                    </div>
                 </div>
             </div>
             <div class="span6 rowcolorOuter">

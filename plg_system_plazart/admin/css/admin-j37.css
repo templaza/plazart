@@ -1,3 +1,8 @@
 .btn-config.active{background: #e6e6e6;}
 #plazart-admin-device .btn.active{background: #e3e3e3;}
 a.btn-config:hover, a.btn-config:active, a.btn-config:focus{color: inherit;}
+#plazart-layout-config .row-tools .input-prepend.input-append .btn:not(:last-child){-webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0;}
+#plazart-layout-config .popover .popover.right .arrow {left: -11px;right: auto;border-right-width: 11px;border-left-color: transparent;border-right-color: rgba(0,0,0,0.25);}
+#plazart-layout-config .popover .popover.right .arrow:after{border-right-width: inherit;}
+#plazart-layout-config .popover .popover{width: auto; padding: 0; max-width: 300px;}
+#plazart-layout-config .popover .popover .popover-content{padding: 9px 14px;}

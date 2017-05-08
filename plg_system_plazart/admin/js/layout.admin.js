@@ -668,7 +668,6 @@ jQuery(function($){
             placement:'left',
             //container:'body',
             content:function(){
-
                 var id = $(this).attr('href');
 
 
@@ -732,7 +731,6 @@ jQuery(function($){
                         '<img id="'+ $obj.attr("id") + '_preview" src="'+ $backgroundImageRootUrl + $obj.val()
                         + '" alt="" class="media-preview" style="max-width: 160px;"/></div>';
 
-
                     $this.parent().find(">.popover .hasTipPreview").each(function() {
                         var mtelement = document.id(this);
                         mtelement.store('tip:title', 'Selected image.');
@@ -778,25 +776,40 @@ jQuery(function($){
                         $rowBackgroundImageId   = "rowbackgroundimage" + $date.getTime();
                     $rowbackgroundImage.attr("id", $rowBackgroundImageId);
 
-                    tzMediaTooltip($this, $rowbackgroundImage);
+                    $rowbackgroundImage.val(value);
 
-                    tzMediaRefreshImgpathTip($rowbackgroundImage);
+                    if(PlazartAdmin.jversion && PlazartAdmin.jversion < "3.7.0") {
+                        tzMediaTooltip($this, $rowbackgroundImage);
 
-                    SqueezeBox.initialize({});
-                    $this.parent().find(">.popover .modal").off("click").on("click",function(e){
-                        e.preventDefault();
-                        SqueezeBox.fromElement(this, {
-                            parse: "rel",
-                            url: "index.php?option=com_media&view=images&tmpl=component&asset=com_templates&author=&folder=&fieldid=" +$rowBackgroundImageId
+                        tzMediaRefreshImgpathTip($rowbackgroundImage);
+
+                        SqueezeBox.initialize({});
+                        $this.parent().find(">.popover .modal").off("click").on("click",function(e){
+                            e.preventDefault();
+
+                            SqueezeBox.fromElement(this, {
+                                parse: "rel",
+                                url: "index.php?option=com_media&view=images&tmpl=component&asset=com_templates&author=&folder=&fieldid=" +$rowBackgroundImageId
+                            });
                         });
-                    });
+                    }else {
+                        $this.parent().find('>.popover .rowbackgroundimage').attr("title", value);
+                        $this.parent().find(">.popover .modal__rowbackgroundimage").attr("id", $rowBackgroundImageId)
+                            .end().find(">.popover .tzfield-media-wrapper")
+                            .data("url", "index.php?option=com_media&view=images&tmpl=component&asset=com_templates&author=&folder=&fieldid=" + $rowBackgroundImageId + "&ismoo=0")
+                            .fieldMedia();
+                    }
                     $this.parent().find(">.popover .tz_btn-clear-image").off("click").on("click",function(e){
                         e.preventDefault();
                         $rowbackgroundImage.val('');
                         currentBackgroundImage.val('');
+                        if(PlazartAdmin.jversion && PlazartAdmin.jversion >= "3.7.0") {
+                            var $tzFieldMedia   = $this.parent().find(">.popover .tzfield-media-wrapper").data("fieldMedia");
+                            if($tzFieldMedia) {
+                                $tzFieldMedia.updatePreview();
+                            }
+                        }
                     });
-
-                    $this.parent().find('>.popover .rowbackgroundimage').val(value);
                 }, 300, $(this), currentBackgroundImage.val());
 
                 $("#content,#element-box").delegate(".popover input.rowbackgroundimage",'change', function(event){
@@ -805,7 +818,12 @@ jQuery(function($){
                     var newName = $(this).val();
                     $(this).parents('.popover').parent().prev().find('>span.rowdocs>.rowbackgroundimageinput').val(newName);
 
-                    tzMediaRefreshPreview($(this).attr("id"));
+                    if(PlazartAdmin.jversion && PlazartAdmin.jversion < "3.7.0") {
+                        tzMediaRefreshPreview($(this).attr("id"));
+                    }else{
+                        $(this).parents('.popover').parent().find('>.popover .rowbackgroundimage').attr("title", newName);
+                        $(this).parents('.popover').parent().find(".hasTooltip").tooltip();
+                    }
                 });
                 // End background image script
 

@@ -170,19 +170,17 @@ class PlazartMinify
         $mediagroup['all'] = array();
         $mediagroup['screen'] = array();
         foreach ($doc->_styleSheets as $url => $stylesheet) {
-            $media = $stylesheet['media'] ? $stylesheet['media'] : 'all';
+            $media = isset($stylesheet['media']) ? $stylesheet['media'] : 'all';
             if (empty($mediagroup[$media])) {
                 $mediagroup[$media] = array();
             }
             $mediagroup[$media][$url] = $stylesheet;
         }
-
         foreach ($mediagroup as $media => $group) {
             $stylesheets = array(); // empty - begin a new group
             foreach ($group as $url => $stylesheet) {
                 $url = self::fixUrl($url);
-
-                if ($stylesheet['mime'] == 'text/css' && ($csspath = self::cssPath($url))) {
+                if ($stylesheet['type'] == 'text/css' && ($csspath = self::cssPath($url))) {
                     $stylesheet['path'] = $csspath;
                     $stylesheet['data'] = file_get_contents($csspath);
 
@@ -237,7 +235,6 @@ class PlazartMinify
                     $stylesheets = array(); // empty - begin a new group
                 }
             }
-
             if(count($stylesheets)){
                 $cssgroup = array();
                 $groupname = array();
@@ -299,12 +296,9 @@ class PlazartMinify
                     $grouptime = @filemtime($groupfile);
                     @chmod($groupfile, 0644);
                 }
-
-                $output[$outputurl . '/' . $groupname.'?t='.($grouptime % 1000)] = array(
-                    'mime' => 'text/css',
-                    'media' => $media == 'all' ? NULL : $media,
-                    'attribs' => array()
-                );
+                $output_array['type'] = 'text/css';
+                if ($media != 'all') $output_array['media'] = $media;
+                $output[$outputurl . '/' . $groupname.'?t='.($grouptime % 1000)] = $output_array;
             }
         }
 
@@ -416,8 +410,7 @@ class PlazartMinify
         foreach ($doc->_scripts as $url => $script) {
 
             $url = self::fixUrl($url);
-
-            if ($script['mime'] == 'text/javascript' && ($jspath = self::jsPath($url))) {
+            if ($script['type'] == 'text/javascript' && ($jspath = self::jsPath($url))) {
 
                 $script['path'] = $jspath;
                 $script['data'] = file_get_contents($jspath);

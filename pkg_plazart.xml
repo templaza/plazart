@@ -2,7 +2,7 @@
 <extension type="package" version="2.5" method="upgrade">
     <name>Plazart Framework Package</name>
     <packagename>plazart</packagename>
-    <version>5.4</version>
+    <version>5.7</version>
     <url>http://www.templaza.com</url>
     <creationDate>May 09, 2014</creationDate>
     <copyright>(C) 2012 - 2014. All rights reserved.</copyright>

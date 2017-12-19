@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+12/19/2017 - 5.7
+
+	Fix error load folders and files in override tab (Can't submit form when click save button).
+
 12/05/2017 - 5.6
 
 	Fix error minify css and js with Joomla 3.8.

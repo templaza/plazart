@@ -18,7 +18,8 @@ $this->direction = $doc->direction;
 JHtml::_('bootstrap.framework');
 
 // Add Stylesheets
-$doc->addStyleSheet($this->baseurl . '/templates/' . $this->template . '/css/template.css');
+$doc->addStyleSheet($this->baseurl . '/templates/' . $this->template . '/bootstrap/css/bootstrap.min.css');
+$doc->addStyleSheet($this->baseurl . '/templates/' . $this->template . '/css/themes/default/template.css');
 
 // Load optional rtl Bootstrap css and Bootstrap bugfixes
 JHtmlBootstrap::loadCss($includeMaincss = false, $this->direction);
@@ -33,7 +34,7 @@ JHtmlBootstrap::loadCss($includeMaincss = false, $this->direction);
     <script src="<?php echo JUri::root(true); ?>/media/jui/js/html5.js"></script>
     <![endif]-->
 </head>
-<body class="contentpane modal">
+<body class="contentpane">
 <jdoc:include type="message" />
 <jdoc:include type="component" />
 </body>

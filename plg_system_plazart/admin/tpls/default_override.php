@@ -62,7 +62,7 @@ $tpl_path_root  = $PlazartChildOverride->_path;
 
                 endforeach; ?>
                 <?php
-                if (is_array($ovListAll) && !empty($ovListAll)) {
+                if (!empty($ovListAll) && is_array($ovListAll)) {
                 ?>
                 <ul class="nav nav-list directory-tree">
                     <?php
@@ -78,18 +78,21 @@ $tpl_path_root  = $PlazartChildOverride->_path;
                             }
 
                             if($folderExisted) {
-                                echo '<li class="folder-1 plz-folder">';
                                 $exfolder = explode('/', $key);
-                                echo '<a class="plz-ov-child folder-url nowrap"><i class="icon-folder-open">&nbsp;</i><span>'.end($exfolder).'</span></a>';
-                                echo '<ul class="folder-2">';
-                            }
+                    ?>
+                            <li class="folder-1 plz-folder">
+                                <a class="plz-ov-child folder-url nowrap"><i class="icon-folder-open">&nbsp;</i><span><?php echo end($exfolder); ?></span></a>
+                                <ul class="folder-2">
+                            <?php }
 
-                            echo $PlazartChildOverride -> getFolder($value,'over');
+                            $PlazartChildOverride -> getFolder($value,'over');
 
                             if($folderExisted) {
-                                echo '</ul>';
-                                echo '</li>';
-                            }
+
+                            ?>
+                                </ul>
+                            </li>
+                            <?php }
                         }else {
                             $arrayFile  = array("php","PHP","html","HTML","css","CSS","js","JS");
                             $fileExt    = JFile::getExt($value->id);
@@ -98,12 +101,11 @@ $tpl_path_root  = $PlazartChildOverride->_path;
                                 echo $PlazartChildOverride -> getFile($value);
                             }
                         }
-                    }
-                    echo '</ul>';
-                    }
-//                ?>
-
-                <?php //Editor File ?>
+                    } ?>
+                    </ul>
+                    <?php }
+                    //Editor File
+                     ?>
 
                 <div class="ovEditFile">
                     <div class="content">

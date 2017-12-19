@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+12/05/2017 - 5.6
+
+	Fix error minify css and js with Joomla 3.8.
+
 05/08/2017 - 5.5
 
 	Fix error styles in version 5.4: Can't select block's background.

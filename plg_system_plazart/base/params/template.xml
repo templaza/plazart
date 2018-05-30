@@ -143,20 +143,21 @@
             <field name="google_font_update" type="googlefontupdate" label="PLAZART_GOOGLE_FONTS_UPDATE"
                    description="PLAZART_GOOGLE_FONTS_UPDATE"
                    text="PLAZART_CLICK_UPDATE"/>
-            <field name="font_name_body" type="plazarttypo" directory="templates/tz_consulta/fonts/"
+            <field name="font_name_body" type="plazarttypo"
                    label="PLAZART_FONT_NAME_BODY" description="PLAZART_FONT_NAME_BODY" default='{"fontType":"standard","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"400","fontSubset":"","fontSize":"16","fontStyle":"normal"}'/>
-            <field name="font_name_heading1" type="plazarttypo" directory="templates/tz_consulta/fonts/"
+            <field name="font_name_heading1" type="plazarttypo"
                    label="PLAZART_FONT_NAME_HEADING1" description="PLAZART_FONT_NAME_HEADING1" default='{"fontType":"","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"400","fontSubset":"","fontSize":"16","fontStyle":"normal"}'/>
-            <field name="font_name_heading2" type="plazarttypo" directory="templates/tz_consulta/fonts/"
+            <field name="font_name_heading2" type="plazarttypo"
                    label="PLAZART_FONT_NAME_HEADING2" description="PLAZART_FONT_NAME_HEADING2" default='{"fontType":"","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"400","fontSubset":"","fontSize":"16","fontStyle":"normal"}'/>
-            <field name="font_name_heading3" type="plazarttypo" directory="templates/tz_consulta/fonts/"
+            <field name="font_name_heading3" type="plazarttypo"
                    label="PLAZART_FONT_NAME_HEADING3" description="PLAZART_FONT_NAME_HEADING3" default='{"fontType":"","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"400","fontSubset":"","fontSize":"16","fontStyle":"normal"}'/>
-            <field name="font_name_heading4" type="plazarttypo" directory="templates/tz_consulta/fonts/"
+            <field name="font_name_heading4" type="plazarttypo"
                    label="PLAZART_FONT_NAME_HEADING4" description="PLAZART_FONT_NAME_HEADING4" default='{"fontType":"","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"400","fontSubset":"","fontSize":"16","fontStyle":"normal"}'/>
-            <field name="font_name_heading5" type="plazarttypo" directory="templates/tz_consulta/fonts/"
+            <field name="font_name_heading5" type="plazarttypo"
                    label="PLAZART_FONT_NAME_HEADING5" description="PLAZART_FONT_NAME_HEADING5" default='{"fontType":"","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"400","fontSubset":"","fontSize":"16","fontStyle":"normal"}'/>
-            <field name="font_name_heading6" type="plazarttypo" directory="templates/tz_consulta/fonts/"
+            <field name="font_name_heading6" type="plazarttypo"
                    label="PLAZART_FONT_NAME_HEADING6" description="PLAZART_FONT_NAME_HEADING6" default='{"fontType":"","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"400","fontSubset":"","fontSize":"16","fontStyle":"normal"}'/>
+
 
         </fieldset>
 

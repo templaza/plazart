@@ -34,7 +34,7 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
-5/30/2018 - 6.1
+5/30/2018 - 6.2
 
 	Add new Font system for template back-end
 	Add new Color System for template back-end

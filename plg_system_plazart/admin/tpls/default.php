@@ -33,7 +33,7 @@ $fieldSets = $form->getFieldsets('params');
 <div class="plazart-admin-form clearfix">
 <form action="<?php echo JRoute::_('index.php?option=com_templates&layout=edit&id='.$input->getInt('id')); ?>" method="post" name="adminForm" id="style-form" class="form-validate form-horizontal">
     <div class="configure-content">
-        <div class="config-view<?php echo $plazartlock=='global-config' || !in_array($plazartlock,array('global-config', 'menu-config', 'layout-config','advanced-config','preset-config','child-override-config')) ? ' active': ''; ?>" id="plazart-global-config">
+        <div class="config-view<?php echo $plazartlock=='global-config' || !in_array($plazartlock,array('global-config', 'menu-config', 'layout-config','typography-config','color-config','advanced-config','preset-config','child-override-config')) ? ' active': ''; ?>" id="plazart-global-config">
             <?php
             $default_global_override = PLAZART_TEMPLATE_PATH . '/admin/default_global.php';
             if(file_exists($default_global_override)) {
@@ -73,7 +73,26 @@ $fieldSets = $form->getFieldsets('params');
             }
             ?>
         </div>
-
+        <div class="config-view<?php echo $plazartlock=='typography-config'? ' active': ''; ?>" id="plazart-typography-config">
+            <?php
+            $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_typography.php';
+            if(file_exists($default_layout_override)) {
+                include_once $default_layout_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_typography.php';
+            }
+            ?>
+        </div>
+        <div class="config-view<?php echo $plazartlock=='color-config'? ' active': ''; ?>" id="plazart-color-config">
+            <?php
+            $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_color.php';
+            if(file_exists($default_layout_override)) {
+                include_once $default_layout_override;
+            } else {
+                include_once PLAZART_ADMIN_PATH . '/admin/tpls/default_color.php';
+            }
+            ?>
+        </div>
         <div class="config-view<?php echo $plazartlock=='advanced-config'? ' active': ''; ?>" id="plazart-advanced-config">
             <?php
             $default_layout_override = PLAZART_TEMPLATE_PATH . '/admin/default_advanced.php';

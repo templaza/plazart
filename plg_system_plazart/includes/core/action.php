@@ -472,6 +472,97 @@ class PlazartAction extends JObject
         echo json_encode($data);
     }
 
+    // Typography
+
+    public function updateGoogleFontList()
+    {
+        $template_path = JPATH_SITE . '/templates/' . PLAZART_TEMPLATE . '/webfonts';
+
+        if (!\JFolder::exists( $template_path )) {
+            \JFolder::create( $template_path, 0755 );
+        }
+
+        $url  = 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBVybAjpiMHzNyEm3ncA_RZ4WETKsLElDg';
+        $http = new \JHttp();
+        $str  = $http->get($url);
+
+        if ( \JFile::write( $template_path . '/webfonts.json', $str->body )) {
+            echo '<p class="font-update-success">Google Webfonts list successfully updated! Please refresh your browser.</p>';
+        } else {
+            echo '<p class="font-update-failed">Google Webfonts update failed. Please make sure that your template folder is writable.</p>';
+        }
+    }
+
+    public function changeFontVariants()
+    {
+        $app            =   \JFactory::getApplication();
+        $input          =   $app->input;
+        $data           =   $input->get('data',array(),'ARRAY');
+        $font_name      =   $data['fontName'];
+
+        $template_path = JPATH_SITE . '/templates/' . PLAZART_TEMPLATE . '/webfonts/webfonts.json';
+        $plugin_path   = JPATH_PLUGINS . '/system/plazart/admin/js/webfonts.json';
+
+        if (\JFile::exists( $template_path ))
+        {
+            $json = \JFile::read( $template_path );
+        }
+        else
+        {
+            $json = \JFile::read( $plugin_path );
+        }
+
+        $webfonts   = json_decode($json);
+        $items      = $webfonts->items;
+
+        $fontData   =   new stdClass();
+
+        foreach ($items as $item)
+        {
+            if ($item->family == $font_name)
+            {
+                $fontData->fontVariants = '';
+                $fontData->fontSubsets = '';
+                //Variants
+                foreach ($item->variants as $variant)
+                {
+                    $fontData->fontVariants .= '<option value="'. $variant .'">' . $variant . '</option>';
+                }
+                //Subsets
+                foreach ($item->subsets as $subset)
+                {
+                    $fontData->fontSubsets .= '<option value="'. $subset .'">' . $subset . '</option>';
+                }
+                echo json_encode($fontData);
+                break;
+            }
+        }
+    }
+    public function changeColorLess() {
+        $app            =   \JFactory::getApplication();
+        if ($app->isAdmin()) {
+            $input          =   $app->input;
+            $data           =   $input->get('data',array(),'ARRAY');
+            $theme          =   $input->get('theme');
+            Plazart::import ('core/less');
+            jimport('joomla.filesystem.file');
+            $content        =   '';
+            foreach ($data as $index => $value) {
+                $content    .=  '@'.$index.':'.$value.';';
+            }
+            JFile::write(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'less'.DIRECTORY_SEPARATOR.'import'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.'color.less',$content);
+
+            $result = array();
+            try{
+                PlazartLess::compileTemplate($theme);
+                $result['successful'] = JText::_('PLAZART_MSG_COMPILE_SUCCESS');
+            }catch(Exception $e){
+                $result['error'] = JText::sprintf('PLAZART_MSG_COMPILE_FAILURE', $e->getMessage());
+            }
+            echo json_encode($result);
+        }
+    }
+
 }
 
 

@@ -38,8 +38,10 @@ defined('_JEXEC') or die;
         <a id="plazart-tb-preset-config" href="#preset-config" class="btn btn-config"><i class="fa fa-rocket"></i><?php echo JText::_('PLAZART_PRESET_LABEL') ?></a>
         <a id="plazart-tb-menu-config" href="#menu-config" class="btn btn-config"><i class="fa fa-bars"></i><?php echo JText::_('PLAZART_NAVIGATION_LABEL') ?></a>
         <a id="plazart-tb-layout-config" href="#layout-config" class="btn btn-config"><i class="fa fa-columns"></i><?php echo JText::_('PLAZART_LAYOUT_LABEL') ?></a>
+        <a id="plazart-tb-typography-config" href="#typography-config" class="btn btn-config"><i class="fa fa-font"></i><?php echo JText::_('PLAZART_TYPOGRAPHY_LABEL') ?></a>
+        <a id="plazart-tb-color-config" href="#color-config" class="btn btn-config"><i class="fas fa-palette"></i><?php echo JText::_('PLAZART_COLOR_LABEL') ?></a>
         <a id="plazart-tb-advanced-config" href="#advanced-config" class="btn btn-config"><i class="fa fa-wrench"></i><?php echo JText::_('PLAZART_ADVANCED_LABEL') ?></a>
-        <a id="plazart-tb-child-override-config" href="#child-override-config" class="btn btn-config"><i class="fa fa-files-o"></i><?php echo JText::_('PLAZART_OVERRIDE_LABEL') ?></a>
+        <a id="plazart-tb-child-override-config" href="#child-override-config" class="btn btn-config"><i class="fas fa-code"></i><?php echo JText::_('PLAZART_OVERRIDE_LABEL') ?></a>
     </div>
 
 	<div id="plazart-admin-tb-close" class="btn-group <?php echo $input->getCmd('view') ?>">

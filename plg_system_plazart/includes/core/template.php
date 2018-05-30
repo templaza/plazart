@@ -339,12 +339,67 @@ class PlazartTemplate extends ObjectExtendable
     }
 
     /**
+     * @param string $fontObj
+     * @param string $selector
+     *
+     * @return string
+     *
+     * @since version
+     */
+    public function addFont($fontObj = '', $selector = 'body') {
+
+        if (trim($fontObj) == '') return '';
+
+        $fontObj        = json_decode($fontObj);
+        $fontFamily     = $fontObj->fontFamily ? 'font-family:"'.$fontObj->fontFamily.'";' : '';
+        $fontWeight     = $fontObj->fontWeight ? 'font-weight:'.$fontObj->fontWeight.';' : '';
+        $fontSize       = $fontObj->fontSize   ? 'font-size:'.$fontObj->fontSize.';' : '';
+        $fontStyle      = $fontObj->fontStyle ? 'font-style:'.$fontObj->fontStyle.';' : '';
+        $lineHeight     = $fontObj->lineHeight ? 'line-height:'.$fontObj->lineHeight.';' : '';
+        $font_css       = '';
+
+        switch ($fontObj->fontType) {
+            case 'standard':
+                $font_css = $selector.'{'.$fontFamily.$fontWeight.$fontSize.$fontStyle.$lineHeight.'}';
+                break;
+            case 'google':
+                $font_link  =   '//fonts.googleapis.com/css?family='.str_replace(' ', '+', $fontObj->fontFamily).':100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&subset='. $fontObj->fontSubset;
+                $this->addStyleSheet($font_link);
+                $font_css = $selector.'{'.$fontFamily.$fontWeight.$fontSize.$fontStyle.$lineHeight.'}';
+                break;
+            case 'squirrel':
+                $font_data = explode(';', $fontObj->fontFamily);
+                if(isset($font_data) && count($font_data) >= 2) {
+                    $this->addStyleSheet(PLAZART_TEMPLATE_REL . '/fonts/' . $font_data[0] . '/stylesheet.css');
+                    $fontFamily     = $font_data[1] ? 'font-family:"'.$font_data[1].'";' : '';
+                    $font_css = $selector.'{'.$fontFamily.$fontWeight.$fontSize.$fontStyle.$lineHeight.'}';
+                }
+                break;
+        }
+
+        return $font_css;
+    }
+
+    /**
      * Add fonts in configuration
      * @return bool
      */
     function addFonts() {
-        // include fonts
+
         $font_css   =   '';
+        if ($fontBody = $this->getParam('font_name_body','')) {
+            $font_css   .=    $this->addFont($fontBody);
+        }
+
+        $font_iter = 1;
+        while ($this->getParam('font_name_heading'.$font_iter, '') !== '') {
+            $font_data  =   $this->getParam('font_name_heading'.$font_iter,'');
+            $font_css   .=  $this->addFont($font_data,'h'.$font_iter);
+            $font_iter++;
+        }
+
+        // legacy include fonts
+
         $font_iter = 1;
         while($this->getParam('font_name_group'.$font_iter, 'tzFontNull') !== 'tzFontNull') {
             $font_data = explode(';', $this->getParam('font_name_group'.$font_iter, ''));
@@ -376,7 +431,6 @@ class PlazartTemplate extends ObjectExtendable
                     }
                 }
             }
-
             $font_iter++;
         }
 
@@ -464,6 +518,9 @@ class PlazartTemplate extends ObjectExtendable
             $this->addCoreCss('bootstrap/legacy/css/bootstrap-responsive');
             if ($this->direction == 'rtl') $this->addCoreCss('bootstrap/legacy/css/bootstrap-rtl');
         }
+
+        // Add font awesome
+        $this->addStyleSheet (PlazartPath::getUrl('css/font-awesome/css/fontawesome-all.min.css'));
 
         // TEMPLATE CSS
         $this->addCss ('template', false);

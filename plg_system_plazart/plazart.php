@@ -196,6 +196,9 @@ class plgSystemPlazart extends JPlugin
 
                     // save plazart styles
                     $plazartapp->save_style($params, $data);
+
+                    // check save less css
+                    $plazartapp->less_css($params);
                 }
             }
 

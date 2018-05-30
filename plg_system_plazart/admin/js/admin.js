@@ -361,6 +361,54 @@ var PlazartAdmin = window.PlazartAdmin || {};
         },
 
         initColorStyle: function () {
+            $('.plazartcolorless_form').each(function(i,el){
+                setTimeout(function($this){
+                    $this.find('input.plazartcolorpicker').spectrum({
+                        flat:false,
+                        showInput:true,
+                        preferredFormat: "rgb",
+                        showButtons:true,
+                        showAlpha:true,
+                        showPalette:true,
+                        clickoutFiresChange:true,
+                        cancelText:"cancel",
+                        chooseText:"Choose",
+                        palette : [ ['rgba(255, 255, 255, 0)'] ],
+                        change: function(color) {
+                            var currentcolor = color.toRgbString();
+                            $(this).attr('value', currentcolor);
+                        }
+                    });
+                    // $this.parent().find('>.popover .rowtextcolor').show();
+                }, 300, $(el));
+            });
+
+            $('#plazartcolorless_update').on('click', function (e) {
+                e.preventDefault();
+                var $this       =   $(this);
+                var values = {};
+                $("input[data-name^='plazartcolorless']").each(function (idx, ele) {
+                    values[$(ele).attr('data-index')] = $(ele).val();
+                });
+                var request = {
+                    'plazartaction'     :   'changeColorLess',
+                    'theme'             :   $('#jform_params_theme').val(),
+                    'data'              :   values
+                };
+
+                $.ajax({
+                    type   : 'POST',
+                    data   : request,
+                    beforeSend: function(){
+                        $this.find('.fa-spinner').fadeIn();
+                    },
+                    success: function (response) {
+                        $('#jform_params_color_less').val($.toJSON(values));
+                        $this.find('.fa-spinner').fadeOut();
+                    }
+                });
+            });
+
             $('.plazartcolor_form').each(function(i,el){
                 var base_id    =   $(el).find('input.tzFormHide');
                 base_id        =   $(base_id).attr('id');
@@ -404,6 +452,244 @@ var PlazartAdmin = window.PlazartAdmin || {};
         },
 
         initFontStyle: function () {
+            //Update Fonts list
+            $('#googlefontupdate').on('click', function(event){
+                event.preventDefault();
+
+                var $that   = $(this);
+                var request = {
+                    'plazartaction'     :   'updateGoogleFontList'
+                };
+
+                $.ajax({
+                    type   : 'POST',
+                    data   : request,
+                    beforeSend: function(){
+                        $that.prepend('<i class="fa fa-spinner fa-spin"></i> ');
+                    },
+                    success: function (response) {
+                        $that.after(response);
+                        $that.find('.fa-spinner').remove();
+                        $that.next().delay(1000).fadeOut(300, function(){
+                            $(this).remove();
+                        });
+                    }
+                });
+
+                return false;
+
+            });
+            $('.tztypography_form').each(function(i, el) {
+                el = $(el);
+
+                var base_id = el.find('input.typoData');
+                base_id = $(base_id).attr('id');
+
+                var base_el = $('#' + base_id);
+                if(base_el.val() === '') base_el.attr('value','{"fontType":"standard","fontFamily":"Arial","lineHeight":"1.6","fontWeight":"300","fontSubset":"latin","fontSize":"16","fontStyle":"normal"}');
+
+                var values = $.parseJSON(base_el.val());
+                // id of selectbox are different from input id
+                base_id = base_id.replace('jform_params_font_', 'jformparamsfont_');
+                $('#'+base_id + '_type').attr('value', values.fontType);
+                var updateTypoData = function ($that, flag) {
+                    flag = flag || false;
+                    if (flag) {
+                        if(values.fontType != 'google') {
+                            $('#' + base_id + '_subset').html('').trigger("liszt:updated").trigger('change');
+                        } else {
+                            var data = {
+                                fontName : $('#' + base_id + '_google_own_font').val()
+                            };
+
+                            var request = {
+                                'plazartaction'     :   'changeFontVariants',
+                                'data'              :   data
+                            };
+
+                            $.ajax({
+                                type   : 'POST',
+                                data   : request,
+                                success: function (response) {
+                                    var font = $.parseJSON(response);
+                                    $('#' + base_id + '_subset').html(font.fontSubsets).trigger("liszt:updated").trigger('change');
+                                }
+                            });
+                        }
+                    }
+
+                    base_el.attr('value', $.toJSON(values));
+                }
+
+                if(values.fontType == '') {
+                    el.find('.plazart-container').css('display', 'none');
+                }
+
+                if(values.fontType == 'standard') {
+                    $('#' + base_id + '_normal').attr('value', values.fontFamily);
+                    $('#' + base_id + '_google_own_font_chzn').fadeOut(0);
+                    $('#' + base_id + '_squirrel_chzn').fadeOut(0);
+                } else if(values.fontType == 'google') {
+                    $('#' + base_id + '_google_own_font').attr('value', values.fontFamily);
+                    $('#' + base_id + '_normal_chzn').fadeOut(0);
+                    $('#' + base_id + '_squirrel_chzn').fadeOut(0);
+                } else if(values.fontType == 'squirrel') {
+                    $('#' + base_id + '_squirrel').attr('value', values.fontFamily);
+                    $('#' + base_id + '_normal_chzn').fadeOut(0);
+                    $('#' + base_id + '_google_own_font_chzn').fadeOut(0);
+                }
+
+                $('#' + base_id + '_type').change(function() {
+
+                    values.fontType = $('#' + base_id + '_type').val();
+
+                    if(values.fontType == '') {
+                        el.find('.plazart-container').fadeOut();
+                    } else {
+                        el.find('.plazart-container').fadeIn();
+                    }
+
+                    if(values.fontType == 'standard') {
+                        $('#' + base_id + '_normal_chzn').fadeIn();
+                        $('#' + base_id + '_normal').trigger('change');
+                        $('#' + base_id + '_google_own_font_chzn').fadeOut(0);
+                        $('#' + base_id + '_squirrel_chzn').fadeOut(0);
+                    } else if(values.fontType == 'google') {
+
+                        $('#' + base_id + '_normal_chzn').fadeOut(0);
+                        $('#' + base_id + '_google_own_font_chzn').fadeIn();
+                        $('#' + base_id + '_google_own_font').trigger('change');
+                        $('#' + base_id + '_squirrel_chzn').fadeOut(0);
+                    } else if(values.fontType == 'squirrel') {
+                        $('#' + base_id + '_normal_chzn').fadeOut(0);
+                        $('#' + base_id + '_google_own_font_chzn').fadeOut(0);
+                        $('#' + base_id + '_squirrel_chzn').fadeIn();
+                        $('#' + base_id + '_squirrel').trigger('change');
+                    }
+                    updateTypoData($(this),true);
+                });
+                $('#' + base_id + '_type').blur(function() {
+                    values.fontType = $('#' + base_id + '_type').val();
+
+                    if(values.fontType == '') {
+                        el.find('.plazart-container').fadeOut();
+                    } else {
+                        el.find('.plazart-container').fadeIn();
+                    }
+
+                    if(values.fontType == 'standard') {
+                        $('#' + base_id + '_normal').fadeIn();
+                        $('#' + base_id + '_normal').trigger('change');
+                        $('#' + base_id + '_google_own_font_chzn').fadeOut(0);
+                        $('#' + base_id + '_squirrel').fadeOut(0);
+                    } else if(values.fontType == 'google') {
+                        $('#' + base_id + '_normal').fadeOut(0);
+                        $('#' + base_id + '_google_own_font').fadeIn();
+                        $('#' + base_id + '_google_own_font').trigger('change');
+                        $('#' + base_id + '_squirrel').fadeOut(0);
+                    } else if(values.fontType == 'squirrel') {
+                        $('#' + base_id + '_normal').fadeOut(0);
+                        $('#' + base_id + '_google_own_font_chzn').fadeOut(0);
+                        $('#' + base_id + '_squirrel').fadeIn();
+                        $('#' + base_id + '_squirrel').trigger('change');
+                    }
+                    updateTypoData($(this),true);
+                });
+
+                $('#' + base_id + '_normal').change(function() {
+                    values.fontFamily = $('#' + base_id + '_normal').val();
+                    updateTypoData($(this),true);
+                });
+                $('#' + base_id + '_normal').blur(function()  {
+                    values.fontFamily = $('#' + base_id + '_normal').val();
+                    updateTypoData($(this),true);
+                });
+
+                $('#' + base_id + '_google_own_font').change(function() {
+                    values.fontFamily = $('#' + base_id + '_google_own_font').val();
+                    updateTypoData($(this),true);
+                });
+                $('#' + base_id + '_google_own_font').blur(function() {
+                    values.fontFamily = $('#' + base_id + '_google_own_font').val();
+                    updateTypoData($(this),true);
+                });
+
+                $('#' + base_id + '_squirrel').change(function() {
+                    values.fontFamily = $('#' + base_id + '_squirrel').val();
+                    updateTypoData($(this),true);
+                });
+                $('#' + base_id + '_squirrel').blur(function() {
+                    values.fontFamily = $('#' + base_id + '_squirrel').val();
+                    updateTypoData($(this),true);
+                });
+
+                $('#' + base_id + '_fontweight').change(function() {
+                    values.fontWeight = $('#' + base_id + '_fontweight').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_fontweight').blur(function() {
+                    values.fontWeight = $('#' + base_id + '_fontweight').val();
+                    updateTypoData($(this));
+                });
+
+                $('#' + base_id + '_fontsize').keydown(function() {
+                    values.fontSize = $('#' + base_id + '_fontsize').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_fontsize').blur(function() {
+                    values.fontSize = $('#' + base_id + '_fontsize').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_fontsize').change(function() {
+                    values.fontSize = $('#' + base_id + '_fontsize').val();
+                    updateTypoData($(this));
+                });
+
+                $('#' + base_id + '_lineheight').keydown(function() {
+                    values.lineHeight = $('#' + base_id + '_lineheight').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_lineheight').blur(function() {
+                    values.lineHeight = $('#' + base_id + '_lineheight').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_lineheight').change(function() {
+                    values.lineHeight = $('#' + base_id + '_lineheight').val();
+                    updateTypoData($(this));
+                });
+
+                $('#' + base_id + '_fontstyle').change(function() {
+                    values.fontStyle = $('#' + base_id + '_fontstyle').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_fontstyle').blur(function() {
+                    values.fontStyle = $('#' + base_id + '_fontstyle').val();
+                    updateTypoData($(this));
+                });
+
+                $('#' + base_id + '_subset').change(function() {
+                    values.fontSubset = $('#' + base_id + '_subset').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_subset').blur(function() {
+                    values.fontSubset = $('#' + base_id + '_subset').val();
+                    updateTypoData($(this));
+                });
+
+                $('#' + base_id + '_customtag').keydown(function() {
+                    values.customTag = $('#' + base_id + '_customtag').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_customtag').blur(function() {
+                    values.customTag = $('#' + base_id + '_customtag').val();
+                    updateTypoData($(this));
+                });
+                $('#' + base_id + '_customtag').change(function() {
+                    values.customTag = $('#' + base_id + '_customtag').val();
+                    updateTypoData($(this));
+                });
+
+            });
             $('.tzfont_form').each(function(i, el) {
                 el = $(el);
 
@@ -579,18 +865,18 @@ var PlazartAdmin = window.PlazartAdmin || {};
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_google_own_link').val() + ';' +
-                            $('#' + base_id + '_google_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_google_own_link').val() + ';' +
+                        $('#' + base_id + '_google_own_font').val()
                     );
                 });
                 $('#' + base_id + '_google_own_link').blur(function() {
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_google_own_link').val() + ';' +
-                            $('#' + base_id + '_google_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_google_own_link').val() + ';' +
+                        $('#' + base_id + '_google_own_font').val()
                     );
                 });
 
@@ -598,18 +884,18 @@ var PlazartAdmin = window.PlazartAdmin || {};
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_google_own_link').val() + ';' +
-                            $('#' + base_id + '_google_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_google_own_link').val() + ';' +
+                        $('#' + base_id + '_google_own_font').val()
                     );
                 });
                 $('#' + base_id + '_google_own_font').blur(function() {
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_google_own_link').val() + ';' +
-                            $('#' + base_id + '_google_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_google_own_link').val() + ';' +
+                        $('#' + base_id + '_google_own_font').val()
                     );
                 });
 
@@ -618,18 +904,18 @@ var PlazartAdmin = window.PlazartAdmin || {};
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_edge_own_link').val() + ';' +
-                            $('#' + base_id + '_edge_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_edge_own_link').val() + ';' +
+                        $('#' + base_id + '_edge_own_font').val()
                     );
                 });
                 $('#' + base_id + '_edge_own_link').blur(function() {
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_edge_own_link').val() + ';' +
-                            $('#' + base_id + '_edge_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_edge_own_link').val() + ';' +
+                        $('#' + base_id + '_edge_own_font').val()
                     );
                 });
 
@@ -637,18 +923,18 @@ var PlazartAdmin = window.PlazartAdmin || {};
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_edge_own_link').val() + ';' +
-                            $('#' + base_id + '_edge_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_edge_own_link').val() + ';' +
+                        $('#' + base_id + '_edge_own_font').val()
                     );
                 });
                 $('#' + base_id + '_edge_own_font').blur(function() {
                     base_el.attr(
                         'value',
                         $('#' + base_id + '_type').val() + ';' +
-                            'own;' +
-                            $('#' + base_id + '_edge_own_link').val() + ';' +
-                            $('#' + base_id + '_edge_own_font').val()
+                        'own;' +
+                        $('#' + base_id + '_edge_own_link').val() + ';' +
+                        $('#' + base_id + '_edge_own_font').val()
                     );
                 });
 
@@ -758,6 +1044,20 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 $('.config-view').removeClass('active');
                 $('.btn-config').removeClass('active');
                 $('#plazart-layout-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-typography-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-typography-config').addClass('active');
+                $(this).addClass('active');
+            });
+            $('#plazart-tb-color-config').on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.config-view').removeClass('active');
+                $('.btn-config').removeClass('active');
+                $('#plazart-color-config').addClass('active');
                 $(this).addClass('active');
             });
             $('#plazart-tb-advanced-config').on('click', function(e){

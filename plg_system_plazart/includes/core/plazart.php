@@ -175,7 +175,6 @@ class Plazart {
 
 	public static function detect(){
 		static $plazart;
-
 		if (!isset($plazart)) {
 			$plazart = false; // set false
 			$app = JFactory::getApplication();
@@ -204,7 +203,6 @@ class Plazart {
 				if (!$user->id){
 					return false;
 				}
-
 				if($input->getCmd('option') == 'com_templates' && 
 					(preg_match('/style\./', $input->getCmd('task')) || $input->getCmd('view') == 'style' || $input->getCmd('view') == 'template')
 					){
@@ -228,7 +226,6 @@ class Plazart {
 					$db->setQuery($query);
 					$tplname = $db->loadResult();
 				}
-
 			} else {
 				$tplname = $app->getTemplate(false);					
 			}

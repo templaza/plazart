@@ -73,12 +73,9 @@ class JFormFieldPlazarttypo extends JFormField
         $options_squirrel = array();
         // Get the path in which to search for file options.
         $path = (string) $this->element['directory'];
-
+        if (trim($path)=='') $path = 'templates'.DIRECTORY_SEPARATOR.PLAZART_TEMPLATE.DIRECTORY_SEPARATOR.'fonts'.DIRECTORY_SEPARATOR;
         if (!is_dir($path)) {
             $path = JPATH_ROOT.DIRECTORY_SEPARATOR.$path;
-        }
-        if (!is_dir($path)) {
-            $path = JPATH_ROOT.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.PLAZART_TEMPLATE.DIRECTORY_SEPARATOR.'fonts';
         }
         // Get a list of folders in the search path with the given filter.
         $folders = JFolder::folders($path, null);

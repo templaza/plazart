@@ -158,6 +158,7 @@ class PlazartAdmin {
         $jdoc->addStyleSheet(JUri::root(true).'/media/editors/codemirror/lib/codemirror.min.css');
         $jdoc->addStyleSheet(JUri::root(true).'/media/editors/codemirror/lib/addons.min.css');
 
+        $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.json.min.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/admin.js');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery-ui.min.js ');
         $jdoc->addScript(PLAZART_ADMIN_URL . '/admin/js/jquery.serialize-object.js');
@@ -587,5 +588,32 @@ class PlazartAdmin {
             $layoutsettings =   json_encode($params->get('generate',''));
             JFile::write(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'generate'.DIRECTORY_SEPARATOR.'default.json',$layoutsettings);
         }
+    }
+
+    public function less_css(&$params = null) {
+        // Check data
+        if (!$params) {
+            return false;
+        }
+        $app            =   \JFactory::getApplication();
+        $input          =   $app->input;
+        $data           =   $input->get('plazartcolorless',array(),'ARRAY');
+        $theme          =   $params->get('theme');
+        $original_data  =   $params->get('color_less');
+        if (json_encode($data)== $original_data) return false;
+        Plazart::import ('core/less');
+        jimport('joomla.filesystem.file');
+        $content        =   '';
+        foreach ($data as $index => $value) {
+            $content    .=  '@'.$index.':'.$value.';';
+        }
+        JFile::write(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'less'.DIRECTORY_SEPARATOR.'import'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.'color.less',$content);
+
+        try{
+            PlazartLess::compileTemplate($theme);
+        }catch(Exception $e){
+            JError::raiseWarning('400',JText::sprintf('PLAZART_MSG_COMPILE_FAILURE', $e->getMessage()));
+        }
+
     }
 }

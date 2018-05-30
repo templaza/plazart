@@ -246,7 +246,15 @@ class PlazartBot extends JObject
 				$cache = JFactory::getCache('com_templates', '');
 				$cache->clean();
 			}
-		}		
+		} else {
+            $option         = $input->get('option','');
+            $plazart        = $input->get('plazart','');
+            $request        = $input->get('request','');
+            $action         = $input->get('action', '');
+            if ($option == 'com_ajax' && $plazart == 'typography') :
+
+            endif;
+        }
 
 	}
 }

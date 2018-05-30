@@ -49,14 +49,6 @@ class JFormFieldPlazartDepend extends JFormField
 	function loadAsset(){
 		if (!defined ('_PLAZART_DEPEND_ASSET_')) {
 			define ('_PLAZART_DEPEND_ASSET_', 1);
-			
-			if(!defined('Plazart')){
-				$plazarturl = str_replace(DIRECTORY_SEPARATOR, '/', JURI::base(true) . '/' . substr(dirname(__FILE__), strlen(JPATH_SITE)));
-				$plazarturl = str_replace('/administrator/', '/', $uri);
-				$plazarturl = str_replace('//', '/', $uri);
-			} else {
-				$plazarturl = PLAZART_ADMIN_URL;
-			}
 
 			$jdoc = JFactory::getDocument();
 

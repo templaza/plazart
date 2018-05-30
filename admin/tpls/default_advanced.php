@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
                 <?php
                 $i = 0;
                 foreach ($fieldSets as $name => $fieldSet) :
-                    if(in_array($name,array('font_params', 'color_params', 'dev_params','injection_params'))):
+                    if(in_array($name,array('dev_params','injection_params'))):
                         $label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_TEMPLATES_' . $name . '_FIELDSET_LABEL';
                         ?>
                         <li<?php if($i == 0) {echo ' class="active"';}  ?>><a
@@ -38,7 +38,7 @@ defined('_JEXEC') or die;
             <?php
             $j = 0;
             foreach ($fieldSets as $name => $fieldSet) :
-                if(in_array($name,array('font_params', 'color_params', 'dev_params','injection_params'))): ?>
+                if(in_array($name,array('dev_params','injection_params'))): ?>
 
                     <div class="tab-pane<?php if($j == 0) {echo ' active';}?>"
                          id="<?php echo preg_replace('/\s+/', ' ', $name); ?>">
@@ -71,6 +71,7 @@ defined('_JEXEC') or die;
                     </div>
 
                 <?php
+                    $j++;
                 endif; // end if check params
 
             endforeach; ?>

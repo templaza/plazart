@@ -1,4 +1,4 @@
-# Plazart - Joomla 2.5 and Joomla 3.x
+# Plazart - Joomla 3.x
 
 Our Plazart framework is a flexible Template Framework for Joomla. It was created based on T3 Framework and is available for Joomla 2.5 & Joomla 3. For the ease of upgrades the framework is in the plugin format and is installed separately.
 
@@ -33,6 +33,12 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 	Icons
 
 *** Changelog ***
+
+12/19/2017 - 6.0
+
+	Add new Font system for template back-end
+	Add new Color System for template back-end
+	Update FontAwesome 5.0.13
 
 12/19/2017 - 5.7
 

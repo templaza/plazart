@@ -16,7 +16,7 @@
 /* Plazart ADMIN STYLE
 ----------------------------------------------------*/
 
-@import "../fonts/font-awesome/css/font-awesome.css";
+@import "../../base/css/font-awesome/css/fontawesome-all.min.css";
 
 body {
   background: #fff;
@@ -125,9 +125,7 @@ h1.page-title small {
 
 .btn [class^="fa-"],
 .btn [class*=" fa-"] {
-  line-height: 1;
   margin-right: 5px;
-  font-size: 14px;
 }
 
 #plazart-admin-toolbar button {
@@ -451,6 +449,17 @@ select, input[type="file"] {
 
 .plazart-admin-form .form-horizontal .plazart-control-label > label {
   font-weight: bold;
+}
+
+.plazartcolorless_form {
+  margin-bottom: 20px;
+  min-width: 200px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.plazartcolorless_form label.color_less {
+  margin-bottom: 5px;
 }
 
 .plazart-admin-form .form-horizontal .plazart-controls {
@@ -1296,12 +1305,6 @@ button.btn-primary:active {
   color: #fff !important;
 }
 
-/* Fix for Font Awesome */
-[class^="fa-"]:before,
-[class*=" fa-"]:before {
-  font-family: "FontAwesome";
-}
-
 /* Color configuration */
 .plazartcolor_form > .sp-replacer {
     margin: 0 10px 0 0;
@@ -1351,6 +1354,26 @@ span.tz_update_data { width: 150px; background: #f9f9f9; }
 span.tz_update_link a { padding: 4px 12px; -moz-border-radius: 26px; background: #03a0da; text-transform: uppercase; font: bold 10px Arial, Helvetica, sans-serif; color: #fff; line-height: 34px; }
 span.tz_update_link a:hover { background: #222; text-decoration: none; }
 #tz_template_updates p { color: #555 }
+
+/* Typography */
+.plazart-raw {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.plazart-raw:after, .plazart-raw:before {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.plazart-col-12 {
+  width: 100%;
+  float: left;
+  padding: 0 10px;
+}
+.plazart-col-6 {
+  float: left;
+  padding: 0 10px;
+}
 
 /* -------------------------------------------------
 /* Responsive

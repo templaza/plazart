@@ -34,11 +34,12 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
-12/19/2017 - 6.0
+5/30/2018 - 6.1
 
 	Add new Font system for template back-end
 	Add new Color System for template back-end
 	Update FontAwesome 5.0.13
+	Fix error with font system
 
 12/19/2017 - 5.7
 

@@ -16,6 +16,9 @@ class JFormFieldPlazartcolorless extends JFormField
     protected function getInput() {
 
         $theme  =   $this -> form -> getValue('theme','params');
+        if(!$theme){
+            $theme = $this -> form -> getFieldAttribute('theme', 'default', null, 'params');
+        }
         if (JFile::exists(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'less'.DIRECTORY_SEPARATOR.'import'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.'color.less')) {
             $data   =   JFile::read(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'less'.DIRECTORY_SEPARATOR.'import'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.'color.less');
         } else {

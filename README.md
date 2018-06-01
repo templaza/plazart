@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+06/01/2018 - 6.3
+
+	Fix error of default color option from v6.2
+
 5/30/2018 - 6.2
 
 	Add new Font system for template back-end

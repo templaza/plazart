@@ -28,7 +28,6 @@ defined('_JEXEC') or die();
 jimport('joomla.filesystem.file');
 jimport('joomla.filesystem.folder');
 
-Plazart::import('lessphp/Less');
 Plazart::import('core/path');
 
 /**
@@ -36,28 +35,17 @@ Plazart::import('core/path');
  *
  * @package Plazart
  */
-class PlazartLess extends Less_Parser
+class PlazartLess
 {
     public static function compileTemplate ($theme = null) {
         $lesspath = 'templates'.DIRECTORY_SEPARATOR.PLAZART_TEMPLATE.DIRECTORY_SEPARATOR.'less'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR;
         $csspath = 'templates'.DIRECTORY_SEPARATOR.PLAZART_TEMPLATE.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR;
 
-        $options = array(
-            'sourceMap'         => true,
-            'sourceMapWriteTo'  => JPATH_ROOT.DIRECTORY_SEPARATOR. $csspath.'megamenu.css.map',
-            'sourceMapURL'      => 'megamenu.css.map',
-        );
-        $parser = new Less_Parser($options);
-        $parser->parseFile( JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'megamenu.less', JUri::root());
-        JFile::write(JPATH_ROOT.DIRECTORY_SEPARATOR.$csspath.'megamenu.css',$parser->getCss());
+        $less = new JLess;
+        $less->setFormatter(new JLessFormatterJoomla);
 
-        $options = array(
-            'sourceMap'         => true,
-            'sourceMapWriteTo'  => JPATH_ROOT.DIRECTORY_SEPARATOR. $csspath.'template.css.map',
-            'sourceMapURL'      => 'template.css.map',
-        );
-        $parser = new Less_Parser($options);
-        $parser->parseFile( JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'template.less', JUri::root());
-        JFile::write(JPATH_ROOT.DIRECTORY_SEPARATOR.$csspath.'template.css',$parser->getCss());
+        $less -> compileFile(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'megamenu.less', JPATH_ROOT.DIRECTORY_SEPARATOR.$csspath.'megamenu.css');
+
+        $less -> compileFile(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'template.less', JPATH_ROOT.DIRECTORY_SEPARATOR.$csspath.'template.css');
     }
 }

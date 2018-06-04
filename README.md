@@ -34,6 +34,11 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+06/04/2018 - 6.4
+
+	Fix error font path of less compile (used less compile library of Joomla core).
+	
+
 06/01/2018 - 6.3
 
 	Fix error of default color option from v6.2

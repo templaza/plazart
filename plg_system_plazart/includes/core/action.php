@@ -52,32 +52,6 @@ class PlazartAction extends JObject
 		exit;
 	}
 
-	public static function lessc () {
-		$path = JFactory::getApplication()->input->getString ('s');
-
-		Plazart::import ('core/less');
-		$plazartless = new PlazartLess;
-		$css = $plazartless->getCss($path);
-
-		header("Content-Type: text/css");
-		header("Content-length: ".strlen($css));
-		echo $css;
-	}
-
-	public static function lesscall(){
-		Plazart::import ('core/less');
-		
-		$result = array();
-		try{
-			PlazartLess::compileAll();
-			$result['successful'] = JText::_('PLAZART_MSG_COMPILE_SUCCESS');
-		}catch(Exception $e){
-			$result['error'] = JText::sprintf('PLAZART_MSG_COMPILE_FAILURE', $e->getMessage());
-		}
-		
-		echo json_encode($result);
-	}
-
 	public static function theme(){
 		
 		JFactory::getLanguage()->load('tpl_' . PLAZART_TEMPLATE, JPATH_SITE);
@@ -493,7 +467,7 @@ class PlazartAction extends JObject
         }
     }
 
-    public function changeFontVariants()
+    public static function changeFontVariants()
     {
         $app            =   \JFactory::getApplication();
         $input          =   $app->input;
@@ -538,7 +512,7 @@ class PlazartAction extends JObject
             }
         }
     }
-    public function changeColorLess() {
+    public static function changeColorLess() {
         $app            =   \JFactory::getApplication();
         if ($app->isAdmin()) {
             $input          =   $app->input;
@@ -564,12 +538,3 @@ class PlazartAction extends JObject
     }
 
 }
-
-
-
-
-
-
-
-
-

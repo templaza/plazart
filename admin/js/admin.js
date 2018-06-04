@@ -399,12 +399,22 @@ var PlazartAdmin = window.PlazartAdmin || {};
                 $.ajax({
                     type   : 'POST',
                     data   : request,
+                    dataType: "JSON",
                     beforeSend: function(){
                         $this.find('.fa-spinner').fadeIn();
                     },
                     success: function (response) {
-                        $('#jform_params_color_less').val($.toJSON(values));
                         $this.find('.fa-spinner').fadeOut();
+                        var message;
+                        if(response["error"]){
+                            message = {"error": []};
+                            message.error.push(response.error);
+                        }else{
+                            message = {"message": []};
+                            message.message.push(response.successful);
+                            $('#jform_params_color_less').val($.toJSON(values));
+                        }
+                        Joomla.renderMessages(message);
                     }
                 });
             });

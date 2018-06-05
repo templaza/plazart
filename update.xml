@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <updates>
 	<update>
-		<name>Plazart - Plugin Version 6.2</name>
+		<name>Plazart - Plugin Version 6.4</name>
 		<description>Plugin Plazart https://github.com/templaza/plazart</description>
 		<element>plazart</element>
 		<type>plugin</type>
@@ -17,7 +17,7 @@
 		<targetplatform name="joomla" version="3.*"/>
 	</update>
 	<update>
-		<name>Plazart - Plugin Version 6.2</name>
+		<name>Plazart - Plugin Version 6.3</name>
 		<description>Plugin Plazart https://github.com/templaza/plazart</description>
 		<element>plazart</element>
 		<type>plugin</type>

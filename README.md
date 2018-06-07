@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+06/07/2018 - 6.5
+
+	Fix error compile less (Fail to find less path) of v6.4 when save style.
+	
 06/04/2018 - 6.4
 
 	Fix error font path of less compile (used less compile library of Joomla core).

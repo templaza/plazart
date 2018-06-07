@@ -524,6 +524,10 @@ class PlazartAction extends JObject
             foreach ($data as $index => $value) {
                 $content    .=  '@'.$index.':'.$value.';';
             }
+            if(!$content){
+                return false;
+            }
+
             JFile::write(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'less'.DIRECTORY_SEPARATOR.'import'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR.'color.less',$content);
 
             $result = array();

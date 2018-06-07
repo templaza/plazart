@@ -41,11 +41,19 @@ class PlazartLess
         $lesspath = 'templates'.DIRECTORY_SEPARATOR.PLAZART_TEMPLATE.DIRECTORY_SEPARATOR.'less'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR;
         $csspath = 'templates'.DIRECTORY_SEPARATOR.PLAZART_TEMPLATE.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.$theme.DIRECTORY_SEPARATOR;
 
+        if(!JFile::exists(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'megamenu.less')
+            && !JFile::exists(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'template.less')){
+            return false;
+        }
+
         $less = new JLess;
         $less->setFormatter(new JLessFormatterJoomla);
+        if(JFile::exists(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'megamenu.less')) {
+            $less->compileFile(JPATH_ROOT . DIRECTORY_SEPARATOR . $lesspath . 'megamenu.less', JPATH_ROOT . DIRECTORY_SEPARATOR . $csspath . 'megamenu.css');
+        }
 
-        $less -> compileFile(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'megamenu.less', JPATH_ROOT.DIRECTORY_SEPARATOR.$csspath.'megamenu.css');
-
-        $less -> compileFile(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'template.less', JPATH_ROOT.DIRECTORY_SEPARATOR.$csspath.'template.css');
+        if(JFile::exists(JPATH_ROOT.DIRECTORY_SEPARATOR.$lesspath.'template.less')) {
+            $less->compileFile(JPATH_ROOT . DIRECTORY_SEPARATOR . $lesspath . 'template.less', JPATH_ROOT . DIRECTORY_SEPARATOR . $csspath . 'template.css');
+        }
     }
 }

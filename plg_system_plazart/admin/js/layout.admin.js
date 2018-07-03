@@ -33,6 +33,20 @@ jQuery(function($){
 
     reArrangePopOvers();
 
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
 
     var columnInputs = function(element, name){
 
@@ -78,6 +92,61 @@ jQuery(function($){
         $(element).find('>div>.rowpropperties .rowmargininput').attr('name', name+'[margin]');
         $(element).find('>div>.rowpropperties .rowpaddinginput').attr('name', name+'[padding]');
         $(element).find('>div>.row-container .containertype').attr('name', name+'[containertype]');
+
+    };
+
+    var rowAjaxInputs = function(element){
+
+        var value   =   {};
+        value['name']                   =   $(element).find('>div>.rowpropperties .rownameinput').attr('value');
+        value['class']                  =   $(element).find('>div>.rowpropperties .rowcustomclassinput').attr('value');
+        value['responsive']             =   $(element).find('>div>.rowpropperties .rowresponsiveinput').attr('value');
+
+        value['backgroundimage']        =   $(element).find('>div>.rowpropperties .rowbackgroundimageinput').attr('value');
+        value['backgroundoverlaycolor'] =   $(element).find('>div>.rowpropperties .rowbackgroundoverlaycolorinput').attr('value');
+        value['backgroundrepeat']       =   $(element).find('>div>.rowpropperties .rowbackgroundrepeatinput').attr('value');
+        value['backgroundsize']         =   $(element).find('>div>.rowpropperties .rowbackgroundsizeinput').attr('value');
+        value['backgroundattachment']   =   $(element).find('>div>.rowpropperties .rowbackgroundattachmentinput').attr('value');
+        value['backgroundposition']     =   $(element).find('>div>.rowpropperties .rowbackgroundpositioninput').attr('value');
+
+        value['backgroundcolor']        =   $(element).find('>div>.rowpropperties .rowbackgroundcolorinput').attr('value');
+        value['textcolor']              =   $(element).find('>div>.rowpropperties .rowtextcolorinput').attr('value');
+        value['linkcolor']              =   $(element).find('>div>.rowpropperties .rowlinkcolorinput').attr('value');
+        value['linkhovercolor']         =   $(element).find('>div>.rowpropperties .rowlinkhovercolorinput').attr('value');
+        value['margin']                 =   $(element).find('>div>.rowpropperties .rowmargininput').attr('value');
+        value['padding']                =   $(element).find('>div>.rowpropperties .rowpaddinginput').attr('value');
+        value['containertype']          =   $(element).find('>div>.row-container .containertype').attr('value');
+
+        return value;
+
+    };
+
+    var columnAjaxInputs = function(element){
+
+        var value   =   {};
+
+        value['col-xs']         =       $(element).find('>.widthinput-xs').attr('value');
+        value['col-sm']         =       $(element).find('>.widthinput-sm').attr('value');
+        value['col-md']         =       $(element).find('>.widthinput-md').attr('value');
+        value['col-lg']         =       $(element).find('>.widthinput-lg').attr('value');
+        value['col-xs-offset']  =       $(element).find('>.offsetinput-xs').attr('value');
+        value['col-sm-offset']  =       $(element).find('>.offsetinput-sm').attr('value');
+        value['col-md-offset']  =       $(element).find('>.offsetinput-md').attr('value');
+        value['col-lg-offset']  =       $(element).find('>.offsetinput-lg').attr('value');
+        value['type']           =       $(element).find('>.typeinput').attr('value');
+        value['position']       =       $(element).find('>.positioninput').attr('value');
+        value['style']          =       $(element).find('>.styleinput').attr('value');
+        value['customclass']    =       $(element).find('>.customclassinput').attr('value');
+        value['customtitle']    =       $(element).find('>.customtitleinput').attr('value');
+        value['customhtml']     =       $(element).find('>.customhtmlinput').attr('value');
+        value['responsiveclass']=       $(element).find('>.responsiveclassinput').attr('value');
+        value['animationType']  =       $(element).find('>.animationType').attr('value');
+        value['animationSpeed'] =       $(element).find('>.animationSpeed').attr('value');
+        value['animationDelay'] =       $(element).find('>.animationDelay').attr('value');
+        value['animationOffset']=       $(element).find('>.animationOffset').attr('value');
+        value['animationEasing']=       $(element).find('>.animationEasing').attr('value');
+
+        return value;
 
     };
 
@@ -210,7 +279,7 @@ jQuery(function($){
     })(jQuery.fn.textOnly);
 
 
-(function ($) {
+    (function ($) {
         $.fn.alterClass = function ( removals, additions ) {
 
             var self = this;
@@ -242,7 +311,7 @@ jQuery(function($){
     })( jQuery );
 
 
-(function (getClass) {
+    (function (getClass) {
         jQuery.fn.getClass = function( classname ) {
 
             if ( classname && typeof(classname) === "object" ) {
@@ -654,13 +723,12 @@ jQuery(function($){
                 return $(id).html();
             },
 
-            template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div> <p>   <a class="btn btn-primary sp-popover-apply" onclick="jQuery(this).closest(\'.popover\').prev().popover(\'hide\');  jQuery(this).closest(\'.popover\').prev().show();"><i class="icon-ok"></i> Apply</a> <a class="btn btn-danger sp-popover-close" onclick="jQuery(this).closest(\'.popover\').prev().popover(\'hide\'); jQuery(this).closest(\'.popover\').prev().show();"><i class="icon-remove"></i> Close</a>   </p> </div></div>'
+            template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div> <p>  <a class="btn btn-primary sp-popover-apply" onclick="jQuery(this).closest(\'.popover\').prev().popover(\'hide\');  jQuery(this).closest(\'.popover\').prev().show();"><i class="icon-ok"></i> Apply</a> <a class="btn btn-danger sp-popover-close" onclick="jQuery(this).closest(\'.popover\').prev().popover(\'hide\'); jQuery(this).closest(\'.popover\').prev().show();"><i class="icon-remove"></i> Close</a>   </p> </div></div>'
         }).click(function(){  $(this).show();   return false;});
 
-        $("#layout-options").delegate(".popover .sp-popover-apply, .popover .sp-popover-close",'click', function(event){
+        $("#content").delegate(".popover .sp-popover-apply, .popover .sp-popover-close",'click', function(event){
             $(this).closest('.columntools').removeClass('open');
             $('#columnsettings').find('li').first().addClass('active');
-
         });
 
         $('a[rel="rowpopover"]').popover({
@@ -1091,9 +1159,182 @@ jQuery(function($){
                 return $(id).html();
             },
 
-            template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div><a class="btn btn-primary" onclick="jQuery(this).closest(\'.popover\').prev().popover(\'hide\'); jQuery(this).closest(\'.popover\').prev().show(); "><i class="icon-ok"></i> Apply</a></div></div>'
+            template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div><a class="btn btn-danger" onclick="jQuery(this).closest(\'.popover\').prev().popover(\'hide\'); jQuery(this).closest(\'.popover\').prev().show(); "><i class="icon-remove"></i> Close</a></div></div>'
         }).click(function(){  $(this).show();   return false;});
 
+        $("#content").delegate(".popover .savesection",'click', function(event){
+            event.preventDefault();
+
+            var $this       =   $(this);
+            var layoutmain  =   $this.closest('.layoutmainrow');
+            var value       =   rowAjaxInputs(layoutmain);
+            if (layoutmain.find('> div >.row-fluid >.column').length) {
+                value['children']=[];
+                layoutmain.find('> div >.row-fluid >.column').each(function(columnl0){
+                    value['children'][columnl0] = columnAjaxInputs(this);
+                    if ($(this).find('>.row-fluid').length) value['children'][columnl0]['children'] = [];
+
+                    $(this).find('>.row-fluid').each(function(rowl1){
+                        value['children'][columnl0]['children'][rowl1]  =   rowAjaxInputs(this);
+
+                        if ($(this).find('> div >.row-fluid >.column').length)  value['children'][columnl0]['children'][rowl1]['children'] = [];
+                        $(this).find('> div >.row-fluid >.column').each(function(columnl1){
+                            value['children'][columnl0]['children'][rowl1]['children'][columnl1]    =   columnAjaxInputs(this);
+
+                            if ($(this).find('>.row-fluid').length) value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'] = [];
+                            $(this).find('>.row-fluid').each(function(rowl2){
+                                value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2] = rowAjaxInputs(this);
+
+                                if ($(this).find('> div >.row-fluid >.column').length) value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'] = [];
+                                $(this).find('> div >.row-fluid >.column').each(function(columnl2){
+                                    value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2] = columnAjaxInputs(this);
+
+                                    if ($(this).find('>.row-fluid').length) value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'] = [];
+                                    $(this).find('>.row-fluid').each(function(rowl3) {
+                                        value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'][rowl3] = rowAjaxInputs(this);
+
+                                        if ($(this).find('> div >.row-fluid >.column').length) value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'][rowl3]['children'] = [];
+                                        $(this).find('> div >.row-fluid >.column').each(function(columnl3){
+                                            value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'][rowl3]['children'][columnl3] = columnAjaxInputs(this);
+
+                                            if ($(this).find('>.row-fluid').length) value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'][rowl3]['children'][columnl3]['children'] = [];
+                                            $(this).find('>.row-fluid').each(function(rowl4){
+                                                value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'][rowl3]['children'][columnl3]['children'][rowl4] = rowAjaxInputs(this);
+
+                                                if ($(this).find('> div >.row-fluid >.column').length) value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'][rowl3]['children'][columnl3]['children'][rowl4]['children'] = [];
+                                                $(this).find('> div >.row-fluid >.column').each(function(columnl4){
+                                                    value['children'][columnl0]['children'][rowl1]['children'][columnl1]['children'][rowl2]['children'][columnl2]['children'][rowl3]['children'][columnl3]['children'][rowl4]['children'][columnl4] = columnAjaxInputs(this);
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            }
+
+            var popupcontainer      =   $this.closest('.popover');
+            var request = {
+                'plazartaction'     :   'saveSectionLayout',
+                'filename'          :   popupcontainer.find('.rowsavebox >.rowname').attr('value')+'_'+getUrlParameter('id'),
+                'sectionimage'      :   popupcontainer.find('.rowsavebox .rowsectionsaveimage').val(),
+                'data'              :   value
+            };
+
+            $.ajax({
+                type   : 'POST',
+                data   : request,
+                dataType: "JSON",
+                beforeSend: function(){
+                    $this.find('.fa-spinner').fadeIn();
+                },
+                success: function (response) {
+                    $this.find('.fa-spinner').fadeOut();
+                    var message;
+                    if(response["error"]){
+                        message = {"error": []};
+                        message.error.push(response.error);
+                    }else{
+                        message = {"message": []};
+                        message.message.push(response.successful);
+                    }
+                    Joomla.renderMessages(message);
+                    var sectiondata         =   $.parseJSON(response.data);
+                    var sectionavailable    =   false;
+                    $('.sectionsloading .sectionload').each(function (i, el) {
+                        if ($(el).attr('data-file') == sectiondata.filename) {
+                            sectionavailable    =   true;
+                        }
+                    });
+
+                    if (!sectionavailable) {
+                        if (sectiondata.sectionimage) {
+                            $('#rowloadbox .sectionsloading').append('<div class="layoutsection"><a href="#" class="closebutton" data-file="'+sectiondata.filename+'"><i class="fas fa-times"></i></a><a href="#" class="sectionload" data-file="'+sectiondata.filename+'"><div class="overlay"><i class="fas fa-spinner fa-spin" style="display: none;"></i> '+sectiondata.name+'</div><img src="'+PlazartAdmin.rooturl+'templates/'+PlazartAdmin.template+'/config/sections/'+sectiondata.sectionimage+'" /></a></div>');
+                        } else {
+                            $('#rowloadbox .sectionsloading').append('<div class="layoutsection"><a href="#" class="closebutton" data-file="'+sectiondata.filename+'"><i class="fas fa-times"></i></a><a href="#" class="sectionload" data-file="'+sectiondata.filename+'"><div class="overlay"><i class="fas fa-spinner fa-spin" style="display: none;"></i> '+sectiondata.name+'</div><div class="image_blank">'+sectiondata.name+'</div></a></div>');
+                        }
+                    }
+
+                    $this.closest('.popover').prev().popover('hide');
+                    $this.closest('.popover').prev().show();
+                }
+            });
+
+            return false;
+        });
+
+        $("#content").delegate(".popover .sectionload",'click', function(event){
+            event.preventDefault();
+            var $this = $(this);
+            var request = {
+                'plazartaction'     :   'loadSectionLayout',
+                'filename'          :   $this.attr('data-file')
+            };
+
+            $.ajax({
+                type   : 'POST',
+                data   : request,
+                dataType: "JSON",
+                beforeSend: function(){
+                    $this.find('.fa-spinner').fadeIn();
+                },
+                success: function (response) {
+                    $this.find('.fa-spinner').fadeOut();
+                    var message;
+                    if(response["error"]){
+                        message = {"error": []};
+                        message.error.push(response.error);
+                    }else{
+                        message = {"message": []};
+                        message.message.push(response.successful);
+                        $this.closest('.layoutmainrow').html(response.section);
+                        $('a[rel="popover"]').popover('destroy');
+                        $('a[rel="popover"]').show();
+                        reArrangePopOvers();
+                        popover();
+                    }
+                    Joomla.renderMessages(message);
+                }
+            });
+        });
+
+        $("#content").delegate(".popover .closebutton",'click', function(event){
+            event.preventDefault();
+            var $this = $(this);
+
+            if (confirm("Do you want delete this data?")) {
+                var request = {
+                    'plazartaction'     :   'removeSectionLayout',
+                    'filename'          :   $this.attr('data-file')
+                };
+
+                $.ajax({
+                    type   : 'POST',
+                    data   : request,
+                    dataType: "JSON",
+                    success: function (response) {
+                        var message;
+                        if(response["error"]){
+                            message = {"error": []};
+                            message.error.push(response.error);
+                        }else{
+                            message = {"message": []};
+                            message.message.push(response.successful);
+                            $('#rowloadbox .sectionsloading .sectionload').each(function (i, el) {
+                                if ($(el).attr('data-file') == $this.attr('data-file')) {
+                                    $(this).parent().remove();
+                                }
+                            });
+                            $this.closest('.layoutsection').remove();
+
+                        }
+                        Joomla.renderMessages(message);
+                    }
+                });
+            }
+        });
     };
 
 

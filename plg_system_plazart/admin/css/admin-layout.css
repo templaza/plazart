@@ -71,15 +71,20 @@ input.readonly,input.required{background:none}
 }
 
 /*Popover*/
-.popover{width:370px;max-width:370px;border-radius:0;border:0;border-top:3px solid #646464;-webkit-box-shadow:0 0 5px rgba(0,0,0,.2);box-shadow:0 0 5px rgba(0,0,0,.2);padding:10px 0 10px 10px}
-.popover .popover-content{margin-bottom:10px;padding:0}
+.popover * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.popover{width:370px;max-width:370px;border-radius:0;border:0;border-top:3px solid #646464;-webkit-box-shadow:0 0 5px rgba(0,0,0,.2);box-shadow:0 0 5px rgba(0,0,0,.2);padding:10px}
+.popover .popover-content{padding:0}
 .popover a.btn{color:#fff!important;font-size:13px!important;margin:0!important}
 .popover a.btn i,
 .popover a.btn i::before{color:#fff!important}
 .popover label{width:200px}
 .popover .tab-content{margin-top:0}
 .popover p{margin:0}
-.popover h3.row-header{height:40px;line-height:40px;font-size:13px;font-weight:700;border-bottom:1px solid #eee;margin:-10px 0 10px -10px !important;padding:0 10px}
+.popover h3.row-header{height:40px;line-height:40px;font-size:13px;font-weight:700;border-bottom:1px solid #eee;margin:-10px -10px 0 !important;padding:0 10px}
 .popover #rowresponsiveinputs{margin:10px 0}
 .popover .nav-tab{border-bottom:1px solid #eee;height:40px;margin:-10px 0 0 -10px !important;padding:0}
 .popover .nav-tab > li{float:left;height:40px;line-height:40px;margin:0 10px}
@@ -97,7 +102,7 @@ input.readonly,input.required{background:none}
 .popover select,
 .popover .tab-pane input[type="text"]{float:left}
 .rownameOuter input,
-.rowclassOuter input{width:130px}
+.rowclassOuter input{width:130px;height:30px}
 .rowcolorOuter input,
 .rowcolorOuter input{width:90px}
 .rowcolorOuter label{
@@ -109,7 +114,69 @@ input.readonly,input.required{background:none}
     padding: 0 5px;
 }
 
+.row-content-inner {
+    padding: 10px 0;
+}
+
+select, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input, .input-append .add-on, .input-prepend .add-on, .input-append .btn, .input-prepend .btn {
+    height: 30px;
+}
+
+.rowsavebox {
+    margin-bottom: 10px;
+}
+
+.rowsavebox input{
+    width: 100%;
+}
+
 .rowcolorOuter{margin-top: 10px;overflow:hidden}
+
+.layoutsection {
+    position: relative;
+    margin-bottom: 10px;
+    border: 1px solid #eeeeee;
+}
+
+.layoutsection .image_blank {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+#plazart-layout-config .layoutsection a {
+    margin: 0;
+}
+
+#plazart-layout-config .layoutsection .closebutton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #000;
+    z-index: 1;
+}
+
+.layoutsection .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(253, 143, 48, 0.9);
+    color: #ffffff;
+    opacity: 0;
+}
+
+.layoutsection:hover .overlay {
+    opacity: 1;
+}
+
+#plazart-layout-config .layoutsection:hover .closebutton {
+    color: #fff;
+}
 
 /*Others*/
 hr{border-color:#dadada}

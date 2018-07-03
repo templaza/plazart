@@ -541,4 +541,83 @@ class PlazartAction extends JObject
         }
     }
 
+	public static function saveSectionLayout() {
+		$app            =   \JFactory::getApplication();
+		if ($app->isAdmin()) {
+			$input          =   $app->input;
+			$data           =   $input->get('data',array(),'ARRAY');
+			$filename       =   $input->get('filename','');
+			$sectionimage   =   $input->get('sectionimage','','STRING');
+			jimport('joomla.filesystem.file');
+
+			$result = array();
+			if(!$data){
+				return false;
+			}
+
+			try{
+				if (JFile::exists(JPATH_ROOT.DIRECTORY_SEPARATOR.$sectionimage)) {
+					$imageext  =   JFile::getExt(JPATH_ROOT.DIRECTORY_SEPARATOR.$sectionimage);
+					$data['sectionimage']   = $filename.'.'.$imageext;
+					JFile::move(JPATH_ROOT.DIRECTORY_SEPARATOR.$sectionimage,PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$data['sectionimage']);
+				}
+				JFile::write(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$filename.'.json',json_encode($data));
+				$data['filename']   =   $filename.'.json';
+				$result['data']     =   json_encode($data);
+				$result['successful'] = JText::_('PLAZART_SAVE_SECTION_SUCCESS');
+			}catch(Exception $e){
+				$result['error'] = JText::sprintf('PLAZART_SAVE_SECTION_FAILURE', $e->getMessage());
+			}
+			echo json_encode($result);
+		}
+	}
+
+	public static function loadSectionLayout() {
+		$app            =   \JFactory::getApplication();
+		if ($app->isAdmin()) {
+			$input          =   $app->input;
+			$filename       =   $input->get('filename','','STRING');
+			jimport('joomla.filesystem.file');
+			$result = array();
+
+			try{
+				$data           =   JFile::read(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$filename);
+				$items          =   json_decode($data, true);
+				ob_start();
+				if (file_exists(JPATH_SITE . '/plugins/system/plazart/base/generate/loadsection.php')) {
+					include_once(JPATH_SITE . '/plugins/system/plazart/base/generate/loadsection.php');
+				}
+				$result['section']      =   ob_get_clean();
+				$result['successful']   = JText::_('PLAZART_LOAD_SECTION_SUCCESS');
+			}catch(Exception $e){
+				$result['error'] = JText::sprintf('PLAZART_LOAD_SECTION_FAILURE', $e->getMessage());
+			}
+			echo json_encode($result);
+		}
+	}
+
+	public static function removeSectionLayout() {
+		$app            =   \JFactory::getApplication();
+		if ($app->isAdmin()) {
+			$input          =   $app->input;
+			$filename       =   $input->get('filename','','STRING');
+			jimport('joomla.filesystem.file');
+			$result = array();
+
+			try{
+				$data           =   JFile::read(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$filename);
+				$items          =   json_decode($data, true);
+				JFile::delete(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$filename);
+				if (isset($items['sectionimage'])) {
+					if (JFile::exists(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$items['sectionimage'])) {
+						JFile::delete(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$items['sectionimage']);
+					}
+				}
+				$result['successful']   = JText::_('PLAZART_LOAD_SECTION_SUCCESS');
+			}catch(Exception $e){
+				$result['error'] = JText::sprintf('PLAZART_LOAD_SECTION_FAILURE', $e->getMessage());
+			}
+			echo json_encode($result);
+		}
+	}
 }

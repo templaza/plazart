@@ -17,6 +17,8 @@
  */
 // No direct access
 defined('_JEXEC') or die();
+jimport('joomla.filesystem.file');
+jimport('joomla.filesystem.folder');
 
 if( !function_exists('get_value') ){
 
@@ -205,7 +207,7 @@ if( !function_exists('get_color') ){
 <div id="rowsettingbox" style="display: none;">
     <h3 class="row-header">Row Settings</h3>
 
-    <div>
+    <div class="row-content-inner">
         <div class="row-fluid">
 
 
@@ -378,6 +380,101 @@ if( !function_exists('get_color') ){
     </div>
 </div>
 
+    <!-- Row Save popbox -->
+    <div id="rowsavebox" style="display: none;">
+        <h3 class="row-header">Save this section</h3>
+
+        <div class="row-content-inner">
+            <div class="row-fluid">
+                <div class="span12 rowsavebox">
+                    <label>Name: </label>
+                    <input type="text" class="rowname" id="">
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12 rowsavebox">
+                    <label>Background Image: </label>
+                    <div class="tzfield-media-wrapper"
+                         data-basepath="<?php echo JUri::root(); ?>"
+                         data-url="index.php?option=com_media&view=images&tmpl=component&asset=com_templates&author=&folder=&fieldid={field-media-id}&ismoo=0"
+                         data-preview="true"
+                         data-modal=".modal"
+                         data-modal-width="100%"
+                         data-modal-height="400px"
+                         data-input=".field-media-input"
+                         data-button-select=".button-select"
+                         data-button-clear=".button-clear"
+                         data-button-save-selected=".button-save-selected"
+                         data-preview-as-tooltip="true"
+                         data-preview-container=".field-media-preview">
+                        <div class="input-prepend input-append">
+						    <?php $jversion  = new JVersion;?>
+						    <?php if(!$jversion -> isCompatible('3.7')){?>
+                                <div class="media-preview add-on field-media-preview" rel="popover">
+                                    <span title="" class="hasTipPreview"><span class="icon-eye"></span></span>
+                                </div>
+						    <?php }else{ ?>
+                                <span rel="popover" class="add-on pop-helper field-media-preview"
+                                      title="<?php echo	JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'); ?>" data-content="<?php echo JText::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY'); ?>"
+                                      data-original-title="<?php echo JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'); ?>" data-trigger="hover">
+                            <span class="icon-eye" aria-hidden="true"></span>
+                        </span>
+						    <?php }?>
+                            <input type="text" class="rowsectionsaveimage<?php echo $jversion -> isCompatible('3.7')?' hasTooltip field-media-input':'';?>" readonly="readonly"
+                                   title="<?php echo htmlspecialchars('<span class="TipImgpath"></span>', ENT_COMPAT, 'UTF-8');?>"
+                                   aria-invalid="false"
+                                   value="">
+                            <a rel="{handler: 'iframe', size: {x: 800, y: 500}}" title="<?php echo JText::_('JSELECT');?>"
+                               class="btn hasTooltip btn-info<?php echo ($jversion -> isCompatible('3.7'))?' button-select':' modal';?>"><span class="icon-folder"></span></a>
+                            <a href="javascript: void(0)" title="<?php echo JText::_('JCLEAR');?>"
+                               class="btn btn-danger tz_btn-clear-image hasTooltip button-clear">
+                                <span class="icon-remove"></span></a>
+                        </div>
+                        <div class="modal hide fade modal__rowsectionsaveimage">
+                            <div class="modal-header"><button type="button" class="close novalidate" data-dismiss="modal">×</button><h3><?php
+								    echo JText::_('JLIB_FORM_CHANGE_IMAGE'); ?></h3>
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer"><button type="button" class="btn" data-dismiss="modal"><?php
+								    echo JText::_('JCANCEL');?></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12 rownameOuter">
+                    <a href="#" class="btn btn-primary savesection" title="Save this section"><i class="fas fa-spinner fa-spin" style="display: none;"></i> <?php echo JText::_('JAPPLY'); ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row Load popbox -->
+    <div id="rowloadbox" style="display: none;">
+        <h3 class="row-header">Add a section</h3>
+
+        <div class="row-content-inner sectionsloading">
+            <?php
+            $loadsections   =   JFolder::files(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR, '.json');
+            if ($loadsections && count($loadsections)) {
+                foreach ($loadsections as $section) {
+                    echo '<div class="layoutsection">';
+                    $section_json   =   JFile::read(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$section);
+                    $data           =   json_decode($section_json);
+                    echo '<a href="#" class="closebutton" data-file="'.htmlspecialchars($section, ENT_COMPAT, 'UTF-8').'"><i class="fas fa-times"></i></a>';
+                    if (isset($data->sectionimage) && JFile::exists(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'sections'.DIRECTORY_SEPARATOR.$data->sectionimage)) {
+                        echo '<a href="#" class="sectionload" data-file="'.htmlspecialchars($section, ENT_COMPAT, 'UTF-8').'"><div class="overlay"><i class="fas fa-spinner fa-spin" style="display: none;"></i> '.$data->name.'</div><img src="'.JUri::root().'templates/'.PLAZART_TEMPLATE.'/config/sections/'.$data->sectionimage.'" /></a>';
+                    } else {
+	                    echo '<a href="#" class="sectionload" data-file="'.htmlspecialchars($section, ENT_COMPAT, 'UTF-8').'"><div class="overlay"><i class="fas fa-spinner fa-spin" style="display: none;"></i> '.$data->name.'</div><div class="image_blank">'.$data->name.'</div></a>';
+                    }
+
+                    echo '</div>';
+                }
+            }
+            ?>
+        </div>
+    </div>
 
 <!--Start Generator -->
 <div class="generator">
@@ -417,7 +514,9 @@ foreach($layout as $items )
             <option value="container"<?php echo (isset($items["containertype"]) && $items["containertype"]=='container') ? ' selected': ''; ?>>Fixed Width</option>
             <option value="container-fluid"<?php echo (isset($items["containertype"]) && $items["containertype"]=='container-fluid') ? ' selected': ''; ?>>Full Width</option>
         </select>
-        <a href="" title="Move this row" class="fa fa-arrows rowmove"></a>
+        <a href="" title="Move this row" class="fas fa-arrows-alt rowmove"></a>
+        <a href="#rowloadbox" title="Add a section" class="fas fa-cloud-upload-alt rowload" rel="rowpopover"></a>
+        <a href="#rowsavebox" title="Save this section" class="fas fa-save rowsave" rel="rowpopover"></a>
         <a href="#rowsettingbox" title="Row settings" class="fa fa-cog rowsetting" rel="rowpopover"></a>
         <a href="" title="Add new row" class="fa fa-bars add-row"></a>
         <a href="" title="Add new column" class="fa fa-columns add-column"></a>
@@ -449,7 +548,7 @@ foreach($layout as $items )
                                     <a href="#columnsettingbox" rel="popover" data-placement="bottom" title="Column settings" class="fa fa-cog rowcolumnspop"></a>
                                     <a href="" title="Add new row" class="fa fa-bars add-rowin-column"></a>
                                     <a href="" title="Remove column" class="fa fa-times columndelete"></a>
-                                    <a href="" title="Move column" class="fa fa-arrows columnmove"></a>
+                                    <a href="" title="Move column" class="fas fa-arrows-alt columnmove"></a>
                                 </div>
 
                                 <input type="hidden" class="widthinput-xs" name="" value="<?php echo get_value($item,"col-xs") ?>">
@@ -508,7 +607,7 @@ foreach($layout as $items )
                                         </div>
 
                                         <div class="pull-right row-tools">
-                                            <a href="" title="Move this row" class="fa fa-arrows row-move-in-column"></a>
+                                            <a href="" title="Move this row" class="fas fa-arrows-alt row-move-in-column"></a>
                                             <a href="" title="Add new row" class="fa fa-bars add-row"></a>
                                             <a href="" title="Add new column" class="fa fa-columns add-column"></a>
                                             <a href="#rowsettingbox" title="Row settings" class="fa fa-cog rowsetting" rel="rowpopover"></a>
@@ -541,7 +640,7 @@ foreach($layout as $items )
                                                                 <a href="#columnsettingbox" rel="popover" data-placement="bottom" title="Column settings" class="fa fa-cog rowcolumnspop"></a>
 																<a href="" title="Add new row" class="fa fa-bars add-rowin-column"></a>
 																<a href="" title="Remove column" class="fa fa-times columndelete"></a>
-																<a href="" title="Move column" class="fa fa-arrows columnmove"></a>
+																<a href="" title="Move column" class="fas fa-arrows-alt columnmove"></a>
                                                             </span>
 
                                                             <input type="hidden" class="widthinput-xs" name="" value="<?php echo get_value($children,"col-xs") ?>">
@@ -610,7 +709,7 @@ foreach($layout as $items )
 
 
                                                                             <div class="pull-right row-tools">
-                                                                                <a href="" title="Move this row" class="fa fa-arrows rowmove"></a>
+                                                                                <a href="" title="Move this row" class="fas fa-arrows-alt rowmove"></a>
                                                                                 <a href="" title="Add new row" class="fa fa-bars add-row"></a>
                                                                                 <a href="" title="Add new column" class="fa fa-columns add-column"></a>
                                                                                 <a href="#rowsettingbox" title="Row settings" class="fa fa-cog rowsetting" rel="rowpopover"></a>
@@ -637,7 +736,7 @@ foreach($layout as $items )
 																							<a href="#columnsettingbox" rel="popover" data-placement="bottom" title="Column settings" class="fa fa-cog rowcolumnspop"></a>
 																							<a href="" title="Add new row" class="fa fa-bars add-rowin-column"></a>
 																							<a href="" title="Remove column" class="fa fa-times columndelete"></a>
-																							<a href="" title="Move column" class="fa fa-arrows columnmove"></a>
+																							<a href="" title="Move column" class="fas fa-arrows-alt columnmove"></a>
                                                                                         </span>
                                                                                         <input type="hidden" class="widthinput-xs" name="" value="<?php echo get_value($children,"col-xs") ?>">
                                                                                         <input type="hidden" class="widthinput-sm" name="" value="<?php echo get_value($children,"col-sm") ?>">
@@ -690,7 +789,7 @@ foreach($layout as $items )
                                                                                                             </span>
                                                                                                         </div>
                                                                                                         <div class="pull-right row-tools">
-                                                                                                            <a href="" title="Move this row" class="fa fa-arrows rowmove"></a>
+                                                                                                            <a href="" title="Move this row" class="fas fa-arrows-alt rowmove"></a>
                                                                                                             <a href="" title="Add new row" class="fa fa-bars add-row"></a>
                                                                                                             <a href="" title="Add new column" class="fa fa-columns add-column"></a>
                                                                                                             <a href="#rowsettingbox" title="Row settings" class="fa fa-cog rowsetting" rel="rowpopover"></a>
@@ -722,7 +821,7 @@ foreach($layout as $items )
 																														<a href="#columnsettingbox" rel="popover" data-placement="bottom" title="Column settings" class="fa fa-cog rowcolumnspop"></a>
 																														<a href="" title="Add new row" class="fa fa-bars add-rowin-column"></a>
 																														<a href="" title="Remove column" class="fa fa-times columndelete"></a>
-																														<a href="" title="Move column" class="fa fa-arrows columnmove"></a>
+																														<a href="" title="Move column" class="fas fa-arrows-alt columnmove"></a>
                                                                                                                     </span>
 
                                                                                                                     <input type="hidden" class="widthinput-xs" name="" value="<?php echo get_value($children,"col-xs") ?>">

@@ -34,6 +34,13 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+07/03/2018 - 6.6
+
+	Add new font system
+	Add new color system
+	Ability save layout section
+	Fix some small issue
+
 12/19/2017 - 5.7
 
 	Fix error load folders and files in override tab (Can't submit form when click save button).

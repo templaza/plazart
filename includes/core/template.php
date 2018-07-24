@@ -932,7 +932,7 @@ class PlazartTemplate extends ObjectExtendable
                 if( $v['type']=='component' or $v['type']=='message' or $v['type'] == 'megamenu' or $v['type'] == 'logo'  or $v['type'] == 'custom_html') return true;
 
                 if( $v['position']!='' ){
-                    if( self::getInstance()->countModules( $v['position'] )  ) return true;
+                    if((isset($v['children']) && $v['children']) || self::getInstance()->countModules( $v['position'] )  ) return true;
                     if( isset($v['children']) ) self::getInstance()->showRow($v);
                 }
             }
@@ -1227,7 +1227,7 @@ class PlazartTemplate extends ObjectExtendable
                     }
                     if( $v['type']=='modules' )
                     {
-                        if( !self::getInstance()->countModules($v['position']))
+                        if((isset($v['children']) && !$v['children']) && !self::getInstance()->countModules($v['position']))
                         {
                             continue;
                         }

@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+07/24/2018 - 6.7
+
+	Fix error don't display block when column has child blocks.
+
 07/03/2018 - 6.6
 
 	Add new font system

@@ -586,7 +586,7 @@ class PlazartAdmin {
         $defaultlayout  =   JRequest::getInt('layoutbuiderdefault',0);
         if ($defaultlayout) {
             $layoutsettings =   json_encode($params->get('generate',''));
-            JFile::write(PLAZART_ADMIN_PATH.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'generate'.DIRECTORY_SEPARATOR.'default.json',$layoutsettings);
+	        JFile::write(PLAZART_TEMPLATE_PATH.DIRECTORY_SEPARATOR.'generate'.DIRECTORY_SEPARATOR.'default.json',$layoutsettings);
         }
     }
 

@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+07/26/2018 - 6.8
+
+	Fix error can't load default config of layout builder from template.
+
 07/24/2018 - 6.7
 
 	Fix error don't display block when column has child blocks.

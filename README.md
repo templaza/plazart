@@ -34,6 +34,10 @@ FontAwesome http://fortawesome.github.io/Font-Awesome/
 
 *** Changelog ***
 
+07/31/2018 - 6.9
+
+	Fix notice when call non-static function in action.php
+
 07/26/2018 - 6.8
 
 	Fix error can't load default config of layout builder from template.

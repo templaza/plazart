@@ -448,7 +448,7 @@ class PlazartAction extends JObject
 
     // Typography
 
-    public function updateGoogleFontList()
+    public static function updateGoogleFontList()
     {
         $template_path = JPATH_SITE . '/templates/' . PLAZART_TEMPLATE . '/webfonts';
 

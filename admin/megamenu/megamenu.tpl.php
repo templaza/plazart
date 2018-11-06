@@ -97,7 +97,7 @@ for ($i=0; $i<count($xml_position); $i++ ) {
           <ul>
             <li>
               <label class="hasTip" title="<?php echo JTexT::_('PLAZART_NAVIGATION_MM_ICON'), '::', JTexT::_('PLAZART_NAVIGATION_MM_ICON_DESC') ?>">
-                <a href="http://twitter.github.com/bootstrap/base-css.html#icons" target="_blank"><i class="fa fa-search"></i><?php echo JTexT::_('PLAZART_NAVIGATION_MM_ICON') ?></a>
+                <a href="https://fontawesome.com/icons?d=gallery" target="_blank"><i class="fa fa-search"></i><?php echo JTexT::_('PLAZART_NAVIGATION_MM_ICON') ?></a>
               </label>
               <fieldset class="">
                 <input type="text" class="input-medium toolitem-xicon toolbox-input" name="toolitem-xicon" data-name="xicon" value="" />

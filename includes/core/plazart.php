@@ -48,6 +48,16 @@ class Plazart {
 		}
 	}
 
+	/**
+	* Register class with Joomla Loader. Override joomla core if $import_key avaiable
+	*
+	* @return void
+	*/
+	public static function register ($class, $path, $import_key = null) {
+		if (!empty($import_key)) jimport($import_key);
+		JLoader::register ($class, $path);
+	}
+
 	public static function getApp($tpl = null){
 		if(empty(self::$plazartapp)){	
 			$japp = JFactory::getApplication();
@@ -107,14 +117,25 @@ class Plazart {
 		$app = JFactory::getApplication();
 		if (!$app->isAdmin()) {
 			$jversion  = new JVersion;
-			if($jversion->isCompatible('3.0')){
+			if($jversion->isCompatible('3.8')) {
+				// override core joomla class
+				// JViewLegacy
+				if (!class_exists('JViewLegacy')) Plazart::register ('JViewLegacy', 'joomla4/HtmlView');
+				// JModuleHelper
+				if (!class_exists('JModuleHelper')) Plazart::register('JModuleHelper',    'joomla4/ModuleHelper.php');
+				// JPagination
+				if (!class_exists('JPagination')) Plazart::register('JPagination',    'joomla4/Pagination.php');
+				// Register T3 Layout File to put a t3 base layer for layout files
+				if (!class_exists('JLayoutFile')) Plazart::register('JLayoutFile',    'joomla4/FileLayout.php');
+
+			    }elseif($jversion->isCompatible('3.0')){
 				// override core joomla class
 				// JViewLegacy
 				if (!class_exists('JViewLegacy', false)) Plazart::import ('joomla30/viewlegacy');
-                // JViewLegacy
-                if (!class_exists('JDocumentError', false)) Plazart::import ('joomla30/document/error');
-                // JViewLegacy
-                if (!class_exists('JDocumentPlazartHTML', false)) Plazart::import ('joomla30/document/html');
+				// JViewLegacy
+				if (!class_exists('JDocumentError', false)) Plazart::import ('joomla30/document/error');
+				// JViewLegacy
+				if (!class_exists('JDocumentPlazartHTML', false)) Plazart::import ('joomla30/document/html');
 				// JModuleHelper
 				if (!class_exists('JModuleHelper', false)) Plazart::import ('joomla30/modulehelper');
 				// JPagination
